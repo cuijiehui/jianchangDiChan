@@ -1,0 +1,79 @@
+package com.cui.android.jianchengdichan.view.ui;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.presenter.BasePresenter;
+import com.cui.android.jianchengdichan.presenter.SplashPresenter;
+import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.view.BaseActivtity;
+
+import butterknife.BindView;
+
+
+public class SplashActivity extends BaseActivtity {
+
+    @BindView(R.id.img_splash)
+    ImageView img_splash;
+    @BindView(R.id.bt_fullpageads_pass)
+    Button bt_fullpageads_pass;
+    @BindView(R.id.rl_fullpage_adv_countdown)
+    RelativeLayout rl_fullpage_adv_countdown;
+    @BindView(R.id.tv_fullpage_txt2)
+    TextView tv_fullpage_txt2;
+
+    private SplashPresenter mSplashPresenter;
+
+    @Override
+    public BasePresenter initPresenter() {
+        mSplashPresenter = new SplashPresenter();
+        return mSplashPresenter;
+    }
+
+    @Override
+    public void initParms(Bundle parms) {
+
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_splash;
+    }
+
+    @Override
+    public void initView(View view) {
+
+    }
+
+    @Override
+    public void doBusiness(Context mContext) {
+        getAdvList();
+    }
+
+    @Override
+    public void widgetClick(View v) {
+    }
+
+
+    public void getAdvList() {
+        LogUtils.i("mSplashPresenter.getAdvList()");
+        mSplashPresenter.getAdvList();
+
+    }
+
+    public void showAdvData() {
+        LogUtils.i("showAdvData");
+
+    }
+
+    public void onFail(String msg) {
+        LogUtils.i("onFail="+msg);
+
+    }
+}

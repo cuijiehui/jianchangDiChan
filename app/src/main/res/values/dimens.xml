@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <!-- 首页  标题栏文字大小 -->
+    <dimen name="activity_title_height">48dp</dimen>
+    <dimen name="activity_margin_left_20">20dp</dimen>
+    <dimen name="activity_margin_left_30">30dp</dimen>
+</resources>
