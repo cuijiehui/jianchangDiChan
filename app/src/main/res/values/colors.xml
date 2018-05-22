@@ -8,5 +8,10 @@
     <color name="color_app_base_color_grey">#de6350</color>
     <color name="transparent">#00000000</color>
     <color name="app_bottom_color">#ea5205</color>
-
+    <color name="main_top_col">#0095D9</color>
+    <color name="main_seek_text_col">#999999</color>
+    <color name="main_text_col">#333333</color>
+    <color name="main_recycler_item_bak">#55000000</color>
+    <color name="main_flash_sale_back">#FF5B63</color>
+    <color name="main_flash_sale_text">#666666</color>
 </resources>

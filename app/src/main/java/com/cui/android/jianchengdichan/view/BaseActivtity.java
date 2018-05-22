@@ -40,7 +40,7 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
     /** 是否允许全屏 **/
     private boolean mAllowFullScreen = true;
     /** 是否禁止旋转屏幕 **/
-    private boolean isAllowScreenRoate = false;
+    private boolean isAllowScreenRoate = true;
     /** 当前Activity渲染的视图View **/
     private View mContextView = null;
 

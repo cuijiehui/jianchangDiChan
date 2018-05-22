@@ -5,10 +5,263 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.Fragment.MainHomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- 头部-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/main_top_col">
+
+        <ImageView
+            android:id="@+id/iv_main_top_qrcode"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/main_qrcode_button"
+            android:clickable="true" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <EditText
+                android:id="@+id/et_main_top_seek"
+                android:layout_width="279dp"
+                android:layout_height="20dp"
+                android:background="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="4dp"
+                android:drawableLeft="@drawable/main_seek_button"
+                android:text="商品名称"
+                android:textColor="@color/main_seek_text_col"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_main_top_add"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/main_add_button"
+            android:clickable="true" />
+    </RelativeLayout>
+    <!--主页内容-->
+    <!--下拉刷新-->
+    <com.cui.android.jianchengdichan.view.ui.customview.RefreshableView
+        android:id="@+id/rv_main_refreshable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="mainhome" />
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="49dp">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--轮播图-->
+                <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/bn_main_adv"
+                    android:layout_width="match_parent"
+                    android:layout_height="176dp" />
+
+                <!--最新公告-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:layout_marginTop="13dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="9dp"
+                        android:background="@drawable/main_new_notice" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_main_notice_new1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="#建设智慧社区门户网站将在月底开……# "
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tv_main_notice_new2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="#智能生活，从现在开始拥有# "
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/main_parting_line" />
+                <!--附近租贷-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_rent_icon"
+                        android:layout_width="7dp"
+                        android:layout_height="9dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/main_house_rent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/iv_rent_icon"
+                        android:layout_toRightOf="@+id/iv_rent_icon"
+                        android:text="附近租赁"
+                        android:textColor="@color/main_text_col"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginTop="17dp"
+                        android:drawableRight="@drawable/main_font_icon"
+                        android:text="查看更多"
+                        android:textColor="@color/main_seek_text_col"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/imaginary_line" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_main_rent"
+                    android:layout_width="match_parent"
+                    android:layout_height="149dp"
+                    android:layout_marginTop="16dp"
+                    android:paddingLeft="6dp">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/main_parting_line" />
+                <!--社区管家-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+                    <ImageView
+                        android:id="@+id/iv_main_community_icon"
+                        android:layout_width="7dp"
+                        android:layout_height="9dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/main_house_rent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/iv_main_community_icon"
+                        android:layout_toRightOf="@+id/iv_main_community_icon"
+                        android:text="社区管家"
+                        android:textColor="@color/main_text_col"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/main_parting_line" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_main_community"
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:layout_marginTop="14dp"
+                    android:paddingLeft="20dp">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/main_parting_line" />
+                <!--停车专区-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+                    <ImageView
+                        android:id="@+id/iv_main_stop_car_icon"
+                        android:layout_width="7dp"
+                        android:layout_height="9dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/main_stop_car_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/iv_main_stop_car_icon"
+                        android:layout_toRightOf="@+id/iv_main_stop_car_icon"
+                        android:text="停车专区"
+                        android:textColor="@color/main_text_col"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/imaginary_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="114dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/main_carport" />
+
+                    <ImageView
+                        android:layout_width="114dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/main_carport" />
+
+                    <ImageView
+                        android:layout_width="114dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/main_carport" />
+
+                </LinearLayout>
+                <!--限时抢购-->
+                <include layout="@layout/includ_flash_sale_layout"></include>
+            </LinearLayout>
+
+
+        </ScrollView>
+    </com.cui.android.jianchengdichan.view.ui.customview.RefreshableView>
 </FrameLayout>

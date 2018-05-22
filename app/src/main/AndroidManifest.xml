@@ -22,7 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".view.ui.LoginActivity"></activity>-->
+        <!-- <activity android:name=".view.ui.LoginActivity"></activity> -->
+        <activity
+            android:name=".view.ui.ScanActivity"
+            android:label="@string/title_activity_scan"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

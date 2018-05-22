@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/rl_recycler_rl"
+        android:layout_width="100dp"
+        android:layout_height="100dp">
+        <ImageView
+            android:id="@+id/iv_recycler_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/main_recycler_item_bak">
+            <TextView
+                android:id="@+id/tv_recycler_area_mane"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="越秀区"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:layout_centerInParent="true"
+                android:drawableLeft="@drawable/main_location_icon"
+                android:drawablePadding="11dp"
+                />
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/tv_recycler_mane"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="李福大厦"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/main_text_col"
+        />
+
+
+</LinearLayout>
