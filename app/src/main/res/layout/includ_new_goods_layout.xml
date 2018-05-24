@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="247dp"
+    android:orientation="vertical">
+   <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="44dp">
+
+    <ImageView
+        android:id="@+id/iv_main_new_goods_icon"
+        android:layout_width="7dp"
+        android:layout_height="9dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/main_new_goods_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/iv_main_new_goods_icon"
+        android:layout_toRightOf="@+id/iv_main_new_goods_icon"
+        android:text="新品上市"
+        android:textColor="@color/main_text_col"
+        android:textSize="16sp" />
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="换一批"
+           android:textSize="12sp"
+           android:textColor="@color/main_seek_text_col"
+           android:layout_alignParentRight="true"
+           android:layout_marginRight="16dp"
+           android:layout_marginTop="15dp"
+           android:drawableRight="@drawable/main_update"/>
+</RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_main_new_goods"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

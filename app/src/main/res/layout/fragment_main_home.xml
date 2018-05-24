@@ -244,6 +244,7 @@
                     <ImageView
                         android:layout_width="114dp"
                         android:layout_height="100dp"
+                        android:layout_marginLeft="16dp"
                         android:background="@drawable/main_carport" />
 
                     <ImageView
@@ -257,8 +258,25 @@
                         android:background="@drawable/main_carport" />
 
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/main_parting_line" />
                 <!--限时抢购-->
-                <include layout="@layout/includ_flash_sale_layout"></include>
+                <include android:id="@+id/flash_sale_include" layout="@layout/includ_flash_sale_layout"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/main_parting_line" />
+                <!--新品上市-->
+                <include android:id="@+id/goods_new_include" layout="@layout/includ_new_goods_layout"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/main_parting_line" />
+                <!--猜你喜欢-->
+                <include android:id="@+id/you_like_include" layout="@layout/includ_you_like_layout"/>
+
             </LinearLayout>
 
 

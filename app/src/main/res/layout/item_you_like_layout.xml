@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="267dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_you_like_pic"
+        android:layout_width="343dp"
+        android:layout_height="94dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+         />
+
+    <TextView
+        android:id="@+id/tv_you_like_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="维生素C含片"
+        android:textColor="@color/main_text_col"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_you_like_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="150元"
+            android:textColor="@color/main_you_like_text_col"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_you_like_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="【增强免疫力】天然维生素C咀嚼片130片，养生堂牌……"
+            android:textColor="@color/main_flash_sale_text"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="价格："
+            android:textColor="@color/main_flash_sale_text"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_you_like_price_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="150元"
+            android:textColor="@color/main_you_like_text_col"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp">
+
+        <TextView
+            android:id="@+id/tv_like_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/main_shop_like_icon_normal"
+            android:text="商城"
+            android:textColor="@color/main_flash_sale_text"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_like_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/main_customer_service_normal"
+            android:text="客服"
+            android:textColor="@color/main_flash_sale_text"
+            android:layout_toRightOf="@+id/tv_like_shop"
+            android:layout_marginLeft="15dp"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_like_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/main_collect_icon_normal"
+            android:layout_toRightOf="@+id/tv_like_service"
+            android:layout_marginLeft="15dp"
+            android:text="收藏"
+            android:textColor="@color/main_flash_sale_text"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:id="@+id/iv_you_like_add_shop"
+            android:layout_width="94dp"
+            android:layout_height="38dp"
+            android:background="@drawable/main_add_shop_car"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            />
+    </RelativeLayout>
+</LinearLayout>

@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -26,7 +31,28 @@
         <activity
             android:name=".view.ui.ScanActivity"
             android:label="@string/title_activity_scan"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.LeaseCentreActivity"
+            android:label="@string/title_activity_lease_centre"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.FeedbackActivity"
+            android:label="@string/title_activity_feed_back"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.SetingActivity"
+            android:label="@string/title_activity_seting"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.RegisterActivity"
+            android:label="@string/title_activity_register2" />
+        <activity android:name=".view.ui.ForgetPwdActivity" />
+        <activity android:name=".view.ui.PayFeesActivity"></activity>
     </application>
 
 </manifest>

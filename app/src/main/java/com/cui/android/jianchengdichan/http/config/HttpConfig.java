@@ -7,6 +7,6 @@ package com.cui.android.jianchengdichan.http.config;
  */
 public class HttpConfig {
     public static int HTTP_TIME=30000;
-    public static String BASE_URL = "http://wx.szshide.shop/";
+    public static String BASE_URL = "http://jc.szshide.cn/";
 
 }

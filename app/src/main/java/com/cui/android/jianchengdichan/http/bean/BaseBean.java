@@ -43,8 +43,6 @@ public class BaseBean<T> {
     public String toString() {
         return "BaseBean{" +
                 "code=" + code +
-                ", msg='" + msg + '\'' +
-                ", data=" + data.toString() +
-                '}';
+                ", msg='" + msg + '\'';
     }
 }

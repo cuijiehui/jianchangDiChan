@@ -19,6 +19,7 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
@@ -43,6 +44,8 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
     private boolean isAllowScreenRoate = true;
     /** 当前Activity渲染的视图View **/
     private View mContextView = null;
+    public Context mContext;
+    private Unbinder unbinder;
 
     @Override
     public void showLoading() {
@@ -80,6 +83,7 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext=this;
         try {
             Bundle bundle = getIntent().getExtras();
             initParms(bundle);
@@ -100,7 +104,7 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
             } else {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             }
-            ButterKnife.bind(this,mContextView);
+            unbinder= ButterKnife.bind(this,mContextView);
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setCancelable(false);
             mPresenter=initPresenter();
@@ -227,6 +231,7 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
         if(mPresenter!=null&&mPresenter.isViewAttached()){
             mPresenter.detachView();
         }
+        unbinder.unbind();
     }
 
     /**

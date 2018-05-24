@@ -8,7 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
+import com.cui.android.jianchengdichan.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +22,9 @@ import butterknife.ButterKnife;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder> {
 
-    private List<String> list = new ArrayList<>();
+    private List<HomeDataBean.RentBean> list = new ArrayList<>();
 
-    public MainRecyclerAdapter(List<String> list) {
+    public MainRecyclerAdapter(List<HomeDataBean.RentBean> list) {
         this.list = list;
     }
 
@@ -33,8 +37,11 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.textView.setText(list.get(position));
-        holder.areaTextView.setText(list.get(position));
+        HomeDataBean.RentBean rentBean = list.get(position);
+        holder.textView.setText(rentBean.getTitle());
+        holder.areaTextView.setText(rentBean.getArea());
+        Glide.with(MyApplication.getAppContext()).load(rentBean.getPic()).into(holder.imageView);
+
     }
 
     @Override

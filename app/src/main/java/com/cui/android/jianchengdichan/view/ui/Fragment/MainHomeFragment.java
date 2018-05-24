@@ -15,28 +15,49 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
+import com.cui.android.jianchengdichan.presenter.MainHomePresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.SPKey;
+import com.cui.android.jianchengdichan.utils.SPUtils;
+import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.CommunityBean;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.NewGoodsBean;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.YouLikeBean;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRecyclerAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvCommunityAdapter;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvNewGoodsAdapter;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvYouLikeAdapter;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
+import com.cui.android.jianchengdichan.view.ui.LeaseCentreActivity;
 import com.cui.android.jianchengdichan.view.ui.ScanActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
 import com.cui.android.jianchengdichan.view.ui.customview.RefreshableView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
-public class MainHomeFragment extends Fragment {
+public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerViewItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,15 +80,35 @@ public class MainHomeFragment extends Fragment {
     RecyclerView rvMainRent;
     @BindView(R.id.rv_main_community)
     RecyclerView rvMainCommunity;
+    @BindView(R.id.iv_rent_icon)
+    ImageView ivRentIcon;
+    @BindView(R.id.iv_main_community_icon)
+    ImageView ivMainCommunityIcon;
+    @BindView(R.id.iv_main_stop_car_icon)
+    ImageView ivMainStopCarIcon;
+    @BindView(R.id.iv_main_new_goods_icon)
+    ImageView ivMainNewGoodsIcon;
+    @BindView(R.id.rv_main_new_goods)
+    RecyclerView rvMainNewGoods;
+    @BindView(R.id.iv_main_you_like_icon)
+    ImageView ivMainYouLikeIcon;
+    @BindView(R.id.rv_you_like)
+    RecyclerView rvYouLike;
 
     private Unbinder unbinder;
-    private List<String> mDataList = new ArrayList<>();
-    private List<String> rentDataList = new ArrayList<>();
-    private List<CommunityBean> communityBeanList = new ArrayList<>();
+    private List<HomeDataBean.AdBean> mDataList = new ArrayList<>();//轮播图数据
+    private List<HomeDataBean.RentBean> rentDataList = new ArrayList<>();//附近租贷数据
+    private List<CommunityBean> communityBeanList = new ArrayList<>();//社区管家数据
+    private List<HomeDataBean.NewgoodBean> newGoodsBeanList = new ArrayList<>();//最新产品数据
+    private List<HomeDataBean.FavorBean> youLikeBeanList = new ArrayList<>();//猜你喜欢数据
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    MainHomePresenter mainHomePresenter;
+    MainRecyclerAdapter recyclAdapter;    //附近租贷
+    MainRvCommunityAdapter mainRvCommunityAdapter;  //社区管家
+    MainRvNewGoodsAdapter mainRvNewGoodsAdapter; //新品上市
+    MainRvYouLikeAdapter mainRvYouLikeAdapter;  //猜你喜欢
 
     public MainHomeFragment() {
         // Required empty public constructor
@@ -92,19 +133,20 @@ public class MainHomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        rentDataList.add("第一");
-        rentDataList.add("第二");
-        rentDataList.add("第三");
-        rentDataList.add("第四");
-        rentDataList.add("第五");
-        communityBeanList.add(new CommunityBean(R.drawable.main_rent_centre,"租贷中心"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_tenement_pay,"物业缴费"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_service,"便民服务"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_pwd_icon,"门禁密码"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_car_go_out,"车辆出行"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_apply_server,"申请服务"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_breakdown,"故障处理"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_more_button,"更多"));
+        mainHomePresenter = new MainHomePresenter();
+        mainHomePresenter.attachView(this);
+        mainHomePresenter.setTransformer(setThread());
+        mainHomePresenter.getData();
+        communityBeanList.add(new CommunityBean(R.drawable.main_rent_centre, "租贷中心"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_tenement_pay, "物业缴费"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_service, "便民服务"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_pwd_icon, "门禁密码"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_car_go_out, "车辆出行"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_apply_server, "申请服务"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_breakdown, "故障处理"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_more_button, "更多"));
+
+
     }
 
     @Override
@@ -122,26 +164,37 @@ public class MainHomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRefresh();
-        initAdvViewPage();
-        initRecycler();
 
     }
 
     /**
      * 初始化recycler
      */
-    private void initRecycler(){
+    private void initRecycler() {
+        //附近租贷
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvMainRent.setLayoutManager(linearLayoutManager);
-        MainRecyclerAdapter adapter = new MainRecyclerAdapter(rentDataList);
-        rvMainRent.setAdapter(adapter);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),4);
+        recyclAdapter = new MainRecyclerAdapter(rentDataList);
+        rvMainRent.setAdapter(recyclAdapter);
+        //社区管家
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
         rvMainCommunity.setLayoutManager(gridLayoutManager);
-        MainRvCommunityAdapter mainRvCommunityAdapter = new MainRvCommunityAdapter(communityBeanList);
+         mainRvCommunityAdapter = new MainRvCommunityAdapter(communityBeanList, this);
         rvMainCommunity.setAdapter(mainRvCommunityAdapter);
+        //新品上市
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rvMainNewGoods.setLayoutManager(layoutManager);
+         mainRvNewGoodsAdapter = new MainRvNewGoodsAdapter(newGoodsBeanList);
+        rvMainNewGoods.setAdapter(mainRvNewGoodsAdapter);
+        //猜你喜欢
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
+        rvYouLike.setLayoutManager(layoutManager1);
+        mainRvYouLikeAdapter = new MainRvYouLikeAdapter(youLikeBeanList);
+        rvYouLike.setAdapter(mainRvYouLikeAdapter);
     }
+
     /**
      * 初始化图片轮播图
      */
@@ -151,12 +204,36 @@ public class MainHomeFragment extends Fragment {
         //设置自动轮播，默认为true
         bnMainAdv.isAutoPlay(true);
         //设置轮播时间
-        bnMainAdv.setDelayTime(1500);
+        bnMainAdv.setDelayTime(3000);
         //设置指示器位置（当banner模式中有指示器时）
         bnMainAdv.setIndicatorGravity(BannerConfig.CENTER);
         bnMainAdv.start();
     }
+    private void updataData(){
+        mDataList.clear();
+        rentDataList.clear();
+        newGoodsBeanList.clear();
+        youLikeBeanList.clear();
+        String advs = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_ADV_KEY, SPUtils.DATA_STRING);
+        Gson gson = new Gson();
+        Type advType = new TypeToken<List<HomeDataBean.AdBean>>(){}.getType();
+        mDataList = gson.fromJson(advs,advType);
+        String notice = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_NOTICE_KEY, SPUtils.DATA_STRING);
+        Type noticeType = new TypeToken<List<HomeDataBean.NoticeBean>>(){}.getType();
+        gson.fromJson(notice,noticeType);
+        String rent = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_RENT_KEY, SPUtils.DATA_STRING);
+        Type rentType = new TypeToken<List<HomeDataBean.RentBean>>(){}.getType();
+        rentDataList= gson.fromJson(rent,rentType);
+        String limit_time = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_LIMIT_TIME_KEY, SPUtils.DATA_STRING);
+        String newgoods = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_NEWGOOD_KEY, SPUtils.DATA_STRING);
+        Type newgoodsType = new TypeToken<List<HomeDataBean.NewgoodBean>>(){}.getType();
+        newGoodsBeanList= gson.fromJson(newgoods,newgoodsType);
+        String favor = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_FAVOR_KEY, SPUtils.DATA_STRING);
+        Type favorType = new TypeToken<List<HomeDataBean.FavorBean>>(){}.getType();
+        youLikeBeanList= gson.fromJson(favor,favorType);
 
+
+    }
     /**
      * 初始化下拉刷新
      */
@@ -165,6 +242,18 @@ public class MainHomeFragment extends Fragment {
             @Override
             public void onRefresh() {
                 LogUtils.i("setOnRefreshListener");
+//                TimerTask task = new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        /**
+//                         *要执行的操作
+//                         */
+//                        rvMainRefreshable.finishRefreshing();
+//                    }
+//                };
+//                Timer timer = new Timer();
+//                timer.schedule(task, 3000);//3秒后执行TimeTask的run方法
+                mainHomePresenter.getData();
             }
         }, 1);
     }
@@ -222,5 +311,63 @@ public class MainHomeFragment extends Fragment {
 
                 break;
         }
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        LogUtils.i("onItemClick=position=" + position);
+        if (position == 0) {
+            startActivity(new Intent(getContext(), LeaseCentreActivity.class));
+        }
+    }
+
+    @Override
+    public void onItemLongClick(View view, int position) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showToast(String msg) {
+
+    }
+
+    @Override
+    public void showErr() {
+
+    }
+
+    public <T> ObservableTransformer<T, T> setThread() {
+        return new ObservableTransformer<T, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
+    public void showView(String msg, int type) {
+        if (rvMainRefreshable != null) {
+            rvMainRefreshable.finishRefreshing();
+        }
+        if (type == 200) {
+            updataAdvView();
+        }
+    }
+
+    private void updataAdvView() {
+        updataData();
+        initAdvViewPage();
+        initRecycler();
+
     }
 }

@@ -7,173 +7,129 @@ package com.cui.android.jianchengdichan.http.bean;
  */
 public class LoginBean {
     /**
-     * {"code":"200","message":"\u767b\u5f55\u6210\u529f",
-     * "data":{"id":"18646","openid":"wap_user_1_13229971658","mobile":"13229971658","salt":"Aa3M68G3cT8TZdCZ",
-     * "nickname":"132xxxx1658","avatar_wechat":"","community":{"token":"17u9ThNbdI4OSqF64mvRFBHa7JnI2d1u",
-     * "uid":"649","com_id":"6","community_id":"","unit_id":"","property_id":""}}}
+     * {
+     *"code": 200,
+     * "message": "登录成功",
+     *"data": {
+     *"token": "goTXe8TD4SmKomGLiMFFlTGUESzrOtEM",
+     *"effect_time": 1519352023,
+     * "uid": 77,
+     * "com_id": 6,
+     * "community_id": "",
+     *"unit_id": "",
+     * "property_id": "",
+     *"sip_number": "15071349024",
+     * "sip_pwd": "123456"
+     *}
+     * }
      */
+
     /**
-     * id : 18646
-     * openid : wap_user_1_13229971658
-     * mobile : 13229971658
-     * salt : Aa3M68G3cT8TZdCZ
-     * nickname : 132xxxx1658
-     * avatar_wechat :
-     * community : {"token":"17u9ThNbdI4OSqF64mvRFBHa7JnI2d1u","uid":"649","com_id":"6","community_id":"","unit_id":"","property_id":""}
+     * token : goTXe8TD4SmKomGLiMFFlTGUESzrOtEM
+     * effect_time : 1519352023
+     * uid : 77
+     * com_id : 6
+     * community_id :
+     * unit_id :
+     * property_id :
+     * sip_number : 15071349024
+     * sip_pwd : 123456
      */
 
-    private String id;
-    private String openid;
-    private String mobile;
-    private String salt;
-    private String nickname;
-    private String avatar_wechat;
-    private CommunityBean community;
+    private String token;
+    private long effect_time;
+    private int uid;
+    private int com_id;
+    private String community_id;
+    private String unit_id;
+    private String property_id;
+    private String sip_number;
+    private String sip_pwd;
 
-    public String getId() {
-        return id;
+    public String getToken() {
+        return token;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getOpenid() {
-        return openid;
+    public long getEffect_time() {
+        return effect_time;
     }
 
-    public void setOpenid(String openid) {
-        this.openid = openid;
+    public void setEffect_time(long effect_time) {
+        this.effect_time = effect_time;
     }
 
-    public String getMobile() {
-        return mobile;
+    public int getUid() {
+        return uid;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
-    public String getSalt() {
-        return salt;
+    public int getCom_id() {
+        return com_id;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
+    public void setCom_id(int com_id) {
+        this.com_id = com_id;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getCommunity_id() {
+        return community_id;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setCommunity_id(String community_id) {
+        this.community_id = community_id;
     }
 
-    public String getAvatar_wechat() {
-        return avatar_wechat;
+    public String getUnit_id() {
+        return unit_id;
     }
 
-    public void setAvatar_wechat(String avatar_wechat) {
-        this.avatar_wechat = avatar_wechat;
+    public void setUnit_id(String unit_id) {
+        this.unit_id = unit_id;
     }
 
-    public CommunityBean getCommunity() {
-        return community;
+    public String getProperty_id() {
+        return property_id;
     }
 
-    public void setCommunity(CommunityBean community) {
-        this.community = community;
+    public void setProperty_id(String property_id) {
+        this.property_id = property_id;
     }
 
-    public static class CommunityBean {
-        /**
-         * token : 17u9ThNbdI4OSqF64mvRFBHa7JnI2d1u
-         * uid : 649
-         * com_id : 6
-         * community_id :
-         * unit_id :
-         * property_id :
-         */
+    public String getSip_number() {
+        return sip_number;
+    }
 
-        private String token;
-        private String uid;
-        private String com_id;
-        private String community_id;
-        private String unit_id;
-        private String property_id;
+    public void setSip_number(String sip_number) {
+        this.sip_number = sip_number;
+    }
 
-        public String getToken() {
-            return token;
-        }
+    public String getSip_pwd() {
+        return sip_pwd;
+    }
 
-        public void setToken(String token) {
-            this.token = token;
-        }
-
-        public String getUid() {
-            return uid;
-        }
-
-        public void setUid(String uid) {
-            this.uid = uid;
-        }
-
-        public String getCom_id() {
-            return com_id;
-        }
-
-        public void setCom_id(String com_id) {
-            this.com_id = com_id;
-        }
-
-        public String getCommunity_id() {
-            return community_id;
-        }
-
-        public void setCommunity_id(String community_id) {
-            this.community_id = community_id;
-        }
-
-        public String getUnit_id() {
-            return unit_id;
-        }
-
-        public void setUnit_id(String unit_id) {
-            this.unit_id = unit_id;
-        }
-
-        public String getProperty_id() {
-            return property_id;
-        }
-
-        public void setProperty_id(String property_id) {
-            this.property_id = property_id;
-        }
-
-        @Override
-        public String toString() {
-            return "CommunityBean{" +
-                    "token='" + token + '\'' +
-                    ", uid='" + uid + '\'' +
-                    ", com_id='" + com_id + '\'' +
-                    ", community_id='" + community_id + '\'' +
-                    ", unit_id='" + unit_id + '\'' +
-                    ", property_id='" + property_id + '\'' +
-                    '}';
-        }
+    public void setSip_pwd(String sip_pwd) {
+        this.sip_pwd = sip_pwd;
     }
 
     @Override
     public String toString() {
         return "LoginBean{" +
-                "id='" + id + '\'' +
-                ", openid='" + openid + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", salt='" + salt + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", avatar_wechat='" + avatar_wechat + '\'' +
-                ", community=" + community.toString() +
+                "token='" + token + '\'' +
+                ", effect_time=" + effect_time +
+                ", uid=" + uid +
+                ", com_id=" + com_id +
+                ", community_id='" + community_id + '\'' +
+                ", unit_id='" + unit_id + '\'' +
+                ", property_id='" + property_id + '\'' +
+                ", sip_number='" + sip_number + '\'' +
+                ", sip_pwd='" + sip_pwd + '\'' +
                 '}';
     }
 }

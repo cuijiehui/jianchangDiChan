@@ -8,6 +8,7 @@
     android:layout_width="50dp"
     android:layout_height="50dp"
     android:background="@drawable/main_apply_server"
+    android:layout_marginTop="10dp"
     />
     <TextView
         android:id="@+id/tv_community_mane"

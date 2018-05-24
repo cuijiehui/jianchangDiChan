@@ -39,7 +39,6 @@ public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
     @Override
     public void onNext(BaseBean<T> tBaseEntity) {
         LogUtils.w( "onNext: " );//这里可以打印错误信息
-
         onRequestEnd();
         if (tBaseEntity.isSuccess()) {
             try {
@@ -92,9 +91,7 @@ public abstract class BaseObserver<T> implements Observer<BaseBean<T>> {
      * @param t
      * @throws Exception
      */
-    protected void onCodeError(BaseBean<T> t) throws Exception {
-    }
-
+    protected abstract void onCodeError(BaseBean<T> t) throws Exception ;
     /**
      * 返回失败
      *

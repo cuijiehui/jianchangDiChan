@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<include layout="@layout/include_top_layout"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="143dp"
+        android:hint="请输入你的反馈意见（10-140字）"
+        android:textColorHint="@color/main_flash_sale_text"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/et_bg_shape"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:hint="请输入您的联系方式"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textColorHint="@color/main_flash_sale_text"
+        android:background="@drawable/et_bg_shape"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="14dp"
+        android:text="提交"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:background="@drawable/bt_fullpage_pass_shape"/>
+</LinearLayout>

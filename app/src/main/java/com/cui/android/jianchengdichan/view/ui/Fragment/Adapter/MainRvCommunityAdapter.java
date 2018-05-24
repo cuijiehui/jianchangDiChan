@@ -10,27 +10,34 @@ import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.CommunityBean;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainRvCommunityAdapter extends RecyclerView.Adapter<MainRvCommunityAdapter.ViewHolder>{
+public class MainRvCommunityAdapter extends RecyclerView.Adapter<MainRvCommunityAdapter.ViewHolder> implements View.OnClickListener, View.OnLongClickListener {
 
     private List<CommunityBean> dataList = new ArrayList<>();
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
 
-    public MainRvCommunityAdapter(List<CommunityBean> dataList) {
+    public MainRvCommunityAdapter(List<CommunityBean> dataList, OnRecyclerViewItemClickListener mOnItemClickListener) {
         this.dataList = dataList;
+        this.mOnItemClickListener = mOnItemClickListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewHolder viewHolder = new ViewHolder( LayoutInflater.from(parent.getContext()).inflate(R.layout.community_item_layout,parent,false));
-        return viewHolder;
+        View view =LayoutInflater.from(parent.getContext()).inflate(R.layout.community_item_layout,parent,false);
+        view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
+        ViewHolder viewHolder = new ViewHolder(view);
+         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.itemView.setTag(position);
         holder.imageView.setBackgroundResource(dataList.get(position).getImgResource());
         holder.textView.setText(dataList.get(position).getName());
     }
@@ -38,6 +45,22 @@ public class MainRvCommunityAdapter extends RecyclerView.Adapter<MainRvCommunity
     @Override
     public int getItemCount() {
         return dataList.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mOnItemClickListener != null) {      //getTag获取的即是点击位置
+            mOnItemClickListener.onItemClick(v,(int)v.getTag());
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onItemLongClick(v,(int)v.getTag());
+        }
+        return true;
+
     }
 
     class ViewHolder extends  RecyclerView.ViewHolder{

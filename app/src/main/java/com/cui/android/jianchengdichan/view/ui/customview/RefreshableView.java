@@ -311,7 +311,7 @@ public class RefreshableView extends LinearLayout implements View.OnTouchListene
     private void setIsAbleToPullS(View v, MotionEvent event) {
         // 判断 scrollView 当前滚动位置在顶部
        ScrollView scroll_View = (ScrollView)v;
-        LogUtils.i("下拉刷新测试scroll_View.getScrollY="+scroll_View.getScrollY());
+//        LogUtils.i("下拉刷新测试scroll_View.getScrollY="+scroll_View.getScrollY());
         if(scroll_View.getScrollY() == 0){
             ableToPull = true;
         }else {

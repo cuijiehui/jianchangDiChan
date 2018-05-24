@@ -13,6 +13,7 @@ import com.cui.android.jianchengdichan.utils.LogUtils;
 
 import io.reactivex.ObservableTransformer;
 import io.reactivex.Observer;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,8 +28,9 @@ public class SplashAdvModel extends BaseModel<BaseBean<LoginBean>>{
     @Override
     public void execute(final CallBack<BaseBean<LoginBean>> callback) {
         LogUtils.i("SplashAdvModel.execute()");
+        RequestBody body= RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),mParams[0]);
         RetrofitFactory.getInstence().API()
-                .getLogin(mParams[0],mParams[1])
+                .getLogin(body)
                 .compose(MyApplication.getInstance().<BaseBean<LoginBean>>setThread())
                 .subscribe(new BaseObserver<LoginBean>() {
                     @Override
@@ -38,9 +40,14 @@ public class SplashAdvModel extends BaseModel<BaseBean<LoginBean>>{
                     }
 
                     @Override
+                    protected void onCodeError(BaseBean<LoginBean> t) throws Exception {
+                        callback.onFailure(t.getMsg());
+                    }
+
+                    @Override
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
                         LogUtils.i("onResponse"+e.getLocalizedMessage());
-
+                        callback.onError();
                     }
                 });
     }

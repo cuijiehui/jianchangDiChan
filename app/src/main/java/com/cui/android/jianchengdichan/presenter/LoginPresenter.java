@@ -9,7 +9,7 @@ import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
 
 public class LoginPresenter extends BasePresenter<LoginActivity> {
-    public void login(String mobile,String pwd){
+    public void login(String username,String pwd){
         LogUtils.i("login()");
         if (!isViewAttached()) {
             //如果没有View引用就不加载数据
@@ -17,22 +17,22 @@ public class LoginPresenter extends BasePresenter<LoginActivity> {
         }
         getView().showLoading();
         DataModel.request(Token.API_LOGIN)
-                .params(mobile,pwd)
+                .params(username,pwd)
                 .execute(new CallBack<BaseBean<LoginBean>>() {
 
                     @Override
                     public void onSuccess(BaseBean<LoginBean> data) {
-                    getView().showView(data.toString());
+                    getView().showView(data.toString(),200);
                     }
 
                     @Override
                     public void onFailure(String msg) {
-
+                        getView().showView(msg,-200);
                     }
 
                     @Override
                     public void onError() {
-
+                        getView().showView("",-200);
                     }
 
                     @Override

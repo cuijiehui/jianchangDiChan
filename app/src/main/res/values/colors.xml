@@ -14,4 +14,7 @@
     <color name="main_recycler_item_bak">#55000000</color>
     <color name="main_flash_sale_back">#FF5B63</color>
     <color name="main_flash_sale_text">#666666</color>
+    <color name="main_you_like_text_col">#FFB20C</color>
+    <color name="et_bac_col">#E0E0E0</color>
+    <color name="login_forget_pwd">#FF0000</color>
 </resources>
