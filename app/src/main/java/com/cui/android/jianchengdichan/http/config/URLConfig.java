@@ -13,6 +13,9 @@ public interface URLConfig {
     String POST_REGISTER_URL="/api/Login/register";//注册
     String POST_GET_TOKEN_URL="/api/System/getServerInfo";//获取token
     String POST_FORGET_PWD_URL="/api/Pwd/setPwd";//忘记密码
-    String POST_REGISTER_CODE_URL="app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=account.apiVerifycode2";
-    String POST_HOME_DATA_URL = "/api/Home/homeData";
+    String POST_REGISTER_CODE_URL="app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=account.apiVerifycode2";//获取验证码
+    String POST_HOME_DATA_URL = "/api/Home/homeData";//获取主页信息
+    String POST_CATES_URL = "/api/Charge/getCates";//缴费类列表
+   String POST_CHARGE_CATES_URL="/api/Charge/getChargeCate"; //待缴费列表
+   String POST_CHARGES_RECORD_URL="/api/Charge/chargeRecord"; //缴费记录
 }

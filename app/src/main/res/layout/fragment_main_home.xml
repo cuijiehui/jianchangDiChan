@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,8 +7,9 @@
 
     <!-- 头部-->
     <RelativeLayout
+        android:id="@+id/rl_main_top"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:background="@color/main_top_col">
 
         <ImageView
@@ -16,30 +17,31 @@
             android:layout_width="21dp"
             android:layout_height="21dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="8dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/main_qrcode_button"
             android:clickable="true" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginTop="8dp"
+            android:layout_centerInParent="true"
+            >
 
             <EditText
                 android:id="@+id/et_main_top_seek"
                 android:layout_width="279dp"
                 android:layout_height="20dp"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:hint="商品名称"
+                android:textColorHint="@color/main_seek_text_col"
+                android:layout_centerVertical="true"
+                android:textSize="15px"
+                />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="4dp"
-                android:drawableLeft="@drawable/main_seek_button"
-                android:text="商品名称"
-                android:textColor="@color/main_seek_text_col"
-                android:textSize="12sp" />
+
         </RelativeLayout>
 
         <ImageView
@@ -48,7 +50,7 @@
             android:layout_height="17dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/main_add_button"
             android:clickable="true" />
     </RelativeLayout>
@@ -58,7 +60,7 @@
         android:id="@+id/rv_main_refreshable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
+        android:layout_below="@+id/rl_main_top"
         android:layout_marginBottom="49dp">
 
         <ScrollView
@@ -70,10 +72,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <!--轮播图-->
-                <com.youth.banner.Banner xmlns:app="http://schemas.android.com/apk/res-auto"
+                <com.youth.banner.Banner
                     android:id="@+id/bn_main_adv"
                     android:layout_width="match_parent"
-                    android:layout_height="176dp" />
+                    android:layout_height="200dp" />
 
                 <!--最新公告-->
                 <LinearLayout
@@ -95,19 +97,14 @@
                         android:layout_marginLeft="16dp"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tv_main_notice_new1"
+                        <TextSwitcher
+                            android:id="@+id/tv_main_notice_new"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="#建设智慧社区门户网站将在月底开……# "
                             android:textSize="16sp" />
 
-                        <TextView
-                            android:id="@+id/tv_main_notice_new2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="#智能生活，从现在开始拥有# "
-                            android:textSize="16sp" />
+
                     </LinearLayout>
                 </LinearLayout>
 
@@ -236,28 +233,35 @@
                     android:layout_height="1dp"
                     android:background="@drawable/imaginary_line" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    >
 
                     <ImageView
                         android:layout_width="114dp"
                         android:layout_height="100dp"
-                        android:layout_marginLeft="16dp"
-                        android:background="@drawable/main_carport" />
+                        android:layout_marginLeft="12dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/main_car_stop" />
 
                     <ImageView
                         android:layout_width="114dp"
                         android:layout_height="100dp"
-                        android:background="@drawable/main_carport" />
+                        android:background="@drawable/main_top_car_manager"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"/>
 
                     <ImageView
                         android:layout_width="114dp"
                         android:layout_height="100dp"
-                        android:background="@drawable/main_carport" />
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="12dp"
+                        android:background="@drawable/main_stop_car_break"
+                        />
 
-                </LinearLayout>
+                </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="8dp"
@@ -282,4 +286,4 @@
 
         </ScrollView>
     </com.cui.android.jianchengdichan.view.ui.customview.RefreshableView>
-</FrameLayout>
+</RelativeLayout>

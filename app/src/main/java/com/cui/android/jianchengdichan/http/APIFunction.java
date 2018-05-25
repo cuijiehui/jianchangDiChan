@@ -1,10 +1,15 @@
 package com.cui.android.jianchengdichan.http;
 
 import com.cui.android.jianchengdichan.http.bean.BaseBean;
+import com.cui.android.jianchengdichan.http.bean.CatesBean;
+import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.http.bean.LoginBean;
+import com.cui.android.jianchengdichan.http.bean.PayRecordsBean;
 import com.cui.android.jianchengdichan.http.bean.SplashAdvBean;
 import com.cui.android.jianchengdichan.http.config.URLConfig;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -36,5 +41,12 @@ public interface APIFunction {
     @POST(URLConfig.POST_HOME_DATA_URL)
     Observable<BaseBean<HomeDataBean>> getHomeData();
 
+    @POST(URLConfig.POST_CATES_URL)
+    Observable<BaseBean<List<CatesBean>>> getCates(@Body RequestBody route);
 
+    @POST(URLConfig.POST_CHARGE_CATES_URL)
+    Observable<BaseBean<List<ChargeCateBean>>> getChargeCates(@Body RequestBody route);
+
+    @POST(URLConfig.POST_CHARGES_RECORD_URL)
+    Observable<BaseBean<List<PayRecordsBean>>> getChargeRecord(@Body RequestBody route);
 }

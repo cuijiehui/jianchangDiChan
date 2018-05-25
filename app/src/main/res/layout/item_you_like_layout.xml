@@ -6,10 +6,11 @@
 
     <ImageView
         android:id="@+id/iv_you_like_pic"
-        android:layout_width="343dp"
+        android:layout_width="match_parent"
         android:layout_height="94dp"
         android:layout_gravity="center"
         android:layout_marginTop="12dp"
+        android:scaleType="fitXY"
          />
 
     <TextView

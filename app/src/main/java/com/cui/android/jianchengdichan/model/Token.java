@@ -10,6 +10,9 @@ public class Token {
     public static final String API_REGISTER = PACKAGE_NAME + "RegisterModel";
     public static final String API_FORGET_PWD = PACKAGE_NAME + "ForgetPwdModel";
     public static final String API_HOME_DATA = PACKAGE_NAME + "HomeDataModel";
+    public static final String API_CATES_DATA = PACKAGE_NAME + "CatesModel";
+    public static final String API_CHARGE_CATES_DATA = PACKAGE_NAME + "ChargeCateModel";
+    public static final String API_CHARGE_RECORD_DATA = PACKAGE_NAME + "ChargeRecordModel";
 
 
 }

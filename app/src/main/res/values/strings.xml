@@ -21,6 +21,11 @@
     <string name="register_password_text">请输入密码(6-20位数字或字母)</string>
     <string name="register_password_again_text">请再次填写密码</string>
 
+    <string name="cp_located_city">定位城市</string>
+    <string name="cp_locating">正在定位…</string>
+    <string name="cp_located_failed">定位失败</string>
+    <string name="cp_hot_city">热门城市</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

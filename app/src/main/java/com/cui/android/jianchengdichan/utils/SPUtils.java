@@ -101,6 +101,21 @@ public enum  SPUtils {
                     default:
                         return null;
                 }
+            }else{
+                switch (dataType) {
+                    case DATA_STRING:
+                        return  "";
+                    case DATA_INT:
+                        return -1;
+                    case DATA_LONG:
+                        return  0L;
+                    case DATA_BOOLEAN:
+                        return false;
+                    case DATA_FLOAT:
+                        return  0.0f;
+                    default:
+                        return null;
+                }
             }
         }
         return null;

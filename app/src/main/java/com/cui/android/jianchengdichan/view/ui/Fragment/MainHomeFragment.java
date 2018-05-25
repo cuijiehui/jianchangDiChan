@@ -1,19 +1,28 @@
 package com.cui.android.jianchengdichan.view.ui.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
+import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.presenter.MainHomePresenter;
@@ -30,6 +39,8 @@ import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvNewGoodsAd
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvYouLikeAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.cui.android.jianchengdichan.view.ui.LeaseCentreActivity;
+import com.cui.android.jianchengdichan.view.ui.LoginActivity;
+import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
 import com.cui.android.jianchengdichan.view.ui.ScanActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
 import com.cui.android.jianchengdichan.view.ui.customview.RefreshableView;
@@ -72,10 +83,8 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     RefreshableView rvMainRefreshable;
     @BindView(R.id.bn_main_adv)
     Banner bnMainAdv;
-    @BindView(R.id.tv_main_notice_new1)
-    TextView tvMainNoticeNew1;
-    @BindView(R.id.tv_main_notice_new2)
-    TextView tvMainNoticeNew2;
+    @BindView(R.id.tv_main_notice_new)
+    TextSwitcher tvMainNoticeNew1;
     @BindView(R.id.rv_main_rent)
     RecyclerView rvMainRent;
     @BindView(R.id.rv_main_community)
@@ -98,6 +107,7 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     private Unbinder unbinder;
     private List<HomeDataBean.AdBean> mDataList = new ArrayList<>();//轮播图数据
     private List<HomeDataBean.RentBean> rentDataList = new ArrayList<>();//附近租贷数据
+    private List<String> noticeList = new ArrayList<>();//公告数据
     private List<CommunityBean> communityBeanList = new ArrayList<>();//社区管家数据
     private List<HomeDataBean.NewgoodBean> newGoodsBeanList = new ArrayList<>();//最新产品数据
     private List<HomeDataBean.FavorBean> youLikeBeanList = new ArrayList<>();//猜你喜欢数据
@@ -136,7 +146,6 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         mainHomePresenter = new MainHomePresenter();
         mainHomePresenter.attachView(this);
         mainHomePresenter.setTransformer(setThread());
-        mainHomePresenter.getData();
         communityBeanList.add(new CommunityBean(R.drawable.main_rent_centre, "租贷中心"));
         communityBeanList.add(new CommunityBean(R.drawable.main_tenement_pay, "物业缴费"));
         communityBeanList.add(new CommunityBean(R.drawable.main_service, "便民服务"));
@@ -156,7 +165,28 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         LogUtils.i("onCreateView");
         View view = inflater.inflate(R.layout.fragment_main_home, container, false);
         unbinder = ButterKnife.bind(this, view);
-
+        mainHomePresenter.getData();
+        //社区管家
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
+        rvMainCommunity.setLayoutManager(gridLayoutManager);
+        mainRvCommunityAdapter = new MainRvCommunityAdapter(communityBeanList, this);
+        rvMainCommunity.setAdapter(mainRvCommunityAdapter);
+        //公告
+        tvMainNoticeNew1.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView textView = new TextView(MyApplication.getAppContext());
+                textView.setSingleLine();
+                textView.setTextSize(16);//字号
+                textView.setTextColor(Color.parseColor("#ff3333"));
+                textView.setEllipsize(TextUtils.TruncateAt.END);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.gravity = Gravity.CENTER_VERTICAL;
+                textView.setLayoutParams(params);
+                return textView;
+            }
+        });
         return view;
     }
 
@@ -165,6 +195,11 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         super.onActivityCreated(savedInstanceState);
         setRefresh();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     /**
@@ -177,11 +212,7 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         rvMainRent.setLayoutManager(linearLayoutManager);
         recyclAdapter = new MainRecyclerAdapter(rentDataList);
         rvMainRent.setAdapter(recyclAdapter);
-        //社区管家
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
-        rvMainCommunity.setLayoutManager(gridLayoutManager);
-         mainRvCommunityAdapter = new MainRvCommunityAdapter(communityBeanList, this);
-        rvMainCommunity.setAdapter(mainRvCommunityAdapter);
+
         //新品上市
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -214,13 +245,17 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         rentDataList.clear();
         newGoodsBeanList.clear();
         youLikeBeanList.clear();
+        noticeList.clear();
         String advs = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_ADV_KEY, SPUtils.DATA_STRING);
         Gson gson = new Gson();
         Type advType = new TypeToken<List<HomeDataBean.AdBean>>(){}.getType();
         mDataList = gson.fromJson(advs,advType);
         String notice = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_NOTICE_KEY, SPUtils.DATA_STRING);
         Type noticeType = new TypeToken<List<HomeDataBean.NoticeBean>>(){}.getType();
-        gson.fromJson(notice,noticeType);
+        List<HomeDataBean.NoticeBean> noticeBeans = gson.fromJson(notice,noticeType);
+        for(HomeDataBean.NoticeBean noticeBean : noticeBeans){
+            noticeList.add(noticeBean.getTitle());
+        }
         String rent = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_RENT_KEY, SPUtils.DATA_STRING);
         Type rentType = new TypeToken<List<HomeDataBean.RentBean>>(){}.getType();
         rentDataList= gson.fromJson(rent,rentType);
@@ -316,8 +351,31 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     @Override
     public void onItemClick(View view, int position) {
         LogUtils.i("onItemClick=position=" + position);
-        if (position == 0) {
-            startActivity(new Intent(getContext(), LeaseCentreActivity.class));
+        switch (position){
+            case 0:
+                startActivity(new Intent(getContext(), LeaseCentreActivity.class));
+                break;
+            case 1:
+                boolean isLogin =(boolean)SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY,SPUtils.DATA_BOOLEAN);
+                if(isLogin){
+                    startActivity(new Intent(getContext(), PayFeesActivity.class));
+                }else{
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                }
+
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
         }
     }
 
@@ -366,8 +424,13 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
 
     private void updataAdvView() {
         updataData();
+        initNotice();
         initAdvViewPage();
         initRecycler();
 
+    }
+
+    private void initNotice() {
+        tvMainNoticeNew1.setText(noticeList.get(0));
     }
 }

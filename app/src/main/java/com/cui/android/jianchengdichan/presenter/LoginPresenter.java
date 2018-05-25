@@ -7,6 +7,7 @@ import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
+import com.google.gson.JsonObject;
 
 public class LoginPresenter extends BasePresenter<LoginActivity> {
     public void login(String username,String pwd){
@@ -15,9 +16,13 @@ public class LoginPresenter extends BasePresenter<LoginActivity> {
             //如果没有View引用就不加载数据
             return;
         }
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("username",username);
+        jsonObject.addProperty("pwd",pwd);
+        String json =jsonObject.toString();
         getView().showLoading();
         DataModel.request(Token.API_LOGIN)
-                .params(username,pwd)
+                .params(json)
                 .execute(new CallBack<BaseBean<LoginBean>>() {
 
                     @Override

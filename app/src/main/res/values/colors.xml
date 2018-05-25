@@ -17,4 +17,10 @@
     <color name="main_you_like_text_col">#FFB20C</color>
     <color name="et_bac_col">#E0E0E0</color>
     <color name="login_forget_pwd">#FF0000</color>
+    <color name="cp_theme_gray">#646464</color>
+    <color name="cp_shadow">#AAEBEBEB</color>
+    <color name="cp_gray">#8c8c8c</color>
+    <color name="cp_alpha_gray">#CC646464</color>
+    <color name="cp_gray_deep">#5c5c5c</color>
+
 </resources>

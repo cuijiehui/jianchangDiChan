@@ -11,8 +11,12 @@ import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.SPKey;
+import com.cui.android.jianchengdichan.utils.SPUtils;
+import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.ui.FeedbackActivity;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
+import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
 import com.cui.android.jianchengdichan.view.ui.SetingActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.CircleImageView;
 
@@ -146,7 +150,13 @@ public class MainMyFragment extends Fragment {
                 break;
             case R.id.tv_my_sign:
                 LogUtils.i("tv_my_sign=");
-                startActivity(new Intent(getContext(),LoginActivity.class));
+                boolean isLogin =(boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY,SPUtils.DATA_BOOLEAN);
+                if(isLogin){
+//                    startActivity(new Intent(getContext(), PayFeesActivity.class));
+                    ToastUtil.makeToast("已经登录，签到成功");
+                }else{
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                }
 
                 break;
             case R.id.tv_my_order:

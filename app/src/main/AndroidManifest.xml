@@ -52,7 +52,9 @@
             android:name=".view.ui.RegisterActivity"
             android:label="@string/title_activity_register2" />
         <activity android:name=".view.ui.ForgetPwdActivity" />
-        <activity android:name=".view.ui.PayFeesActivity"></activity>
+        <activity android:name=".view.ui.PayFeesActivity" />
+        <activity android:name=".view.ui.PayMentRecordActivity" />
+        <activity android:name=".view.ui.CityPickerActivity"></activity>
     </application>
 
 </manifest>

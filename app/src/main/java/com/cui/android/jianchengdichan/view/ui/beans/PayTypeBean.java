@@ -3,6 +3,17 @@ package com.cui.android.jianchengdichan.view.ui.beans;
 import java.io.Serializable;
 
 public class PayTypeBean implements Serializable {
+    public PayTypeBean() {
+    }
+
+    public PayTypeBean(String id, String num, String price, String sum, String instruct) {
+        this.id = id;
+        this.num = num;
+        this.price = price;
+        this.sum = sum;
+        this.instruct = instruct;
+    }
+
     /**
      * id : 10
      * num : 2

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
@@ -89,15 +90,15 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
             initParms(bundle);
             mContextView = LayoutInflater.from(this)
                     .inflate(bindLayout(), null);
-            if (mAllowFullScreen) {
-                this.getWindow().setFlags(
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                requestWindowFeature(Window.FEATURE_NO_TITLE);
-            }
-            if (isSetStatusBar) {
-                steepStatusBar();
-            }
+//            if (mAllowFullScreen) {
+//                this.getWindow().setFlags(
+//                        WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                        WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//                requestWindowFeature(Window.FEATURE_NO_TITLE);
+//            }
+//            if (isSetStatusBar) {
+//                steepStatusBar();
+//            }
             setContentView(mContextView);
             if (!isAllowScreenRoate) {
                 setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -223,6 +224,7 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     @Override

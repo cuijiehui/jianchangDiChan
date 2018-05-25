@@ -11,18 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
 import com.cui.android.jianchengdichan.utils.LogUtils;
-import com.cui.android.jianchengdichan.view.ui.beans.PayTypeBean;
 
 import java.util.List;
 
 public class PaymentAdapter implements ExpandableListAdapter {
 
     private List<String> groupList;
-    private List<List<PayTypeBean>> itemList;
+    private List<List<ChargeCateBean.PayTypeBean>> itemList;
     private Context context;
 
-    public PaymentAdapter(List<String> groupList, List<List<PayTypeBean>> itemList, Context context) {
+    public PaymentAdapter(List<String> groupList, List<List<ChargeCateBean.PayTypeBean>> itemList, Context context) {
         this.groupList = groupList;
         this.itemList = itemList;
         this.context = context;
@@ -121,8 +121,8 @@ public class PaymentAdapter implements ExpandableListAdapter {
             childViewHodler = (ChildViewHodler) convertView.getTag();
         }
 
-        final PayTypeBean bean = itemList.get(groupPosition).get(childPosition);
-        childViewHodler.tv_instruct.setText(bean.getInstruct());
+        final ChargeCateBean.PayTypeBean bean = itemList.get(groupPosition).get(childPosition);
+        childViewHodler.tv_instruct.setText(bean.getCreate_time());
         childViewHodler.tv_sum.setText("¥" + bean.getSum());
         childViewHodler.tv_num.setText(bean.getNum() + "");
 
