@@ -3,6 +3,8 @@ package com.cui.android.jianchengdichan;
 import android.app.Application;
 import android.content.Context;
 
+import com.cui.android.jianchengdichan.utils.LogcatHelper;
+
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;

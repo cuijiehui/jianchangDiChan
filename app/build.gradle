@@ -16,6 +16,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 dependencies {
@@ -49,4 +54,10 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+    //andriod M 权限框架
+    implementation 'pub.devrel:easypermissions:1.0.0'
+    //微信支付
+    implementation files('libs/libammsdk.jar')
+    //支付宝支付
+    implementation files('libs/alipaySdk-20170725.jar')
 }

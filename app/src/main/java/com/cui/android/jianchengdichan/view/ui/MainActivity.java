@@ -1,7 +1,9 @@
 package com.cui.android.jianchengdichan.view.ui;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.View;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.LoginPresenter;
+import com.cui.android.jianchengdichan.utils.AndroidPermissionUtils;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.view.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainPagerAdapter;
@@ -55,8 +58,16 @@ public class MainActivity extends BaseActivtity {
         LogUtils.i("initView");
         setCallBack();
         setViewPager();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            checkAllPermission();
+        }
     }
-
+    private void checkAllPermission() {
+        String[] unCheckPermissions = AndroidPermissionUtils.checkPermission(this);
+        if (unCheckPermissions.length != 0) {
+            ActivityCompat.requestPermissions(this, unCheckPermissions, 100);
+        }
+    }
     private void setViewPager() {
         mDataList.clear();
         mDataList.add(MainHomeFragment.newInstance("MainHome","MainHome"));
@@ -101,9 +112,10 @@ public class MainActivity extends BaseActivtity {
     }
 
     @Override
-    public void widgetClick(View v) {
-
+    public View initBack() {
+        return null;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

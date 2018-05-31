@@ -14,9 +14,9 @@ import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
+import com.cui.android.jianchengdichan.view.ui.CommAddListAtivity;
 import com.cui.android.jianchengdichan.view.ui.FeedbackActivity;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
-import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
 import com.cui.android.jianchengdichan.view.ui.SetingActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.CircleImageView;
 
@@ -59,6 +59,10 @@ public class MainMyFragment extends Fragment {
     @BindView(R.id.tv_my_contact_us)
     TextView tvMyContactUs;
     Unbinder unbinder;
+    @BindView(R.id.tv_my_in_comm)
+    TextView tvMyInComm;
+    @BindView(R.id.tv_my_release_record)
+    TextView tvMyReleaseRecord;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -116,8 +120,11 @@ public class MainMyFragment extends Fragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_my_top_back, R.id.tv_content_name, R.id.iv_top_right_set, R.id.civ_my_head_portrait, R.id.tv_my_user_name, R.id.iv_my_member, R.id.tv_my_collect, R.id.tv_my_sign, R.id.tv_my_order, R.id.tv_my_delivery, R.id.tv_my_pickup, R.id.tv_my_datails, R.id.tv_my_feed_back, R.id.tv_my_contact_us})
+    @OnClick({R.id.iv_my_top_back, R.id.tv_content_name, R.id.iv_top_right_set, R.id.civ_my_head_portrait, R.id.tv_my_user_name, R.id.iv_my_member, R.id.tv_my_collect, R.id.tv_my_sign, R.id.tv_my_order, R.id.tv_my_delivery, R.id.tv_my_pickup, R.id.tv_my_datails
+            , R.id.tv_my_feed_back, R.id.tv_my_contact_us,R.id.tv_my_in_comm, R.id.tv_my_release_record})
     public void onViewClicked(View view) {
+        boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
+
         switch (view.getId()) {
             case R.id.iv_my_top_back:
                 LogUtils.i("iv_my_top_back=");
@@ -129,7 +136,7 @@ public class MainMyFragment extends Fragment {
                 break;
             case R.id.iv_top_right_set:
                 LogUtils.i("iv_top_right_set=");
-                startActivity(new Intent(getContext(),SetingActivity.class));
+                startActivity(new Intent(getContext(), SetingActivity.class));
 
                 break;
             case R.id.civ_my_head_portrait:
@@ -150,11 +157,10 @@ public class MainMyFragment extends Fragment {
                 break;
             case R.id.tv_my_sign:
                 LogUtils.i("tv_my_sign=");
-                boolean isLogin =(boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY,SPUtils.DATA_BOOLEAN);
-                if(isLogin){
+                if (isLogin) {
 //                    startActivity(new Intent(getContext(), PayFeesActivity.class));
                     ToastUtil.makeToast("已经登录，签到成功");
-                }else{
+                } else {
                     startActivity(new Intent(getContext(), LoginActivity.class));
                 }
 
@@ -177,13 +183,29 @@ public class MainMyFragment extends Fragment {
                 break;
             case R.id.tv_my_feed_back:
                 LogUtils.i("tv_my_feed_back=");
-                startActivity(new Intent(getContext(),FeedbackActivity.class));
+                if (isLogin) {
+                    startActivity(new Intent(getContext(), FeedbackActivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+
+                }
 
                 break;
             case R.id.tv_my_contact_us:
                 LogUtils.i("tv_my_contact_us=");
 
                 break;
+            case R.id.tv_my_in_comm:
+                if (isLogin) {
+                    startActivity(new Intent(getContext(), CommAddListAtivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+
+                }
+                break;
+            case R.id.tv_my_release_record:
+                break;
         }
     }
+
 }

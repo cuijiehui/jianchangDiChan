@@ -1,5 +1,6 @@
 package com.cui.android.jianchengdichan.http.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ChargeCateBean {
@@ -38,7 +39,7 @@ public class ChargeCateBean {
         this.data = data;
     }
 
-    public static class PayTypeBean {
+    public static class PayTypeBean  implements Serializable {
 
 
         /**

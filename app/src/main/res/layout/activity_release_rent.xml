@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ui.ReleaseRentActivity"
+    android:orientation="vertical">
+    <include layout="@layout/include_top_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--类型-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:text="类型"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_type_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/main_top_col"
+                    android:padding="2dp"
+                    android:text="普通住宅"
+                    android:textColor="@color/white"
+                    android:textSize="9sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_release_type_2"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/et_bac_col"
+                    android:padding="2dp"
+                    android:text="公寓"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_type_3"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/et_bac_col"
+                    android:padding="2dp"
+                    android:text="别墅"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_type_4"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/et_bac_col"
+                    android:padding="2dp"
+                    android:text="商铺"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:background="@drawable/main_parting_line" />
+            <!--租贷方式-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:text="租贷方式"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_way_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/main_top_col"
+                    android:padding="2dp"
+                    android:text="整租"
+                    android:textColor="@color/white"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_way_2"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/et_bac_col"
+                    android:padding="2dp"
+                    android:text="合租"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_way_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/et_bac_col"
+                    android:padding="2dp"
+                    android:text="短租"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_way_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/et_bac_col"
+                    android:padding="2dp"
+                    android:text="公寓"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:background="@drawable/main_parting_line" />
+            <!--押付方式-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:text="押付方式"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_pay_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/main_top_col"
+                    android:padding="2dp"
+                    android:text="押一付一"
+                    android:textColor="@color/white"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_pay_2"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/et_bac_col"
+                    android:padding="2dp"
+                    android:text="押二付一"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/tv_release_pay_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@color/et_bac_col"
+                    android:padding="2dp"
+                    android:text="押一付三"
+                    android:textColor="@color/main_text_col"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:background="@drawable/main_parting_line" />
+            <!--基本信息-->
+            <include layout="@layout/include_release_information_layout" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:background="@drawable/main_parting_line" />
+            <!--租金情况-->
+            <include layout="@layout/include_release_money_layout"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:background="@drawable/main_parting_line" />
+            <!--联系方式-->
+            <include layout="@layout/include_release_contacts"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:background="@drawable/main_parting_line" />
+            <!--房源图片-->
+            <include layout="@layout/include_release_picture"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="9dp"
+                android:background="@drawable/main_parting_line" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="11dp"
+                android:text="房源描述"
+                android:textColor="@color/main_text_col"
+                android:textSize="11sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/main_parting_line" />
+            <EditText
+                android:id="@+id/et_release_describe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="10-200字，可介绍房源亮点"
+                android:layout_marginLeft="11dp"
+                android:paddingLeft="11dp"/>
+            <ImageView
+                android:id="@+id/iv_selease_rel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:background="@drawable/release_button_normal"
+                android:layout_marginTop="11dp"
+                />
+            <Button
+                android:id="@+id/bt_release_save"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginTop="11dp"
+                android:text="保存草稿"
+                android:textColor="@color/main_top_col"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

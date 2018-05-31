@@ -40,11 +40,15 @@ public class DBManager {
         if (!dir.exists()){
             dir.mkdirs();
         }
+        LogUtils.d("地图测试","DB_PATH + DB_NAME="+DB_PATH);
+
         File dbFile = new File(DB_PATH + DB_NAME);
+        try {
         if (!dbFile.exists()){
+
             InputStream is;
             OutputStream os;
-            try {
+
                 is = mContext.getResources().getAssets().open(ASSETS_NAME);
                 os = new FileOutputStream(dbFile);
                 byte[] buffer = new byte[BUFFER_SIZE];
@@ -55,14 +59,20 @@ public class DBManager {
                 os.flush();
                 os.close();
                 is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+        }else{
+            LogUtils.d("地图测试","DB_PATH + DB_NAME="+ASSETS_NAME);
+
+        }
+        } catch (Exception e) {
+            LogUtils.d("地图测试6","copyDBFile");
+            e.printStackTrace();
         }
     }
 
     public List<City> getAllCities(){
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(DB_PATH + DB_NAME, null);
+        LogUtils.d("地图测试","DB_PATH + DB_NAME="+DB_PATH + DB_NAME);
         Cursor cursor = db.rawQuery("select * from " + TABLE_NAME, null);
         List<City> result = new ArrayList<>();
         City city;

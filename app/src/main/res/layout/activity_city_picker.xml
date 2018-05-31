@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".view.ui.CityPickerActivity">
+    tools:context=".view.ui.CityPickerActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
     <include layout="@layout/cp_common_title_bar"/>
 
@@ -38,7 +40,7 @@
             android:textColor="@android:color/white"
             android:visibility="gone"/>
 
-        <SideLetterBar
+        <com.cui.android.jianchengdichan.view.ui.customview.SideLetterBar
             android:id="@+id/side_letter_bar"
             android:layout_width="@dimen/side_letter_bar_width"
             android:layout_height="match_parent"

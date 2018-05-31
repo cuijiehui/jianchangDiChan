@@ -1,31 +1,6 @@
-package com.cui.android.jianchengdichan.view.ui.beans;
+package com.cui.android.jianchengdichan.http.bean;
 
-import java.io.Serializable;
-
-/**
- * Created by Android on 2017/7/18.
- */
-
-public class LeaseRoomBean implements Serializable {
-
-
-    public LeaseRoomBean() {
-    }
-
-    public LeaseRoomBean(String id, String title, String pic, String address, String house_type, String rental, String acreage, String orientations, String decoration, String charge_pay, String mobile, String contact) {
-        this.id = id;
-        this.title = title;
-        this.pic = pic;
-        this.address = address;
-        this.house_type = house_type;
-        this.rental = rental;
-        this.acreage = acreage;
-        this.orientations = orientations;
-        this.decoration = decoration;
-        this.charge_pay = charge_pay;
-        this.mobile = mobile;
-        this.contact = contact;
-    }
+public class LeaseRoomBean {
 
     /**
      * id : 1
@@ -149,5 +124,23 @@ public class LeaseRoomBean implements Serializable {
 
     public void setContact(String contact) {
         this.contact = contact;
+    }
+
+    @Override
+    public String toString() {
+        return "LeaseRoomBean{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", pic='" + pic + '\'' +
+                ", address='" + address + '\'' +
+                ", house_type='" + house_type + '\'' +
+                ", rental='" + rental + '\'' +
+                ", acreage='" + acreage + '\'' +
+                ", orientations='" + orientations + '\'' +
+                ", decoration='" + decoration + '\'' +
+                ", charge_pay='" + charge_pay + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", contact='" + contact + '\'' +
+                '}';
     }
 }

@@ -1,12 +1,14 @@
 package com.cui.android.jianchengdichan.http.bean;
 
-public class PayRecordsBean {
+import java.io.Serializable;
+
+public class PayRecordsBean implements Serializable{
 
     /**
      * id : 3
      * instruct : 2018年4月份水费。
      * sum : 6.00
-     * pay_status : 1
+     * pay_status : 1 1没有缴费 2已经缴费
      * cate : 水费
      * price : 1.00元每吨
      * num : 6

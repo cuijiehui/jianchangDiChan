@@ -13,6 +13,20 @@ public class Token {
     public static final String API_CATES_DATA = PACKAGE_NAME + "CatesModel";
     public static final String API_CHARGE_CATES_DATA = PACKAGE_NAME + "ChargeCateModel";
     public static final String API_CHARGE_RECORD_DATA = PACKAGE_NAME + "ChargeRecordModel";
+    public static final String API_FEEDBACK = PACKAGE_NAME + "FeedbackModel";
+    public static final String API_FEEDBACK_HISTORY = PACKAGE_NAME + "HistoryDataModel";
+    public static final String API_DEL_FEEDBACK_HISTORY = PACKAGE_NAME + "DELHistoryDataModel";
+    public static final String API_CITY_LIST = PACKAGE_NAME + "CityListModel";
+    public static final String API_RENT_LIST = PACKAGE_NAME + "RentListModel";
+    public static final String API_RENT_DEATAIL= PACKAGE_NAME + "RentDetailModel";
+    public static final String API_UPLODE_IMG= PACKAGE_NAME + "UplodeImgModel";
+    public static final String API_WE_CHAT_IMG= PACKAGE_NAME + "WeChatPayModel";
+    public static final String API_ALI_PAY_IMG= PACKAGE_NAME + "AliPayModel";
+    public static final String API_USER_ENTRANCE_IMG= PACKAGE_NAME + "UserEntranceModel";
+    public static final String API_USER_COMMUNITY_IMG= PACKAGE_NAME + "UserCommunityModel";
+    public static final String API_COMMUNITY_LIST= PACKAGE_NAME + "CommunityListModel";
+    public static final String API_PROPERTY_LIST= PACKAGE_NAME + "PropertyListModel";
+    public static final String API_UNIT_LIST= PACKAGE_NAME + "UnitListModel";
 
 
 }

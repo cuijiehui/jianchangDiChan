@@ -17,12 +17,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.CityListBean;
+import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
-import com.cui.android.jianchengdichan.presenter.LoginPresenter;
+import com.cui.android.jianchengdichan.presenter.LeaseCentrePresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.SPKey;
+import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.view.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.LeaseAdapter;
-import com.cui.android.jianchengdichan.view.ui.beans.LeaseRoomBean;
 import com.cui.android.jianchengdichan.view.ui.customview.ChildCommunityBean;
 import com.cui.android.jianchengdichan.view.ui.customview.ChooseAreaPop;
 import com.cui.android.jianchengdichan.view.ui.customview.LeaseMorePop;
@@ -40,11 +43,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LeaseCentreActivity extends BaseActivtity implements AdapterView.OnItemSelectedListener {
-    LoginPresenter loginPresenter;
     @BindView(R.id.tv_content_name)
     TextView tvContentName;
     @BindView(R.id.top_back)
-    ImageView topBack;
+    RelativeLayout topBack;
     @BindView(R.id.tv_address)
     TextView tvAddress;
     @BindView(R.id.iv_address_index)
@@ -77,6 +79,10 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
     LinearLayout linLeaseMore;
     @BindView(R.id.rc_lease)
     RecyclerView rcLease;
+    @BindView(R.id.tv_top_right)
+    TextView tvTopRight;
+    @BindView(R.id.iv_top_right)
+    ImageView ivTopRight;
 
 
     private ChooseAreaPop chooseAreaPop;
@@ -88,16 +94,18 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
     private List<ChildCommunityBean> allList = new ArrayList<>();
     private List<LeaseRoomBean> leaseRoomBeans = new ArrayList<LeaseRoomBean>();
 
-    private LeaseAdapter leaseAdapter ;
+    private LeaseAdapter leaseAdapter;
+    LeaseCentrePresenter mLeaseCentrePresenter;
 
     private boolean isClickArea = false;
     private boolean isClickRent = false;
     private boolean isClickUnit = false;
     private boolean isClickMore = false;
+
     @Override
     public BasePresenter initPresenter() {
-        loginPresenter = new LoginPresenter();
-        return loginPresenter;
+        mLeaseCentrePresenter = new LeaseCentrePresenter();
+        return mLeaseCentrePresenter;
     }
 
     @Override
@@ -113,18 +121,14 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
     @Override
     public void initView(View view) {
         tvContentName.setText("租贷中心");
-        allList.add(new ChildCommunityBean("0","天河区"));
-        allList.add(new ChildCommunityBean("1","白云区"));
-        allList.add(new ChildCommunityBean("2","番禺区"));
-        allList.add(new ChildCommunityBean("3","萝岗区"));
-        allList.add(new ChildCommunityBean("4","花都区"));
-        allList.add(new ChildCommunityBean("5","越秀区"));
-        initRcLease();
+        tvTopRight.setText("发布");
+        tvTopRight.setVisibility(View.VISIBLE);
+//        initRcLease();
     }
 
     private void initRcLease() {
         rcLease.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        leaseAdapter = new LeaseAdapter(leaseRoomBeans , this);
+        leaseAdapter = new LeaseAdapter(leaseRoomBeans, this);
 
         rcLease.setAdapter(leaseAdapter);
 
@@ -153,12 +157,10 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
 
     @Override
     public void doBusiness(Context mContext) {
-
-    }
-
-    @Override
-    public void widgetClick(View v) {
-
+        mLeaseCentrePresenter.getCityList(chooseCity);
+        int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
+        String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
+        mLeaseCentrePresenter.getRentList(uid, token, chooseCity, 0, null);
     }
 
     @Override
@@ -168,9 +170,15 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
     }
 
     @Override
+    public View initBack() {
+        return topBack;
+    }
+
+    @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
     IdentityResultListener listener = new IdentityResultListener() {
         @Override
         public void identityResult(String identity) {
@@ -185,7 +193,7 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
 
     private void showPop() {
         if (chooseAreaPop == null) {
-            chooseAreaPop = new ChooseAreaPop(this, chooseCity ,allList, listener);
+            chooseAreaPop = new ChooseAreaPop(this, chooseCity, allList, listener);
             chooseAreaPop.setOnDismissListener(dismissListener);
         }
 
@@ -196,10 +204,11 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
             chooseAreaPop.dismiss();
         }
     }
-    private void showRentPop(){
+
+    private void showRentPop() {
 
         if (leaseRentPop == null) {
-            leaseRentPop = new LeaseRentPop(this , returnPriceListener);
+            leaseRentPop = new LeaseRentPop(this, returnPriceListener);
             leaseRentPop.setOnDismissListener(dismissListener);
         }
 
@@ -210,10 +219,11 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
             leaseRentPop.dismiss();
         }
     }
-    private void showUnitPop(){
+
+    private void showUnitPop() {
 
         if (leaseUnitPop == null) {
-            leaseUnitPop = new LeaseUnitPop(this , listener2);
+            leaseUnitPop = new LeaseUnitPop(this, listener2);
             leaseUnitPop.setOnDismissListener(dismissListener);
         }
 
@@ -224,9 +234,10 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
             leaseUnitPop.dismiss();
         }
     }
-    private void showMorePop(){
+
+    private void showMorePop() {
         if (leaseMorePop == null) {
-            leaseMorePop = new LeaseMorePop(this , moreListener);
+            leaseMorePop = new LeaseMorePop(this, moreListener);
             leaseMorePop.setOnDismissListener(dismissListener);
         }
 
@@ -237,6 +248,7 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
             leaseMorePop.dismiss();
         }
     }
+
     ReturnMoreListener moreListener = new ReturnMoreListener() {
         @Override
         public void returnPrice(String orientations, String rent_type, String charge_pay) {
@@ -251,7 +263,7 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
 //            initData(page , leaseScreenBean);
 
         }
-    } ;
+    };
     IdentityResultListener listener2 = new IdentityResultListener() {
         @Override
         public void identityResult(String identity) {
@@ -281,36 +293,43 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
             LogUtils.i("---------------------------------------------");
         }
     };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK){
-            if (data != null){
-//                chooseCity = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
+        LogUtils.i("resultCode=" + resultCode);
+        LogUtils.i("requestCode=" + requestCode);
+        if (requestCode == REQUEST_CODE_PICK_CITY && resultCode == RESULT_OK) {
+            if (data != null) {
+                chooseCity = data.getStringExtra(CityPickerActivity.KEY_PICKED_CITY);
                 tvAddress.setText(chooseCity);
+                mLeaseCentrePresenter.getCityList(chooseCity);
+
             }
         }
     }
 
-    @OnClick({R.id.top_back, R.id.ll_choose_address, R.id.lin_choose_area, R.id.lin_lease_rent, R.id.lin_lease_unit, R.id.lin_lease_more})
+    @OnClick({R.id.top_back, R.id.ll_choose_address, R.id.lin_choose_area, R.id.lin_lease_rent, R.id.lin_lease_unit,R.id.tv_top_right, R.id.lin_lease_more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.top_back:
                 break;
+            case R.id.tv_top_right:
+                startActivity(ReleaseRentActivity.class);
+                break;
             case R.id.ll_choose_address:
 
-//                Intent intent = new Intent(LeaseActivity.this , CityPickerActivity.class);
-//                //startActivity(intent);
-//                startActivityForResult(intent , REQUEST_CODE_PICK_CITY);
+                Intent intent = new Intent(LeaseCentreActivity.this, CityPickerActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_PICK_CITY);
 
                 break;
             case R.id.lin_choose_area:
                 //区域
                 showPop();
 
-                if (isClickArea){
+                if (isClickArea) {
                     tvChooseArea.setTextColor(Color.parseColor("#666666"));
                     isClickArea = false;
-                }else{
+                } else {
                     tvChooseArea.setTextColor(Color.parseColor("#ea5205"));
                     isClickArea = true;
                 }
@@ -324,15 +343,15 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
                 isClickMore = false;
 
 
-                if (leaseRentPop != null &&leaseRentPop.isShowing()){
+                if (leaseRentPop != null && leaseRentPop.isShowing()) {
                     leaseRentPop.dismiss();
                 }
 
-                if (leaseUnitPop != null &&leaseUnitPop.isShowing()){
+                if (leaseUnitPop != null && leaseUnitPop.isShowing()) {
                     leaseUnitPop.dismiss();
                 }
 
-                if (leaseMorePop != null &&leaseMorePop.isShowing()){
+                if (leaseMorePop != null && leaseMorePop.isShowing()) {
                     leaseMorePop.dismiss();
                 }
 
@@ -340,10 +359,10 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
             case R.id.lin_lease_rent:
                 showRentPop();
 
-                if (isClickRent){
+                if (isClickRent) {
                     tvLeaseRent.setTextColor(Color.parseColor("#666666"));
                     isClickRent = false;
-                }else{
+                } else {
                     tvLeaseRent.setTextColor(Color.parseColor("#ea5205"));
                     isClickRent = true;
                 }
@@ -359,15 +378,15 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
                 isClickMore = false;
 
 
-                if (chooseAreaPop != null && chooseAreaPop.isShowing()){
+                if (chooseAreaPop != null && chooseAreaPop.isShowing()) {
                     chooseAreaPop.dismiss();
                 }
 
-                if (leaseUnitPop != null && leaseUnitPop.isShowing()){
+                if (leaseUnitPop != null && leaseUnitPop.isShowing()) {
                     leaseUnitPop.dismiss();
                 }
 
-                if (leaseMorePop != null && leaseMorePop.isShowing()){
+                if (leaseMorePop != null && leaseMorePop.isShowing()) {
                     leaseMorePop.dismiss();
                 }
 
@@ -375,10 +394,10 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
             case R.id.lin_lease_unit:
                 showUnitPop();
 
-                if (isClickUnit){
+                if (isClickUnit) {
                     tvLeaseUnit.setTextColor(Color.parseColor("#666666"));
                     isClickUnit = false;
-                }else{
+                } else {
                     tvLeaseUnit.setTextColor(Color.parseColor("#ea5205"));
                     isClickUnit = true;
                 }
@@ -394,15 +413,15 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
                 isClickMore = false;
 
 
-                if (chooseAreaPop != null && chooseAreaPop.isShowing()){
+                if (chooseAreaPop != null && chooseAreaPop.isShowing()) {
                     chooseAreaPop.dismiss();
                 }
 
-                if (leaseRentPop != null && leaseRentPop.isShowing()){
+                if (leaseRentPop != null && leaseRentPop.isShowing()) {
                     leaseRentPop.dismiss();
                 }
 
-                if (leaseMorePop != null && leaseMorePop.isShowing()){
+                if (leaseMorePop != null && leaseMorePop.isShowing()) {
                     leaseMorePop.dismiss();
                 }
 
@@ -411,10 +430,10 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
             case R.id.lin_lease_more:
                 showMorePop();
 
-                if (isClickMore){
+                if (isClickMore) {
                     tvLeaseMore.setTextColor(Color.parseColor("#666666"));
                     isClickMore = false;
-                }else{
+                } else {
                     tvLeaseMore.setTextColor(Color.parseColor("#ea5205"));
                     isClickMore = true;
                 }
@@ -429,19 +448,42 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
                 isClickUnit = false;
                 //isClickMore = false;
 
-                if (chooseAreaPop != null && chooseAreaPop.isShowing()){
+                if (chooseAreaPop != null && chooseAreaPop.isShowing()) {
                     chooseAreaPop.dismiss();
                 }
 
-                if (leaseRentPop != null && leaseRentPop.isShowing()){
+                if (leaseRentPop != null && leaseRentPop.isShowing()) {
                     leaseRentPop.dismiss();
                 }
 
-                if (leaseUnitPop != null && leaseUnitPop.isShowing()){
+                if (leaseUnitPop != null && leaseUnitPop.isShowing()) {
                     leaseUnitPop.dismiss();
                 }
 
                 break;
         }
+    }
+
+    public void getCityList(List<CityListBean> data) {
+        allList.clear();
+        for (CityListBean cityListBean : data) {
+            allList.add(new ChildCommunityBean(cityListBean.getId(), cityListBean.getArea()));
+        }
+    }
+
+
+    public void getRentList(List<LeaseRoomBean> data) {
+        leaseRoomBeans.clear();
+        if (data != null) {
+            leaseRoomBeans.addAll(data);
+        }
+        initRcLease();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

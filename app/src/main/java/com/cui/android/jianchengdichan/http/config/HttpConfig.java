@@ -6,7 +6,7 @@ package com.cui.android.jianchengdichan.http.config;
  * @description 关于网络的配置
  */
 public class HttpConfig {
-    public static int HTTP_TIME=30000;
-    public static String BASE_URL = "http://jc.szshide.cn/";
+    public static int HTTP_TIME = 30000;
+    public static String BASE_URL = "http://jc.szshide.cn:8888/";
 
 }

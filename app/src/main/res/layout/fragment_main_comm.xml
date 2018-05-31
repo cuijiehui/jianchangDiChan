@@ -1,14 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ui.Fragment.MainCommFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <!-- 头部-->
+    <RelativeLayout
+        android:id="@+id/rl_comm_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_top_col">
+
+        <TextView
+            android:id="@+id/tv_comm_top_qrcode"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginLeft="20dp"
+            android:text="定位"
+            android:clickable="true"
+            android:textColor="@color/white"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginTop="8dp"
+            android:layout_centerInParent="true"
+            >
+
+            <EditText
+                android:id="@+id/et_comm_top_seek"
+                android:layout_width="279dp"
+                android:layout_height="20dp"
+                android:background="@color/white"
+                android:hint="商品名称"
+                android:textColorHint="@color/main_seek_text_col"
+                android:layout_centerVertical="true"
+                android:textSize="15px"
+                />
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_comm_top_add"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/main_add_button"
+            android:clickable="true" />
+    </RelativeLayout>
+    <!--主页内容-->
+    <!--下拉刷新-->
+    <com.cui.android.jianchengdichan.view.ui.customview.RefreshableView
+        android:id="@+id/rv_comm_refreshable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="maincomm" />
+        android:layout_below="@+id/rl_main_top"
+        android:layout_marginBottom="49dp">
 
-</FrameLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--轮播图-->
+                <com.youth.banner.Banner
+                    android:id="@+id/bn_main_comm_adv"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+                <!--最新公告-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="51dp"
+                    android:layout_marginTop="13dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginTop="9dp"
+                        android:background="@drawable/main_new_notice" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:orientation="vertical">
+
+                        <TextSwitcher
+                            android:id="@+id/tv_main_comm_notice_new"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="#建设智慧社区门户网站将在月底开……# "
+                            android:textSize="16sp" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/main_parting_line" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_comm_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="232dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/main_parting_line" />
+                <ImageView
+                    android:id="@+id/iv_comm_con"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/splash_bg"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:background="@drawable/main_parting_line" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_comm"
+                    android:layout_width="match_parent"
+                    android:layout_height="232dp"/>
+            </LinearLayout>
+        </ScrollView>
+
+    </com.cui.android.jianchengdichan.view.ui.customview.RefreshableView>
+</RelativeLayout>

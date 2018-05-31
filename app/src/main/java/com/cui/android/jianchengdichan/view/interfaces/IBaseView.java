@@ -25,5 +25,15 @@ public interface IBaseView {
      * @return 上下文
      */
     Context getContext();
+    /**
+     * 访问网络失败
+     * @param msg
+     */
+      void onFailure(String msg) ;
+
+    /**
+     * 访问网络异常
+     */
+      void onError() ;
 
 }

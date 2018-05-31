@@ -30,7 +30,7 @@ import butterknife.OnClick;
 public class PayMentRecordActivity extends BaseActivtity {
 
     @BindView(R.id.top_back)
-    ImageView topBack;
+    RelativeLayout topBack;
     @BindView(R.id.tv_content_name)
     TextView tvContentName;
     @BindView(R.id.tv_top_right)
@@ -104,6 +104,7 @@ public class PayMentRecordActivity extends BaseActivtity {
     @Override
     public void initView(View view) {
 //        initRecyclerView();
+        tvContentName.setText("缴费记录");
     }
 
     @Override
@@ -114,11 +115,9 @@ public class PayMentRecordActivity extends BaseActivtity {
     }
 
     @Override
-    public void widgetClick(View v) {
-
+    public View initBack() {
+        return topBack;
     }
-
-
 
 
     @OnClick({R.id.top_back, R.id.lin_all, R.id.lin_has_pay, R.id.lin_pay_no})
@@ -193,7 +192,7 @@ public class PayMentRecordActivity extends BaseActivtity {
     private void initRecyclerView() {
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
         rvPayData.setLayoutManager(layoutManager1);
-        mainRvYouLikeAdapter = new PayMentRecordAdapter(showDataList);
+        mainRvYouLikeAdapter = new PayMentRecordAdapter(showDataList,mContext);
         rvPayData.setAdapter(mainRvYouLikeAdapter);
     }
 }

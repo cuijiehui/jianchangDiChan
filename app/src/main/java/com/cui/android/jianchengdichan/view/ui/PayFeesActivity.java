@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
@@ -30,7 +31,7 @@ import butterknife.OnClick;
 
 public class PayFeesActivity extends BaseActivtity {
     @BindView(R.id.top_back)
-    ImageView topBack;
+    RelativeLayout topBack;
     @BindView(R.id.tv_content_name)
     TextView tvContentName;
     @BindView(R.id.tv_top_right)
@@ -86,10 +87,9 @@ public class PayFeesActivity extends BaseActivtity {
     }
 
     @Override
-    public void widgetClick(View v) {
-
+    public View initBack() {
+        return topBack;
     }
-
 
 
     @OnClick({R.id.top_back, R.id.tv_top_right})

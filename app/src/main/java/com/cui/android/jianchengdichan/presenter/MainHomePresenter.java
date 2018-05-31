@@ -27,12 +27,12 @@ public class MainHomePresenter extends BasePresenter<MainHomeFragment> {
 
                     @Override
                     public void onFailure(String msg) {
-                        getView().showView(msg,-200);
+                        getView().onFailure(msg);
                     }
 
                     @Override
                     public void onError() {
-                        getView().showView("",-200);
+                        getView().onError();
                     }
 
                     @Override

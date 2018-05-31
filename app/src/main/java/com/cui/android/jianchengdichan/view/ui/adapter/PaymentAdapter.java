@@ -3,6 +3,7 @@ package com.cui.android.jianchengdichan.view.ui.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.database.DataSetObserver;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.view.ui.PayingActivity;
+import com.cui.android.jianchengdichan.view.ui.beans.PayingBean;
 
 import java.util.List;
 
@@ -125,15 +128,22 @@ public class PaymentAdapter implements ExpandableListAdapter {
         childViewHodler.tv_instruct.setText(bean.getCreate_time());
         childViewHodler.tv_sum.setText("¥" + bean.getSum());
         childViewHodler.tv_num.setText(bean.getNum() + "");
-
+        final PayingBean payingBean = new PayingBean(bean.getId()
+                ,"path"
+                ,"广州寰城海航广场"
+                ,bean.getCreate_time()
+                ,bean.getNum()
+                ,bean.getSum());
         childViewHodler.tv_go_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogUtils.i("-------------------" + bean.getId());
-//                Intent intent = new Intent(context , CommunityPayAct.class);
-//                intent.putExtra("bean" , bean);
-//                intent.putExtra("typeName" , groupList.get(groupPosition));
-//                context.startActivity(intent);
+                LogUtils.i("-------------------" + payingBean.toString());
+                Intent intent = new Intent(context , PayingActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("bean" , payingBean);
+                bundle.putString( "typeName" , groupList.get(groupPosition));
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         });
         return convertView;

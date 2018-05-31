@@ -430,6 +430,18 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
 
     }
 
+    @Override
+    public void onFailure(String msg) {
+        showToast("网络异常，请稍后重试");
+
+    }
+
+    @Override
+    public void onError() {
+        showToast("网络异常，请稍后重试");
+
+    }
+
     private void initNotice() {
         tvMainNoticeNew1.setText(noticeList.get(0));
     }

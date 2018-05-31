@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="11dp"
+        android:text="房源图片"
+        android:textColor="@color/main_text_col"
+        android:textSize="11sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/main_parting_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp">
+        <ImageView
+            android:id="@+id/iv_surface_plot"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/add_pic_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="封面图(1张)"
+            android:textColor="@color/main_seek_text_col_t"
+            android:layout_below="@+id/iv_surface_plot"
+            android:layout_marginLeft="11dp"
+            android:textSize="11sp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_detailed_drawing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="11dp">
+
+        </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="细节图(2-6张)"
+            android:textColor="@color/main_seek_text_col_t"
+            android:layout_below="@+id/rv_detailed_drawing"
+            android:layout_marginLeft="11dp"
+            android:textSize="11sp"/>
+    </RelativeLayout>
+</LinearLayout>

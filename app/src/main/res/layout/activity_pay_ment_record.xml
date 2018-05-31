@@ -52,8 +52,8 @@
             >
             <TextView
                 android:id="@+id/tv_has_pay"
-                android:layout_width="100dp"
-                android:layout_height="45dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="已缴"
                 android:gravity="center"
                 android:textSize="18dp"
@@ -80,8 +80,8 @@
             <TextView
 
                 android:id="@+id/tv_pay_no"
-                android:layout_width="100dp"
-                android:layout_height="45dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:text="未缴"
                 android:gravity="center"
                 android:textSize="18dp"

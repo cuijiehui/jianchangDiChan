@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
+import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
 
 import butterknife.ButterKnife;
@@ -32,7 +33,8 @@ import io.reactivex.schedulers.Schedulers;
  * @data 2018/5/16.
  * @description activit基础类
  */
-public abstract class BaseActivtity extends FragmentActivity implements IBaseView ,View.OnClickListener {
+public abstract class BaseActivtity extends FragmentActivity implements IBaseView  {
+
 
     private ProgressDialog mProgressDialog;
     private BasePresenter<IBaseView> mPresenter;
@@ -114,6 +116,10 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
 
             initView(mContextView);
             doBusiness(this);
+            View backView =initBack();
+            if(backView!=null){
+                gotoBack(backView);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,7 +138,9 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
     }
-
+    public View getRootView(){
+        return mContextView;
+    }
     /**
      * [初始化Bundle参数]
      *
@@ -165,16 +173,10 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
      * @param mContext
      */
     public abstract void doBusiness(Context mContext);
-
-    /** View点击 **/
-    public abstract void widgetClick(View v);
-
-    @Override
-    public void onClick(View v) {
-        if (fastClick())
-            widgetClick(v);
-    }
-
+    /**
+     * 设置返回按钮
+     */
+    public abstract View initBack();
     /**
      * [页面跳转]
      *
@@ -224,7 +226,11 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
     @Override
     protected void onResume() {
         super.onResume();
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -269,19 +275,7 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
     }
 
 
-    /**
-     * [防止快速点击]
-     *
-     * @return
-     */
-    private boolean fastClick() {
-        long lastClick = 0;
-        if (System.currentTimeMillis() - lastClick <= 1000) {
-            return false;
-        }
-        lastClick = System.currentTimeMillis();
-        return true;
-    }
+
 
     public <T> ObservableTransformer<T,T> setThread(){
         return new ObservableTransformer<T,T>() {
@@ -291,5 +285,22 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
             }
         };
     }
+    @Override
+    public void onFailure(String msg) {
+        showToast("网络异常，请稍后重试");
+    }
 
+    public void gotoBack(View view){
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+    @Override
+    public void onError() {
+        showToast("网络异常，请稍后重试");
+
+    }
 }

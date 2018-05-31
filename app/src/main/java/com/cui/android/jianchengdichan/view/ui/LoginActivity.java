@@ -79,11 +79,11 @@ public class LoginActivity extends BaseActivtity {
     @Override
     public void doBusiness(Context mContext) {
     }
-
     @Override
-    public void widgetClick(View v) {
-
+    public View initBack() {
+        return null;
     }
+
 
     /**
      * 登录返回的信息

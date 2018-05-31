@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
@@ -33,7 +34,7 @@ import butterknife.OnClick;
 
 public class ForgetPwdActivity extends BaseActivtity {
     @BindView(R.id.top_back)
-    ImageView topBack;
+    RelativeLayout topBack;
     @BindView(R.id.tv_content_name)
     TextView tvContentName;
     @BindView(R.id.tv_top_right)
@@ -92,9 +93,10 @@ public class ForgetPwdActivity extends BaseActivtity {
     }
 
     @Override
-    public void widgetClick(View v) {
-
+    public View initBack() {
+        return topBack;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

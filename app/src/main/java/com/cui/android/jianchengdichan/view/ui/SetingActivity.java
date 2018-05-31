@@ -21,7 +21,7 @@ public class SetingActivity extends BaseActivtity {
 
     LoginPresenter mLoginPresenter;
     @BindView(R.id.top_back)
-    ImageView topBack;
+    RelativeLayout topBack;
     @BindView(R.id.tv_content_name)
     TextView tvContentName;
     @BindView(R.id.tv_top_right)
@@ -65,8 +65,8 @@ public class SetingActivity extends BaseActivtity {
     }
 
     @Override
-    public void widgetClick(View v) {
-
+    public View initBack() {
+        return topBack;
     }
 
     @Override

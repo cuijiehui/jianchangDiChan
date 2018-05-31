@@ -57,7 +57,8 @@ public class SplashActivity extends BaseActivtity {
     }
 
     @Override
-    public void widgetClick(View v) {
+    public View initBack() {
+        return null;
     }
 
 

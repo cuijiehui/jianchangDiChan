@@ -10,6 +10,7 @@
     <color name="app_bottom_color">#ea5205</color>
     <color name="main_top_col">#0095D9</color>
     <color name="main_seek_text_col">#999999</color>
+    <color name="main_seek_text_col_t">#99999999</color>
     <color name="main_text_col">#333333</color>
     <color name="main_recycler_item_bak">#55000000</color>
     <color name="main_flash_sale_back">#FF5B63</color>
@@ -22,5 +23,11 @@
     <color name="cp_gray">#8c8c8c</color>
     <color name="cp_alpha_gray">#CC646464</color>
     <color name="cp_gray_deep">#5c5c5c</color>
+    <color name="cp_divider">#E5E5E5</color>
+    <color name="cp_content_bg">#F3F3F3</color>
+    <color name="rent_leave_msg_col">#78C363</color>
+    <color name="rent_recommend_col">#6A5BFF</color>
+    <color name="rent_call_text_col">#440095D9</color>
+    <color name="color_gray">#E1E6E5</color>
 
 </resources>

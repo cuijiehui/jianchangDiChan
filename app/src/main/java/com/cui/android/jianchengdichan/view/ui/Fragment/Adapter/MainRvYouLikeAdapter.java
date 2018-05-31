@@ -29,7 +29,8 @@ public class MainRvYouLikeAdapter extends RecyclerView.Adapter<MainRvYouLikeAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ViewHolder viewHolder = new ViewHolder( LayoutInflater.from(parent.getContext()).inflate(R.layout.item_you_like_layout,parent,false));
+        ViewHolder viewHolder = new ViewHolder( LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_you_like_layout,parent,false));
         return viewHolder;
     }
 

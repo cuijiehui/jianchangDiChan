@@ -1,6 +1,8 @@
 package com.cui.android.jianchengdichan.view.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -10,8 +12,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
-import com.cui.android.jianchengdichan.view.ui.beans.LeaseRoomBean;
+import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
+import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.view.ui.RentDatailActivity;
 
 import java.util.List;
 
@@ -41,8 +47,9 @@ public class LeaseAdapter extends RecyclerView.Adapter<LeaseAdapter.ViewHodler>{
     public void onBindViewHolder(ViewHodler holder, int position) {
 
         final LeaseRoomBean bean = list.get(position);
-
+        LogUtils.i("LeaseRoomBean="+bean.toString());
 //        ImagerLoaderUtil.displayImage(bean.getPic() , holder.iv_room_pic);
+        Glide.with(MyApplication.getAppContext()).load(bean.getPic()).into(holder.iv_room_pic);
         holder.tv_room_name.setText(bean.getTitle());
         holder.tv_room_address.setText(bean.getAddress());
         holder.tv_room_price.setText("¥" + bean.getRental() + "/月");
@@ -59,9 +66,11 @@ public class LeaseAdapter extends RecyclerView.Adapter<LeaseAdapter.ViewHodler>{
         holder.rel_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(context , LeaseDetailAct.class);
-//                intent.putExtra("bean" , bean);
-//                context.startActivity(intent);
+                Intent intent = new Intent(context , RentDatailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",bean.getId());
+                intent.putExtras(bundle);
+                context.startActivity(intent);
             }
         });
 
