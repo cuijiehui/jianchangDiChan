@@ -9,9 +9,9 @@ public interface URLConfig {
     String baidu_url="s";
     String login_token_url="获取新token的地址";
     String GET_FULLPAGE_ADS_URL="adlist_large";
-    String POST_LOGIN_URL="/api/Login/doLogin";//登录
-    String POST_REGISTER_URL="/api/Login/register";//注册
-    String POST_GET_TOKEN_URL="/api/System/getServerInfo";//获取token
+    String POST_LOGIN_URL="/api/Login/doLogin";                                                     //登录
+    String POST_REGISTER_URL="/api/Login/register";                                                 //注册
+    String POST_GET_TOKEN_URL="/api/System/getServerInfo";                                          //获取token
     String POST_FORGET_PWD_URL="/api/Pwd/setPwd";//忘记密码
     String POST_REGISTER_CODE_URL="app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=account.apiVerifycode2";//获取验证码
     String POST_HOME_DATA_URL = "/api/Home/homeData";//获取主页信息
@@ -32,6 +32,12 @@ public interface URLConfig {
     String POSTH_COMMUNITY_LIST_URL ="/api/Area/getCommunityList";//获取社区楼栋列表接口
     String POSTH_UNIT_LIST_URL ="/api/Area/getUnitList";//获取社区楼栋列表接口
     String POSTH_PROPERTY_LIST_URL ="/api/Area/getPropertyList";//获取社区楼栋列表接口
+    String POSTH_USER_INFO_URL ="/api/Appuser/setUserInfo";//个人信息维护接口
+    String POSTH_REPAIR_INFO_URL ="/api/Repair/submitRepairInfo";//提交报修信息接口
+    String POSTH_REPAIR_INFO_LIST_URL ="/api/Repair/getRepairInfoList";//获取报修信息列表接口
+    String POSTH_REPAIR_RENT_INFO_URL ="/api/Rent/publishRentInfo";//获取报修信息列表接口
+    String POSTH_REPAIR_MY_APPLY_URL ="/api/Rent/myRentInfo";//我的发布历史接口
+    String POSTH_REPAIR_DEL_RENTINFO_URL ="/api/Rent/delRentInfo";//租赁信息删除接口
 
 
 }

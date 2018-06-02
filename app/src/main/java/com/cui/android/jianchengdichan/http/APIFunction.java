@@ -1,7 +1,8 @@
 package com.cui.android.jianchengdichan.http;
 
+import com.cui.android.jianchengdichan.http.base.BasesBean;
 import com.cui.android.jianchengdichan.http.bean.AliPayBean;
-import com.cui.android.jianchengdichan.http.bean.BaseBean;
+import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.CatesBean;
 import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
 import com.cui.android.jianchengdichan.http.bean.CityListBean;
@@ -10,10 +11,11 @@ import com.cui.android.jianchengdichan.http.bean.HistoryDataBean;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
 import com.cui.android.jianchengdichan.http.bean.LoginBean;
+import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.http.bean.PayRecordsBean;
 import com.cui.android.jianchengdichan.http.bean.RentDetailBean;
+import com.cui.android.jianchengdichan.http.bean.RepairsBean;
 import com.cui.android.jianchengdichan.http.bean.SplashAdvBean;
-import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
 import com.cui.android.jianchengdichan.http.bean.UserCommunityBean;
 import com.cui.android.jianchengdichan.http.bean.UserEntranceBean;
 import com.cui.android.jianchengdichan.http.bean.WeChatPayBean;
@@ -23,13 +25,10 @@ import com.cui.android.jianchengdichan.view.ui.customview.ChildCommunityBean;
 import java.util.List;
 
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 
 /**
  * @author CUI
@@ -99,11 +98,22 @@ public interface APIFunction {
 
     @POST(URLConfig.POSTH_PROPERTY_LIST_URL)
     Observable<BaseBean<List<ChildCommunityBean>>> getPropertyList(@Body RequestBody route);
-    /**
-     * 上传图片
-     */
-    @Multipart
-    @POST(URLConfig.POSTH_UPLOAD_IMG_URL)
-    Observable<BaseBean<List<UplodeImgBean>>> uploadImg(@Part("json") RequestBody route,@Part MultipartBody.Part partList);
+    @POST(URLConfig.POSTH_USER_INFO_URL)
+    Observable<BasesBean> setUserInfo(@Body RequestBody route);
 
+    @POST(URLConfig.POSTH_REPAIR_INFO_URL)
+    Observable<BasesBean> submitRepairInfo(@Body RequestBody route);
+
+
+    @POST(URLConfig.POSTH_REPAIR_INFO_LIST_URL)
+    Observable<BaseBean<List<RepairsBean>>> getRepairInfoList(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_REPAIR_RENT_INFO_URL)
+    Observable<BasesBean> publishRentInfo(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_REPAIR_DEL_RENTINFO_URL)
+    Observable<BasesBean> delRentInfo(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_REPAIR_MY_APPLY_URL)
+    Observable<BaseBean<List<MyApplyBean>>> myApply(@Body RequestBody route);
 }

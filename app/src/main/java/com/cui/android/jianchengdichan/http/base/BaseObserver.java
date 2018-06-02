@@ -3,7 +3,6 @@ package com.cui.android.jianchengdichan.http.base;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 
-import com.cui.android.jianchengdichan.http.bean.BaseBean;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.ProgressDialog;
 

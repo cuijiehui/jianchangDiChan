@@ -135,6 +135,7 @@
                         android:textSize="16sp" />
 
                     <TextView
+                        android:id="@+id/tv_rent_more"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -231,7 +232,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@drawable/imaginary_line" />
+                    android:background="@drawable/main_parting_line" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"

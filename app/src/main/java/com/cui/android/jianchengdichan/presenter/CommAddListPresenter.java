@@ -1,6 +1,6 @@
 package com.cui.android.jianchengdichan.presenter;
 
-import com.cui.android.jianchengdichan.http.bean.BaseBean;
+import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.UserEntranceBean;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
@@ -20,7 +20,7 @@ public class CommAddListPresenter extends BasePresenter<CommAddListAtivity> {
         String json =jsonObject.toString();
         LogUtils.i("json=()"+json);
         DataModel.request(Token.API_USER_ENTRANCE_IMG)
-                .params()
+                .params(json)
                 .execute(new CallBack<BaseBean<List<UserEntranceBean>>>() {
                     @Override
                     public void onSuccess(BaseBean<List<UserEntranceBean>> data) {

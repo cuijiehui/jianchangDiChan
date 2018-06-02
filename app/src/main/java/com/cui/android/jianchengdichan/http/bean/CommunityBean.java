@@ -9,7 +9,7 @@ public class CommunityBean implements Serializable {
 
     private String id;
     private String name;
-    private List<ChildCommunityBean> list;
+    private List<ChildCommunityBean> child;
 
     public String getId() {
         return id;
@@ -28,11 +28,11 @@ public class CommunityBean implements Serializable {
     }
 
     public List<ChildCommunityBean> getList() {
-        return list;
+        return child;
     }
 
     public void setList(List<ChildCommunityBean> list) {
-        this.list = list;
+        this.child = list;
     }
 
 }

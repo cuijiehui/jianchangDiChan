@@ -287,7 +287,7 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
     }
     @Override
     public void onFailure(String msg) {
-        showToast("网络异常，请稍后重试");
+        showToast(msg);
     }
 
     public void gotoBack(View view){

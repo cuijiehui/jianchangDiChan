@@ -3,9 +3,8 @@ package com.cui.android.jianchengdichan.model.model;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.http.RetrofitFactory;
 import com.cui.android.jianchengdichan.http.base.BaseObserver;
-import com.cui.android.jianchengdichan.http.bean.BaseBean;
+import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.HistoryDataBean;
-import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.model.base.BaseModel;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,11 +18,18 @@ import com.cui.android.jianchengdichan.http.bean.CommunityBean;
 import com.cui.android.jianchengdichan.http.bean.UserCommunityBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.InCommunityPresenter;
+import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.SPKey;
+import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.customview.ChildCommunityBean;
+import com.cui.android.jianchengdichan.view.ui.customview.ChooseCodePop;
 import com.cui.android.jianchengdichan.view.ui.customview.ChooseComPop;
+import com.cui.android.jianchengdichan.view.ui.customview.ChooseIdentityPop;
+import com.cui.android.jianchengdichan.view.ui.customview.interfaces.CodeResultListener;
 import com.cui.android.jianchengdichan.view.ui.customview.interfaces.ComResultListener;
+import com.cui.android.jianchengdichan.view.ui.customview.interfaces.IdentityResultListener;
 
 import java.util.List;
 
@@ -64,7 +72,17 @@ public class InCommunityActivity extends BaseActivtity {
     RelativeLayout relCommunityCode;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.lin_bg)
+    LinearLayout linBg;
     private ChooseComPop chooseComPop;
+    private String communityName;
+    private String unit_id;
+    private String codeId;
+    private String community_id;
+    private ChooseCodePop codePop;
+    private String userName;
+    private ChooseIdentityPop identityPop;
+    private String identity;
 
     @Override
     public BasePresenter initPresenter() {
@@ -74,7 +92,6 @@ public class InCommunityActivity extends BaseActivtity {
 
     @Override
     public void initParms(Bundle parms) {
-
     }
 
     @Override
@@ -84,6 +101,7 @@ public class InCommunityActivity extends BaseActivtity {
 
     @Override
     public void initView(View view) {
+        tvContentName.setText("入驻申请");
 
     }
 
@@ -99,25 +117,19 @@ public class InCommunityActivity extends BaseActivtity {
 
 
     public void getUserEnterance(UserCommunityBean data) {
-        if (data.getStatus().equals("0")) {
-            ToastUtil.makeToast("成功");
-
-        } else {
-            ToastUtil.makeToast("失败");
-
-        }
+                ToastUtil.makeToast("尊敬的用户，请耐心等我们审核完毕～");
     }
 
     private void showPop() {
 
         if (chooseComPop == null) {
-            chooseComPop = new ChooseComPop(InCommunityActivity.this, comResultListener,inCommunityPresenter);
+            chooseComPop = new ChooseComPop(InCommunityActivity.this, comResultListener, inCommunityPresenter);
             chooseComPop.setOnDismissListener(dismissListener);
         }
 
         if (!chooseComPop.isShowing()) {
-//            chooseComPop.showAtLocation(lin_bg, Gravity.BOTTOM, 0, 0);
-//            chooseComPop.isShowing();
+            chooseComPop.showAtLocation(linBg, Gravity.BOTTOM, 0, 0);
+            chooseComPop.isShowing();
         } else {
             chooseComPop.dismiss();
         }
@@ -127,22 +139,22 @@ public class InCommunityActivity extends BaseActivtity {
         @Override
         public void onDismiss() {
             chooseComPop = null;
-//            codePop = null;
+            codePop = null;
 //            identityPop = null;
         }
     };
     ComResultListener comResultListener = new ComResultListener() {
         @Override
         public void resultBean(CommunityBean groupBean, ChildCommunityBean childBean) {
-//            communityName = groupBean.getName() + "," + childBean.getName();
-//            community_id = groupBean.getId();
-//            unit_id = childBean.getId();
-//            tv_community_name.setText(communityName);
+            communityName = groupBean.getName() + "/" + childBean.getName();
+            community_id = groupBean.getId();
+            unit_id = childBean.getId();
+            tvCommunityName.setText(communityName);
 //
-//            codeId = "";
-//            tv_community_code.setText("");
+            codeId = "";
+            tvCommunityCode.setText("");
 //
-//            LogUtil.i("选择地社区" + communityName);
+            LogUtils.i("选择地社区" + communityName);
         }
     };
 
@@ -151,7 +163,7 @@ public class InCommunityActivity extends BaseActivtity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ed_identity:
-//                showIdentityPop();
+                showIdentityPop();
 
                 break;
             case R.id.rel_community_name:
@@ -159,49 +171,49 @@ public class InCommunityActivity extends BaseActivtity {
 
                 break;
             case R.id.rel_community_code:
-//                if (unit_id != null) {
-//                    showPop2(unit_id);
-//                }
+                if (unit_id != null) {
+                    showPop2(unit_id);
+                }
                 break;
             case R.id.tv_submit:
 //
-//                userName = ed_name.getText().toString().trim();
+                userName = edName.getText().toString().trim();
+
+                if (TextUtils.isEmpty(userName)) {
+                    ToastUtil.makeToast("名字不能为空");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(identity)) {
+                    ToastUtil.makeToast("身份不能为空");
+                    return;
+                }
 //
-//                if (TextUtils.isEmpty(userName)) {
-//                    ToastUtil.makeToast("名字不能为空");
-//                    return;
-//                }
+                if (TextUtils.isEmpty(communityName)) {
+                    ToastUtil.makeToast("社区不能为空");
+                    return;
+                }
 //
-//                if (TextUtils.isEmpty(identity)) {
-//                    ToastUtil.makeToast("身份不能为空");
-//                    return;
-//                }
-//
-//                if (TextUtils.isEmpty(communityName)) {
-//                    ToastUtil.makeToast("社区不能为空");
-//                    return;
-//                }
-//
-//                if (TextUtils.isEmpty(codeId)) {
-//                    ToastUtil.makeToast("单元号不能为空");
-//                    return;
-//                }
+                if (TextUtils.isEmpty(codeId)) {
+                    ToastUtil.makeToast("单元号不能为空");
+                    return;
+                }
 //
 //                AuditBean auditBean = new AuditBean();
 //                auditBean.setUid(cUid);
 //                auditBean.setToken(token);
-//
-//                if (identity.equals("业主")){
-//                    auditBean.setType("1");
-//                }else if(identity.equals("家人")){
-//                    auditBean.setType("2");
-//                }else if (identity.equals("物业员工")){
-//                    auditBean.setType("3");
-//                }else if (identity.equals("物业高管")){
-//                    auditBean.setType("4");
-//                }else if (identity.equals("其他")){
-//                    auditBean.setType("5");
-//                }
+                    String type ="5";
+                if (identity.equals("业主")){
+                    type ="1";
+                }else if(identity.equals("家人")){
+                    type ="2";
+                }else if (identity.equals("物业员工")){
+                    type ="3";
+                }else if (identity.equals("物业高管")){
+                    type ="4";
+                }else if (identity.equals("其他")){
+                    type ="5";
+                }
 //
 //                auditBean.setName(userName);
 //                auditBean.setCommunity_id(community_id);
@@ -209,15 +221,78 @@ public class InCommunityActivity extends BaseActivtity {
 //                auditBean.setProperty_id(codeId);
 //
 //                auditData(auditBean);
-
+               int cUid =(int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
+               String token = (String)SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
+                inCommunityPresenter.setUserCommunity(
+                        cUid
+                        ,token
+                        ,userName
+                        ,type
+                        ,community_id
+                        ,unit_id
+                        ,codeId
+                );
                 break;
         }
     }
+    private void showIdentityPop() {
+        if (identityPop == null) {
+            identityPop = new ChooseIdentityPop(mContext, identityResultListener);
+            identityPop.setOnDismissListener(dismissListener);
+        }
 
+        if (!identityPop.isShowing()) {
+            identityPop.showAtLocation(linBg, Gravity.BOTTOM, 0, 0);
+            identityPop.isShowing();
+        } else {
+            identityPop.dismiss();
+        }
+    }
+    IdentityResultListener identityResultListener = new IdentityResultListener() {
+        @Override
+        public void identityResult(String result) {
+
+            edIdentity.setText(result);
+            identity = result;
+
+        }
+    };
+    private void showPop2(String id) {
+
+        if (codePop == null) {
+            codePop = new ChooseCodePop(mContext, id, codeResultListener,inCommunityPresenter);
+            codePop.setOnDismissListener(dismissListener);
+        }
+
+        if (!codePop.isShowing()) {
+            codePop.showAtLocation(linBg, Gravity.BOTTOM, 0, 0);
+            codePop.isShowing();
+        } else {
+            codePop.dismiss();
+        }
+
+    }
+    CodeResultListener codeResultListener = new CodeResultListener() {
+        @Override
+        public void codeBean(ChildCommunityBean bean) {
+
+            tvCommunityCode.setText(bean.getName());
+            codeId = bean.getId();
+        }
+    };
     public void getCommunityList(List<CommunityBean> data) {
         chooseComPop.getCommunityList(data);
     }
 
     public void getUnitList(List<ChildCommunityBean> data) {
+        codePop.getUnitList(data);
+    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

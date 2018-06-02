@@ -42,7 +42,8 @@
                 android:layout_toRightOf="@+id/release_money_month"
                 android:layout_toLeftOf="@+id/release_money_unit"
                 android:layout_centerVertical="true"
-                android:hint="填写建筑面积"/>
+                android:inputType="number"
+                android:hint="填写金额"/>
             <TextView
                 android:id="@+id/release_money_unit"
                 android:layout_width="wrap_content"
@@ -78,7 +79,8 @@
                 android:layout_toRightOf="@+id/release_money_real"
                 android:layout_toLeftOf="@+id/release_money_real_unit"
                 android:layout_centerVertical="true"
-                android:hint="填写建筑面积"/>
+                android:inputType="number"
+                android:hint="填写金额"/>
             <TextView
                 android:id="@+id/release_money_real_unit"
                 android:layout_width="wrap_content"

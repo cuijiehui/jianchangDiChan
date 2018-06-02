@@ -3,7 +3,7 @@ package com.cui.android.jianchengdichan.model.model;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.http.RetrofitFactory;
 import com.cui.android.jianchengdichan.http.base.BaseObserver;
-import com.cui.android.jianchengdichan.http.bean.BaseBean;
+import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.LoginBean;
 import com.cui.android.jianchengdichan.model.base.BaseModel;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
@@ -51,5 +51,7 @@ public class LoginModel  extends BaseModel<BaseBean<LoginBean>> {
         SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_COMMUNITY_ID_KEY,data.getCommunity_id());
         SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_UNIT_ID_KEY,data.getUnit_id());
         SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PROPERTY_ID_KEY,data.getProperty_id());
+        SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_NUMBER_KEY,data.getSip_number());
+        SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_PWD_KEY,data.getSip_pwd());
     }
 }

@@ -33,7 +33,7 @@ public class MainActivity extends BaseActivtity {
     @BindView(R.id.main_navigation_view)
     MainNavigationView mainNavigationView;
     @BindView(R.id.vp_main_pager)
-    ViewPager vpMainPager;
+   public ViewPager vpMainPager;
 
     private MainPagerAdapter mMainPagerAdapter;
     private List<Fragment> mDataList =new ArrayList<>();

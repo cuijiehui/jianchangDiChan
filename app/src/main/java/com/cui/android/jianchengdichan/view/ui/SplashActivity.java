@@ -14,6 +14,9 @@ import com.cui.android.jianchengdichan.presenter.SplashPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.view.BaseActivtity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 
 
@@ -38,7 +41,17 @@ public class SplashActivity extends BaseActivtity {
 
     @Override
     public void initParms(Bundle parms) {
-
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                /**
+                 *要执行的操作
+                 */
+                startActivity(MainActivity.class);
+            }
+        };
+        Timer timer = new Timer();
+        timer.schedule(task, 5000);//3秒后执行TimeTask的run方法
     }
 
     @Override
@@ -64,7 +77,7 @@ public class SplashActivity extends BaseActivtity {
 
     public void getAdvList() {
         LogUtils.i("mSplashPresenter.getAdvList()");
-        mSplashPresenter.getAdvList();
+//        mSplashPresenter.getAdvList();
 
     }
 

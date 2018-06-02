@@ -1,9 +1,8 @@
 package com.cui.android.jianchengdichan.presenter;
 
-import com.cui.android.jianchengdichan.http.bean.BaseBean;
+import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.CommunityBean;
 import com.cui.android.jianchengdichan.http.bean.UserCommunityBean;
-import com.cui.android.jianchengdichan.http.bean.UserEntranceBean;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
@@ -26,7 +25,13 @@ public class InCommunityPresenter extends BasePresenter<InCommunityActivity> {
      * @param uid
      * @param token
      */
-    public void setUserCommunity(int uid,String token,String name,String type,String community_id,String unit_id,String property_id){
+    public void setUserCommunity(int uid
+            ,String token
+            ,String name
+            ,String type
+            ,String community_id
+            ,String unit_id
+            ,String property_id){
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("uid",uid);
         jsonObject.addProperty("token",token);
@@ -38,7 +43,7 @@ public class InCommunityPresenter extends BasePresenter<InCommunityActivity> {
         String json =jsonObject.toString();
         LogUtils.i("json=()"+json);
         DataModel.request(Token.API_USER_COMMUNITY_IMG)
-                .params()
+                .params(json)
                 .execute(new CallBack<BaseBean<UserCommunityBean>>() {
                     @Override
                     public void onSuccess(BaseBean<UserCommunityBean> data) {
@@ -69,7 +74,7 @@ public class InCommunityPresenter extends BasePresenter<InCommunityActivity> {
         String json =jsonObject.toString();
         LogUtils.i("json=()"+json);
         DataModel.request(Token.API_COMMUNITY_LIST)
-                .params()
+                .params(json)
                 .execute(new CallBack<BaseBean<List<CommunityBean>>>() {
                     @Override
                     public void onSuccess(BaseBean<List<CommunityBean>> data) {
@@ -92,15 +97,15 @@ public class InCommunityPresenter extends BasePresenter<InCommunityActivity> {
                     }
                 });
     }
-    public void getUnitList(int uid,String token,String unit_id) {
+    public void getUnitList(int uid,String token,String community_id) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("uid",uid);
         jsonObject.addProperty("token",token);
-        jsonObject.addProperty("unit_id",unit_id);
+        jsonObject.addProperty("community_id",community_id);
         String json =jsonObject.toString();
         LogUtils.i("json=()"+json);
         DataModel.request(Token.API_UNIT_LIST)
-                .params()
+                .params(json)
                 .execute(new CallBack<BaseBean<List<ChildCommunityBean>>>() {
                     @Override
                     public void onSuccess(BaseBean<List<ChildCommunityBean>> data) {
@@ -123,15 +128,15 @@ public class InCommunityPresenter extends BasePresenter<InCommunityActivity> {
                     }
                 });
     }
-    public void getPropertyList(int uid,String token,String community_id) {
+    public void getPropertyList(int uid,String token,String unit_id) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("uid",uid);
         jsonObject.addProperty("token",token);
-        jsonObject.addProperty("community_id",community_id);
+        jsonObject.addProperty("unit_id",unit_id);
         String json =jsonObject.toString();
         LogUtils.i("json=()"+json);
         DataModel.request(Token.API_PROPERTY_LIST)
-                .params()
+                .params(json)
                 .execute(new CallBack<BaseBean<List<ChildCommunityBean>>>() {
                     @Override
                     public void onSuccess(BaseBean<List<ChildCommunityBean>> data) {

@@ -10,6 +10,7 @@
         android:layout_weight="1">
 
         <ImageView
+            android:id="@+id/iv_limit_icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="19dp"
@@ -39,6 +40,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/tv_time_h_1"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginLeft="8dp"
@@ -49,6 +51,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_time_h_2"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginLeft="6dp"
@@ -59,6 +62,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_time_m_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
@@ -67,6 +71,7 @@
                 android:textColor="@color/white"
                 android:textSize="12sp" />
             <TextView
+                android:id="@+id/tv_time_m_2"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginLeft="8dp"
@@ -77,6 +82,8 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_time_s_1"
+
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginLeft="6dp"
@@ -87,6 +94,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_time_s_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
@@ -140,6 +148,7 @@
             android:textSize="14sp"
             android:textColor="@color/main_flash_sale_text"/>
         <ImageView
+            android:id="@+id/iv_join"
             android:layout_width="110dp"
             android:layout_height="33dp"
             android:layout_marginTop="22dp"

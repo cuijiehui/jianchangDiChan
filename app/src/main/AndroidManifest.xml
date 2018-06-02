@@ -52,7 +52,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ui.MainActivity">
+        <activity android:name=".view.ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -63,6 +63,9 @@
         <activity
             android:name=".view.ui.ScanActivity"
             android:label="@string/title_activity_scan"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.LeaseCentreActivity"
@@ -113,10 +116,25 @@
         <activity
             android:name=".view.ui.FeedbackHistoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.ui.RentDatailActivity" />
-        <activity android:name=".view.ui.ReleaseRentActivity" />
-        <activity android:name=".view.ui.InCommunityActivity" />
-        <activity android:name=".view.ui.CommAddListAtivity"></activity>
+        <activity
+            android:name=".view.ui.RentDatailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.ReleaseRentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.InCommunityActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.CommAddListAtivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ui.WebViewActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.ui.PersonalDataActivity" />
+        <activity android:name=".view.ui.SetUserMsgActivity" />
+        <activity android:name=".view.ui.RepairsActivity" />
+        <activity android:name=".view.ui.MyApplyActivity"></activity>
     </application>
 
 </manifest>

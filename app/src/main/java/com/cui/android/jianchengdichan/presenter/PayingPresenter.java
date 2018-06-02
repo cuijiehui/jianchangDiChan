@@ -1,7 +1,7 @@
 package com.cui.android.jianchengdichan.presenter;
 
 import com.cui.android.jianchengdichan.http.bean.AliPayBean;
-import com.cui.android.jianchengdichan.http.bean.BaseBean;
+import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.WeChatPayBean;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;

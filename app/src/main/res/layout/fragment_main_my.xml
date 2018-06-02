@@ -17,10 +17,11 @@
 
         <ImageView
             android:id="@+id/iv_my_top_back"
-            android:layout_width="7dp"
-            android:layout_height="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
+            android:padding="5dp"
             android:background="@drawable/top_back_icon" />
 
         <TextView
@@ -196,7 +197,7 @@
         android:id="@+id/tv_my_in_comm"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:text="联系我们"
+        android:text="入驻社区"
         android:textColor="@color/main_flash_sale_text"
         android:textSize="16sp"
         android:paddingLeft="10dp"
@@ -210,7 +211,7 @@
         android:id="@+id/tv_my_release_record"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:text="联系我们"
+        android:text="发布记录"
         android:textColor="@color/main_flash_sale_text"
         android:textSize="16sp"
         android:paddingLeft="10dp"

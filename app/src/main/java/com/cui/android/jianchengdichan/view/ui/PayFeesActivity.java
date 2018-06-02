@@ -10,12 +10,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
-import com.cui.android.jianchengdichan.http.bean.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.CatesBean;
 import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.PayFeesPresenter;
-import com.cui.android.jianchengdichan.presenter.RegisterPresenter;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
@@ -26,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class PayFeesActivity extends BaseActivtity {

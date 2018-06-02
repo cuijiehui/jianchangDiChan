@@ -22,8 +22,7 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <TextView
@@ -48,8 +47,7 @@
         android:background="@drawable/main_parting_line"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="40dp"
         android:gravity="center_vertical">
         <TextView
             android:id="@+id/release_rent_area"
@@ -67,6 +65,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:layout_marginLeft="11dp"
+            android:inputType="number"
             android:layout_toRightOf="@+id/release_rent_area"
             android:layout_toLeftOf="@+id/release_rent_m2"
             android:layout_centerVertical="true"
@@ -88,8 +87,7 @@
         android:background="@drawable/main_parting_line"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="40dp"
         android:gravity="center_vertical">
         <TextView
             android:id="@+id/release_rent_ori"
@@ -128,8 +126,7 @@
         android:background="@drawable/main_parting_line"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="40dp"
         android:orientation="horizontal"
         >
         <TextView
@@ -188,8 +185,7 @@
         android:background="@drawable/main_parting_line"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <TextView
@@ -214,8 +210,7 @@
         android:background="@drawable/main_parting_line"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="40dp"
         >
         <TextView
             android:id="@+id/release_rent_region"
@@ -257,8 +252,7 @@
         android:background="@drawable/main_parting_line"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <TextView

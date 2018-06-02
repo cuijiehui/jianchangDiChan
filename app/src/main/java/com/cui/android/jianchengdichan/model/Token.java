@@ -27,6 +27,12 @@ public class Token {
     public static final String API_COMMUNITY_LIST= PACKAGE_NAME + "CommunityListModel";
     public static final String API_PROPERTY_LIST= PACKAGE_NAME + "PropertyListModel";
     public static final String API_UNIT_LIST= PACKAGE_NAME + "UnitListModel";
+    public static final String API_USER_INFO= PACKAGE_NAME + "UserInfoModel";
+    public static final String API_REPAIR_INFO= PACKAGE_NAME + "RepairInfoModel";
+    public static final String API_REPAIR_INFO_LIST= PACKAGE_NAME + "RepairInfoListModel";
+    public static final String API_REPAIR_RENT_INFO= PACKAGE_NAME + "RentInfoModel";
+    public static final String API_MY_APPLY_INFO= PACKAGE_NAME + "MyApplyModel";
+    public static final String API_DEL_RENT_INFO_MODEL= PACKAGE_NAME + "DelRentInfoModel";
 
 
 }

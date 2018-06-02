@@ -308,11 +308,9 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
         }
     }
 
-    @OnClick({R.id.top_back, R.id.ll_choose_address, R.id.lin_choose_area, R.id.lin_lease_rent, R.id.lin_lease_unit,R.id.tv_top_right, R.id.lin_lease_more})
+    @OnClick({ R.id.ll_choose_address, R.id.lin_choose_area, R.id.lin_lease_rent, R.id.lin_lease_unit,R.id.tv_top_right, R.id.lin_lease_more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.top_back:
-                break;
             case R.id.tv_top_right:
                 startActivity(ReleaseRentActivity.class);
                 break;

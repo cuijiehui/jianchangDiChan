@@ -1,24 +1,10 @@
 package com.cui.android.jianchengdichan.http;
 
-import android.util.Log;
-
-import com.alibaba.fastjson.JSON;
-import com.cui.android.jianchengdichan.http.bean.BaseBean;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.List;
 
-import okhttp3.Interceptor;
-import okhttp3.MediaType;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
-import okio.Buffer;
-import okio.BufferedSource;
-import retrofit2.Call;
 
 /**
  * @author CUI

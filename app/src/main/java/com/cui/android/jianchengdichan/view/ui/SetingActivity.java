@@ -76,12 +76,9 @@ public class SetingActivity extends BaseActivtity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.top_back, R.id.rl_setting_question, R.id.rl_setting_clear, R.id.tv_setting_version})
+    @OnClick({ R.id.rl_setting_question, R.id.rl_setting_clear, R.id.tv_setting_version})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.top_back:
-                LogUtils.i("top_back");
-                break;
             case R.id.rl_setting_question:
                 LogUtils.i("rl_setting_question");
 

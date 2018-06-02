@@ -3,12 +3,14 @@ package com.cui.android.jianchengdichan.view.ui.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
@@ -17,6 +19,9 @@ import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.ui.CommAddListAtivity;
 import com.cui.android.jianchengdichan.view.ui.FeedbackActivity;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
+import com.cui.android.jianchengdichan.view.ui.MainActivity;
+import com.cui.android.jianchengdichan.view.ui.MyApplyActivity;
+import com.cui.android.jianchengdichan.view.ui.PersonalDataActivity;
 import com.cui.android.jianchengdichan.view.ui.SetingActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.CircleImageView;
 
@@ -110,9 +115,23 @@ public class MainMyFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_my, container, false);
         unbinder = ButterKnife.bind(this, view);
+        boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
+        String userName = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_NAME_KEY, SPUtils.DATA_STRING);
+        if(isLogin){
+            tvMyUserName.setText(userName);
+        }
+
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        String pic = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_PIC_URL_KEY, SPUtils.DATA_STRING);
+        if (!TextUtils.isEmpty(pic)) {
+            Glide.with(getContext()).load(pic).into(civMyHeadPortrait);
+        }
+    }
 
     @Override
     public void onDestroyView() {
@@ -124,11 +143,15 @@ public class MainMyFragment extends Fragment {
             , R.id.tv_my_feed_back, R.id.tv_my_contact_us,R.id.tv_my_in_comm, R.id.tv_my_release_record})
     public void onViewClicked(View view) {
         boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
-
+        if (isLogin) {
+        } else {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+        }
         switch (view.getId()) {
             case R.id.iv_my_top_back:
                 LogUtils.i("iv_my_top_back=");
-
+                MainActivity mainActivity =(MainActivity)getActivity();
+                mainActivity.vpMainPager.setCurrentItem(0);
                 break;
             case R.id.tv_content_name:
                 LogUtils.i("tv_content_name=");
@@ -141,6 +164,7 @@ public class MainMyFragment extends Fragment {
                 break;
             case R.id.civ_my_head_portrait:
                 LogUtils.i("civ_my_head_portrait=");
+                startActivity(new Intent(getContext(), PersonalDataActivity.class));
 
                 break;
             case R.id.tv_my_user_name:
@@ -157,13 +181,7 @@ public class MainMyFragment extends Fragment {
                 break;
             case R.id.tv_my_sign:
                 LogUtils.i("tv_my_sign=");
-                if (isLogin) {
-//                    startActivity(new Intent(getContext(), PayFeesActivity.class));
-                    ToastUtil.makeToast("已经登录，签到成功");
-                } else {
-                    startActivity(new Intent(getContext(), LoginActivity.class));
-                }
-
+                ToastUtil.makeToast("签到成功");
                 break;
             case R.id.tv_my_order:
                 LogUtils.i("tv_my_order=");
@@ -182,28 +200,18 @@ public class MainMyFragment extends Fragment {
 
                 break;
             case R.id.tv_my_feed_back:
-                LogUtils.i("tv_my_feed_back=");
-                if (isLogin) {
                     startActivity(new Intent(getContext(), FeedbackActivity.class));
-                } else {
-                    startActivity(new Intent(getContext(), LoginActivity.class));
-
-                }
-
                 break;
             case R.id.tv_my_contact_us:
                 LogUtils.i("tv_my_contact_us=");
-
                 break;
             case R.id.tv_my_in_comm:
-                if (isLogin) {
                     startActivity(new Intent(getContext(), CommAddListAtivity.class));
-                } else {
-                    startActivity(new Intent(getContext(), LoginActivity.class));
-
-                }
                 break;
             case R.id.tv_my_release_record:
+
+                startActivity(new Intent(getContext(), MyApplyActivity.class));
+
                 break;
         }
     }

@@ -25,7 +25,7 @@
             android:id="@+id/iv_surface_plot"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/add_pic_icon"
+            android:src="@drawable/add_pic_icon"
             android:layout_centerVertical="true"
             android:layout_marginLeft="11dp"/>
         <TextView

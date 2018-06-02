@@ -3,20 +3,13 @@ package com.cui.android.jianchengdichan.model.model;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.http.RetrofitFactory;
 import com.cui.android.jianchengdichan.http.base.BaseObserver;
-import com.cui.android.jianchengdichan.http.bean.BaseBean;
+import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.LoginBean;
-import com.cui.android.jianchengdichan.http.bean.SplashAdvBean;
-import com.cui.android.jianchengdichan.http.config.RxSchedulers;
 import com.cui.android.jianchengdichan.model.base.BaseModel;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 
-import io.reactivex.ObservableTransformer;
-import io.reactivex.Observer;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * @author CUI

@@ -1,5 +1,6 @@
 package com.cui.android.jianchengdichan.view.ui.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,20 +16,31 @@ import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.SPKey;
+import com.cui.android.jianchengdichan.utils.SPUtils;
+import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.CommRvAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
+import com.cui.android.jianchengdichan.view.ui.LeaseCentreActivity;
+import com.cui.android.jianchengdichan.view.ui.LoginActivity;
+import com.cui.android.jianchengdichan.view.ui.MainActivity;
+import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.RefreshableView;
 import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class MainCommFragment extends Fragment {
+public class MainCommFragment extends Fragment  implements IBaseView {
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -117,9 +129,32 @@ public class MainCommFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
 
         initRecyclerView();
+         setRefresh();
         return view;
     }
-
+    /**
+     * 初始化下拉刷新
+     */
+    private void setRefresh() {
+        rvCommRefreshable.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+            @Override
+            public void onRefresh() {
+                LogUtils.i("setOnRefreshListener");
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        /**
+                         *要执行的操作
+                         */
+                        rvCommRefreshable.finishRefreshing();
+                    }
+                };
+                Timer timer = new Timer();
+                timer.schedule(task, 3000);//3秒后执行TimeTask的run方法
+//                mainHomePresenter.getData();
+            }
+        }, 1);
+    }
     private void initRecyclerView() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         rvCommTop.setLayoutManager(gridLayoutManager);
@@ -141,7 +176,29 @@ public class MainCommFragment extends Fragment {
         CommRvAdapter commRvAdapter1 = new CommRvAdapter(dataRv, new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
+                if (isLogin) {
+//            startActivity(new Intent(getContext(), PayFeesActivity.class));
+                } else {
+                    startActivity(new Intent(getContext(), LoginActivity.class));
+                    return;
+                }
+                switch (position) {
+                    case 0:
+                        break;
+                    case 1:
+                        startActivity(new Intent(getContext(), LeaseCentreActivity.class));
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        startActivity(new Intent(getContext(), PayFeesActivity.class));
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        break;
+                }
             }
 
             @Override
@@ -157,5 +214,34 @@ public class MainCommFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showToast(String msg) {
+
+    }
+
+    @Override
+    public void showErr() {
+
+    }
+
+    @Override
+    public void onFailure(String msg) {
+
+    }
+
+    @Override
+    public void onError() {
+
     }
 }

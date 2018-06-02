@@ -1,9 +1,12 @@
 package com.cui.android.jianchengdichan.view.ui.Fragment;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -14,14 +17,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
@@ -29,33 +33,31 @@ import com.cui.android.jianchengdichan.presenter.MainHomePresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
+import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.CommunityBean;
-import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.NewGoodsBean;
-import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.YouLikeBean;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRecyclerAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvCommunityAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvNewGoodsAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvYouLikeAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
+import com.cui.android.jianchengdichan.view.ui.InCommunityActivity;
 import com.cui.android.jianchengdichan.view.ui.LeaseCentreActivity;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
+import com.cui.android.jianchengdichan.view.ui.MainActivity;
 import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
+import com.cui.android.jianchengdichan.view.ui.RentDatailActivity;
+import com.cui.android.jianchengdichan.view.ui.RepairsActivity;
 import com.cui.android.jianchengdichan.view.ui.ScanActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
 import com.cui.android.jianchengdichan.view.ui.customview.RefreshableView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -103,6 +105,26 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     ImageView ivMainYouLikeIcon;
     @BindView(R.id.rv_you_like)
     RecyclerView rvYouLike;
+    @BindView(R.id.rl_main_top)
+    RelativeLayout rlMainTop;
+    @BindView(R.id.iv_limit_icon)
+    ImageView ivLimitIcon;
+    @BindView(R.id.tv_time_h_1)
+    TextView tvTimeH1;
+    @BindView(R.id.tv_time_h_2)
+    TextView tvTimeH2;
+    @BindView(R.id.tv_time_m_1)
+    TextView tvTimeM1;
+    @BindView(R.id.tv_time_m_2)
+    TextView tvTimeM2;
+    @BindView(R.id.tv_time_s_1)
+    TextView tvTimeS1;
+    @BindView(R.id.tv_time_s_2)
+    TextView tvTimeS2;
+    @BindView(R.id.iv_join)
+    ImageView ivJoin;
+    private int index = 0;//textview上下滚动下标
+    public static final int NEWS_MESSAGE_TEXTVIEW = 300;//通知公告信息
 
     private Unbinder unbinder;
     private List<HomeDataBean.AdBean> mDataList = new ArrayList<>();//轮播图数据
@@ -111,6 +133,7 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     private List<CommunityBean> communityBeanList = new ArrayList<>();//社区管家数据
     private List<HomeDataBean.NewgoodBean> newGoodsBeanList = new ArrayList<>();//最新产品数据
     private List<HomeDataBean.FavorBean> youLikeBeanList = new ArrayList<>();//猜你喜欢数据
+    private HomeDataBean.LimitTimeBean limit_time;//抢购数据
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -206,30 +229,55 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
      * 初始化recycler
      */
     private void initRecycler() {
-        //附近租贷
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rvMainRent.setLayoutManager(linearLayoutManager);
-        recyclAdapter = new MainRecyclerAdapter(rentDataList);
-        rvMainRent.setAdapter(recyclAdapter);
+        if (rentDataList != null && rentDataList.size() != 0) {
+            //附近租贷
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            rvMainRent.setLayoutManager(linearLayoutManager);
+            recyclAdapter = new MainRecyclerAdapter(rentDataList, new OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    HomeDataBean.RentBean rentBean = rentDataList.get(position);
+                    Intent intent = new Intent(getContext() , RentDatailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id",rentBean.getId()+"");
+                    intent.putExtras(bundle);
+                    getContext().startActivity(intent);
+                }
 
-        //新品上市
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rvMainNewGoods.setLayoutManager(layoutManager);
-         mainRvNewGoodsAdapter = new MainRvNewGoodsAdapter(newGoodsBeanList);
-        rvMainNewGoods.setAdapter(mainRvNewGoodsAdapter);
-        //猜你喜欢
-        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
-        rvYouLike.setLayoutManager(layoutManager1);
-        mainRvYouLikeAdapter = new MainRvYouLikeAdapter(youLikeBeanList);
-        rvYouLike.setAdapter(mainRvYouLikeAdapter);
+                @Override
+                public void onItemLongClick(View view, int position) {
+
+                }
+            });
+            rvMainRent.setAdapter(recyclAdapter);
+        }
+        if (newGoodsBeanList != null && newGoodsBeanList.size() != 0) {
+            //新品上市
+            LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            rvMainNewGoods.setLayoutManager(layoutManager);
+            mainRvNewGoodsAdapter = new MainRvNewGoodsAdapter(newGoodsBeanList);
+            rvMainNewGoods.setAdapter(mainRvNewGoodsAdapter);
+        }
+        if (youLikeBeanList != null && youLikeBeanList.size() != 0) {
+            //猜你喜欢
+            LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
+            rvYouLike.setLayoutManager(layoutManager1);
+            mainRvYouLikeAdapter = new MainRvYouLikeAdapter(youLikeBeanList);
+            rvYouLike.setAdapter(mainRvYouLikeAdapter);
+        }
+
+
     }
 
     /**
      * 初始化图片轮播图
      */
     private void initAdvViewPage() {
+        if (mDataList == null || mDataList.size() == 0) {
+            return;
+        }
         bnMainAdv.setImageLoader(new GlideImageLoader()); //设置图片加载器
         bnMainAdv.setImages(mDataList);//设置图片集合
         //设置自动轮播，默认为true
@@ -240,35 +288,33 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         bnMainAdv.setIndicatorGravity(BannerConfig.CENTER);
         bnMainAdv.start();
     }
-    private void updataData(){
+
+    private void updataData(HomeDataBean data) {
         mDataList.clear();
         rentDataList.clear();
         newGoodsBeanList.clear();
         youLikeBeanList.clear();
         noticeList.clear();
-        String advs = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_ADV_KEY, SPUtils.DATA_STRING);
-        Gson gson = new Gson();
-        Type advType = new TypeToken<List<HomeDataBean.AdBean>>(){}.getType();
-        mDataList = gson.fromJson(advs,advType);
-        String notice = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_NOTICE_KEY, SPUtils.DATA_STRING);
-        Type noticeType = new TypeToken<List<HomeDataBean.NoticeBean>>(){}.getType();
-        List<HomeDataBean.NoticeBean> noticeBeans = gson.fromJson(notice,noticeType);
-        for(HomeDataBean.NoticeBean noticeBean : noticeBeans){
+        //广告图片
+        mDataList = data.getAd();
+        //公告信息
+        List<HomeDataBean.NoticeBean> noticeBeans = data.getNotice();
+        for (HomeDataBean.NoticeBean noticeBean : noticeBeans) {
             noticeList.add(noticeBean.getTitle());
         }
-        String rent = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_RENT_KEY, SPUtils.DATA_STRING);
-        Type rentType = new TypeToken<List<HomeDataBean.RentBean>>(){}.getType();
-        rentDataList= gson.fromJson(rent,rentType);
-        String limit_time = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_LIMIT_TIME_KEY, SPUtils.DATA_STRING);
-        String newgoods = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_NEWGOOD_KEY, SPUtils.DATA_STRING);
-        Type newgoodsType = new TypeToken<List<HomeDataBean.NewgoodBean>>(){}.getType();
-        newGoodsBeanList= gson.fromJson(newgoods,newgoodsType);
-        String favor = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_HOME_DATA_FAVOR_KEY, SPUtils.DATA_STRING);
-        Type favorType = new TypeToken<List<HomeDataBean.FavorBean>>(){}.getType();
-        youLikeBeanList= gson.fromJson(favor,favorType);
+        notice(noticeList);
+        //租贷数据
+        rentDataList = data.getRent();
+        //抢购数据
+        limit_time = data.getLimit_time();
+        //最新上市数据
+        newGoodsBeanList = data.getNewgood();
+        //猜你喜欢数据
+        youLikeBeanList = data.getFavor();
 
 
     }
+
     /**
      * 初始化下拉刷新
      */
@@ -331,8 +377,15 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         }
     }
 
-    @OnClick({R.id.iv_main_top_qrcode, R.id.iv_main_top_add})
+    @OnClick({R.id.iv_main_top_qrcode, R.id.iv_main_top_add, R.id.iv_join,R.id.tv_rent_more})
     public void onViewClicked(View view) {
+        boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
+        if (isLogin) {
+//            startActivity(new Intent(getContext(), PayFeesActivity.class));
+        } else {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
         switch (view.getId()) {
             case R.id.iv_main_top_qrcode:
                 LogUtils.i("iv_main_top_qrcode");
@@ -343,6 +396,14 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
                 break;
             case R.id.iv_main_top_add:
                 LogUtils.i("iv_main_top_add");
+                startActivity(new Intent(getContext(), InCommunityActivity.class));
+                break;
+            case R.id.iv_join:
+                LogUtils.i("iv_join");
+                ToastUtil.makeToast("活动还没开始");
+                break;
+            case R.id.tv_rent_more:
+                startActivity(new Intent(getContext(), LeaseCentreActivity.class));
 
                 break;
         }
@@ -351,18 +412,19 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     @Override
     public void onItemClick(View view, int position) {
         LogUtils.i("onItemClick=position=" + position);
-        switch (position){
+        boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
+        if (isLogin) {
+//            startActivity(new Intent(getContext(), PayFeesActivity.class));
+        } else {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            return;
+        }
+        switch (position) {
             case 0:
                 startActivity(new Intent(getContext(), LeaseCentreActivity.class));
                 break;
             case 1:
-                boolean isLogin =(boolean)SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY,SPUtils.DATA_BOOLEAN);
-                if(isLogin){
-                    startActivity(new Intent(getContext(), PayFeesActivity.class));
-                }else{
-                    startActivity(new Intent(getContext(), LoginActivity.class));
-                }
-
+                startActivity(new Intent(getContext(), PayFeesActivity.class));
                 break;
             case 2:
                 break;
@@ -373,8 +435,13 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
             case 5:
                 break;
             case 6:
+
+                startActivity(new Intent(getContext(), RepairsActivity.class));
+
                 break;
             case 7:
+                MainActivity mainActivity =(MainActivity)getActivity();
+                mainActivity.vpMainPager.setCurrentItem(1);
                 break;
         }
     }
@@ -413,22 +480,58 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         };
     }
 
-    public void showView(String msg, int type) {
-        if (rvMainRefreshable != null) {
-            rvMainRefreshable.finishRefreshing();
-        }
-        if (type == 200) {
-            updataAdvView();
-        }
-    }
-
     private void updataAdvView() {
-        updataData();
+
         initNotice();
         initAdvViewPage();
         initRecycler();
+        initRimit_time();
+    }
+
+    private void initRimit_time() {
+//        ivLimitIcon
+        //rentDataList
+        if (limit_time != null) {
+            Glide.with(MyApplication.getAppContext()).load(limit_time.getThumb()).into(ivLimitIcon);
+        }
 
     }
+
+    private void notice(final List<String> list) {
+        new Thread() {
+            @Override
+            public void run() {
+                //LogUtil.i("-------------------------------" + newsList.size());
+                while (index < list.size()) {
+                    synchronized (this) {
+                        noticeHandler.sendEmptyMessage(NEWS_MESSAGE_TEXTVIEW);
+                        SystemClock.sleep(5000);//每隔4秒滚动一次
+                    }
+                }
+            }
+        }.start();
+    }
+
+    @SuppressLint("HandlerLeak")
+    Handler noticeHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case NEWS_MESSAGE_TEXTVIEW:
+                    if(tvMainNoticeNew1!=null){
+                        tvMainNoticeNew1.setText(noticeList.get(index));
+                        index++;
+                        if (index == noticeList.size()) {
+                            index = 0;
+                        }
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
 
     @Override
     public void onFailure(String msg) {
@@ -443,6 +546,19 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     }
 
     private void initNotice() {
+        if (noticeList == null || noticeList.size() == 0) {
+            return;
+        }
         tvMainNoticeNew1.setText(noticeList.get(0));
     }
+
+    public void getData(HomeDataBean data) {
+        if (rvMainRefreshable != null) {
+            rvMainRefreshable.finishRefreshing();
+        }
+        updataData(data);
+        updataAdvView();
+    }
+
+
 }

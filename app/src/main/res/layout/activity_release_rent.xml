@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ui.ReleaseRentActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical">
     <include layout="@layout/include_top_layout" />
 
@@ -260,6 +262,7 @@
                 android:layout_marginLeft="11dp"
                 android:layout_marginTop="11dp"
                 android:text="保存草稿"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/main_top_col"/>
         </LinearLayout>
     </ScrollView>

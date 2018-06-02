@@ -4,7 +4,7 @@
 
     <!--主页-->
     <string name="main_home_icon_name">主页</string>
-    <string name="main_community_icon_name">登录</string>
+    <string name="main_community_icon_name">社区</string>
     <string name="main_my_icon_name">我的</string>
     <string name="main_shop_icon_name">商城</string>
     <!-- 登录 -->

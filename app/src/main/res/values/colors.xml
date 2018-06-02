@@ -9,6 +9,7 @@
     <color name="transparent">#00000000</color>
     <color name="app_bottom_color">#ea5205</color>
     <color name="main_top_col">#0095D9</color>
+    <color name="main_top_text_col">#0091EA</color>
     <color name="main_seek_text_col">#999999</color>
     <color name="main_seek_text_col_t">#99999999</color>
     <color name="main_text_col">#333333</color>

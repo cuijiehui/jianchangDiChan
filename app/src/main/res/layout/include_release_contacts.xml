@@ -61,6 +61,7 @@
             android:layout_height="match_parent"
             android:background="@null"
             android:layout_marginLeft="11dp"
+            android:inputType="number"
             android:hint="填写联系方式"/>
     </LinearLayout>
 </LinearLayout>

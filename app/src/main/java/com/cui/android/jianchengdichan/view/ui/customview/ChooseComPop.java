@@ -1,5 +1,6 @@
 package com.cui.android.jianchengdichan.view.ui.customview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Handler;
@@ -45,7 +46,7 @@ public class ChooseComPop extends PopupWindow {
     private String cUid;
     private String token;
     private List<CommunityBean> communityList;
-    private List<ChildCommunityBean> childList;
+    private List<ChildCommunityBean> childList = new ArrayList<>();
 
     private ListView lv_group;
     private ListView lv_child;
@@ -62,6 +63,7 @@ public class ChooseComPop extends PopupWindow {
     private ChildCommunityBean childBean = null;
 
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -91,6 +93,7 @@ public class ChooseComPop extends PopupWindow {
         this.setContentView(view);
         this.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
         this.setHeight(ScreenUtils.getScreenHeight(context) - ScreenUtils.getStatusBarHeight(context) - ScreenUtils.dpToPx(context, Float.valueOf(45)));
+        this.inCommunityPresenter=inCommunityPresenter;
         setBackgroundDrawable(new BitmapDrawable());
         setTouchable(true);
         initView();
@@ -103,7 +106,6 @@ public class ChooseComPop extends PopupWindow {
         cUid=uid+"";
         area ="gz";
         communityList = new ArrayList<>();
-        childList = new ArrayList<>();
 
         lv_group = (ListView) view.findViewById(R.id.lv_group);
         groupAdapter = new ComGroupAdapter(context, communityList);
@@ -125,15 +127,18 @@ public class ChooseComPop extends PopupWindow {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 groupBean = communityList.get(position);
-                childList = communityList.get(position).getList();
+                if (communityList.get(position).getList()==null||communityList.get(position).getList().size()==0){
+                    //childBean = childList.get(0);
+                    ToastUtil.makeToast("该社区下没有单元");
+                    return;
+                }
+                childList.clear();
+                childList.addAll( communityList.get(position).getList());
                 groupAdapter.setSelectItem(position);
                 childAdapter.setSelectItem(-1);
                 groupAdapter.notifyDataSetChanged();
                 initAdapter(childList);
-                if (childList.size() == 0){
-                    //childBean = childList.get(0);
-                    ToastUtil.makeToast("该社区下没有单元");
-                }
+
             }
         });
         lv_group.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -159,41 +164,6 @@ public class ChooseComPop extends PopupWindow {
         int uid= (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
         String token =(String)  SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
         inCommunityPresenter.getCommunityList(uid,token);
-//        GetDataBiz.getComListData(area, cUid, token, new HttpRequestListener() {
-//            @Override
-//            public void onHttpRequestFinish(String result) throws JSONException {
-//                LogUtils.i("社区列表的返回值" + result);
-//                if (result == null || result.equals("")){
-//                    return;
-//                }
-//                Gson gson = new Gson();
-//                JSONObject jsonObject = new JSONObject(result);
-//                if (jsonObject.getString("code").equals("200")) {
-//                    JSONArray jsonArray = jsonObject.getJSONArray("data");
-//                    for (int i = 0; i < jsonArray.length(); i++) {
-//
-//                        JSONObject dataJsonObject = jsonArray.getJSONObject(i);
-//                        CommunityBean communityBean = gson.fromJson(dataJsonObject.toString(), CommunityBean.class);
-//
-//                        JSONArray childJsonArray = dataJsonObject.getJSONArray("child");
-//                        List<ChildCommunityBean> childList = new ArrayList<ChildCommunityBean>();
-//                        for (int j = 0; j < childJsonArray.length(); j++) {
-//                            JSONObject childJsonObject = childJsonArray.getJSONObject(j);
-//                            ChildCommunityBean bean = gson.fromJson(childJsonObject.toString(), ChildCommunityBean.class);
-//                            childList.add(bean);
-//                        }
-//                        communityBean.setList(childList);
-//                        communityList.add(communityBean);
-//                    }
-//                    handler.obtainMessage(200, communityList).sendToTarget();
-//                }
-//            }
-//
-//            @Override
-//            public void onHttpRequestError(String error) {
-//
-//            }
-//        });
     }
 
 
@@ -221,8 +191,8 @@ public class ChooseComPop extends PopupWindow {
     };
 
     public void getCommunityList(List<CommunityBean> data) {
-        for (CommunityBean communityBean:data){
-            
-        }
+        communityList.addAll(data);
+         handler.obtainMessage(200, communityList).sendToTarget();
+
     }
 }

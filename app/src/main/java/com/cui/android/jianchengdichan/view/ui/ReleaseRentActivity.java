@@ -8,9 +8,12 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.ReleaseRentPresenter;
@@ -31,13 +35,16 @@ import com.cui.android.jianchengdichan.utils.ChooseCityUtil;
 import com.cui.android.jianchengdichan.utils.CityData;
 import com.cui.android.jianchengdichan.utils.FileUtils;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
+import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.BaseActivtity;
 import com.cui.android.jianchengdichan.view.interfaces.ChooseCityInterface;
 import com.cui.android.jianchengdichan.view.ui.adapter.DatailedDrawingAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
 import com.cui.android.jianchengdichan.view.ui.customview.WheelView;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -48,6 +55,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class ReleaseRentActivity extends BaseActivtity {
 
@@ -122,11 +132,41 @@ public class ReleaseRentActivity extends BaseActivtity {
     private String province = "广东";
     private String city = "广州";
     private String county = "天河";
-    CameraPopupWindows cameraPopupWindows ;
+    CameraPopupWindows cameraPopupWindows;
     private Uri surfacePlotUrl = null;
     private Uri themUrl = null;
     private LinkedList<String> detailDrawingData = new LinkedList<>();
-    private boolean isSurface=true;
+    private LinkedList<String> uplodeUrl = new LinkedList<>();
+    private boolean isSurface = true;
+    private String typeView = "普通住宅";
+    private String wayView = "整租";
+    private String paview = "押一付一";
+    private String selectedori = "";//朝向
+    public final static int UPLODE_IMG = 300;
+    public final static int UPLODE_IMG_FAIL = -300;
+    MyApplyBean myApplyBean;
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case UPLODE_IMG:
+                    String uplode = (String) msg.obj;
+                    String[] uplodes = uplode.split(",");
+                    for (String url : uplodes) {
+                        LogUtils.i("url=" + url);
+                        uplodeUrl.addFirst(url);
+                    }
+                    releaseData();
+
+                    break;
+                case UPLODE_IMG_FAIL:
+
+                    break;
+            }
+        }
+    };
+
     @Override
     public BasePresenter initPresenter() {
         releaseRentPresenter = new ReleaseRentPresenter();
@@ -135,6 +175,12 @@ public class ReleaseRentActivity extends BaseActivtity {
 
     @Override
     public void initParms(Bundle parms) {
+        if (parms != null) {
+            String json = parms.getString("json");
+            Gson gson = new Gson();
+            myApplyBean = gson.fromJson(json, MyApplyBean.class);
+            LogUtils.i(json);
+        }
 
     }
 
@@ -148,6 +194,77 @@ public class ReleaseRentActivity extends BaseActivtity {
         tvContentName.setText("发布");
         detailDrawingData.add("-1");
         initRecyclerView();
+        if (myApplyBean != null) {
+            initApplyBean();
+
+        }
+    }
+
+    private void initApplyBean() {
+        String banType = myApplyBean.getBan_type();//类型
+        switch (banType) {
+            case "普通住宅":
+                setTypeView(1);
+                break;
+            case "公寓":
+                setTypeView(2);
+                break;
+            case "别墅":
+                setTypeView(3);
+                break;
+            case "商铺":
+                setTypeView(4);
+                break;
+        }
+
+        String rentType = myApplyBean.getRent_type();//租贷方式
+        switch (rentType) {
+            case "整租":
+                setWayView(1);
+                break;
+            case "合租":
+                setWayView(2);
+                break;
+            case "短租":
+                setWayView(3);
+                break;
+            case "公寓":
+                setWayView(4);
+                break;
+        }
+        String charge_pay = myApplyBean.getCharge_pay();//押付方式
+        switch (charge_pay) {
+            case "押一付一":
+                setPaview(1);
+                break;
+            case "押二付一":
+                setPaview(2);
+                break;
+            case "押一付三":
+                setPaview(3);
+                break;
+        }
+
+        String title = myApplyBean.getTitle();//小区名称
+        etReleaseHomeName.setText(title);
+        String area = myApplyBean.getAcreage();//面积
+        etReleaseArea.setText(area);
+        String local_floor = myApplyBean.getLocal_floor();
+        String total_floor = myApplyBean.getTotal_floor();
+        etReleaseFloor.setText(local_floor+"/"+total_floor);
+        String address = myApplyBean.getAddress();
+        etReleaseAddress.setText(address);
+        String rental = myApplyBean.getRental();//租金
+        etReleaseMonthMoney.setText(rental);
+        String fee = myApplyBean.getFee();//物业费
+        etReleaseRealMoney.setText(fee);
+        String mobile = myApplyBean.getMobile();//电话
+        etReleasePhone.setText(mobile);
+        String contact = myApplyBean.getContact();//l联系人
+        etReleaseUserName.setText(contact);
+        selectedori=myApplyBean.getOrientations();
+        tvReleaseOri.setText(selectedori);
+
     }
 
     @Override
@@ -215,23 +332,167 @@ public class ReleaseRentActivity extends BaseActivtity {
                 break;
             case R.id.iv_surface_plot:
                 //封面图
-                isSurface=true;
-                 cameraPopupWindows   = new CameraPopupWindows(ReleaseRentActivity.this,getRootView());
+                isSurface = true;
+                cameraPopupWindows = new CameraPopupWindows(ReleaseRentActivity.this, getRootView());
                 break;
             case R.id.iv_selease_rel:
-                LogUtils.i("iv_selease_rel"+detailDrawingData.size());
-                int uid = (int)SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
-                String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
-                LinkedList imgList =new LinkedList();
-                imgList.addAll(detailDrawingData);
-                imgList.remove(detailDrawingData.size()-1);
-                releaseRentPresenter.uplodeImg(uid+"",token,"1",imgList);
+                LogUtils.i("iv_selease_rel" + detailDrawingData.size());
+
+                uplodeImg();
                 break;
             case R.id.bt_release_save:
                 break;
         }
     }
-    public  void initRecyclerView(){
+
+    private void releaseData() {
+        String homeHame = etReleaseHomeName.getText().toString();//小区的名字
+        if (TextUtils.isEmpty(homeHame)) {
+            ToastUtil.makeToast("小区名称不能为空");
+            return;
+        }
+        String area = etReleaseArea.getText().toString();//面积
+        if (TextUtils.isEmpty(area)) {
+            ToastUtil.makeToast("面积不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(selectedori)) {//朝向
+            ToastUtil.makeToast("朝向不能为空");
+            return;
+        }
+        String room = etReleaseRoom.getText().toString();   //室
+        String office = etReleaseOffice.getText().toString();//厅
+        String wc = etReleaseWc.getText().toString();//卫生间
+        if (TextUtils.isEmpty(room) || TextUtils.isEmpty(office) || TextUtils.isEmpty(wc)) {
+            ToastUtil.makeToast("户型不能为空");
+            return;
+        }
+        String floor = etReleaseFloor.getText().toString();//楼层
+        String local_floor = "";
+        String total_floor = "";
+        if (TextUtils.isEmpty(floor)) {
+            ToastUtil.makeToast("楼层不能为空");
+            return;
+        } else {
+            String[] flooes = floor.split("/");
+            if (flooes.length != 2) {
+                ToastUtil.makeToast("楼层格式有误");
+                return;
+            }
+            local_floor = flooes[0];
+            total_floor = flooes[1];
+        }
+        String sddress = etReleaseAddress.getText().toString();//地址
+        if (TextUtils.isEmpty(sddress)) {
+            ToastUtil.makeToast("地址不能为空");
+            return;
+        }
+        String monthMoney = etReleaseMonthMoney.getText().toString();//月租
+        if (TextUtils.isEmpty(monthMoney)) {
+            ToastUtil.makeToast("月租不能为空");
+            return;
+        }
+        String realMoney = etReleaseRealMoney.getText().toString();//物业费
+        if (TextUtils.isEmpty(realMoney)) {
+            ToastUtil.makeToast("物业费不能为空");
+            return;
+        }
+        String userName = etReleaseUserName.getText().toString();//姓名
+        if (TextUtils.isEmpty(userName)) {
+            ToastUtil.makeToast("姓名不能为空");
+            return;
+        }
+        String phone = etReleasePhone.getText().toString();//手机号码
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtil.makeToast("手机号码不能为空");
+            return;
+        }
+        String describe = etReleaseDescribe.getText().toString();//房屋描述
+        if (TextUtils.isEmpty(describe)) {
+            ToastUtil.makeToast("房屋描述不能为空");
+            return;
+        }
+        /**
+         *   private String typeView = "普通住宅";
+         private String wayView = "整租";
+         private String paview = "押一付一";
+         */
+        int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
+        String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
+        String house_type = "0";
+        String pic = "";
+        if (uplodeUrl.size() > 0) {
+            pic = uplodeUrl.getFirst();
+        }
+        uplodeUrl.removeFirst();
+        StringBuffer pics = new StringBuffer();
+
+        for (String url : uplodeUrl) {
+            pics.append(url + ",");
+        }
+        releaseRentPresenter.publishRentInfo(
+                uid
+                , token
+                , typeView
+                , homeHame
+                , house_type
+                , room + "室" + office + "厅" + wc + "卫"
+                , monthMoney
+                , selectedori
+                , area
+                , pic
+                , pics.toString()
+                , local_floor
+                , total_floor
+                , describe
+                , phone
+                , userName
+                , "1"
+                , realMoney
+                , sddress
+                , wayView
+                , paview
+        );
+    }
+
+    public void publishRentInfo() {
+        ToastUtil.makeToast("发布成功，等待审批");
+    }
+
+    public void uplodeImg() {
+
+
+        LinkedList imgList = new LinkedList();
+        imgList.addAll(detailDrawingData);
+        imgList.remove(detailDrawingData.size() - 1);
+        if (surfacePlotUrl != null) {
+            String path = surfacePlotUrl.getPath();
+            imgList.addFirst(path);
+        }
+        Okhttp3Utils.getInstance().uplodeImgList(imgList.size(), imgList, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Message message = new Message();
+                message.what = UPLODE_IMG_FAIL;
+                mHandler.sendMessage(message);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String str = response.body().string();
+                Gson gson = new Gson();
+                UplodeImgBean uplodeImgBean = gson.fromJson(str, UplodeImgBean.class);
+                String pic = uplodeImgBean.getData().getPics();
+                LogUtils.i(pic);
+                Message message = new Message();
+                message.what = UPLODE_IMG;
+                message.obj = pic;
+                mHandler.sendMessage(message);
+            }
+        });
+    }
+
+    public void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvDetailedDrawing.setLayoutManager(linearLayoutManager);
@@ -239,8 +500,8 @@ public class ReleaseRentActivity extends BaseActivtity {
             @Override
             public void onClick(View v) {
                 //点击添加图片
-                isSurface=false;
-                cameraPopupWindows   = new CameraPopupWindows(ReleaseRentActivity.this,getRootView());
+                isSurface = false;
+                cameraPopupWindows = new CameraPopupWindows(ReleaseRentActivity.this, getRootView());
             }
         }, new View.OnClickListener() {
             @Override
@@ -251,13 +512,14 @@ public class ReleaseRentActivity extends BaseActivtity {
         });
         rvDetailedDrawing.setAdapter(datailedDrawingAdapter);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case CameraPopupWindows.TAKE_PICTURE:
                 if (resultCode == -1) {// 拍照
-                    themUrl=  Bimp.startPhotoZoom(ReleaseRentActivity.this,cameraPopupWindows.getPhotoUri());
+                    themUrl = Bimp.startPhotoZoom(ReleaseRentActivity.this, cameraPopupWindows.getPhotoUri());
 //                    LogUtils.i("path="+cameraPopupWindows.getPhotoUri());
 //                    LogUtils.i("path="+cameraPopupWindows.getPhotoUri().getPath());
 
@@ -274,10 +536,10 @@ public class ReleaseRentActivity extends BaseActivtity {
                 }
                 break;
             case CameraPopupWindows.RESULT_LOAD_IMAGE:
-                if ( resultCode == RESULT_OK && null != data) {// 相册返回
+                if (resultCode == RESULT_OK && null != data) {// 相册返回
                     Uri uri = data.getData();
                     if (uri != null) {
-                        themUrl=   Bimp.startPhotoZoom(ReleaseRentActivity.this,uri);
+                        themUrl = Bimp.startPhotoZoom(ReleaseRentActivity.this, uri);
 //                        if(isSurface){
 //                            Bitmap bitmap = Bimp.getLoacalBitmap(uri.getPath());
 //                            ivSurfacePlot.setImageBitmap(bitmap);
@@ -344,6 +606,7 @@ public class ReleaseRentActivity extends BaseActivtity {
                 province = newCityArray[0];
                 city = newCityArray[1];
                 county = newCityArray[2];
+                tvReleaseArea.setText(province + "/" + city + "/" + county);
             }
         });
     }
@@ -367,7 +630,7 @@ public class ReleaseRentActivity extends BaseActivtity {
         // 下面是两种方法得到宽度和高度 getWindow().getDecorView().getWidth()
         final PopupWindow window = new PopupWindow(view, WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT);
-        WheelView wv = (WheelView) view
+        final WheelView wv = (WheelView) view
                 .findViewById(R.id.wv_ori_data);
         Button saveBt = (Button) view.findViewById(R.id.bt_ori_save);
         wv.setOffset(1);
@@ -384,8 +647,10 @@ public class ReleaseRentActivity extends BaseActivtity {
         saveBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selectedori = wv.getSeletedItem();
+                tvReleaseOri.setText(selectedori);
+                tvReleaseOri.setTextColor(getResources().getColor(R.color.black));
                 window.dismiss();
-
             }
         });
         // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
@@ -412,6 +677,10 @@ public class ReleaseRentActivity extends BaseActivtity {
         int textColor = getResources().getColor(R.color.main_text_col);
         switch (type) {
             case 1:
+                if (typeView.equals("普通住宅")) {
+                    return;
+                }
+                typeView = "普通住宅";
                 tvReleaseType1.setBackgroundColor(backColorSele);
                 tvReleaseType2.setBackgroundColor(backColor);
                 tvReleaseType3.setBackgroundColor(backColor);
@@ -422,6 +691,10 @@ public class ReleaseRentActivity extends BaseActivtity {
                 tvReleaseType4.setTextColor(textColor);
                 break;
             case 2:
+                if (typeView.equals("公寓")) {
+                    return;
+                }
+                typeView = "公寓";
                 tvReleaseType1.setBackgroundColor(backColor);
                 tvReleaseType2.setBackgroundColor(backColorSele);
                 tvReleaseType3.setBackgroundColor(backColor);
@@ -432,6 +705,10 @@ public class ReleaseRentActivity extends BaseActivtity {
                 tvReleaseType4.setTextColor(textColor);
                 break;
             case 3:
+                if (typeView.equals("别墅")) {
+                    return;
+                }
+                typeView = "别墅";
                 tvReleaseType1.setBackgroundColor(backColor);
                 tvReleaseType2.setBackgroundColor(backColor);
                 tvReleaseType3.setBackgroundColor(backColorSele);
@@ -442,6 +719,10 @@ public class ReleaseRentActivity extends BaseActivtity {
                 tvReleaseType4.setTextColor(textColor);
                 break;
             case 4:
+                if (typeView.equals("商铺")) {
+                    return;
+                }
+                typeView = "商铺";
                 tvReleaseType1.setBackgroundColor(backColor);
                 tvReleaseType2.setBackgroundColor(backColor);
                 tvReleaseType3.setBackgroundColor(backColor);
@@ -461,6 +742,10 @@ public class ReleaseRentActivity extends BaseActivtity {
         int textColor = getResources().getColor(R.color.main_text_col);
         switch (type) {
             case 1:
+                if (wayView.equals("整租")) {
+                    return;
+                }
+                wayView = "整租";
                 tvReleaseWay1.setBackgroundColor(backColorSele);
                 tvReleaseWay2.setBackgroundColor(backColor);
                 tvReleaseWay3.setBackgroundColor(backColor);
@@ -471,6 +756,10 @@ public class ReleaseRentActivity extends BaseActivtity {
                 tvReleaseWay4.setTextColor(textColor);
                 break;
             case 2:
+                if (wayView.equals("合租")) {
+                    return;
+                }
+                wayView = "合租";
                 tvReleaseWay1.setBackgroundColor(backColor);
                 tvReleaseWay2.setBackgroundColor(backColorSele);
                 tvReleaseWay3.setBackgroundColor(backColor);
@@ -481,6 +770,10 @@ public class ReleaseRentActivity extends BaseActivtity {
                 tvReleaseWay4.setTextColor(textColor);
                 break;
             case 3:
+                if (wayView.equals("短租")) {
+                    return;
+                }
+                wayView = "短租";
                 tvReleaseWay1.setBackgroundColor(backColor);
                 tvReleaseWay2.setBackgroundColor(backColor);
                 tvReleaseWay3.setBackgroundColor(backColorSele);
@@ -491,6 +784,10 @@ public class ReleaseRentActivity extends BaseActivtity {
                 tvReleaseWay4.setTextColor(textColor);
                 break;
             case 4:
+                if (wayView.equals("公寓")) {
+                    return;
+                }
+                wayView = "公寓";
                 tvReleaseWay1.setBackgroundColor(backColor);
                 tvReleaseWay2.setBackgroundColor(backColor);
                 tvReleaseWay3.setBackgroundColor(backColor);
@@ -510,6 +807,10 @@ public class ReleaseRentActivity extends BaseActivtity {
         int textColor = getResources().getColor(R.color.main_text_col);
         switch (type) {
             case 1:
+                if (paview.equals("押一付一")) {
+                    return;
+                }
+                paview = "押一付一";
                 tvReleasePay1.setBackgroundColor(backColorSele);
                 tvReleasePay2.setBackgroundColor(backColor);
                 tvReleasePay3.setBackgroundColor(backColor);
@@ -518,6 +819,10 @@ public class ReleaseRentActivity extends BaseActivtity {
                 tvReleasePay3.setTextColor(textColor);
                 break;
             case 2:
+                if (paview.equals("押二付一")) {
+                    return;
+                }
+                paview = "押二付一";
                 tvReleasePay1.setBackgroundColor(backColor);
                 tvReleasePay2.setBackgroundColor(backColorSele);
                 tvReleasePay3.setBackgroundColor(backColor);
@@ -526,6 +831,10 @@ public class ReleaseRentActivity extends BaseActivtity {
                 tvReleasePay3.setTextColor(textColor);
                 break;
             case 3:
+                if (paview.equals("押一付三")) {
+                    return;
+                }
+                paview = "押一付三";
                 tvReleasePay1.setBackgroundColor(backColor);
                 tvReleasePay2.setBackgroundColor(backColor);
                 tvReleasePay3.setBackgroundColor(backColorSele);

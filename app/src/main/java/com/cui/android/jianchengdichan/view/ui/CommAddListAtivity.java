@@ -63,8 +63,8 @@ public class CommAddListAtivity extends BaseActivtity {
     @Override
     public void initView(View view) {
         tvContentName.setText("小区申请");
-        tvTopRight.setVisibility(View.VISIBLE);
-        tvTopRight.setText("+");
+        ivTopRight.setVisibility(View.VISIBLE);
+        ivTopRight.setBackgroundResource(R.drawable.main_add_button);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         exComApp.setLayoutManager(layoutManager);
@@ -85,12 +85,12 @@ public class CommAddListAtivity extends BaseActivtity {
     }
 
 
-    @OnClick({R.id.top_back, R.id.tv_top_right})
+    @OnClick({R.id.top_back, R.id.iv_top_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.top_back:
                 break;
-            case R.id.tv_top_right:
+            case R.id.iv_top_right:
             startActivity(InCommunityActivity.class);
                 break;
         }
