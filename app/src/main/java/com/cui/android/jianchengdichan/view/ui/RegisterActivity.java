@@ -64,7 +64,7 @@ public class RegisterActivity extends BaseActivtity {
 
     private int codeNum = 30;
     private boolean isPwdSee=false;
-    private boolean isProtocol=false;
+    private boolean isProtocol=true;
     RegisterPresenter mRegisterPresenter;
     private Handler mhandle = new Handler();
     @Override
@@ -88,6 +88,7 @@ public class RegisterActivity extends BaseActivtity {
         tvContentName.setText("注册");
         tvTopRight.setVisibility(View.GONE);
         ivTopRight.setVisibility(View.GONE);
+        ivRegisterProtocol.setSelected(true);
     }
 
     @Override
@@ -120,12 +121,10 @@ public class RegisterActivity extends BaseActivtity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.top_back, R.id.iv_register_number, R.id.iv_register_delete, R.id.iv_register_look, R.id.bt_register_register,R.id.iv_register_protocol, R.id.tv_register_protocol})
+    @OnClick({ R.id.iv_register_number, R.id.iv_register_delete, R.id.iv_register_look, R.id.bt_register_register,R.id.iv_register_protocol, R.id.tv_register_protocol})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.top_back:
-                LogUtils.i("top_back");
-                break;
+
             case R.id.iv_register_number:
                 LogUtils.i("iv_register_number");
                 toRegisterCode();

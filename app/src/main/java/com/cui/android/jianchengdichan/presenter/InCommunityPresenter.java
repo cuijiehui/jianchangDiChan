@@ -52,6 +52,7 @@ public class InCommunityPresenter extends BasePresenter<InCommunityActivity> {
 
                     @Override
                     public void onFailure(String msg) {
+                        LogUtils.i(msg);
                         getView().onFailure(msg);
                     }
 

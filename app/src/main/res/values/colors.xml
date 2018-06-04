@@ -13,6 +13,8 @@
     <color name="main_seek_text_col">#999999</color>
     <color name="main_seek_text_col_t">#99999999</color>
     <color name="main_text_col">#333333</color>
+    <color name="in_community_col">#22999999</color>
+    <color name="like_back_col">#11999999</color>
     <color name="main_recycler_item_bak">#55000000</color>
     <color name="main_flash_sale_back">#FF5B63</color>
     <color name="main_flash_sale_text">#666666</color>

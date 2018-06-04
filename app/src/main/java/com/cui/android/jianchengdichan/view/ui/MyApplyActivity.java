@@ -60,7 +60,7 @@ public class MyApplyActivity extends BaseActivtity {
         tvContentName.setText("已发布");
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
         rvApplyCentent.setLayoutManager(layoutManager1);
-        applyCententAdapter=new ApplyCententAdapter(myApplyBeans,mContext,myApplyPresenter);
+        applyCententAdapter=new ApplyCententAdapter(myApplyBeans,MyApplyActivity.this,myApplyPresenter);
         rvApplyCentent.setAdapter(applyCententAdapter);
     }
 

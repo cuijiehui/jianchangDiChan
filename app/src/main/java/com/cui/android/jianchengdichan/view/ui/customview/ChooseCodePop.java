@@ -47,20 +47,7 @@ public class ChooseCodePop extends PopupWindow {
     private ListView lv_code;
     private ComChildAdapter childAdapter;
 
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case 200:
-                    if (msg.obj != null){
-                        allList.addAll((Collection<? extends ChildCommunityBean>) msg.obj);
-                        childAdapter.notifyDataSetChanged();
-                    }
-                    break;
-            }
-        }
-    };
+
     private String area;
     InCommunityPresenter inCommunityPresenter;
 
@@ -160,6 +147,9 @@ public class ChooseCodePop extends PopupWindow {
     };
 
     public void getUnitList(List<ChildCommunityBean> data) {
-        handler.obtainMessage(200 , data).sendToTarget();
+        allList.clear();
+        allList.addAll(data);
+        childAdapter.setList(allList);
+        childAdapter.notifyDataSetChanged();
     }
 }

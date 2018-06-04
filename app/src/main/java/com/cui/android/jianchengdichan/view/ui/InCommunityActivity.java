@@ -2,6 +2,8 @@ package com.cui.android.jianchengdichan.view.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -64,12 +66,9 @@ public class InCommunityActivity extends BaseActivtity {
     TextView tvCommunityName;
     @BindView(R.id.rel_community_name)
     RelativeLayout relCommunityName;
-    @BindView(R.id.text4)
-    TextView text4;
-    @BindView(R.id.tv_community_code)
-    TextView tvCommunityCode;
-    @BindView(R.id.rel_community_code)
-    RelativeLayout relCommunityCode;
+
+
+
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
     @BindView(R.id.lin_bg)
@@ -83,6 +82,17 @@ public class InCommunityActivity extends BaseActivtity {
     private String userName;
     private ChooseIdentityPop identityPop;
     private String identity;
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 200:
+                    showPop2(unit_id);
+                    break;
+            }
+        }
+    };
 
     @Override
     public BasePresenter initPresenter() {
@@ -118,6 +128,7 @@ public class InCommunityActivity extends BaseActivtity {
 
     public void getUserEnterance(UserCommunityBean data) {
                 ToastUtil.makeToast("尊敬的用户，请耐心等我们审核完毕～");
+               finish();
     }
 
     private void showPop() {
@@ -149,17 +160,18 @@ public class InCommunityActivity extends BaseActivtity {
             communityName = groupBean.getName() + "/" + childBean.getName();
             community_id = groupBean.getId();
             unit_id = childBean.getId();
-            tvCommunityName.setText(communityName);
+            //TODO
+//            tvCommunityName.setText(communityName);
 //
             codeId = "";
-            tvCommunityCode.setText("");
-//
+            handler.obtainMessage(200 ).sendToTarget();
+
             LogUtils.i("选择地社区" + communityName);
         }
     };
 
 
-    @OnClick({R.id.ed_identity, R.id.rel_community_name, R.id.rel_community_code, R.id.tv_submit})
+    @OnClick({R.id.ed_identity, R.id.rel_community_name, R.id.tv_submit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ed_identity:
@@ -170,11 +182,7 @@ public class InCommunityActivity extends BaseActivtity {
                 showPop();
 
                 break;
-            case R.id.rel_community_code:
-                if (unit_id != null) {
-                    showPop2(unit_id);
-                }
-                break;
+
             case R.id.tv_submit:
 //
                 userName = edName.getText().toString().trim();
@@ -275,8 +283,7 @@ public class InCommunityActivity extends BaseActivtity {
     CodeResultListener codeResultListener = new CodeResultListener() {
         @Override
         public void codeBean(ChildCommunityBean bean) {
-
-            tvCommunityCode.setText(bean.getName());
+             tvCommunityName.setText(communityName+bean.getName());
             codeId = bean.getId();
         }
     };
@@ -289,10 +296,5 @@ public class InCommunityActivity extends BaseActivtity {
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

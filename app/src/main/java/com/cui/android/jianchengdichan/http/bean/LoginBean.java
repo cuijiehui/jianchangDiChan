@@ -6,45 +6,28 @@ package com.cui.android.jianchengdichan.http.bean;
  * @description 登录bean
  */
 public class LoginBean {
-    /**
-     * {
-     *"code": 200,
-     * "message": "登录成功",
-     *"data": {
-     *"token": "goTXe8TD4SmKomGLiMFFlTGUESzrOtEM",
-     *"effect_time": 1519352023,
-     * "uid": 77,
-     * "com_id": 6,
-     * "community_id": "",
-     *"unit_id": "",
-     * "property_id": "",
-     *"sip_number": "15071349024",
-     * "sip_pwd": "123456"
-     *}
-     * }
-     */
 
     /**
-     * token : goTXe8TD4SmKomGLiMFFlTGUESzrOtEM
-     * effect_time : 1519352023
-     * uid : 77
-     * com_id : 6
+     * token : BspobaP3o8856UHmpC9yfjshyqoPu1I1
+     * uid : 8
+     * com_id : 10
      * community_id :
      * unit_id :
      * property_id :
-     * sip_number : 15071349024
-     * sip_pwd : 123456
+     * name : 丽丽
+     * nickname : LOL
+     * pic : http://jc.szshide.cn:8888/public/uploads/20180604/5bea535304d13196da40900cbebf565f.JPEG
      */
 
     private String token;
-    private long effect_time;
     private int uid;
-    private int com_id;
+    private String com_id;
     private String community_id;
     private String unit_id;
     private String property_id;
-    private String sip_number;
-    private String sip_pwd;
+    private String name;
+    private String nickname;
+    private String pic;
 
     public String getToken() {
         return token;
@@ -52,14 +35,6 @@ public class LoginBean {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public long getEffect_time() {
-        return effect_time;
-    }
-
-    public void setEffect_time(long effect_time) {
-        this.effect_time = effect_time;
     }
 
     public int getUid() {
@@ -70,11 +45,11 @@ public class LoginBean {
         this.uid = uid;
     }
 
-    public int getCom_id() {
+    public String getCom_id() {
         return com_id;
     }
 
-    public void setCom_id(int com_id) {
+    public void setCom_id(String com_id) {
         this.com_id = com_id;
     }
 
@@ -102,34 +77,27 @@ public class LoginBean {
         this.property_id = property_id;
     }
 
-    public String getSip_number() {
-        return sip_number;
+    public String getName() {
+        return name;
     }
 
-    public void setSip_number(String sip_number) {
-        this.sip_number = sip_number;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getSip_pwd() {
-        return sip_pwd;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setSip_pwd(String sip_pwd) {
-        this.sip_pwd = sip_pwd;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    @Override
-    public String toString() {
-        return "LoginBean{" +
-                "token='" + token + '\'' +
-                ", effect_time=" + effect_time +
-                ", uid=" + uid +
-                ", com_id=" + com_id +
-                ", community_id='" + community_id + '\'' +
-                ", unit_id='" + unit_id + '\'' +
-                ", property_id='" + property_id + '\'' +
-                ", sip_number='" + sip_number + '\'' +
-                ", sip_pwd='" + sip_pwd + '\'' +
-                '}';
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 }

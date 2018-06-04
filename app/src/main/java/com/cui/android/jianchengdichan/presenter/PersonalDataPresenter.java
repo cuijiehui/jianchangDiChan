@@ -1,6 +1,7 @@
 package com.cui.android.jianchengdichan.presenter;
 
 import com.cui.android.jianchengdichan.http.base.BaseBean;
+import com.cui.android.jianchengdichan.http.bean.UserInfoPicBean;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
@@ -28,22 +29,25 @@ public class PersonalDataPresenter extends BasePresenter<PersonalDataActivity> {
         jsonObject.addProperty("key",key);
         jsonObject.addProperty("value",value);
         String json =jsonObject.toString();
-        DataModel.request(Token.API_USER_INFO)
+        DataModel.request(Token.API_INFO_PIC_INFO)
                 .params(json)
-                .execute(new CallBack<BaseBean>() {
+                .execute(new CallBack<BaseBean<UserInfoPicBean>>() {
                     @Override
-                    public void onSuccess(BaseBean data) {
-                        getView().setUserInfo();
+                    public void onSuccess(BaseBean<UserInfoPicBean> data) {
+                        getView().setUserInfo(data.getData());
+
                     }
 
                     @Override
                     public void onFailure(String msg) {
                         getView().onFailure(msg);
+
                     }
 
                     @Override
                     public void onError() {
                         getView().onError();
+
                     }
 
                     @Override
@@ -51,5 +55,29 @@ public class PersonalDataPresenter extends BasePresenter<PersonalDataActivity> {
 
                     }
                 });
+
+        /**
+         *  {
+        @Override
+        public void onSuccess(BaseBean data) {
+        getView().setUserInfo();
+        }
+
+        @Override
+        public void onFailure(String msg) {
+        getView().onFailure(msg);
+        }
+
+        @Override
+        public void onError() {
+        getView().onError();
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+        }
+         */
     }
 }

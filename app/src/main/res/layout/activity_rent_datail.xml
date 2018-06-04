@@ -5,15 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.ui.RentDatailActivity">
-<ScrollView
+    <include android:id="@+id/in_rent_top" layout="@layout/include_top_layout" />
+
+    <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_above="@+id/ll_rent_bottom"
+        android:layout_below="@+id/in_rent_top">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_top_layout" />
         <!--轮播图-->
         <com.youth.banner.Banner
             android:id="@+id/bn_rent_datail"
@@ -34,14 +37,15 @@
                 android:textColor="@color/main_text_col"
                 android:textSize="11sp" />
 
-            <ImageView
+            <TextView
                 android:id="@+id/iv_rent_time_limit"
-                android:layout_width="46dp"
-                android:layout_height="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="9dp"
-                android:src="@drawable/rent_time_limit" />
+                android:textColor="@color/login_forget_pwd"
+                />
 
             <LinearLayout
                 android:id="@+id/ll_rent_rent_msg"
@@ -152,6 +156,7 @@
     </LinearLayout>
 </ScrollView>
     <LinearLayout
+        android:id="@+id/ll_rent_bottom"
         android:layout_width="match_parent"
         android:layout_height="33dp"
         android:orientation="horizontal"

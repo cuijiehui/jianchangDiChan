@@ -2,6 +2,7 @@ package com.cui.android.jianchengdichan.view.ui;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
 import com.cui.android.jianchengdichan.http.bean.RentDetailBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.RentDatailPresenter;
@@ -20,6 +22,7 @@ import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.ui.adapter.LeaseAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -47,7 +50,7 @@ public class RentDatailActivity extends BaseActivtity {
     @BindView(R.id.tv_rent_title)
     TextView tvRentTitle;
     @BindView(R.id.iv_rent_time_limit)
-    ImageView ivRentTimeLimit;
+    TextView ivRentTimeLimit;
     @BindView(R.id.ll_rent_rent_msg)
     LinearLayout llRentRentMsg;
     @BindView(R.id.tv_rent_content)
@@ -74,7 +77,10 @@ public class RentDatailActivity extends BaseActivtity {
     RelativeLayout rlRentCall;
     @BindView(R.id.rl_rent_subscribe)
     RelativeLayout rlRentSubscribe;
+    LeaseAdapter leaseAdapter;
+
     RentDatailPresenter rentDatailPresenter ;
+    private List<LeaseRoomBean> leaseRoomBeans = new ArrayList<LeaseRoomBean>();
     private String mId;
     private List<String > picData= new ArrayList<>();
     @Override
@@ -100,6 +106,11 @@ public class RentDatailActivity extends BaseActivtity {
         tvContentName.setText("详情");
         ivTopRight.setVisibility(View.VISIBLE);
         ivTopRight.setBackgroundResource(R.drawable.share_icon);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        rvRentRecommend.setLayoutManager(linearLayoutManager);
+        leaseAdapter = new LeaseAdapter(leaseRoomBeans, this);
+
+        rvRentRecommend.setAdapter(leaseAdapter);
     }
 
     @Override
@@ -137,6 +148,7 @@ public class RentDatailActivity extends BaseActivtity {
     }
 
     private void showView(RentDetailBean data) {
+
         tvRentTitle.setText(data.getTitle());
         tvRentContent.setText(data.getDetail());
         tvRentDataArea.setText("面积："+data.getAcreage()+"立方米");
@@ -152,8 +164,15 @@ public class RentDatailActivity extends BaseActivtity {
         if (!TextUtils.isEmpty(data.getDecoration())) {
             payMsg.add(data.getDecoration());
         }
+        ivRentTimeLimit.setText(data.getRental());
         initRentPayMsg(payMsg);
         initPicData(data.getPics());
+        List<LeaseRoomBean> recommend = data.getRecommend();
+        if(recommend!=null&&recommend.size()>0){
+            leaseRoomBeans.clear();
+            leaseRoomBeans.addAll(recommend);
+            leaseAdapter.notifyDataSetChanged();
+        }
     }
 
     private void initPicData(List<String> pics) {
@@ -189,7 +208,7 @@ public class RentDatailActivity extends BaseActivtity {
 //            llRentRentMsg
             for (String msg:payMsg){
                 TextView textView = new TextView(mContext);
-                textView.setText(msg);
+                textView.setText(msg+"  ");
                 llRentRentMsg.addView(textView);
             }
         }

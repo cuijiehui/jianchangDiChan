@@ -25,6 +25,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
@@ -161,7 +162,7 @@ public class ReleaseRentActivity extends BaseActivtity {
 
                     break;
                 case UPLODE_IMG_FAIL:
-
+                    ToastUtil.makeToast("上传图片失败");
                     break;
             }
         }
@@ -264,6 +265,14 @@ public class ReleaseRentActivity extends BaseActivtity {
         etReleaseUserName.setText(contact);
         selectedori=myApplyBean.getOrientations();
         tvReleaseOri.setText(selectedori);
+        String detail = myApplyBean.getDetail();
+        etReleaseDescribe.setText(detail);
+        String pic = myApplyBean.getPic();
+        if(pic!=null){
+            surfacePlotUrl = Uri.parse(pic);
+            Glide.with(mContext).load(pic).into(ivSurfacePlot);
+        }
+
 
     }
 
@@ -376,7 +385,7 @@ public class ReleaseRentActivity extends BaseActivtity {
         } else {
             String[] flooes = floor.split("/");
             if (flooes.length != 2) {
-                ToastUtil.makeToast("楼层格式有误");
+                ToastUtil.makeToast("楼层格式有误:(第几层/共几层)");
                 return;
             }
             local_floor = flooes[0];
@@ -422,11 +431,10 @@ public class ReleaseRentActivity extends BaseActivtity {
         String house_type = "0";
         String pic = "";
         if (uplodeUrl.size() > 0) {
-            pic = uplodeUrl.getFirst();
+            pic = uplodeUrl.getLast();
         }
-        uplodeUrl.removeFirst();
+        uplodeUrl.removeLast();
         StringBuffer pics = new StringBuffer();
-
         for (String url : uplodeUrl) {
             pics.append(url + ",");
         }
@@ -461,7 +469,10 @@ public class ReleaseRentActivity extends BaseActivtity {
 
     public void uplodeImg() {
 
-
+        if(surfacePlotUrl==null){
+            ToastUtil.makeToast("封面图不能为空");
+            return;
+        }
         LinkedList imgList = new LinkedList();
         imgList.addAll(detailDrawingData);
         imgList.remove(detailDrawingData.size() - 1);
@@ -472,6 +483,8 @@ public class ReleaseRentActivity extends BaseActivtity {
         Okhttp3Utils.getInstance().uplodeImgList(imgList.size(), imgList, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+//                call.request().body()
+                LogUtils.i(call.request().body().toString());
                 Message message = new Message();
                 message.what = UPLODE_IMG_FAIL;
                 mHandler.sendMessage(message);

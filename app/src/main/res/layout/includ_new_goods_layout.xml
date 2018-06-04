@@ -24,6 +24,7 @@
         android:textColor="@color/main_text_col"
         android:textSize="16sp" />
        <TextView
+           android:id="@+id/tv_main_updata"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="换一批"

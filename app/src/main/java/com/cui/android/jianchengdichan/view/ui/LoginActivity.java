@@ -70,7 +70,7 @@ public class LoginActivity extends BaseActivtity {
 
     @Override
     public void initView(View view) {
-      String userName =(String)  SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_NAME_KEY,SPUtils.DATA_STRING);
+      String userName =(String)  SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_SIP_NUMBER_KEY,SPUtils.DATA_STRING);
       if(!TextUtils.isEmpty(userName)){
           etLoginUserName.setText(userName);
       }
@@ -94,8 +94,7 @@ public class LoginActivity extends BaseActivtity {
         if(type==200){
             String userName = etLoginUserName.getText().toString();
             String pwd = etLoginPwd.getText().toString();
-            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_NAME_KEY,userName);
-            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PWD_KEY,pwd);
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_NUMBER_KEY,userName);
             SPUtils.INSTANCE.setSPValue(SPKey.SP_LOAGIN_KEY,true);
             startActivity(new Intent(getContext(),MainActivity.class));
         }

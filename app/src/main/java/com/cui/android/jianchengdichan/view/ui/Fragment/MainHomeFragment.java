@@ -45,12 +45,15 @@ import com.cui.android.jianchengdichan.view.ui.InCommunityActivity;
 import com.cui.android.jianchengdichan.view.ui.LeaseCentreActivity;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
 import com.cui.android.jianchengdichan.view.ui.MainActivity;
+import com.cui.android.jianchengdichan.view.ui.NoticeAcitivty;
 import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
 import com.cui.android.jianchengdichan.view.ui.RentDatailActivity;
 import com.cui.android.jianchengdichan.view.ui.RepairsActivity;
 import com.cui.android.jianchengdichan.view.ui.ScanActivity;
+import com.cui.android.jianchengdichan.view.ui.WebViewActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
 import com.cui.android.jianchengdichan.view.ui.customview.RefreshableView;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.youth.banner.Banner;
@@ -107,22 +110,9 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     RecyclerView rvYouLike;
     @BindView(R.id.rl_main_top)
     RelativeLayout rlMainTop;
-    @BindView(R.id.iv_limit_icon)
-    ImageView ivLimitIcon;
-    @BindView(R.id.tv_time_h_1)
-    TextView tvTimeH1;
-    @BindView(R.id.tv_time_h_2)
-    TextView tvTimeH2;
-    @BindView(R.id.tv_time_m_1)
-    TextView tvTimeM1;
-    @BindView(R.id.tv_time_m_2)
-    TextView tvTimeM2;
-    @BindView(R.id.tv_time_s_1)
-    TextView tvTimeS1;
-    @BindView(R.id.tv_time_s_2)
-    TextView tvTimeS2;
-    @BindView(R.id.iv_join)
-    ImageView ivJoin;
+    @BindView(R.id.iv_flash_sale)
+    ImageView iv_flash_sale;
+
     private int index = 0;//textview上下滚动下标
     public static final int NEWS_MESSAGE_TEXTVIEW = 300;//通知公告信息
 
@@ -201,7 +191,7 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
                 TextView textView = new TextView(MyApplication.getAppContext());
                 textView.setSingleLine();
                 textView.setTextSize(16);//字号
-                textView.setTextColor(Color.parseColor("#ff3333"));
+                textView.setTextColor(Color.parseColor("#000000"));
                 textView.setEllipsize(TextUtils.TruncateAt.END);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -237,6 +227,13 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
             recyclAdapter = new MainRecyclerAdapter(rentDataList, new OnRecyclerViewItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
+                    boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
+                    if (isLogin) {
+//            startActivity(new Intent(getContext(), PayFeesActivity.class));
+                    } else {
+                        startActivity(new Intent(getContext(), LoginActivity.class));
+                        return;
+                    }
                     HomeDataBean.RentBean rentBean = rentDataList.get(position);
                     Intent intent = new Intent(getContext() , RentDatailActivity.class);
                     Bundle bundle = new Bundle();
@@ -262,8 +259,8 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         }
         if (youLikeBeanList != null && youLikeBeanList.size() != 0) {
             //猜你喜欢
-            LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
-            rvYouLike.setLayoutManager(layoutManager1);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+            rvYouLike.setLayoutManager(gridLayoutManager);
             mainRvYouLikeAdapter = new MainRvYouLikeAdapter(youLikeBeanList);
             rvYouLike.setAdapter(mainRvYouLikeAdapter);
         }
@@ -297,11 +294,16 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         noticeList.clear();
         //广告图片
         mDataList = data.getAd();
+
         //公告信息
         List<HomeDataBean.NoticeBean> noticeBeans = data.getNotice();
+        StringBuffer json =new StringBuffer();
         for (HomeDataBean.NoticeBean noticeBean : noticeBeans) {
             noticeList.add(noticeBean.getTitle());
+            json.append(noticeBean.getTitle()+",");
         }
+        SPUtils.INSTANCE.setSPValue(SPKey.SP_HOME_DATA_NOTICE_KEY,json);
+
         notice(noticeList);
         //租贷数据
         rentDataList = data.getRent();
@@ -377,7 +379,7 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         }
     }
 
-    @OnClick({R.id.iv_main_top_qrcode, R.id.iv_main_top_add, R.id.iv_join,R.id.tv_rent_more})
+    @OnClick({R.id.iv_main_top_qrcode, R.id.iv_main_top_add,R.id.tv_rent_more,R.id.ll_new_notice,R.id.tv_main_updata,R.id.iv_flash_sale})
     public void onViewClicked(View view) {
         boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
         if (isLogin) {
@@ -406,6 +408,19 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
                 startActivity(new Intent(getContext(), LeaseCentreActivity.class));
 
                 break;
+            case R.id.ll_new_notice:
+                startActivity(new Intent(getContext(), NoticeAcitivty.class));
+
+                break;
+            case R.id.tv_main_updata:
+                mainHomePresenter.getAnotherBatch();
+
+                break;
+            case R.id.iv_flash_sale:
+                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+                    intent.putExtra("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                    startActivity(intent);
+                break;
         }
     }
 
@@ -424,7 +439,15 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
                 startActivity(new Intent(getContext(), LeaseCentreActivity.class));
                 break;
             case 1:
-                startActivity(new Intent(getContext(), PayFeesActivity.class));
+                String com_id =(String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_COM_ID_KEY,SPUtils.DATA_STRING);
+
+                if(TextUtils.isEmpty(com_id)){
+                    startActivity(new Intent(getContext(), InCommunityActivity.class));
+
+                }else{
+                    startActivity(new Intent(getContext(), PayFeesActivity.class));
+
+                }
                 break;
             case 2:
                 break;
@@ -492,7 +515,7 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
 //        ivLimitIcon
         //rentDataList
         if (limit_time != null) {
-            Glide.with(MyApplication.getAppContext()).load(limit_time.getThumb()).into(ivLimitIcon);
+            Glide.with(MyApplication.getAppContext()).load(limit_time.getThumb()).into(iv_flash_sale);
         }
 
     }
@@ -561,4 +584,11 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     }
 
 
+    public void getAnotherBatch(List<HomeDataBean.NewgoodBean> data) {
+        newGoodsBeanList.clear();
+        if(data!=null&&data.size()>0){
+            newGoodsBeanList.addAll(data);
+            mainRvNewGoodsAdapter.notifyDataSetChanged();
+        }
+    }
 }

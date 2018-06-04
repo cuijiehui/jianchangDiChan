@@ -312,9 +312,12 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_top_right:
+                LogUtils.i("tv_top_right");
+
                 startActivity(ReleaseRentActivity.class);
                 break;
             case R.id.ll_choose_address:
+                LogUtils.i("ll_choose_address");
 
                 Intent intent = new Intent(LeaseCentreActivity.this, CityPickerActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_PICK_CITY);
@@ -323,6 +326,7 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
             case R.id.lin_choose_area:
                 //区域
                 showPop();
+                LogUtils.i("lin_choose_area");
 
                 if (isClickArea) {
                     tvChooseArea.setTextColor(Color.parseColor("#666666"));
@@ -356,6 +360,7 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
                 break;
             case R.id.lin_lease_rent:
                 showRentPop();
+                LogUtils.i("lin_lease_rent");
 
                 if (isClickRent) {
                     tvLeaseRent.setTextColor(Color.parseColor("#666666"));
@@ -391,6 +396,7 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
                 break;
             case R.id.lin_lease_unit:
                 showUnitPop();
+                LogUtils.i("lin_lease_unit");
 
                 if (isClickUnit) {
                     tvLeaseUnit.setTextColor(Color.parseColor("#666666"));
@@ -427,6 +433,7 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
                 break;
             case R.id.lin_lease_more:
                 showMorePop();
+                LogUtils.i("lin_lease_more");
 
                 if (isClickMore) {
                     tvLeaseMore.setTextColor(Color.parseColor("#666666"));
@@ -478,10 +485,5 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
         initRcLease();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="267dp"
-    android:orientation="vertical">
+    android:layout_width="wrap_content"
+    android:layout_height="251dp"
+    android:orientation="vertical"
+    android:layout_margin="1dp"
+    android:background="@drawable/shape_rounded_rectangle">
 
     <ImageView
         android:id="@+id/iv_you_like_pic"
-        android:layout_width="match_parent"
-        android:layout_height="94dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="12dp"
-        android:scaleType="fitXY"
+        android:layout_width="167dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="6dp"
+        android:scaleType="center"
+        android:layout_marginLeft="6dp"
          />
 
     <TextView
@@ -18,6 +20,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="维生素C含片"
         android:textColor="@color/main_text_col"
         android:textSize="14sp" />
@@ -27,14 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_you_like_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="150元"
-            android:textColor="@color/main_you_like_text_col"
-            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_you_like_content"
@@ -47,13 +43,16 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:background="@color/white">
 
         <TextView
+            android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="价格："
@@ -66,13 +65,24 @@
             android:layout_height="wrap_content"
             android:text="150元"
             android:textColor="@color/main_you_like_text_col"
+            android:layout_toRightOf="@+id/tv_price"
             android:textSize="16sp" />
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_sales_volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawableLeft="@drawable/sales_volume"
+            android:layout_marginRight="16dp"/>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp">
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/tv_like_shop"
@@ -112,6 +122,8 @@
             android:background="@drawable/main_add_shop_car"
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
+            android:layout_marginBottom="5dp"
             />
     </RelativeLayout>
+
 </LinearLayout>

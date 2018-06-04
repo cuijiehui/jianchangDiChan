@@ -51,7 +51,9 @@ public class LoginModel  extends BaseModel<BaseBean<LoginBean>> {
         SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_COMMUNITY_ID_KEY,data.getCommunity_id());
         SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_UNIT_ID_KEY,data.getUnit_id());
         SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PROPERTY_ID_KEY,data.getProperty_id());
-        SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_NUMBER_KEY,data.getSip_number());
-        SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_PWD_KEY,data.getSip_pwd());
+        SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PIC_URL_KEY,data.getPic());
+        SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_TRUE_NAME_KEY,data.getName());
+        SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_NAME_KEY,data.getNickname());
+
     }
 }

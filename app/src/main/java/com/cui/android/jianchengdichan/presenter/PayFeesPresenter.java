@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
 import java.util.List;
 
 public class PayFeesPresenter extends BasePresenter<PayFeesActivity> {
-    public void getCates(int uid , String token,int com_id){
+    public void getCates(int uid , String token,String com_id){
         LogUtils.i("getCates()");
         if (!isViewAttached()) {
             //如果没有View引用就不加载数据
@@ -49,7 +49,7 @@ public class PayFeesPresenter extends BasePresenter<PayFeesActivity> {
                     }
                 });
     }
-    public void getChargeCate(int uid,String token,int com_id){
+    public void getChargeCate(int uid,String token,String com_id){
         LogUtils.i("getChargeCate()");
         if (!isViewAttached()) {
             //如果没有View引用就不加载数据

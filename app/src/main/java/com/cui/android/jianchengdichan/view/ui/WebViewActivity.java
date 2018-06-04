@@ -58,6 +58,7 @@ public class WebViewActivity extends AppCompatActivity {
     }
 
     private void setSettings() {
+        pbLoading.setVisibility(View.GONE);
         WebSettings settings = wvAll.getSettings();
         //设置可以使用javascript
         settings.setJavaScriptEnabled(true);

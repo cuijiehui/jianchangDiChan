@@ -3,6 +3,7 @@ package com.cui.android.jianchengdichan.http;
 import com.cui.android.jianchengdichan.http.base.BasesBean;
 import com.cui.android.jianchengdichan.http.bean.AliPayBean;
 import com.cui.android.jianchengdichan.http.base.BaseBean;
+import com.cui.android.jianchengdichan.http.bean.AnotherBatchBean;
 import com.cui.android.jianchengdichan.http.bean.CatesBean;
 import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
 import com.cui.android.jianchengdichan.http.bean.CityListBean;
@@ -12,12 +13,15 @@ import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
 import com.cui.android.jianchengdichan.http.bean.LoginBean;
 import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
+import com.cui.android.jianchengdichan.http.bean.NoticeBean;
+import com.cui.android.jianchengdichan.http.bean.NoticeThreelistBean;
 import com.cui.android.jianchengdichan.http.bean.PayRecordsBean;
 import com.cui.android.jianchengdichan.http.bean.RentDetailBean;
 import com.cui.android.jianchengdichan.http.bean.RepairsBean;
 import com.cui.android.jianchengdichan.http.bean.SplashAdvBean;
 import com.cui.android.jianchengdichan.http.bean.UserCommunityBean;
 import com.cui.android.jianchengdichan.http.bean.UserEntranceBean;
+import com.cui.android.jianchengdichan.http.bean.UserInfoPicBean;
 import com.cui.android.jianchengdichan.http.bean.WeChatPayBean;
 import com.cui.android.jianchengdichan.http.config.URLConfig;
 import com.cui.android.jianchengdichan.view.ui.customview.ChildCommunityBean;
@@ -101,6 +105,9 @@ public interface APIFunction {
     @POST(URLConfig.POSTH_USER_INFO_URL)
     Observable<BasesBean> setUserInfo(@Body RequestBody route);
 
+    @POST(URLConfig.POSTH_USER_INFO_URL)
+    Observable<BaseBean<UserInfoPicBean>> setUserInfoPic(@Body RequestBody route);
+
     @POST(URLConfig.POSTH_REPAIR_INFO_URL)
     Observable<BasesBean> submitRepairInfo(@Body RequestBody route);
 
@@ -116,4 +123,17 @@ public interface APIFunction {
 
     @POST(URLConfig.POSTH_REPAIR_MY_APPLY_URL)
     Observable<BaseBean<List<MyApplyBean>>> myApply(@Body RequestBody route);
+
+
+    @POST(URLConfig.POSTH_GET_NOTICE_LIST_URL)
+    Observable<BaseBean<List<NoticeBean>>> getNoticeList(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_ANOTHER_BATCH_URL)
+    Observable<BaseBean<AnotherBatchBean>> getAnotherBatch();
+
+    @POST(URLConfig.POSTH_AD_GET_LIST_URL)
+    Observable<BaseBean<List<HomeDataBean.AdBean>>> getAdList(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_NOTICE_GET_THREELIST_URL)
+    Observable<BaseBean<List<NoticeThreelistBean>>> getNoticeThreelist(@Body RequestBody route);
 }

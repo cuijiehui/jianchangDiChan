@@ -1,6 +1,9 @@
 package com.cui.android.jianchengdichan.view.ui.adapter;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,10 +29,10 @@ import java.util.List;
 
 public class ApplyCententAdapter extends RecyclerView.Adapter<ApplyCententAdapter.MyViewHolder>  {
     List<MyApplyBean> myApplyBeans;
-    Context context;
+    Activity context;
     MyApplyPresenter myApplyPresenter;
-
-    public ApplyCententAdapter(List<MyApplyBean> myApplyBeans,Context context,MyApplyPresenter myApplyPresenter) {
+    MyApplyBean myApplyBean;
+    public ApplyCententAdapter(List<MyApplyBean> myApplyBeans, Activity context, MyApplyPresenter myApplyPresenter) {
         this.myApplyBeans = myApplyBeans;
         this.context=context;
         this.myApplyPresenter=myApplyPresenter;
@@ -45,7 +48,7 @@ public class ApplyCententAdapter extends RecyclerView.Adapter<ApplyCententAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final MyApplyBean myApplyBean =myApplyBeans.get(position);
+       myApplyBean =myApplyBeans.get(position);
         holder.tv_apply_title.setText(myApplyBean.getTitle()+" "+myApplyBean.getHouse_type_info());
         holder.iv_apply_type.setText(myApplyBean.getBan_type());
         holder.tv_apply_username.setText(myApplyBean.getContact());
@@ -66,9 +69,8 @@ public class ApplyCententAdapter extends RecyclerView.Adapter<ApplyCententAdapte
         holder.iv_apply_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int uid = (Integer) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
-                String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
-                myApplyPresenter.delRentInfo(uid,token,myApplyBean.getId());
+
+                showDialog();
             }
         });
         holder.iv_apply_com.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +85,24 @@ public class ApplyCententAdapter extends RecyclerView.Adapter<ApplyCententAdapte
                 context.startActivity(intent);
             }
         });
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("")
+                .setMessage("是否删除发布的租赁")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                int uid = (Integer) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
+                String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
+                myApplyPresenter.delRentInfo(uid,token,myApplyBean.getId());
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        builder.show();
     }
 
     @Override

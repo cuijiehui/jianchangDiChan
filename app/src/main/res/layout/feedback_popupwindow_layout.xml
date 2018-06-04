@@ -17,6 +17,7 @@
             android:background="@drawable/my_head_portrait"
             android:layout_centerInParent="true"/>
         <TextView
+            android:id="@+id/tv_text_cntent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="尊敬的用户，您的反馈我们已收到！"

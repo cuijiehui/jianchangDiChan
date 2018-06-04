@@ -38,9 +38,9 @@ public class MainRvYouLikeAdapter extends RecyclerView.Adapter<MainRvYouLikeAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HomeDataBean.FavorBean favorBean = dataList.get(position);
         holder.tv_you_like_name.setText(favorBean.getShorttitle());
-        holder.tv_you_like_price.setText(favorBean.getMarketprice()+"元");
         holder.tv_you_like_price_end.setText(favorBean.getMarketprice()+"元");
         holder.tv_you_like_content.setText(favorBean.getTitle());
+        holder.tv_sales_volume.setText(favorBean.getSales());
         Glide.with(MyApplication.getAppContext()).load(favorBean.getThumb()).into(holder.iv_you_like_pic);
 
     }
@@ -52,18 +52,18 @@ public class MainRvYouLikeAdapter extends RecyclerView.Adapter<MainRvYouLikeAdap
 
     class ViewHolder extends  RecyclerView.ViewHolder{
         ImageView iv_you_like_pic, iv_you_like_add_shop;
-        TextView tv_you_like_name,tv_you_like_price,tv_you_like_content,tv_you_like_price_end,tv_like_shop,tv_like_service,tv_like_collect;
+        TextView tv_you_like_name,tv_you_like_content,tv_you_like_price_end,tv_like_shop,tv_like_service,tv_like_collect,tv_sales_volume;
         public ViewHolder(View itemView) {
             super(itemView);
             iv_you_like_pic= itemView.findViewById(R.id.iv_you_like_pic);
             iv_you_like_add_shop= itemView.findViewById(R.id.iv_you_like_add_shop);
             tv_you_like_name= itemView.findViewById(R.id.tv_you_like_name);
-            tv_you_like_price= itemView.findViewById(R.id.tv_you_like_price);
             tv_you_like_content= itemView.findViewById(R.id.tv_you_like_content);
             tv_you_like_price_end= itemView.findViewById(R.id.tv_you_like_price_end);
             tv_like_shop= itemView.findViewById(R.id.tv_like_shop);
             tv_like_service= itemView.findViewById(R.id.tv_like_service);
             tv_like_collect= itemView.findViewById(R.id.tv_like_collect);
+            tv_sales_volume= itemView.findViewById(R.id.tv_sales_volume);
         }
     }
 }

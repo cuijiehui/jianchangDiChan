@@ -28,6 +28,10 @@
             android:focusableInTouchMode="true"
             android:layout_marginTop="8dp"
             android:layout_centerInParent="true"
+            android:layout_toRightOf="@+id/iv_main_top_qrcode"
+            android:layout_marginLeft="10dp"
+            android:layout_toLeftOf="@+id/iv_main_top_add"
+            android:layout_marginRight="10dp"
             >
 
             <EditText
@@ -35,7 +39,6 @@
                 android:layout_width="279dp"
                 android:layout_height="20dp"
                 android:background="@color/white"
-                android:hint="商品名称"
                 android:textColorHint="@color/main_seek_text_col"
                 android:layout_centerVertical="true"
                 android:textSize="15px"
@@ -61,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/rl_main_top"
-        android:layout_marginBottom="49dp">
+        >
 
         <ScrollView
             android:layout_width="match_parent"
@@ -79,6 +82,7 @@
 
                 <!--最新公告-->
                 <LinearLayout
+                    android:id="@+id/ll_new_notice"
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
                     android:layout_marginTop="13dp"
@@ -110,7 +114,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
+                    android:layout_height="3dp"
                     android:background="@drawable/main_parting_line" />
                 <!--附近租贷-->
                 <RelativeLayout
@@ -163,7 +167,17 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
+                    android:layout_height="3dp"
+                    android:background="@drawable/main_parting_line" />
+                <!--限时抢购-->
+                <!--<include android:id="@+id/flash_sale_include" layout="@layout/includ_flash_sale_layout"/>-->
+                <ImageView
+                    android:id="@+id/iv_flash_sale"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
                     android:background="@drawable/main_parting_line" />
                 <!--社区管家-->
                 <RelativeLayout
@@ -201,10 +215,16 @@
                     android:paddingLeft="20dp">
 
                 </android.support.v7.widget.RecyclerView>
-
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
+                    android:layout_height="3dp"
+                    android:background="@drawable/main_parting_line" />
+
+                <!--新品上市-->
+                <include android:id="@+id/goods_new_include" layout="@layout/includ_new_goods_layout"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
                     android:background="@drawable/main_parting_line" />
                 <!--停车专区-->
                 <RelativeLayout
@@ -263,21 +283,10 @@
                         />
 
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:background="@drawable/main_parting_line" />
-                <!--限时抢购-->
-                <include android:id="@+id/flash_sale_include" layout="@layout/includ_flash_sale_layout"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:background="@drawable/main_parting_line" />
-                <!--新品上市-->
-                <include android:id="@+id/goods_new_include" layout="@layout/includ_new_goods_layout"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="8dp"
+                    android:layout_height="3dp"
                     android:background="@drawable/main_parting_line" />
                 <!--猜你喜欢-->
                 <include android:id="@+id/you_like_include" layout="@layout/includ_you_like_layout"/>

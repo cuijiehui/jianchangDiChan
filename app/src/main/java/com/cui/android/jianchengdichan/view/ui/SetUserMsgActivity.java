@@ -98,6 +98,7 @@ public class SetUserMsgActivity extends BaseActivtity {
         }else{
             SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_NAME_KEY, vlues);
         }
+        finish();
         startActivity(PersonalDataActivity.class);
 
     }

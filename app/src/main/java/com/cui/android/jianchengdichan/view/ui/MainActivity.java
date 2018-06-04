@@ -1,6 +1,7 @@
 package com.cui.android.jianchengdichan.view.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -20,6 +21,7 @@ import com.cui.android.jianchengdichan.view.ui.Fragment.MainHomeFragment;
 import com.cui.android.jianchengdichan.view.ui.Fragment.MainMyFragment;
 import com.cui.android.jianchengdichan.view.ui.Fragment.MainShopFragment;
 import com.cui.android.jianchengdichan.view.ui.customview.MainNavigationView;
+import com.cui.android.jianchengdichan.view.ui.customview.viewpager.CustomViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class MainActivity extends BaseActivtity {
     @BindView(R.id.main_navigation_view)
     MainNavigationView mainNavigationView;
     @BindView(R.id.vp_main_pager)
-   public ViewPager vpMainPager;
+   public CustomViewPager vpMainPager;
 
     private MainPagerAdapter mMainPagerAdapter;
     private List<Fragment> mDataList =new ArrayList<>();
@@ -77,22 +79,28 @@ public class MainActivity extends BaseActivtity {
         mMainPagerAdapter=new MainPagerAdapter(getSupportFragmentManager(),getContext(),mDataList);
         vpMainPager.setAdapter(mMainPagerAdapter);
         vpMainPager.setCurrentItem(0);
-        vpMainPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                LogUtils.i("onPageSelected=" + position);
-                mainNavigationView.setPager(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
+//        vpMainPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                LogUtils.i("onPageSelected=" + position);
+//                mainNavigationView.setPager(position);
+////                if(position==2){
+////                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+////                    intent.putExtra("data", "http://www.baidu.com");
+////                    getContext().startActivity(intent);
+////                }
+//
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -106,7 +114,11 @@ public class MainActivity extends BaseActivtity {
             public void onBackSelected(int conut) {
                 LogUtils.i("onBackSelected=" + conut);
                 vpMainPager.setCurrentItem(conut);
-
+//                if(conut==2){
+//                    Intent intent = new Intent(getContext(), WebViewActivity.class);
+//                    intent.putExtra("data", "http://www.baidu.com");
+//                    getContext().startActivity(intent);
+//                }
             }
         });
     }

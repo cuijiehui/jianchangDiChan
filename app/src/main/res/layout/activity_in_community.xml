@@ -8,6 +8,7 @@
     android:id="@+id/lin_bg"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:background="@color/in_community_col"
     tools:context=".view.ui.InCommunityActivity">
 
     <include layout="@layout/include_top_layout" />
@@ -15,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
-        android:background="#55000000"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -25,7 +26,8 @@
             android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
             android:text="名称"
-            android:textColor="#ffffff" />
+            android:textColor="@color/black"
+            />
 
 
         <EditText
@@ -36,9 +38,9 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_toRightOf="@+id/text1"
-            android:background="#00000000"
             android:gravity="center_vertical"
-            android:textColor="#ffffff"
+            android:background="#00000000"
+            android:textColor="@color/black"
             android:textSize="16dp" />
     </RelativeLayout>
 
@@ -47,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:background="#55000000"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -57,7 +59,8 @@
             android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
             android:text="身份"
-            android:textColor="#ffffff" />
+            android:textColor="@color/black"
+            />
 
         <TextView
             android:id="@+id/ed_identity"
@@ -69,7 +72,7 @@
             android:layout_toRightOf="@+id/text2"
             android:background="#00000000"
             android:gravity="center_vertical"
-            android:textColor="#ffffff"
+            android:textColor="@color/black"
             android:textSize="16dp" />
     </RelativeLayout>
 
@@ -78,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
-        android:background="#55000000"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <TextView
@@ -88,7 +91,8 @@
             android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
             android:text="社区"
-            android:textColor="#ffffff" />
+            android:textColor="@color/black"
+            />
 
         <TextView
             android:id="@+id/tv_community_name"
@@ -100,41 +104,10 @@
             android:layout_toRightOf="@+id/text3"
             android:background="#00000000"
             android:gravity="center_vertical"
-            android:textColor="#ffffff"
+            android:textColor="@color/black"
+
             android:textSize="16dp" />
     </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rel_community_code"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp"
-        android:background="#55000000"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/text4"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:gravity="center_vertical"
-            android:text="单元号"
-            android:textColor="#ffffff" />
-
-        <TextView
-            android:id="@+id/tv_community_code"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_toRightOf="@+id/text4"
-            android:background="#00000000"
-            android:gravity="center_vertical"
-            android:textColor="#ffffff"
-            android:textSize="16dp" />
-    </RelativeLayout>
-
 
 
     <TextView

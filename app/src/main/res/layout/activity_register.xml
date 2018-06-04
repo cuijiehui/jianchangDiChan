@@ -19,6 +19,7 @@
             android:textColorHint="@color/main_seek_text_col"
             android:layout_toLeftOf="@+id/iv_register_number"
             android:layout_marginLeft="17dp"
+            android:inputType="number"
             android:background="@null"
             />
         <TextView
@@ -59,6 +60,7 @@
             android:textColorHint="@color/main_seek_text_col"
             android:layout_toLeftOf="@+id/iv_register_delete"
             android:layout_marginLeft="17dp"
+            android:inputType="number"
             android:background="@null"
             />
 

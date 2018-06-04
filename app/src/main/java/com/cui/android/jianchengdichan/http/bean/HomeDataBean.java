@@ -283,6 +283,15 @@ public class HomeDataBean {
         private String title;
         private String thumb;
         private String marketprice;
+        private String sales;
+
+        public String getSales() {
+            return sales;
+        }
+
+        public void setSales(String sales) {
+            this.sales = sales;
+        }
 
         public int getId() {
             return id;

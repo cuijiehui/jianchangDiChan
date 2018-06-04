@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
+import com.cui.android.jianchengdichan.http.bean.UserInfoPicBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.PersonalDataPresenter;
 import com.cui.android.jianchengdichan.utils.Bimp;
@@ -31,6 +32,9 @@ import com.cui.android.jianchengdichan.view.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
 import com.cui.android.jianchengdichan.view.ui.customview.CircleImageView;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -72,7 +76,7 @@ public class PersonalDataActivity extends BaseActivtity {
     String userName;
     String pic;
     String trueName;
-    String phone;
+    String phone="";
     CameraPopupWindows cameraPopupWindows;
     @BindView(R.id.tv_user_nickname)
     TextView tvUserNickname;
@@ -83,6 +87,7 @@ public class PersonalDataActivity extends BaseActivtity {
 
     public final static int UPLOAD_IMG_OK = 2002;
     public final static int UPLOAD_IMG_FAIL = -2002;
+    String key="";
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
 
@@ -93,7 +98,8 @@ public class PersonalDataActivity extends BaseActivtity {
                     int uid = (Integer) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
                     String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
                     String pic = (String) msg.obj;
-                    personalDataPresenter.setUserInfo(uid, token, "pic", pic);
+                    key="pic";
+                    personalDataPresenter.setUserInfo(uid, token, key, pic);
                     break;
                 case UPLOAD_IMG_FAIL:
                     ToastUtil.makeToast("更新头像失败，请重试");
@@ -127,7 +133,8 @@ public class PersonalDataActivity extends BaseActivtity {
         tvContentName.setText("个人资料");
         tvUserNickname.setText(userName);
         tvUserRealName.setText(trueName);
-        tvUserId.setText(trueName);
+        tvUserId.setText(phone);
+        LogUtils.i("pic="+pic);
         if (!TextUtils.isEmpty(pic)) {
             Glide.with(mContext).load(pic).into(imgUserhead);
         }
@@ -154,7 +161,18 @@ public class PersonalDataActivity extends BaseActivtity {
                 break;
             case R.id.bt_log_out:
 
-
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_LOAGIN_KEY,false);
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_TOKEN_KEY,"");
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_UID_KEY,0);
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_COM_ID_KEY,"");
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_COMMUNITY_ID_KEY,"");
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_UNIT_ID_KEY,"");
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PROPERTY_ID_KEY,"");
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_NUMBER_KEY,"");
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_PWD_KEY,"");
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PIC_URL_KEY, "");
+                startActivity(LoginActivity.class);
+                finish();
                 break;
             case R.id.rel_user_real_name:
                 Bundle bundle =new Bundle();
@@ -269,7 +287,6 @@ public class PersonalDataActivity extends BaseActivtity {
             UplodeImgBean uplodeImgBean = gson.fromJson(str, UplodeImgBean.class);
             String pic = uplodeImgBean.getData().getPics();
             LogUtils.i("uplodeImg" + pic);
-            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PIC_URL_KEY, pic);
             Message message = new Message();
             message.what = UPLOAD_IMG_OK;
             message.obj = pic;
@@ -281,8 +298,10 @@ public class PersonalDataActivity extends BaseActivtity {
 
     }
 
-    public void setUserInfo() {
-        ToastUtil.makeToast("更新头像失败，请重试");
+    public void setUserInfo(UserInfoPicBean data) {
+            String value = data.getPic();
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PIC_URL_KEY, value);
+        ToastUtil.makeToast("更新头像成功");
     }
 
 

@@ -8,7 +8,7 @@ package com.cui.android.jianchengdichan.http.base;
 public class BaseBean<T> {
     private static int SUCCESS_CODE=200;//成功的code
     private int code;
-    private String msg;
+    private String message;
 
     public boolean isSuccess(){
         return getCode()==SUCCESS_CODE;
@@ -22,11 +22,11 @@ public class BaseBean<T> {
     }
 
     public String getMsg() {
-        return msg;
+        return message;
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
+        this.message = msg;
     }
 
     private T data;

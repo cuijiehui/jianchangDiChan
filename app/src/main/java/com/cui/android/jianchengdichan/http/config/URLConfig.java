@@ -38,6 +38,10 @@ public interface URLConfig {
     String POSTH_REPAIR_RENT_INFO_URL ="/api/Rent/publishRentInfo";//获取报修信息列表接口
     String POSTH_REPAIR_MY_APPLY_URL ="/api/Rent/myRentInfo";//我的发布历史接口
     String POSTH_REPAIR_DEL_RENTINFO_URL ="/api/Rent/delRentInfo";//租赁信息删除接口
+    String POSTH_GET_NOTICE_LIST_URL ="/api/Notice/getList";//获取公告列表接口
+    String POSTH_ANOTHER_BATCH_URL ="/api/Home/anotherBatch";//换一批
+    String POSTH_AD_GET_LIST_URL ="/api/Ad/getList";//获取社区广告
+    String POSTH_NOTICE_GET_THREELIST_URL ="/api/Notice/getThreeList";//获取社区公告
 
 
 }

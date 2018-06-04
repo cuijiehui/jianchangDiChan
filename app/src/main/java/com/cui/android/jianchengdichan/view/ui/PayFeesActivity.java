@@ -79,7 +79,7 @@ public class PayFeesActivity extends BaseActivtity {
     public void doBusiness(Context mContext) {
        int uid =(int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
         String token =(String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
-       int com_id =(int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_COM_ID_KEY,SPUtils.DATA_INT);
+        String com_id =(String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_COM_ID_KEY,SPUtils.DATA_STRING);
         payFeesPresenter.getCates(uid,token,com_id);
     }
 
@@ -113,7 +113,7 @@ public class PayFeesActivity extends BaseActivtity {
         }
         int uid =(int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
         String token =(String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
-        int com_id =(int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_COM_ID_KEY,SPUtils.DATA_INT);
+        String com_id =(String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_COM_ID_KEY,SPUtils.DATA_STRING);
         payFeesPresenter.getChargeCate(uid,token,com_id);
     }
     public void getChargeCate(List<ChargeCateBean> data){

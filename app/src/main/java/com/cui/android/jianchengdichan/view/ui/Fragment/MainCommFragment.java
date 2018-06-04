@@ -1,20 +1,34 @@
 package com.cui.android.jianchengdichan.view.ui.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
+import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
+import com.cui.android.jianchengdichan.http.bean.NoticeThreelistBean;
+import com.cui.android.jianchengdichan.presenter.MainCommPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
@@ -23,10 +37,12 @@ import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.CommRvAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.cui.android.jianchengdichan.view.ui.LeaseCentreActivity;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
-import com.cui.android.jianchengdichan.view.ui.MainActivity;
+import com.cui.android.jianchengdichan.view.ui.NoticeAcitivty;
 import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
+import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
 import com.cui.android.jianchengdichan.view.ui.customview.RefreshableView;
 import com.youth.banner.Banner;
+import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +51,16 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
-public class MainCommFragment extends Fragment  implements IBaseView {
+public class MainCommFragment extends Fragment implements IBaseView {
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -66,12 +88,40 @@ public class MainCommFragment extends Fragment  implements IBaseView {
     @BindView(R.id.rv_comm_refreshable)
     RefreshableView rvCommRefreshable;
     Unbinder unbinder;
-
+    MainCommPresenter mainCommPresenter = new MainCommPresenter();
+    @BindView(R.id.ll_comm_notice)
+    LinearLayout llCommNotice;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private List<Integer> dataTop = new ArrayList<>();
-    private List<Integer> dataRv= new ArrayList<>();
+    private List<Integer> dataRv = new ArrayList<>();
+    private List<HomeDataBean.AdBean> mDataList = new ArrayList<>();//轮播图数据
+    private List<String> noticeList = new ArrayList<>();//公告数据
+    public static final int NEWS_MESSAGE_TEXTVIEW = 300;//通知公告信息
+    private int index = 0;//textview上下滚动下标
+    @SuppressLint("HandlerLeak")
+    Handler noticeHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case NEWS_MESSAGE_TEXTVIEW:
+                    if (tvMainCommNoticeNew != null) {
+                        tvMainCommNoticeNew.setText(noticeList.get(index));
+                        index++;
+                        if (index == noticeList.size()) {
+                            index = 0;
+                        }
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+    List<HomeDataBean.AdBean> dataList = new ArrayList<>();
+    List<String> notifi = new ArrayList();
 
     public MainCommFragment() {
         // Required empty public constructor
@@ -129,9 +179,41 @@ public class MainCommFragment extends Fragment  implements IBaseView {
         unbinder = ButterKnife.bind(this, view);
 
         initRecyclerView();
-         setRefresh();
+        setRefresh();
+        mainCommPresenter.attachView(this);
+        mainCommPresenter.setTransformer(setThread());
+        //公告
+        tvMainCommNoticeNew.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView textView = new TextView(MyApplication.getAppContext());
+                textView.setSingleLine();
+                textView.setTextSize(16);//字号
+                textView.setTextColor(Color.parseColor("#000000"));
+                textView.setEllipsize(TextUtils.TruncateAt.END);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                params.gravity = Gravity.CENTER_VERTICAL;
+                textView.setLayoutParams(params);
+                return textView;
+            }
+        });
+        int uid = (Integer) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
+        String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
+        mainCommPresenter.getAdList(uid, token, "2", "2");
+        mainCommPresenter.getNoticeList(uid, token, "2");
         return view;
     }
+
+    public <T> ObservableTransformer<T, T> setThread() {
+        return new ObservableTransformer<T, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
     /**
      * 初始化下拉刷新
      */
@@ -155,6 +237,7 @@ public class MainCommFragment extends Fragment  implements IBaseView {
             }
         }, 1);
     }
+
     private void initRecyclerView() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         rvCommTop.setLayoutManager(gridLayoutManager);
@@ -210,11 +293,30 @@ public class MainCommFragment extends Fragment  implements IBaseView {
 
     }
 
+    /**
+     * 初始化图片轮播图
+     */
+    private void initAdvViewPage() {
+        if (mDataList == null || mDataList.size() == 0) {
+            return;
+        }
+        bnMainCommAdv.setImageLoader(new GlideImageLoader()); //设置图片加载器
+        bnMainCommAdv.setImages(mDataList);//设置图片集合
+        //设置自动轮播，默认为true
+        bnMainCommAdv.isAutoPlay(true);
+        //设置轮播时间
+        bnMainCommAdv.setDelayTime(3000);
+        //设置指示器位置（当banner模式中有指示器时）
+        bnMainCommAdv.setIndicatorGravity(BannerConfig.CENTER);
+        bnMainCommAdv.start();
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
     @Override
     public void showLoading() {
 
@@ -243,5 +345,41 @@ public class MainCommFragment extends Fragment  implements IBaseView {
     @Override
     public void onError() {
 
+    }
+
+    public void getAdList(List<HomeDataBean.AdBean> data) {
+        mDataList.clear();
+        if (data != null) {
+            mDataList.addAll(data);
+            initAdvViewPage();
+        }
+    }
+
+    public void getNoticeList(List<NoticeThreelistBean> data) {
+        for (NoticeThreelistBean bean : data) {
+            noticeList.add(bean.getTitle());
+        }
+        notice(noticeList);
+
+    }
+
+    private void notice(final List<String> list) {
+        new Thread() {
+            @Override
+            public void run() {
+                //LogUtil.i("-------------------------------" + newsList.size());
+                while (index < list.size()) {
+                    synchronized (this) {
+                        noticeHandler.sendEmptyMessage(NEWS_MESSAGE_TEXTVIEW);
+                        SystemClock.sleep(5000);//每隔4秒滚动一次
+                    }
+                }
+            }
+        }.start();
+    }
+
+    @OnClick(R.id.ll_comm_notice)
+    public void onViewClicked() {
+        startActivity(new Intent(getContext(), NoticeAcitivty.class));
     }
 }

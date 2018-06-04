@@ -134,7 +134,8 @@
         <activity android:name=".view.ui.PersonalDataActivity" />
         <activity android:name=".view.ui.SetUserMsgActivity" />
         <activity android:name=".view.ui.RepairsActivity" />
-        <activity android:name=".view.ui.MyApplyActivity"></activity>
+        <activity android:name=".view.ui.MyApplyActivity" />
+        <activity android:name=".view.ui.NoticeAcitivty"></activity>
     </application>
 
 </manifest>
