@@ -115,9 +115,10 @@ public class LeaseUnitPop extends PopupWindow {
                     type = "5";
 
                 }
-
-                adapter.setSelectItem(position);
-                adapter.notifyDataSetChanged();
+                listener.identityResult(type);
+                LeaseUnitPop.this.dismiss();
+//                adapter.setSelectItem(position);
+//                adapter.notifyDataSetChanged();
 
             }
         });

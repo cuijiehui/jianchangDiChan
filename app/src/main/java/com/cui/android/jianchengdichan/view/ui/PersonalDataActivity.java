@@ -136,7 +136,8 @@ public class PersonalDataActivity extends BaseActivtity {
         tvUserId.setText(phone);
         LogUtils.i("pic="+pic);
         if (!TextUtils.isEmpty(pic)) {
-            Glide.with(mContext).load(pic).into(imgUserhead);
+            Okhttp3Utils.getInstance().glide(mContext,pic,imgUserhead);
+
         }
     }
 
@@ -180,6 +181,7 @@ public class PersonalDataActivity extends BaseActivtity {
                 bundle.putString("hint","请输入真实名字");
                 bundle.putString("key","name");
                 startActivity(SetUserMsgActivity.class,bundle);
+                finish();
 
                 break;
             case R.id.rel_user_nickname:
@@ -188,6 +190,7 @@ public class PersonalDataActivity extends BaseActivtity {
                 bundle2.putString("hint","请输入昵称");
                 bundle2.putString("key","nickname");
                 startActivity(SetUserMsgActivity.class,bundle2);
+                finish();
 
                 break;
         }

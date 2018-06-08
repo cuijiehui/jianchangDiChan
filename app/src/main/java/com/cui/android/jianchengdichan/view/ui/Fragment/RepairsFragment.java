@@ -1,49 +1,140 @@
 package com.cui.android.jianchengdichan.view.ui.Fragment;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.RepairCateBean;
+import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
 import com.cui.android.jianchengdichan.presenter.RepairsPresenter;
+import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.RepairsTypeAdapter;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
+import com.cui.android.jianchengdichan.view.ui.adapter.DatailedDrawingAdapter;
+import com.cui.android.jianchengdichan.view.ui.beans.ReleaseImgBean;
+import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
+import com.google.gson.Gson;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+
 public class RepairsFragment extends Fragment {
 
+    @BindView(R.id.tv_repairs_type)
+    TextView tvRepairsType;
+    @BindView(R.id.rv_repairs_type)
+    RecyclerView rvRepairsType;
+    @BindView(R.id.rel_repairs_type)
+    RelativeLayout relRepairsType;
+    @BindView(R.id.tv_repairs_title)
+    TextView tvRepairsTitle;
+    @BindView(R.id.ed_title)
+    EditText edTitle;
+    @BindView(R.id.rel_repairs_title)
+    RelativeLayout relRepairsTitle;
+    @BindView(R.id.tv_repairs_name)
+    TextView tvRepairsName;
+    @BindView(R.id.ed_name)
+    EditText edName;
+    @BindView(R.id.rel_repairs_name)
+    RelativeLayout relRepairsName;
+    @BindView(R.id.tv_repairs_phone)
+    TextView tvRepairsPhone;
+    @BindView(R.id.ed_tel)
+    EditText edTel;
+    @BindView(R.id.rel_repairs_phone)
+    RelativeLayout relRepairsPhone;
+    @BindView(R.id.et_feedback_txt)
+    EditText etFeedbackTxt;
+    @BindView(R.id.tv_submit)
+    TextView tvSubmit;
+    @BindView(R.id.rv_add_img)
+    RecyclerView rv_add_img;
+    public Uri themUrl = null;
+    public DatailedDrawingAdapter datailedDrawingAdapter;
+    Unbinder unbinder;
+    @BindView(R.id.tv_repairs_num)
+    TextView tvRepairsNum;
+    @BindView(R.id.ed_repairs_num)
+    EditText edRepairsNum;
+    @BindView(R.id.rel_repairs_num)
+    RelativeLayout relRepairsNum;
+
     private View view;
-    private EditText ed_tel;
-    private EditText ed_name;
-    private EditText et_feedback_txt;
-    private TextView tv_submit;
     private int uid;
     private String area;
-    private static   RepairsPresenter mRepairsPresenter;
-   private static RepairsFragment instance;
-    public RepairsFragment(){}
+    private static RepairsPresenter mRepairsPresenter;
+    private static RepairsFragment instance;
+    private RepairsTypeAdapter repairsAdapter;
+    private List<String> dataList = new ArrayList<>();
+    CameraPopupWindows cameraPopupWindows;
+    public final static int UPLODE_IMG = 300;
+    public final static int UPLODE_IMG_FAIL = -300;
+    public LinkedList<ReleaseImgBean> detailDrawingData = new LinkedList<>();
+    private LinkedList<String> uplodeUrl = new LinkedList<>();
 
-    public static RepairsFragment getInstance( RepairsPresenter repairsPresenter){
-        if(instance==null){
-            instance=new RepairsFragment();
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case UPLODE_IMG:
+                    String uplode = (String) msg.obj;
+                    String[] uplodes = uplode.split(",");
+                    for (String url : uplodes) {
+                        LogUtils.i("url=" + url);
+                        uplodeUrl.addFirst(url);
+                    }
+                    submitData();
+
+                    break;
+                case UPLODE_IMG_FAIL:
+                    ToastUtil.makeToast("上传图片失败");
+                    break;
+            }
         }
-        mRepairsPresenter =repairsPresenter;
+    };
+
+    public RepairsFragment() {
+    }
+
+    public static RepairsFragment getInstance(RepairsPresenter repairsPresenter) {
+        if (instance == null) {
+            instance = new RepairsFragment();
+        }
+        mRepairsPresenter = repairsPresenter;
         return instance;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,37 +148,118 @@ public class RepairsFragment extends Fragment {
 
         uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
 
+        unbinder = ButterKnife.bind(this, view);
 
         initView();
+        mRepairsPresenter.getRepairCate();
         return view;
     }
 
-    private void initView() {
+    public void uplodeImg() {
+        LinkedList imgList = new LinkedList();
+        if (detailDrawingData.size() == 1) {
+            submitData();
+        } else {
+            for (ReleaseImgBean bean : detailDrawingData) {
+                if (bean.getType() == 1) {
+                    imgList.add(bean.getPath());
+                }
+            }
 
-        ed_tel = (EditText) view.findViewById(R.id.ed_tel);
-        ed_name = (EditText) view.findViewById(R.id.ed_name);
-        et_feedback_txt = (EditText) view.findViewById(R.id.et_feedback_txt);
-        tv_submit = (TextView) view.findViewById(R.id.tv_submit);
-        tv_submit.setOnClickListener(clickListener);
+            Okhttp3Utils.getInstance().uplodeImgList(imgList.size(), imgList, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+//                call.request().body()
+                    LogUtils.i(call.request().body().toString());
+                    Message message = new Message();
+                    message.what = UPLODE_IMG_FAIL;
+                    mHandler.sendMessage(message);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String str = response.body().string();
+                    Gson gson = new Gson();
+                    UplodeImgBean uplodeImgBean = gson.fromJson(str, UplodeImgBean.class);
+                    String pic = uplodeImgBean.getData().getPics();
+                    LogUtils.i(pic);
+                    Message message = new Message();
+                    message.what = UPLODE_IMG;
+                    message.obj = pic;
+                    mHandler.sendMessage(message);
+                }
+            });
+        }
+
     }
 
+    OnRecyclerViewItemClickListener listener = new OnRecyclerViewItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            detailDrawingData.remove(position);
+            datailedDrawingAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onItemLongClick(View view, int position) {
+
+        }
+    };
+
+    private void initView() {
+
+        tvSubmit.setOnClickListener(clickListener);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);//horizontal
+        rvRepairsType.setLayoutManager(linearLayoutManager);
+        repairsAdapter = new RepairsTypeAdapter(dataList);
+        rvRepairsType.setAdapter(repairsAdapter);
+
+        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getContext());
+        linearLayoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rv_add_img.setLayoutManager(linearLayoutManager2);
+        if (detailDrawingData.size() == 0) {
+            detailDrawingData.add(new ReleaseImgBean("", "", -1));
+        }
+        datailedDrawingAdapter = new DatailedDrawingAdapter(detailDrawingData, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //点击添加图片
+                if (detailDrawingData.size() > 3) {
+                    ToastUtil.makeToast("故障图为1-3张");
+                    return;
+                }
+                cameraPopupWindows = new CameraPopupWindows(getActivity(), view);
+            }
+        }, listener);
+        rv_add_img.setAdapter(datailedDrawingAdapter);
+    }
+
+    public Uri getThemUrl() {
+        if (cameraPopupWindows != null) {
+            return cameraPopupWindows.getPhotoUri();
+
+        }
+        return null;
+    }
 
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.tv_submit:
-                    submitData();
+                    uplodeImg();
                     break;
             }
         }
     };
 
     private void submitData() {
-        String name = ed_name.getText().toString().trim();
-        String tel = ed_tel.getText().toString().trim();
-        String content = et_feedback_txt.getText().toString().trim();
-
+        String name = edName.getText().toString().trim();
+        String tel = edTel.getText().toString().trim();
+        String content = etFeedbackTxt.getText().toString().trim();
+        String title = edTitle.getText().toString().trim();
+        String num =edRepairsNum.getText().toString().trim();
         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
 
         if (TextUtils.isEmpty(name)) {
@@ -104,12 +276,36 @@ public class RepairsFragment extends Fragment {
                 return;
             }
         }
-
+        if (TextUtils.isEmpty(num)) {
+            ToastUtil.makeToast("请输入房间号");
+            return;
+        }
         if (TextUtils.isEmpty(content)) {
             ToastUtil.makeToast("请输入报修内容");
             return;
         }
-        mRepairsPresenter.submitRepairInfo(uid,token,tel,name,content,"","1");
+        if (TextUtils.isEmpty(title)) {
+            ToastUtil.makeToast("请输入标题");
+            return;
+        }
+        StringBuffer pics = new StringBuffer();
+        for (String url : uplodeUrl) {
+            pics.append(url);
+            if (uplodeUrl.size() > 1) {
+                pics.append(",");
+
+            }
+        }
+        mRepairsPresenter.submitRepairInfo(uid
+                , token
+                , tel
+                , name
+                , content
+                , pics.toString()
+                , "1"
+                , repairsAdapter.selePosition
+                , num
+                , title);
     }
 
 
@@ -124,4 +320,18 @@ public class RepairsFragment extends Fragment {
         return true;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    public void setTypeData(List<RepairCateBean> data) {
+        if (data != null) {
+            dataList.clear();
+            for (RepairCateBean repairCateBean : data) {
+                dataList.add(repairCateBean.getName());
+            }
+        }
+    }
 }

@@ -48,6 +48,7 @@ public class SplashActivity extends BaseActivtity {
                  *要执行的操作
                  */
                 startActivity(MainActivity.class);
+                finish();
             }
         };
         Timer timer = new Timer();

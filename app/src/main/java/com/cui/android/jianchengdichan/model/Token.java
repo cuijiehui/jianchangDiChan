@@ -38,6 +38,12 @@ public class Token {
     public static final String API_GET_ANOTHER_BATCH_MODEL= PACKAGE_NAME + "AnotherBatchModel";
     public static final String API_GET_GETAD_LIST_MODEL= PACKAGE_NAME + "GetAdListModel";
     public static final String API_NOTICE_LIST_MODEL= PACKAGE_NAME + "NoticeThreelistModel";
+    public static final String API_UPDATE_RENT_MODEL_MODEL= PACKAGE_NAME + "UpdateRentModel";
+    public static final String API_SUBMIT_REN_INFO_MODEL= PACKAGE_NAME + "SubmitRenInfoModel";
+    public static final String API_DEL_REN_INFO_MODEL= PACKAGE_NAME + "DelRenInfoModel";
+    public static final String API_GET_REN_LIST_MODEL= PACKAGE_NAME + "RenovationListModel";
+    public static final String API_GET_REPAIR_CATE_MODEL= PACKAGE_NAME + "RepairCateModel";
+    public static final String API_GET_USER_INFO_MODEL= PACKAGE_NAME + "GetUserInfoModel";
 
 
 }

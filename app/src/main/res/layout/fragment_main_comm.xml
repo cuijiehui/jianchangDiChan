@@ -58,20 +58,19 @@
             android:clickable="true" />
     </RelativeLayout>
     <!--主页内容-->
-    <!--下拉刷新-->
-    <com.cui.android.jianchengdichan.view.ui.customview.RefreshableView
-        android:id="@+id/rv_comm_refreshable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_comm_top">
-
+        <!--下拉刷新-->
+        <com.baoyz.widget.PullRefreshLayout
+            android:id="@+id/prl_comm_refreshable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_comm_top">
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <!--轮播图-->
@@ -115,7 +114,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
-                    android:background="@drawable/main_parting_line" />
+                    android:background="#55e0e0e0" />
 
 
                 <android.support.v7.widget.RecyclerView
@@ -126,7 +125,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
-                    android:background="@drawable/main_parting_line" />
+                    android:background="#55e0e0e0" />
 
                 <ImageView
                     android:id="@+id/iv_comm_con"
@@ -138,14 +137,14 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
-                    android:background="@drawable/main_parting_line" />
+                    android:background="#55e0e0e0" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_comm"
                     android:layout_width="match_parent"
-                    android:layout_height="171dp" />
+                    android:layout_height="185dp" />
             </LinearLayout>
         </ScrollView>
 
-    </com.cui.android.jianchengdichan.view.ui.customview.RefreshableView>
+    </com.baoyz.widget.PullRefreshLayout>
 </RelativeLayout>

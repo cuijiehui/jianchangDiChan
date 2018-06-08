@@ -1,17 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_width="164dp"
+    android:layout_height="60dp"
+    android:layout_marginBottom="2dp"
+    android:id="@+id/rl_item"
+    android:background="@color/comm_item_col"
+    android:layout_marginLeft="12dp"
     >
 
     <ImageView
-        android:id="@+id/iv_item_comm"
+        android:id="@+id/iv_item_comm_icon"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/comm_bank_icon" />
+
+    <TextView
+        android:id="@+id/tv_item_comm_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/bank_icon"
-        android:padding="5dp"
+        android:layout_marginLeft="9dp"
+        android:layout_toRightOf="@+id/iv_item_comm_icon"
+        android:text="name"
+        android:textColor="@color/main_text_col"
+        android:layout_marginTop="9dp"
+        android:textSize="16sp" />
 
-        />
+    <TextView
+        android:id="@+id/tv_item_comm_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_item_comm_title"
+        android:layout_marginLeft="9dp"
+        android:layout_toRightOf="@+id/iv_item_comm_icon"
+        android:text="name"
+        android:textColor="@color/main_seek_text_col"
+        android:textSize="12sp" />
 </RelativeLayout>

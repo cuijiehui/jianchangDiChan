@@ -1,7 +1,10 @@
 package com.cui.android.jianchengdichan.view.ui;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -13,13 +16,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.RepairCateBean;
 import com.cui.android.jianchengdichan.http.bean.RepairsBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.RepairsPresenter;
+import com.cui.android.jianchengdichan.utils.Bimp;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.Fragment.RepairsFragment;
 import com.cui.android.jianchengdichan.view.ui.Fragment.RepairsRecordFragment;
+import com.cui.android.jianchengdichan.view.ui.beans.ReleaseImgBean;
+import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
 
 import java.util.List;
 
@@ -44,6 +51,8 @@ public class RepairsActivity extends BaseActivtity {
     private Fragment[] fragmentArray = new Fragment[2];
     private int currentIndex = 0;//当前的fragment下标
     private int selectedIndex = currentIndex;
+    RepairsFragment repairsFragment;
+    RepairsRecordFragment repairsRecordFragment;
     @Override
     public BasePresenter initPresenter() {
         return repairsPresenter;
@@ -64,8 +73,10 @@ public class RepairsActivity extends BaseActivtity {
         tvContentName.setText("报修");
         tabRepairs.addTab(tabRepairs.newTab().setText("我要报修"));
         tabRepairs.addTab(tabRepairs.newTab().setText("报修记录"));
-        fragmentArray[0]=RepairsFragment.getInstance(repairsPresenter);
-        fragmentArray[1]= RepairsRecordFragment.getInstance(repairsPresenter);
+        repairsFragment=RepairsFragment.getInstance(repairsPresenter);
+        repairsRecordFragment=RepairsRecordFragment.getInstance(repairsPresenter);
+        fragmentArray[0]=repairsFragment;
+        fragmentArray[1]= repairsRecordFragment;
         //添加
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.lin_repairs_content,fragmentArray[0]);
@@ -132,8 +143,45 @@ public class RepairsActivity extends BaseActivtity {
 
     public void getRepairInfoList(List<RepairsBean> data) {
         if(data!=null&&data.size()>0){
-            RepairsRecordFragment repairsRecordFragment =   (RepairsRecordFragment)fragmentArray[1];
             repairsRecordFragment.setData(data);
+        }
+    }
+
+    public void getRepairCate(List<RepairCateBean> data) {
+        if(data!=null&&data.size()>0){
+            repairsFragment.setTypeData(data);
+        }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case CameraPopupWindows.TAKE_PICTURE:
+                if (resultCode == -1) {// 拍照
+                    repairsFragment.themUrl = Bimp.startPhotoZoom(RepairsActivity.this, repairsFragment.getThemUrl());
+                }
+                break;
+            case CameraPopupWindows.RESULT_LOAD_IMAGE:
+                if (resultCode == Activity.RESULT_OK && null != data) {// 相册返回
+                    Uri uri = data.getData();
+                    if (uri != null) {
+                        repairsFragment.themUrl = Bimp.startPhotoZoom(RepairsActivity.this, uri);
+                    }
+                }
+                break;
+            case CameraPopupWindows.CUT_PHOTO_REQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK && null != data) {// 裁剪返回
+                    repairsFragment.detailDrawingData.addFirst(new ReleaseImgBean("",repairsFragment.themUrl.getPath(),1));
+                    repairsFragment.datailedDrawingAdapter.notifyDataSetChanged();
+                }
+                break;
+            case CameraPopupWindows.SELECTIMG_SEARCH:
+                if (resultCode == Activity.RESULT_OK && null != data) {
+                    String text = "#" + data.getStringExtra("topic") + "#";
+
+                }
+
+                break;
         }
     }
 }

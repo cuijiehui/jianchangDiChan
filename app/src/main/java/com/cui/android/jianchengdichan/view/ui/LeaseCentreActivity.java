@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,7 +37,9 @@ import com.cui.android.jianchengdichan.view.ui.customview.interfaces.ReturnMoreL
 import com.cui.android.jianchengdichan.view.ui.customview.interfaces.ReturnPriceListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,7 +96,7 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
     private static final int REQUEST_CODE_PICK_CITY = 233;
     private List<ChildCommunityBean> allList = new ArrayList<>();
     private List<LeaseRoomBean> leaseRoomBeans = new ArrayList<LeaseRoomBean>();
-
+    private int page = 1;
     private LeaseAdapter leaseAdapter;
     LeaseCentrePresenter mLeaseCentrePresenter;
 
@@ -101,6 +104,8 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
     private boolean isClickRent = false;
     private boolean isClickUnit = false;
     private boolean isClickMore = false;
+    private boolean isMore = true;
+    Map<String, String> data = new HashMap<>();
 
     @Override
     public BasePresenter initPresenter() {
@@ -110,7 +115,14 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
 
     @Override
     public void initParms(Bundle parms) {
-
+        data.put("key", "");
+        data.put("area", "");
+        data.put("house_type", "");
+        data.put("orientations", "");
+        data.put("minprice", "");
+        data.put("maxprice", "");
+        data.put("rent_type", "");
+        data.put("charge_pay", "");
     }
 
     @Override
@@ -123,7 +135,15 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
         tvContentName.setText("租贷中心");
         tvTopRight.setText("发布");
         tvTopRight.setVisibility(View.VISIBLE);
-//        initRcLease();
+        initRcLease();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        rentList(page, data);
+
     }
 
     private void initRcLease() {
@@ -145,12 +165,12 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
                 LogUtils.i("加载下一页-----------------");
 
                 int lastCompletelyVisibleItemPosition = ((LinearLayoutManager) manager).findLastCompletelyVisibleItemPosition();
-//                if (leaseAdapter.getItemCount() > 3 && lastCompletelyVisibleItemPosition == leaseAdapter.getItemCount() - 1 && isMore) {
-//                    LogUtils.i("加载下一页-----------------");
-//                    page++;
-//                    initData(page , leaseScreenBean);
-//                    isMore = false;
-//                }
+                if (leaseAdapter.getItemCount() > 3 && lastCompletelyVisibleItemPosition == leaseAdapter.getItemCount() - 1 && isMore) {
+                    LogUtils.i("加载下一页-----------------");
+                    page++;
+                    rentList(page, data);
+                    isMore = false;
+                }
             }
         });
     }
@@ -158,14 +178,16 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
     @Override
     public void doBusiness(Context mContext) {
         mLeaseCentrePresenter.getCityList(chooseCity);
+    }
+
+    public void rentList(int page, Map data) {
         int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
-        mLeaseCentrePresenter.getRentList(uid, token, chooseCity, 0, null);
+        mLeaseCentrePresenter.getRentList(uid, token, chooseCity, page, data);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//        snLeaseCity.set
         LogUtils.i("position=" + position);
     }
 
@@ -182,12 +204,12 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
     IdentityResultListener listener = new IdentityResultListener() {
         @Override
         public void identityResult(String identity) {
-//            allList.clear();
-//            leaseAdapter.notifyDataSetChanged();
-
-//            leaseScreenBean.setArea(identity);
-//            page = 1;
-//            initData(page , leaseScreenBean);
+            leaseRoomBeans.clear();
+            leaseAdapter.notifyDataSetChanged();
+            LogUtils.i(identity);
+            data.put("area",identity);
+            page=1;
+            rentList(page,data);
         }
     };
 
@@ -252,39 +274,40 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
     ReturnMoreListener moreListener = new ReturnMoreListener() {
         @Override
         public void returnPrice(String orientations, String rent_type, String charge_pay) {
-//
-//            allList.clear();
-//            leaseAdapter.notifyDataSetChanged();
-//
-//            leaseScreenBean.setOrientations(orientations);
-//            leaseScreenBean.setCharge_pay(charge_pay);
-//            leaseScreenBean.setRent_type(rent_type);
-//            page = 1;
-//            initData(page , leaseScreenBean);
 
+            leaseRoomBeans.clear();
+            leaseAdapter.notifyDataSetChanged();
+            LogUtils.i(orientations);
+            LogUtils.i(rent_type);
+            LogUtils.i(charge_pay);
+            data.put("orientations",orientations);
+            data.put("rent_type",rent_type);
+            data.put("charge_pay",charge_pay);
+            page=1;
+            rentList(page,data);
         }
     };
     IdentityResultListener listener2 = new IdentityResultListener() {
         @Override
         public void identityResult(String identity) {
-//            allList.clear();
-//            leaseAdapter.notifyDataSetChanged();
-//
-//            leaseScreenBean.setHouse_type(identity);
-//            page = 1;
-//            initData(page , leaseScreenBean);
+            leaseRoomBeans.clear();
+            leaseAdapter.notifyDataSetChanged();
+            LogUtils.i(identity);
+            data.put("house_type",identity);
+            page=1;
+            rentList(page,data);
         }
     };
     ReturnPriceListener returnPriceListener = new ReturnPriceListener() {
         @Override
         public void returnPrice(String minP, String maxP) {
-//            allList.clear();
-//            leaseAdapter.notifyDataSetChanged();
-//
-//            leaseScreenBean.setMinprice(minP);
-//            leaseScreenBean.setMaxprice(maxP);
-//            page = 1;
-//            initData(page , leaseScreenBean);
+            leaseRoomBeans.clear();
+            leaseAdapter.notifyDataSetChanged();
+   LogUtils.i(minP+"--"+maxP);
+            data.put("minprice",minP);
+            data.put("maxprice",maxP);
+            page=1;
+            rentList(page,data);
         }
     };
     PopupWindow.OnDismissListener dismissListener = new PopupWindow.OnDismissListener() {
@@ -308,7 +331,7 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
         }
     }
 
-    @OnClick({ R.id.ll_choose_address, R.id.lin_choose_area, R.id.lin_lease_rent, R.id.lin_lease_unit,R.id.tv_top_right, R.id.lin_lease_more})
+    @OnClick({R.id.ll_choose_address, R.id.lin_choose_area, R.id.lin_lease_rent, R.id.lin_lease_unit, R.id.tv_top_right, R.id.lin_lease_more,R.id.iv_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_top_right:
@@ -466,23 +489,37 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
                 }
 
                 break;
+            case R.id.iv_search:
+                 String key = etLeaseSearch.getText().toString();
+                 data.put("key",key);
+                 page=1;
+                rentList(page,data);
+
+                break;
         }
     }
 
-    public void getCityList(List<CityListBean> data) {
+    public void getCityList(List<CityListBean> dataList) {
         allList.clear();
-        for (CityListBean cityListBean : data) {
+        for (CityListBean cityListBean : dataList) {
             allList.add(new ChildCommunityBean(cityListBean.getId(), cityListBean.getArea()));
         }
+        data.put("area", "");
     }
 
 
     public void getRentList(List<LeaseRoomBean> data) {
-        leaseRoomBeans.clear();
+        if (page == 1) {
+            leaseRoomBeans.clear();
+        }
         if (data != null) {
             leaseRoomBeans.addAll(data);
+            isMore = true;
+
+        } else {
+            isMore = false;
         }
-        initRcLease();
+        leaseAdapter.notifyDataSetChanged();
     }
 
 

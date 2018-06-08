@@ -87,7 +87,7 @@ public class MainNavigationView extends LinearLayout {
                 break;
             case R.id.ll_main_shop:
                 LogUtils.i("ll_main_shop");
-                setSelected(ivMainShopIcon);
+//                setSelected(ivMainShopIcon);
                 mCallBack.onBackSelected(2);
 
                 break;

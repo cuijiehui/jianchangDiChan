@@ -17,10 +17,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.LoginBean;
+import com.cui.android.jianchengdichan.presenter.MainMyPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
+import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
 import com.cui.android.jianchengdichan.view.ui.CommAddListAtivity;
 import com.cui.android.jianchengdichan.view.ui.FeedbackActivity;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
@@ -34,8 +38,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-public class MainMyFragment extends Fragment {
+public class MainMyFragment extends Fragment implements IBaseView {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -78,7 +87,7 @@ public class MainMyFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-
+    MainMyPresenter mainMyPresenter =new MainMyPresenter();
     public MainMyFragment() {
         // Required empty public constructor
     }
@@ -112,7 +121,19 @@ public class MainMyFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        mainMyPresenter.attachView(this);
+        mainMyPresenter.setTransformer(setThread());
     }
+    public <T> ObservableTransformer<T, T> setThread() {
+        return new ObservableTransformer<T, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+            }
+        };
+    }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,11 +141,7 @@ public class MainMyFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_my, container, false);
         unbinder = ButterKnife.bind(this, view);
-        boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
-        String userName = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_NAME_KEY, SPUtils.DATA_STRING);
-        if(isLogin){
-            tvMyUserName.setText(userName);
-        }
+
 
         return view;
     }
@@ -134,8 +151,16 @@ public class MainMyFragment extends Fragment {
         super.onResume();
         String pic = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_PIC_URL_KEY, SPUtils.DATA_STRING);
         if (!TextUtils.isEmpty(pic)) {
-            Glide.with(getContext()).load(pic).into(civMyHeadPortrait);
+            Okhttp3Utils.getInstance().glide(getContext(),pic,civMyHeadPortrait);
         }
+        boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
+        String userName = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_NAME_KEY, SPUtils.DATA_STRING);
+        if(isLogin){
+            tvMyUserName.setText(userName);
+        }
+        int uid =(int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
+        String token = (String)SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
+        mainMyPresenter.getUserInfo(uid,token);
     }
 
     @Override
@@ -274,6 +299,79 @@ public class MainMyFragment extends Fragment {
 //                                 System.out.println("popWindow消失");
 //                             }
 //         });
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showToast(String msg) {
+
+    }
+
+    @Override
+    public void showErr() {
+
+    }
+
+    @Override
+    public void onFailure(String msg) {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    public void getUserInfo(LoginBean data) {
+        /**
+         *  "community_id": null,
+         "unit_id": null,
+         "property_id": null,
+         "com_id": null,
+         "name": "吴女士",
+         "nickname": "",
+         "pic": ""
+         */
+        if (data.getCom_id()!=null){
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_COM_ID_KEY,data.getCom_id());
+        }
+        if (data.getCommunity_id()!=null){
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_COMMUNITY_ID_KEY,data.getCommunity_id());
+        }
+        if (data.getUnit_id()!=null){
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_UNIT_ID_KEY,data.getUnit_id());
+
+        }
+        if (data.getProperty_id()!=null){
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PROPERTY_ID_KEY,data.getProperty_id());
+
+        }
+        if(data.getPic()!=null){
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PIC_URL_KEY,data.getPic());
+            Okhttp3Utils.getInstance().glide(getContext(),data.getPic(),civMyHeadPortrait);
+
+        }
+        if(data.getName()!=null){
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_TRUE_NAME_KEY,data.getName());
+
+        }
+        if(data.getNickname()!=null){
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_NAME_KEY,data.getNickname());
+            boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
+            if(isLogin){
+                tvMyUserName.setText(data.getNickname());
+            }
+        }
 
     }
 }

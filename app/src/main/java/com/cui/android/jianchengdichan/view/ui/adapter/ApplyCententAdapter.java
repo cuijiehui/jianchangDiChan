@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.presenter.MyApplyPresenter;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.TimeUtil;
@@ -63,7 +64,7 @@ public class ApplyCententAdapter extends RecyclerView.Adapter<ApplyCententAdapte
         }
 //        holder.iv_apply_icon
         if(!TextUtils.isEmpty(myApplyBean.getPic())){
-            Glide.with(context).load(myApplyBean.getPic()).into(holder.iv_apply_img);
+            Okhttp3Utils.getInstance().glide(context,myApplyBean.getPic(),holder.iv_apply_img);
 
         }
         holder.iv_apply_del.setOnClickListener(new View.OnClickListener() {

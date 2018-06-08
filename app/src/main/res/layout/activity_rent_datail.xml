@@ -62,7 +62,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/main_parting_line" />
+            android:background="#55e0e0e0" />
 
         <TextView
             android:id="@+id/tv_rent_content"
@@ -81,7 +81,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="9dp"
-            android:background="@drawable/main_parting_line" />
+            android:background="#55e0e0e0" />
 
         <TextView
             android:layout_width="match_parent"
@@ -95,7 +95,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@drawable/main_parting_line" />
+            android:background="#55e0e0e0" />
         <!--房源资料-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -143,14 +143,14 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="9dp"
-            android:background="@drawable/main_parting_line" />
+            android:background="#55e0e0e0" />
         <!--留言-->
         <include layout="@layout/include_rent_leave_msg_layout" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="9dp"
-            android:background="@drawable/main_parting_line" />
+            android:background="#55e0e0e0" />
 
         <include layout="@layout/include_rent_recommend_layout" />
     </LinearLayout>

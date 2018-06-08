@@ -32,5 +32,6 @@
     <color name="rent_recommend_col">#6A5BFF</color>
     <color name="rent_call_text_col">#440095D9</color>
     <color name="color_gray">#E1E6E5</color>
+    <color name="comm_item_col">#F5FCFF</color>
 
 </resources>

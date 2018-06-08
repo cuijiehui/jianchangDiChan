@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/tv_item_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="gonshi"
+        android:layout_marginLeft="16dp"/>
+
+    <TextView
+        android:id="@+id/tv_item_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2018/05/06-2018/00/01"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/tv_item_company"/>
+    <ImageView
+        android:id="@+id/iv_item_state"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/under_review_iocon"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"/>
+
+</RelativeLayout>

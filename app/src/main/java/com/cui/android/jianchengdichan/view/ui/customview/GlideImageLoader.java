@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.view.ui.WebViewActivity;
 import com.youth.banner.loader.ImageLoader;
 
@@ -19,9 +20,9 @@ public class GlideImageLoader extends ImageLoader {
     @Override
     public void displayImage(final Context context, Object path, ImageView imageView) {
         //Glide 加载图片简单用法
-//        Glide.with(context).load(path).into(imageView);
        final HomeDataBean.AdBean adBean =(HomeDataBean.AdBean)path;
-        Glide.with(MyApplication.getAppContext()).load(adBean.getPic()).into(imageView);
+        LogUtils.i("轮播图测试:"+adBean.getPic());
+        Okhttp3Utils.getInstance().glide(context,adBean.getPic(),imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

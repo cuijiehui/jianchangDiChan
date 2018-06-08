@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.CommunityBean;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.NewGoodsBean;
 
@@ -21,7 +22,6 @@ import java.util.List;
 public class MainRvNewGoodsAdapter extends RecyclerView.Adapter<MainRvNewGoodsAdapter.ViewHolder>{
 
     private List<HomeDataBean.NewgoodBean> dataList = new ArrayList<>();
-
     public MainRvNewGoodsAdapter(List<HomeDataBean.NewgoodBean> dataList) {
         this.dataList = dataList;
     }
@@ -38,7 +38,8 @@ public class MainRvNewGoodsAdapter extends RecyclerView.Adapter<MainRvNewGoodsAd
         HomeDataBean.NewgoodBean newgoods = dataList.get(position);
         holder.tv_new_goods_name.setText(newgoods.getShorttitle());
         holder.tv_new_goods_price.setText(newgoods.getMarketprice());
-        Glide.with(MyApplication.getAppContext()).load(newgoods.getThumb()).into(holder.iv_new_goods_pic);
+        Okhttp3Utils.getInstance().glide(MyApplication.getAppContext(),newgoods.getThumb(),holder.iv_new_goods_pic);
+
 
     }
 

@@ -25,16 +25,19 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.presenter.MainHomePresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
+import com.cui.android.jianchengdichan.view.ui.FitmentActivity;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.CommunityBean;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRecyclerAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvCommunityAdapter;
@@ -45,6 +48,7 @@ import com.cui.android.jianchengdichan.view.ui.InCommunityActivity;
 import com.cui.android.jianchengdichan.view.ui.LeaseCentreActivity;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
 import com.cui.android.jianchengdichan.view.ui.MainActivity;
+import com.cui.android.jianchengdichan.view.ui.MyFitmentListActivity;
 import com.cui.android.jianchengdichan.view.ui.NoticeAcitivty;
 import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
 import com.cui.android.jianchengdichan.view.ui.RentDatailActivity;
@@ -84,8 +88,6 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     EditText etMainTopSeek;
     @BindView(R.id.iv_main_top_add)
     ImageView ivMainTopAdd;
-    @BindView(R.id.rv_main_refreshable)
-    RefreshableView rvMainRefreshable;
     @BindView(R.id.bn_main_adv)
     Banner bnMainAdv;
     @BindView(R.id.tv_main_notice_new)
@@ -112,6 +114,8 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     RelativeLayout rlMainTop;
     @BindView(R.id.iv_flash_sale)
     ImageView iv_flash_sale;
+    @BindView(R.id.prl_refreshable)
+    PullRefreshLayout prl_refreshable;
 
     private int index = 0;//textview上下滚动下标
     public static final int NEWS_MESSAGE_TEXTVIEW = 300;//通知公告信息
@@ -164,8 +168,8 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         communityBeanList.add(new CommunityBean(R.drawable.main_service, "便民服务"));
         communityBeanList.add(new CommunityBean(R.drawable.main_pwd_icon, "门禁密码"));
         communityBeanList.add(new CommunityBean(R.drawable.main_car_go_out, "车辆出行"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_apply_server, "申请服务"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_breakdown, "故障处理"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_apply_server, "装修申请"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_breakdown, "报事报修"));
         communityBeanList.add(new CommunityBean(R.drawable.main_more_button, "更多"));
 
 
@@ -178,7 +182,6 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         LogUtils.i("onCreateView");
         View view = inflater.inflate(R.layout.fragment_main_home, container, false);
         unbinder = ButterKnife.bind(this, view);
-        mainHomePresenter.getData();
         //社区管家
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
         rvMainCommunity.setLayoutManager(gridLayoutManager);
@@ -200,6 +203,10 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
                 return textView;
             }
         });
+        initAdvViewPage();
+        initRecycler();
+        mainHomePresenter.getData();
+
         return view;
     }
 
@@ -219,7 +226,7 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
      * 初始化recycler
      */
     private void initRecycler() {
-        if (rentDataList != null && rentDataList.size() != 0) {
+        if (rentDataList != null ) {
             //附近租贷
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -249,7 +256,7 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
             });
             rvMainRent.setAdapter(recyclAdapter);
         }
-        if (newGoodsBeanList != null && newGoodsBeanList.size() != 0) {
+        if (newGoodsBeanList != null ) {
             //新品上市
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -257,7 +264,7 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
             mainRvNewGoodsAdapter = new MainRvNewGoodsAdapter(newGoodsBeanList);
             rvMainNewGoods.setAdapter(mainRvNewGoodsAdapter);
         }
-        if (youLikeBeanList != null && youLikeBeanList.size() != 0) {
+        if (youLikeBeanList != null ) {
             //猜你喜欢
             GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
             rvYouLike.setLayoutManager(gridLayoutManager);
@@ -272,11 +279,8 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
      * 初始化图片轮播图
      */
     private void initAdvViewPage() {
-        if (mDataList == null || mDataList.size() == 0) {
-            return;
-        }
         bnMainAdv.setImageLoader(new GlideImageLoader()); //设置图片加载器
-        bnMainAdv.setImages(mDataList);//设置图片集合
+//        bnMainAdv.setImages(mDataList);//设置图片集合
         //设置自动轮播，默认为true
         bnMainAdv.isAutoPlay(true);
         //设置轮播时间
@@ -287,58 +291,79 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
     }
 
     private void updataData(HomeDataBean data) {
+                LogUtils.i("轮播图测试:");
         mDataList.clear();
         rentDataList.clear();
         newGoodsBeanList.clear();
         youLikeBeanList.clear();
         noticeList.clear();
         //广告图片
-        mDataList = data.getAd();
+        if(data.getAd()!=null){
+            mDataList.addAll(data.getAd());
+
+        }
 
         //公告信息
-        List<HomeDataBean.NoticeBean> noticeBeans = data.getNotice();
-        StringBuffer json =new StringBuffer();
-        for (HomeDataBean.NoticeBean noticeBean : noticeBeans) {
-            noticeList.add(noticeBean.getTitle());
-            json.append(noticeBean.getTitle()+",");
+        if(data.getNotice()!=null){
+            List<HomeDataBean.NoticeBean> noticeBeans = data.getNotice();
+            StringBuffer json =new StringBuffer();
+            for (HomeDataBean.NoticeBean noticeBean : noticeBeans) {
+                noticeList.add(noticeBean.getTitle());
+                json.append(noticeBean.getTitle()+",");
+            }
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_HOME_DATA_NOTICE_KEY,json);
         }
-        SPUtils.INSTANCE.setSPValue(SPKey.SP_HOME_DATA_NOTICE_KEY,json);
 
-        notice(noticeList);
+
         //租贷数据
-        rentDataList = data.getRent();
+        if(data.getRent()!=null){
+            rentDataList .addAll(data.getRent()) ;
+
+        }
         //抢购数据
-        limit_time = data.getLimit_time();
+        if(data.getLimit_time()!=null){
+            limit_time= data.getLimit_time();
+
+        }
+
         //最新上市数据
-        newGoodsBeanList = data.getNewgood();
+        if(data.getNewgood()!=null){
+            newGoodsBeanList .addAll( data.getNewgood());
+
+        }
         //猜你喜欢数据
-        youLikeBeanList = data.getFavor();
+        if(data.getFavor()!=null){
+            youLikeBeanList .addAll(data.getFavor()) ;
+        }
 
+        bnMainAdv.update(mDataList);
 
+        recyclAdapter.notifyDataSetChanged();
+        if (noticeList != null ) {
+            tvMainNoticeNew1.setText(noticeList.get(0));
+            notice(noticeList);
+        }
+
+//        mainRvNewGoodsAdapter.notifyDataSetChanged();
+//        mainRvYouLikeAdapter.notifyDataSetChanged();
     }
 
     /**
      * 初始化下拉刷新
      */
     private void setRefresh() {
-        rvMainRefreshable.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+
+        // listen refresh event
+        prl_refreshable.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                LogUtils.i("setOnRefreshListener");
-//                TimerTask task = new TimerTask() {
-//                    @Override
-//                    public void run() {
-//                        /**
-//                         *要执行的操作
-//                         */
-//                        rvMainRefreshable.finishRefreshing();
-//                    }
-//                };
-//                Timer timer = new Timer();
-//                timer.schedule(task, 3000);//3秒后执行TimeTask的run方法
+                // start refresh
                 mainHomePresenter.getData();
+
             }
-        }, 1);
+        });
+
+// refresh complete
     }
 
     @Override
@@ -426,7 +451,6 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
 
     @Override
     public void onItemClick(View view, int position) {
-        LogUtils.i("onItemClick=position=" + position);
         boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
         if (isLogin) {
 //            startActivity(new Intent(getContext(), PayFeesActivity.class));
@@ -456,6 +480,8 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
             case 4:
                 break;
             case 5:
+                startActivity(new Intent(getContext(), MyFitmentListActivity.class));
+
                 break;
             case 6:
 
@@ -503,19 +529,12 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
         };
     }
 
-    private void updataAdvView() {
-
-        initNotice();
-        initAdvViewPage();
-        initRecycler();
-        initRimit_time();
-    }
 
     private void initRimit_time() {
 //        ivLimitIcon
         //rentDataList
         if (limit_time != null) {
-            Glide.with(MyApplication.getAppContext()).load(limit_time.getThumb()).into(iv_flash_sale);
+            Okhttp3Utils.getInstance().glide(getContext(),limit_time.getThumb(),iv_flash_sale);
         }
 
     }
@@ -568,19 +587,12 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
 
     }
 
-    private void initNotice() {
-        if (noticeList == null || noticeList.size() == 0) {
-            return;
-        }
-        tvMainNoticeNew1.setText(noticeList.get(0));
-    }
 
     public void getData(HomeDataBean data) {
-        if (rvMainRefreshable != null) {
-            rvMainRefreshable.finishRefreshing();
+        if (prl_refreshable != null) {
+            prl_refreshable.setRefreshing(false);
         }
         updataData(data);
-        updataAdvView();
     }
 
 

@@ -49,7 +49,7 @@ public class TimeUtil {
             e.printStackTrace();
             return null;
         }
-        long intervalMilli = target.getTimeInMillis() - today.getTimeInMillis();
+        long intervalMilli =today.getTimeInMillis()- target.getTimeInMillis()  ;
         int xcts = (int) (intervalMilli / (24 * 60 * 60 * 1000))+1;
         return xcts+"";
 

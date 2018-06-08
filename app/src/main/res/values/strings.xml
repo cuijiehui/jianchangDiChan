@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">JianChengDiChan</string>
+    <string name="app_name">建城社区</string>
     <string name="title_activity_splash">SplashActivity</string>
 
     <!--主页-->

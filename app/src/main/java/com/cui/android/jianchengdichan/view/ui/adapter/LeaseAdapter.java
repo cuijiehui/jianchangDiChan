@@ -17,6 +17,7 @@ import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.view.ui.RentDatailActivity;
 
 import java.util.List;
@@ -49,7 +50,8 @@ public class LeaseAdapter extends RecyclerView.Adapter<LeaseAdapter.ViewHodler>{
         final LeaseRoomBean bean = list.get(position);
         LogUtils.i("LeaseRoomBean="+bean.toString());
 //        ImagerLoaderUtil.displayImage(bean.getPic() , holder.iv_room_pic);
-        Glide.with(MyApplication.getAppContext()).load(bean.getPic()).into(holder.iv_room_pic);
+        Okhttp3Utils.getInstance().glide(context,bean.getPic(),holder.iv_room_pic);
+
         holder.tv_room_name.setText(bean.getTitle());
         holder.tv_room_address.setText(bean.getAddress());
         holder.tv_room_price.setText("¥" + bean.getRental() + "/月");

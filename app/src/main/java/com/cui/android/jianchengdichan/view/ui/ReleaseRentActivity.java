@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
@@ -42,7 +43,9 @@ import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.BaseActivtity;
 import com.cui.android.jianchengdichan.view.interfaces.ChooseCityInterface;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.cui.android.jianchengdichan.view.ui.adapter.DatailedDrawingAdapter;
+import com.cui.android.jianchengdichan.view.ui.beans.ReleaseImgBean;
 import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
 import com.cui.android.jianchengdichan.view.ui.customview.WheelView;
 import com.google.gson.Gson;
@@ -106,6 +109,8 @@ public class ReleaseRentActivity extends BaseActivtity {
     EditText etReleaseWc;
     @BindView(R.id.et_release_floor)
     EditText etReleaseFloor;
+    @BindView(R.id.et_release_total_floor)
+    EditText et_release_total_floor;
     @BindView(R.id.tv_release_area)
     TextView tvReleaseArea;
     @BindView(R.id.et_release_address)
@@ -125,10 +130,10 @@ public class ReleaseRentActivity extends BaseActivtity {
     @BindView(R.id.et_release_describe)
     EditText etReleaseDescribe;
     @BindView(R.id.iv_selease_rel)
-    ImageView ivSeleaseRel;
+    Button ivSeleaseRel;
     @BindView(R.id.bt_release_save)
     Button btReleaseSave;
-
+    DatailedDrawingAdapter datailedDrawingAdapter;
     ReleaseRentPresenter releaseRentPresenter;
     private String province = "广东";
     private String city = "广州";
@@ -136,7 +141,7 @@ public class ReleaseRentActivity extends BaseActivtity {
     CameraPopupWindows cameraPopupWindows;
     private Uri surfacePlotUrl = null;
     private Uri themUrl = null;
-    private LinkedList<String> detailDrawingData = new LinkedList<>();
+    private LinkedList<ReleaseImgBean> detailDrawingData = new LinkedList<>();
     private LinkedList<String> uplodeUrl = new LinkedList<>();
     private boolean isSurface = true;
     private String typeView = "普通住宅";
@@ -156,7 +161,13 @@ public class ReleaseRentActivity extends BaseActivtity {
                     String[] uplodes = uplode.split(",");
                     for (String url : uplodes) {
                         LogUtils.i("url=" + url);
-                        uplodeUrl.addFirst(url);
+                        if(myApplyBean!=null&&surfacePlotUrl!=null){
+                            uplodeUrl.removeLast();
+                            uplodeUrl.addLast(url);
+                        }else{
+                            uplodeUrl.addFirst(url);
+
+                        }
                     }
                     releaseData();
 
@@ -192,13 +203,13 @@ public class ReleaseRentActivity extends BaseActivtity {
 
     @Override
     public void initView(View view) {
-        tvContentName.setText("发布");
-        detailDrawingData.add("-1");
-        initRecyclerView();
         if (myApplyBean != null) {
             initApplyBean();
-
         }
+        tvContentName.setText("发布");
+        detailDrawingData.add(new ReleaseImgBean("","",-1));
+        initRecyclerView();
+
     }
 
     private void initApplyBean() {
@@ -245,14 +256,26 @@ public class ReleaseRentActivity extends BaseActivtity {
                 setPaview(3);
                 break;
         }
-
+        //户型
+        int shiIndex  = myApplyBean.getHouse_type_info().indexOf("室");
+        int tingIndex  = myApplyBean.getHouse_type_info().indexOf("厅");
+        int weiIndex  = myApplyBean.getHouse_type_info().indexOf("卫");
+        if(shiIndex>=0){
+            String shi = myApplyBean.getHouse_type_info().substring(0,shiIndex);
+            String ting = myApplyBean.getHouse_type_info().substring(shiIndex+1,tingIndex);
+            String wei = myApplyBean.getHouse_type_info().substring(tingIndex+1,weiIndex);
+            etReleaseRoom.setText(shi);
+            etReleaseOffice.setText(ting);
+            etReleaseWc.setText(wei);
+        }
         String title = myApplyBean.getTitle();//小区名称
         etReleaseHomeName.setText(title);
         String area = myApplyBean.getAcreage();//面积
         etReleaseArea.setText(area);
         String local_floor = myApplyBean.getLocal_floor();
         String total_floor = myApplyBean.getTotal_floor();
-        etReleaseFloor.setText(local_floor+"/"+total_floor);
+        etReleaseFloor.setText(local_floor);
+        et_release_total_floor.setText(total_floor);
         String address = myApplyBean.getAddress();
         etReleaseAddress.setText(address);
         String rental = myApplyBean.getRental();//租金
@@ -269,10 +292,32 @@ public class ReleaseRentActivity extends BaseActivtity {
         etReleaseDescribe.setText(detail);
         String pic = myApplyBean.getPic();
         if(pic!=null){
-            surfacePlotUrl = Uri.parse(pic);
-            Glide.with(mContext).load(pic).into(ivSurfacePlot);
+            Okhttp3Utils.getInstance().glide(mContext,pic,ivSurfacePlot);
         }
-
+        if(myApplyBean.getPics()!=null){
+            String[] pics = myApplyBean.getPics().split(",");
+            for (String picss:pics){
+                detailDrawingData.addFirst(new ReleaseImgBean(picss,"",2));
+            }
+        }
+        String[] savePics =myApplyBean.getSavepics().split(",");
+        for(String savePicss:savePics){
+            LogUtils.i(savePicss);
+            uplodeUrl.addFirst(savePicss);
+        }
+        String proviceT=CityData.getProvince(myApplyBean.getProvince());
+        String cityT=CityData.getCity(myApplyBean.getCity());
+        String areaT=CityData.getArea(myApplyBean.getArea());
+        if(!TextUtils.isEmpty(proviceT)){
+            province=proviceT;
+        }
+        if(!TextUtils.isEmpty(cityT)){
+            city=cityT;
+        }
+        if(!TextUtils.isEmpty(areaT)){
+            county=areaT;
+        }
+       tvReleaseArea.setText(province + "/" + city + "/" + county);
 
     }
 
@@ -346,22 +391,18 @@ public class ReleaseRentActivity extends BaseActivtity {
                 break;
             case R.id.iv_selease_rel:
                 LogUtils.i("iv_selease_rel" + detailDrawingData.size());
-
-                uplodeImg();
+                check();
                 break;
             case R.id.bt_release_save:
                 break;
         }
     }
-
-    private void releaseData() {
-        String homeHame = etReleaseHomeName.getText().toString();//小区的名字
-        if (TextUtils.isEmpty(homeHame)) {
+    private void check(){
+        if (TextUtils.isEmpty(etReleaseHomeName.getText().toString())) {
             ToastUtil.makeToast("小区名称不能为空");
             return;
         }
-        String area = etReleaseArea.getText().toString();//面积
-        if (TextUtils.isEmpty(area)) {
+        if (TextUtils.isEmpty(etReleaseArea.getText().toString())) {
             ToastUtil.makeToast("面积不能为空");
             return;
         }
@@ -369,58 +410,72 @@ public class ReleaseRentActivity extends BaseActivtity {
             ToastUtil.makeToast("朝向不能为空");
             return;
         }
-        String room = etReleaseRoom.getText().toString();   //室
-        String office = etReleaseOffice.getText().toString();//厅
-        String wc = etReleaseWc.getText().toString();//卫生间
-        if (TextUtils.isEmpty(room) || TextUtils.isEmpty(office) || TextUtils.isEmpty(wc)) {
+
+        if (TextUtils.isEmpty(etReleaseRoom.getText().toString())
+                || TextUtils.isEmpty(etReleaseOffice.getText().toString())
+                || TextUtils.isEmpty(etReleaseWc.getText().toString())) {
             ToastUtil.makeToast("户型不能为空");
             return;
         }
-        String floor = etReleaseFloor.getText().toString();//楼层
-        String local_floor = "";
-        String total_floor = "";
-        if (TextUtils.isEmpty(floor)) {
+
+        if (TextUtils.isEmpty(etReleaseFloor.getText().toString())) {
             ToastUtil.makeToast("楼层不能为空");
             return;
-        } else {
-            String[] flooes = floor.split("/");
-            if (flooes.length != 2) {
-                ToastUtil.makeToast("楼层格式有误:(第几层/共几层)");
-                return;
-            }
-            local_floor = flooes[0];
-            total_floor = flooes[1];
         }
-        String sddress = etReleaseAddress.getText().toString();//地址
-        if (TextUtils.isEmpty(sddress)) {
+        if (TextUtils.isEmpty( et_release_total_floor.getText().toString())) {
+            ToastUtil.makeToast("总楼层不能为空");
+            return;
+        }
+        if (TextUtils.isEmpty(etReleaseAddress.getText().toString())) {
             ToastUtil.makeToast("地址不能为空");
             return;
         }
-        String monthMoney = etReleaseMonthMoney.getText().toString();//月租
-        if (TextUtils.isEmpty(monthMoney)) {
+        if (TextUtils.isEmpty(etReleaseMonthMoney.getText().toString())) {
             ToastUtil.makeToast("月租不能为空");
             return;
         }
-        String realMoney = etReleaseRealMoney.getText().toString();//物业费
-        if (TextUtils.isEmpty(realMoney)) {
+        if (TextUtils.isEmpty(etReleaseRealMoney.getText().toString())) {
             ToastUtil.makeToast("物业费不能为空");
             return;
         }
-        String userName = etReleaseUserName.getText().toString();//姓名
-        if (TextUtils.isEmpty(userName)) {
+        if (TextUtils.isEmpty(etReleaseUserName.getText().toString())) {
             ToastUtil.makeToast("姓名不能为空");
             return;
         }
-        String phone = etReleasePhone.getText().toString();//手机号码
-        if (TextUtils.isEmpty(phone)) {
+        if (TextUtils.isEmpty(etReleasePhone.getText().toString())) {
             ToastUtil.makeToast("手机号码不能为空");
             return;
         }
-        String describe = etReleaseDescribe.getText().toString();//房屋描述
-        if (TextUtils.isEmpty(describe)) {
+        if (TextUtils.isEmpty(etReleaseDescribe.getText().toString())) {
             ToastUtil.makeToast("房屋描述不能为空");
             return;
         }
+        if(surfacePlotUrl==null){
+            ToastUtil.makeToast("封面图不能为空");
+            return;
+        }
+        if(detailDrawingData.size()<2){
+            ToastUtil.makeToast("细节图不能为空或者小于2");
+            return;
+        }
+        uplodeImg();
+    }
+    private void releaseData() {
+
+        String homeHame = etReleaseHomeName.getText().toString();//小区的名字
+        String area = etReleaseArea.getText().toString();//面积
+        String room = etReleaseRoom.getText().toString();   //室
+        String office = etReleaseOffice.getText().toString();//厅
+        String wc = etReleaseWc.getText().toString();//卫生间
+        String sddress = etReleaseAddress.getText().toString();//地址
+        String local_floor =  etReleaseFloor.getText().toString();//在哪个楼层
+        String total_floor = et_release_total_floor.getText().toString();//一共多少个楼层
+        String monthMoney = etReleaseMonthMoney.getText().toString();//月租
+        String realMoney = etReleaseRealMoney.getText().toString();//物业费
+        String userName = etReleaseUserName.getText().toString();//姓名
+        String phone = etReleasePhone.getText().toString();//手机号码
+        String describe = etReleaseDescribe.getText().toString();//房屋描述
+
         /**
          *   private String typeView = "普通住宅";
          private String wayView = "整租";
@@ -436,46 +491,77 @@ public class ReleaseRentActivity extends BaseActivtity {
         uplodeUrl.removeLast();
         StringBuffer pics = new StringBuffer();
         for (String url : uplodeUrl) {
-            pics.append(url + ",");
+            pics.append(url );
+            if(uplodeUrl.size()!=1){
+                pics.append(",");
+            }
         }
-        releaseRentPresenter.publishRentInfo(
-                uid
-                , token
-                , typeView
-                , homeHame
-                , house_type
-                , room + "室" + office + "厅" + wc + "卫"
-                , monthMoney
-                , selectedori
-                , area
-                , pic
-                , pics.toString()
-                , local_floor
-                , total_floor
-                , describe
-                , phone
-                , userName
-                , "1"
-                , realMoney
-                , sddress
-                , wayView
-                , paview
-        );
+        if(myApplyBean!=null){
+
+            releaseRentPresenter.updateRent(
+                    myApplyBean.getId(),
+                    uid
+                    , token
+                    , typeView
+                    , homeHame
+                    , house_type
+                    , room + "室" + office + "厅" + wc + "卫"
+                    , monthMoney
+                    , selectedori
+                    , area
+                    , pic
+                    , pics.toString()
+                    , local_floor
+                    , total_floor
+                    , describe
+                    , phone
+                    , userName
+                    , "1"
+                    , realMoney
+                    , sddress
+                    , wayView
+                    , paview
+            );
+        }else{
+            releaseRentPresenter.publishRentInfo(
+                    uid
+                    , token
+                    , typeView
+                    , homeHame
+                    , house_type
+                    , room + "室" + office + "厅" + wc + "卫"
+                    , monthMoney
+                    , selectedori
+                    , area
+                    , pic
+                    , pics.toString()
+                    , local_floor
+                    , total_floor
+                    , describe
+                    , phone
+                    , userName
+                    , "1"
+                    , realMoney
+                    , sddress
+                    , wayView
+                    , paview
+            );
+        }
+
     }
 
     public void publishRentInfo() {
         ToastUtil.makeToast("发布成功，等待审批");
+        finish();
     }
 
     public void uplodeImg() {
-
-        if(surfacePlotUrl==null){
-            ToastUtil.makeToast("封面图不能为空");
-            return;
-        }
         LinkedList imgList = new LinkedList();
-        imgList.addAll(detailDrawingData);
-        imgList.remove(detailDrawingData.size() - 1);
+        for(ReleaseImgBean bean:detailDrawingData){
+            if(bean.getType()==1){
+                imgList.add(bean.getPath());
+            }
+        }
         if (surfacePlotUrl != null) {
             String path = surfacePlotUrl.getPath();
             imgList.addFirst(path);
@@ -504,25 +590,35 @@ public class ReleaseRentActivity extends BaseActivtity {
             }
         });
     }
+    OnRecyclerViewItemClickListener listener =new OnRecyclerViewItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            detailDrawingData.remove(position);
+            datailedDrawingAdapter.notifyDataSetChanged();
+        }
 
+        @Override
+        public void onItemLongClick(View view, int position) {
+
+        }
+    };
     public void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvDetailedDrawing.setLayoutManager(linearLayoutManager);
-        DatailedDrawingAdapter datailedDrawingAdapter = new DatailedDrawingAdapter(detailDrawingData, new View.OnClickListener() {
+        datailedDrawingAdapter = new DatailedDrawingAdapter(detailDrawingData, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(detailDrawingData.size()>6){
+                    ToastUtil.makeToast("细节图不能大于6张");
+                    return;
+                }
                 //点击添加图片
                 isSurface = false;
                 cameraPopupWindows = new CameraPopupWindows(ReleaseRentActivity.this, getRootView());
-            }
-        }, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //点击查看图片
 
             }
-        });
+        }, listener);
         rvDetailedDrawing.setAdapter(datailedDrawingAdapter);
     }
 
@@ -533,19 +629,6 @@ public class ReleaseRentActivity extends BaseActivtity {
             case CameraPopupWindows.TAKE_PICTURE:
                 if (resultCode == -1) {// 拍照
                     themUrl = Bimp.startPhotoZoom(ReleaseRentActivity.this, cameraPopupWindows.getPhotoUri());
-//                    LogUtils.i("path="+cameraPopupWindows.getPhotoUri());
-//                    LogUtils.i("path="+cameraPopupWindows.getPhotoUri().getPath());
-
-//                    if(isSurface){
-//                        Bitmap bitmap = Bimp.getLoacalBitmap(cameraPopupWindows.getPhotoUri().getPath());
-//                        ivSurfacePlot.setImageBitmap(bitmap);
-//                        surfacePlotUrl=cameraPopupWindows.getPhotoUri();
-//                        bitmap=null;
-//
-//                    }else{
-//                        detailDrawingData.addFirst(cameraPopupWindows.getPhotoUri().getPath());
-//                        initRecyclerView();
-//                    }
                 }
                 break;
             case CameraPopupWindows.RESULT_LOAD_IMAGE:
@@ -553,15 +636,7 @@ public class ReleaseRentActivity extends BaseActivtity {
                     Uri uri = data.getData();
                     if (uri != null) {
                         themUrl = Bimp.startPhotoZoom(ReleaseRentActivity.this, uri);
-//                        if(isSurface){
-//                            Bitmap bitmap = Bimp.getLoacalBitmap(uri.getPath());
-//                            ivSurfacePlot.setImageBitmap(bitmap);
-//                            surfacePlotUrl=uri;
-//                            bitmap=null;
-//                        }else{
-//                            detailDrawingData.addFirst(uri.getPath());
-//                            initRecyclerView();
-//                        }
+
                     }
                 }
                 break;
@@ -573,33 +648,14 @@ public class ReleaseRentActivity extends BaseActivtity {
                         surfacePlotUrl = themUrl;
                         bitmap = null;
                     } else {
-                        detailDrawingData.addFirst(themUrl.getPath());
-                        initRecyclerView();
+                        detailDrawingData.addFirst(new ReleaseImgBean("",themUrl.getPath(),1));
+                        datailedDrawingAdapter.notifyDataSetChanged();
                     }
                 }
                 break;
             case CameraPopupWindows.SELECTIMG_SEARCH:
                 if (resultCode == RESULT_OK && null != data) {
                     String text = "#" + data.getStringExtra("topic") + "#";
-//                    text = comment_content.getText().toString() + text;
-//                    comment_content.setText(text);
-//
-//                    comment_content.getViewTreeObserver().addOnPreDrawListener(
-//                            new OnPreDrawListener() {
-//                                public boolean onPreDraw() {
-//                                    comment_content.setEnabled(true);
-//                                    // 设置光标为末尾
-//                                    CharSequence cs = comment_content.getText();
-//                                    if (cs instanceof Spannable) {
-//                                        Spannable spanText = (Spannable) cs;
-//                                        Selection.setSelection(spanText,
-//                                                cs.length());
-//                                    }
-//                                    comment_content.getViewTreeObserver()
-//                                            .removeOnPreDrawListener(this);
-//                                    return false;
-//                                }
-//                            });
 
                 }
 

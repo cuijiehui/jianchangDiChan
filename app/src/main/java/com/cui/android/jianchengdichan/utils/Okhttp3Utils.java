@@ -1,9 +1,15 @@
 package com.cui.android.jianchengdichan.utils;
 
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.cui.android.jianchengdichan.MyApplication;
+import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
 import com.cui.android.jianchengdichan.http.config.HttpConfig;
 import com.cui.android.jianchengdichan.http.config.URLConfig;
@@ -55,7 +61,14 @@ public class Okhttp3Utils {
         }
         return instan;
     }
+    public void glide(Context context , String url, ImageView view){
+        GlideApp.with(context)
+                .load(url)
+                .placeholder(R.drawable.image_cache)
+                .into(view);
 
+
+    }
     /**
      * Get请求
      *

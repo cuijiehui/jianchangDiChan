@@ -126,7 +126,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="@drawable/main_parting_line"/>
+        android:background="#55e0e0e0"/>
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="150dp"

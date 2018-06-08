@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
@@ -41,23 +42,16 @@ public class RepairsAdapter extends RecyclerView.Adapter<RepairsAdapter.MyViewHo
          */
         switch (bean.getType()){
             case "1":
-                holder.tv_repairs_record_dispose.setText("未处理");
-                holder.tv_repairs_record_dispose.setBackgroundColor(mContext.getResources().getColor(R.color.main_top_col));
+                holder.iv_repairs_record_dispose.setBackgroundResource(R.drawable.untreated_icon);
                 break;
             case "2":
-                holder.tv_repairs_record_dispose.setText("处理中");
-                holder.tv_repairs_record_dispose.setBackgroundColor(mContext.getResources().getColor(R.color.main_top_col));
-
+                holder.iv_repairs_record_dispose.setBackgroundResource(R.drawable.being_processed_icon);
                 break;
             case "3":
-                holder.tv_repairs_record_dispose.setText("回绝");
-                holder.tv_repairs_record_dispose.setBackgroundColor(mContext.getResources().getColor(R.color.cp_gray));
-
+                holder.iv_repairs_record_dispose.setBackgroundResource(R.drawable.being_processed_icon);
                 break;
             case "4":
-                holder.tv_repairs_record_dispose.setText("已维修");
-                holder.tv_repairs_record_dispose.setBackgroundColor(mContext.getResources().getColor(R.color.cp_gray));
-
+                holder.iv_repairs_record_dispose.setBackgroundResource(R.drawable.accomplish_icon);
                 break;
         }
 
@@ -70,13 +64,13 @@ public class RepairsAdapter extends RecyclerView.Adapter<RepairsAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_repairs_record_name,tv_repairs_record_time,tv_repairs_record_dispose;
-
+        TextView tv_repairs_record_name,tv_repairs_record_time;
+        ImageView iv_repairs_record_dispose;
         public MyViewHolder(View itemView) {
             super(itemView);
             tv_repairs_record_name = (TextView) itemView.findViewById(R.id.tv_repairs_record_name);
             tv_repairs_record_time = (TextView) itemView.findViewById(R.id.tv_repairs_record_time);
-            tv_repairs_record_dispose = (TextView) itemView.findViewById(R.id.tv_repairs_record_dispose);
+            iv_repairs_record_dispose = (ImageView) itemView.findViewById(R.id.iv_repairs_record_dispose);
         }
     }
 }

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.NewGoodsBean;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.YouLikeBean;
 
@@ -41,7 +42,7 @@ public class MainRvYouLikeAdapter extends RecyclerView.Adapter<MainRvYouLikeAdap
         holder.tv_you_like_price_end.setText(favorBean.getMarketprice()+"元");
         holder.tv_you_like_content.setText(favorBean.getTitle());
         holder.tv_sales_volume.setText(favorBean.getSales());
-        Glide.with(MyApplication.getAppContext()).load(favorBean.getThumb()).into(holder.iv_you_like_pic);
+        Okhttp3Utils.getInstance().glide(MyApplication.getAppContext(),favorBean.getThumb(),holder.iv_you_like_pic);
 
     }
 

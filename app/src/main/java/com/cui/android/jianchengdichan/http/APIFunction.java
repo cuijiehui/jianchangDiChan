@@ -16,7 +16,9 @@ import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.http.bean.NoticeBean;
 import com.cui.android.jianchengdichan.http.bean.NoticeThreelistBean;
 import com.cui.android.jianchengdichan.http.bean.PayRecordsBean;
+import com.cui.android.jianchengdichan.http.bean.RenovationBean;
 import com.cui.android.jianchengdichan.http.bean.RentDetailBean;
+import com.cui.android.jianchengdichan.http.bean.RepairCateBean;
 import com.cui.android.jianchengdichan.http.bean.RepairsBean;
 import com.cui.android.jianchengdichan.http.bean.SplashAdvBean;
 import com.cui.android.jianchengdichan.http.bean.UserCommunityBean;
@@ -121,9 +123,23 @@ public interface APIFunction {
     @POST(URLConfig.POSTH_REPAIR_DEL_RENTINFO_URL)
     Observable<BasesBean> delRentInfo(@Body RequestBody route);
 
+    @POST(URLConfig.POSTH_SUBMIT_RENOVATION_INFO_URL)
+    Observable<BasesBean> submitRenovationInfo(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_DEL_RENOVATION_INFO_URL)
+    Observable<BasesBean> delRenovationInfo(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_UPDATE_RENT_URL)
+    Observable<BasesBean> updateRent(@Body RequestBody route);
+
     @POST(URLConfig.POSTH_REPAIR_MY_APPLY_URL)
     Observable<BaseBean<List<MyApplyBean>>> myApply(@Body RequestBody route);
 
+    @POST(URLConfig.POSTH_GET_RENOVATION_INFO_URL)
+    Observable<BaseBean<List<RenovationBean>>> getRenovationList(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_GET_REPAIR_CATE_URL)
+    Observable<BaseBean<List<RepairCateBean>>> getRepairCate();
 
     @POST(URLConfig.POSTH_GET_NOTICE_LIST_URL)
     Observable<BaseBean<List<NoticeBean>>> getNoticeList(@Body RequestBody route);
@@ -136,4 +152,6 @@ public interface APIFunction {
 
     @POST(URLConfig.POSTH_NOTICE_GET_THREELIST_URL)
     Observable<BaseBean<List<NoticeThreelistBean>>> getNoticeThreelist(@Body RequestBody route);
+    @POST(URLConfig.POSTH_GET_USER_INFO_URL)
+    Observable<BaseBean<LoginBean>> getUserInfo(@Body RequestBody route);
 }

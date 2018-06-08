@@ -42,6 +42,13 @@ public interface URLConfig {
     String POSTH_ANOTHER_BATCH_URL ="/api/Home/anotherBatch";//换一批
     String POSTH_AD_GET_LIST_URL ="/api/Ad/getList";//获取社区广告
     String POSTH_NOTICE_GET_THREELIST_URL ="/api/Notice/getThreeList";//获取社区公告
+    String POSTH_UPDATE_RENT_URL ="/api/Rent/updateRent";//租赁信息修改接口
+    String POSTH_SUBMIT_RENOVATION_INFO_URL ="/api/Renovation/submitRenovationInfo";//提交装修申请接口
+    String POSTH_DEL_RENOVATION_INFO_URL ="/api/Renovation/delRenovationInfo";//删除装修申请信息接口
+    String POSTH_GET_RENOVATION_INFO_URL ="/api/Renovation/getRenovationInfoList";//删除装修申请信息接口
+    String POSTH_GET_REPAIR_CATE_URL ="/api/Repaircate/getRepairCate";//删除装修申请信息接口
+    String POSTH_GET_USER_INFO_URL ="/api/Appuser/getUserInfo";//删除装修申请信息接口
+
 
 
 }

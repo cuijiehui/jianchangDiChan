@@ -1,5 +1,7 @@
 package com.cui.android.jianchengdichan.presenter;
 
+import android.text.TextUtils;
+
 import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.CityListBean;
 import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
@@ -90,7 +92,9 @@ public class LeaseCentrePresenter extends BasePresenter<LeaseCentreActivity> {
                 Map.Entry entry = (Map.Entry) iter.next();
                 String key = (String) entry.getKey(); // 分别获得key和value
                 String value = (String) entry.getValue();
-                jsonObject.addProperty(key, value);
+                if(!TextUtils.isEmpty(value)){
+                    jsonObject.addProperty(key, value);
+                }
                 LogUtils.i("key="+key+"--value="+value);
             }
         }

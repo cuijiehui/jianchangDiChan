@@ -59,12 +59,11 @@
     </RelativeLayout>
     <!--主页内容-->
     <!--下拉刷新-->
-    <com.cui.android.jianchengdichan.view.ui.customview.RefreshableView
-        android:id="@+id/rv_main_refreshable"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/rl_main_top"
-        >
+<com.baoyz.widget.PullRefreshLayout
+    android:id="@+id/prl_refreshable"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/rl_main_top">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -114,8 +113,116 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@drawable/main_parting_line" />
+                    android:layout_height="2dp"
+                    android:background="#55e0e0e0" />
+                <!--社区管家-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+                    <ImageView
+                        android:id="@+id/iv_main_community_icon"
+                        android:layout_width="7dp"
+                        android:layout_height="9dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/main_house_rent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/iv_main_community_icon"
+                        android:layout_toRightOf="@+id/iv_main_community_icon"
+                        android:text="社区管家"
+                        android:textColor="@color/main_text_col"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#55e0e0e0" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_main_community"
+                    android:layout_width="match_parent"
+                    android:layout_height="186dp"
+                    android:layout_marginTop="14dp"
+                    android:paddingLeft="20dp">
+
+                </android.support.v7.widget.RecyclerView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#55e0e0e0"
+                    android:visibility="gone"/>
+                <!--停车专区-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+                    <ImageView
+                        android:id="@+id/iv_main_stop_car_icon"
+                        android:layout_width="7dp"
+                        android:layout_height="9dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/main_stop_car_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/iv_main_stop_car_icon"
+                        android:layout_toRightOf="@+id/iv_main_stop_car_icon"
+                        android:text="停车专区"
+                        android:textColor="@color/main_text_col"
+                        android:textSize="16sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#55e0e0e0" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="#55e0e0e0" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="33dp"
+                    android:layout_marginTop="16dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="114dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/main_car_stop" />
+
+                    <ImageView
+                        android:layout_width="114dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/main_top_car_manager"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"/>
+
+                    <ImageView
+                        android:layout_width="114dp"
+                        android:layout_height="100dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="12dp"
+                        android:background="@drawable/main_stop_car_break"
+                        />
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#55e0e0e0" />
                 <!--附近租贷-->
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -165,135 +272,42 @@
 
                 </android.support.v7.widget.RecyclerView>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@drawable/main_parting_line" />
+
+
                 <!--限时抢购-->
                 <!--<include android:id="@+id/flash_sale_include" layout="@layout/includ_flash_sale_layout"/>-->
                 <ImageView
                     android:id="@+id/iv_flash_sale"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@drawable/main_parting_line" />
-                <!--社区管家-->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp">
+                    android:layout_height="2dp"
+                    android:background="#55e0e0e0"
+                    android:visibility="gone"/>
 
-                    <ImageView
-                        android:id="@+id/iv_main_community_icon"
-                        android:layout_width="7dp"
-                        android:layout_height="9dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/main_house_rent" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/iv_main_community_icon"
-                        android:layout_toRightOf="@+id/iv_main_community_icon"
-                        android:text="社区管家"
-                        android:textColor="@color/main_text_col"
-                        android:textSize="16sp" />
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@drawable/main_parting_line" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_main_community"
-                    android:layout_width="match_parent"
-                    android:layout_height="186dp"
-                    android:layout_marginTop="14dp"
-                    android:paddingLeft="20dp">
-
-                </android.support.v7.widget.RecyclerView>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@drawable/main_parting_line" />
 
                 <!--新品上市-->
-                <include android:id="@+id/goods_new_include" layout="@layout/includ_new_goods_layout"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@drawable/main_parting_line" />
-                <!--停车专区-->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp">
+                <include android:id="@+id/goods_new_include"
+                    layout="@layout/includ_new_goods_layout"
+                    android:visibility="gone"/>
 
-                    <ImageView
-                        android:id="@+id/iv_main_stop_car_icon"
-                        android:layout_width="7dp"
-                        android:layout_height="9dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="15dp"
-                        android:background="@drawable/main_stop_car_icon" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/iv_main_stop_car_icon"
-                        android:layout_toRightOf="@+id/iv_main_stop_car_icon"
-                        android:text="停车专区"
-                        android:textColor="@color/main_text_col"
-                        android:textSize="16sp" />
-                </RelativeLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@drawable/main_parting_line" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-
-                    <ImageView
-                        android:layout_width="114dp"
-                        android:layout_height="100dp"
-                        android:layout_marginLeft="12dp"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/main_car_stop" />
-
-                    <ImageView
-                        android:layout_width="114dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/main_top_car_manager"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"/>
-
-                    <ImageView
-                        android:layout_width="114dp"
-                        android:layout_height="100dp"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="12dp"
-                        android:background="@drawable/main_stop_car_break"
-                        />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@drawable/main_parting_line" />
+                    android:layout_height="2dp"
+                    android:background="#55e0e0e0"
+                    android:visibility="gone"/>
                 <!--猜你喜欢-->
-                <include android:id="@+id/you_like_include" layout="@layout/includ_you_like_layout"/>
+                <include
+                    android:id="@+id/you_like_include"
+                    android:visibility="gone"
+                    layout="@layout/includ_you_like_layout"/>
 
             </LinearLayout>
 
 
         </ScrollView>
-    </com.cui.android.jianchengdichan.view.ui.customview.RefreshableView>
+</com.baoyz.widget.PullRefreshLayout>
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -24,6 +25,7 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
@@ -33,13 +35,17 @@ import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.CommRvBean;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.CommRvAdapter;
+import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.CommRvBottomAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.cui.android.jianchengdichan.view.ui.LeaseCentreActivity;
 import com.cui.android.jianchengdichan.view.ui.LoginActivity;
 import com.cui.android.jianchengdichan.view.ui.NoticeAcitivty;
 import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
+import com.cui.android.jianchengdichan.view.ui.RepairsActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
+import com.cui.android.jianchengdichan.view.ui.customview.GridDivider;
 import com.cui.android.jianchengdichan.view.ui.customview.RefreshableView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -85,8 +91,9 @@ public class MainCommFragment extends Fragment implements IBaseView {
     ImageView ivCommCon;
     @BindView(R.id.rv_comm)
     RecyclerView rvComm;
-    @BindView(R.id.rv_comm_refreshable)
-    RefreshableView rvCommRefreshable;
+    @BindView(R.id.prl_comm_refreshable)
+    PullRefreshLayout prl_comm_refreshable;
+
     Unbinder unbinder;
     MainCommPresenter mainCommPresenter = new MainCommPresenter();
     @BindView(R.id.ll_comm_notice)
@@ -94,8 +101,8 @@ public class MainCommFragment extends Fragment implements IBaseView {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private List<Integer> dataTop = new ArrayList<>();
-    private List<Integer> dataRv = new ArrayList<>();
+    private List<CommRvBean> dataTop = new ArrayList<>();
+    private List<CommRvBean> dataRv = new ArrayList<>();
     private List<HomeDataBean.AdBean> mDataList = new ArrayList<>();//轮播图数据
     private List<String> noticeList = new ArrayList<>();//公告数据
     public static final int NEWS_MESSAGE_TEXTVIEW = 300;//通知公告信息
@@ -156,19 +163,19 @@ public class MainCommFragment extends Fragment implements IBaseView {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        dataTop.add(R.drawable.courier_icon);
-        dataTop.add(R.drawable.laundry_icon);
-        dataTop.add(R.drawable.doctor_icon);
-        dataTop.add(R.drawable.dining_hall_icon);
-        dataTop.add(R.drawable.bank_icon);
-        dataTop.add(R.drawable.readbook_icon);
+        dataTop.add(new CommRvBean(R.drawable.comm_express_icon,"快递站点","家里的衣服这里洗"));
+        dataTop.add(new CommRvBean(R.drawable.comm_washer_icon,"优质洗衣","集多项服务于一体"));
+        dataTop.add(new CommRvBean(R.drawable.comm_hospital_icon,"生病就医","集多项服务于一体"));
+        dataTop.add(new CommRvBean(R.drawable.comm_canteen_icon,"饿了食堂","各色菜系人你选择"));
+        dataTop.add(new CommRvBean(R.drawable.comm_bank_icon,"附近银行","有钱没钱来这里"));
+        dataTop.add(new CommRvBean(R.drawable.comm_school_icon,"学生读书","给孩子一个好学校"));
 
-        dataRv.add(R.drawable.parking_car);
-        dataRv.add(R.drawable.leasing_center);
-        dataRv.add(R.drawable.parking_management);
-        dataRv.add(R.drawable.pay_cost);
-        dataRv.add(R.drawable.blacklist);
-        dataRv.add(R.drawable.more_service);
+        dataRv.add(new CommRvBean(R.drawable.comm_stop_car,"我要停车","线上支付更快捷"));
+        dataRv.add(new CommRvBean(R.drawable.comm_lease_icon,"租赁中心","超多房源任你挑选"));
+        dataRv.add(new CommRvBean(R.drawable.comm_carport_icon,"车位管理","查询并管理车位"));
+        dataRv.add(new CommRvBean(R.drawable.comm_pay_icon,"物业缴费","每月线上缴费服务"));
+        dataRv.add(new CommRvBean(R.drawable.comm_black_list_icon,"黑白名单","管理分组和下发"));
+        dataRv.add(new CommRvBean(R.drawable.comm_more_icon,"报事报修","线上预约更方便"));
     }
 
     @Override
@@ -177,7 +184,7 @@ public class MainCommFragment extends Fragment implements IBaseView {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main_comm, container, false);
         unbinder = ButterKnife.bind(this, view);
-
+        initAdvViewPage();
         initRecyclerView();
         setRefresh();
         mainCommPresenter.attachView(this);
@@ -198,11 +205,20 @@ public class MainCommFragment extends Fragment implements IBaseView {
                 return textView;
             }
         });
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getData();
+    }
+
+    public void getData(){
         int uid = (Integer) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
         mainCommPresenter.getAdList(uid, token, "2", "2");
         mainCommPresenter.getNoticeList(uid, token, "2");
-        return view;
     }
 
     public <T> ObservableTransformer<T, T> setThread() {
@@ -218,24 +234,14 @@ public class MainCommFragment extends Fragment implements IBaseView {
      * 初始化下拉刷新
      */
     private void setRefresh() {
-        rvCommRefreshable.setOnRefreshListener(new RefreshableView.PullToRefreshListener() {
+        prl_comm_refreshable.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                LogUtils.i("setOnRefreshListener");
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        /**
-                         *要执行的操作
-                         */
-                        rvCommRefreshable.finishRefreshing();
-                    }
-                };
-                Timer timer = new Timer();
-                timer.schedule(task, 3000);//3秒后执行TimeTask的run方法
-//                mainHomePresenter.getData();
+                // start refresh
+                getData();
+
             }
-        }, 1);
+        });
     }
 
     private void initRecyclerView() {
@@ -256,7 +262,9 @@ public class MainCommFragment extends Fragment implements IBaseView {
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         rvComm.setLayoutManager(layoutManager);
-        CommRvAdapter commRvAdapter1 = new CommRvAdapter(dataRv, new OnRecyclerViewItemClickListener() {
+//        rvComm.addItemDecoration(new GridDivider(getActivity(), 10
+//                , this.getResources().getColor(R.color.like_back_col)));
+        CommRvBottomAdapter commRvAdapter1 = new CommRvBottomAdapter(dataRv, new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
@@ -280,6 +288,8 @@ public class MainCommFragment extends Fragment implements IBaseView {
                     case 4:
                         break;
                     case 5:
+                        startActivity(new Intent(getContext(), RepairsActivity.class));
+
                         break;
                 }
             }
@@ -297,11 +307,8 @@ public class MainCommFragment extends Fragment implements IBaseView {
      * 初始化图片轮播图
      */
     private void initAdvViewPage() {
-        if (mDataList == null || mDataList.size() == 0) {
-            return;
-        }
         bnMainCommAdv.setImageLoader(new GlideImageLoader()); //设置图片加载器
-        bnMainCommAdv.setImages(mDataList);//设置图片集合
+//        bnMainCommAdv.setImages(mDataList);//设置图片集合
         //设置自动轮播，默认为true
         bnMainCommAdv.isAutoPlay(true);
         //设置轮播时间
@@ -351,11 +358,14 @@ public class MainCommFragment extends Fragment implements IBaseView {
         mDataList.clear();
         if (data != null) {
             mDataList.addAll(data);
-            initAdvViewPage();
+            bnMainCommAdv.update(data);
         }
     }
 
     public void getNoticeList(List<NoticeThreelistBean> data) {
+        if (prl_comm_refreshable != null) {
+            prl_comm_refreshable.setRefreshing(false);
+        }
         for (NoticeThreelistBean bean : data) {
             noticeList.add(bean.getTitle());
         }

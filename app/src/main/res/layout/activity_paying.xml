@@ -59,7 +59,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="11dp"
-        android:background="@drawable/main_parting_line"/>
+        android:background="#55e0e0e0"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="29dp">
@@ -84,7 +84,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@drawable/main_parting_line"/>
+        android:background="#55e0e0e0"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="29dp"
@@ -176,7 +176,7 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="11dp"
-        android:background="@drawable/main_parting_line"/>
+        android:background="#55e0e0e0"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="29dp"

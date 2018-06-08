@@ -19,6 +19,7 @@ import com.cui.android.jianchengdichan.http.bean.RentDetailBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.RentDatailPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.view.BaseActivtity;
@@ -199,7 +200,7 @@ public class RentDatailActivity extends BaseActivtity {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
             String picPath = (String) path;
-            Glide.with(MyApplication.getAppContext()).load(picPath).into(imageView);
+            Okhttp3Utils.getInstance().glide(context,picPath,imageView);
 
         }
     }

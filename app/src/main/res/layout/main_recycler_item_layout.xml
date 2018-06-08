@@ -9,10 +9,12 @@
         android:id="@+id/rl_recycler_rl"
         android:layout_width="100dp"
         android:layout_height="100dp">
+
         <ImageView
             android:id="@+id/iv_recycler_img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="center"
             />
         <RelativeLayout
             android:layout_width="match_parent"

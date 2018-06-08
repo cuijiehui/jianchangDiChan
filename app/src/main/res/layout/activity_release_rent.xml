@@ -20,7 +20,7 @@
             <!--类型-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="29dp"
+                android:layout_height="40dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -29,7 +29,7 @@
                     android:layout_marginLeft="11dp"
                     android:text="类型"
                     android:textColor="@color/main_text_col"
-                    android:textSize="11sp" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_release_type_1"
@@ -40,7 +40,6 @@
                     android:padding="2dp"
                     android:text="普通住宅"
                     android:textColor="@color/white"
-                    android:textSize="9sp"
                     />
 
                 <TextView
@@ -53,7 +52,7 @@
                     android:padding="2dp"
                     android:text="公寓"
                     android:textColor="@color/main_text_col"
-                    android:textSize="9sp" />
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tv_release_type_3"
@@ -65,7 +64,7 @@
                     android:padding="2dp"
                     android:text="别墅"
                     android:textColor="@color/main_text_col"
-                    android:textSize="9sp" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_release_type_4"
@@ -77,17 +76,17 @@
                     android:padding="2dp"
                     android:text="商铺"
                     android:textColor="@color/main_text_col"
-                    android:textSize="9sp" />
+                     />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:background="@drawable/main_parting_line" />
+                android:layout_height="0.5dp"
+                android:background="#55e0e0e0" />
             <!--租贷方式-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="29dp"
+                android:layout_height="40dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -96,7 +95,7 @@
                     android:layout_marginLeft="11dp"
                     android:text="租贷方式"
                     android:textColor="@color/main_text_col"
-                    android:textSize="11sp" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_release_way_1"
@@ -107,7 +106,7 @@
                     android:padding="2dp"
                     android:text="整租"
                     android:textColor="@color/white"
-                    android:textSize="9sp" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_release_way_2"
@@ -119,7 +118,7 @@
                     android:padding="2dp"
                     android:text="合租"
                     android:textColor="@color/main_text_col"
-                    android:textSize="9sp" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_release_way_3"
@@ -130,7 +129,7 @@
                     android:padding="2dp"
                     android:text="短租"
                     android:textColor="@color/main_text_col"
-                    android:textSize="9sp" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_release_way_4"
@@ -140,18 +139,19 @@
                     android:background="@color/et_bac_col"
                     android:padding="2dp"
                     android:text="公寓"
+                    android:visibility="gone"
                     android:textColor="@color/main_text_col"
-                    android:textSize="9sp" />
+                    />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:background="@drawable/main_parting_line" />
+                android:layout_height="0.5dp"
+                android:background="#55e0e0e0" />
             <!--押付方式-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="29dp"
+                android:layout_height="40dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -160,7 +160,7 @@
                     android:layout_marginLeft="11dp"
                     android:text="押付方式"
                     android:textColor="@color/main_text_col"
-                    android:textSize="11sp" />
+                   />
 
                 <TextView
                     android:id="@+id/tv_release_pay_1"
@@ -171,7 +171,7 @@
                     android:padding="2dp"
                     android:text="押一付一"
                     android:textColor="@color/white"
-                    android:textSize="9sp" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_release_pay_2"
@@ -183,7 +183,7 @@
                     android:padding="2dp"
                     android:text="押二付一"
                     android:textColor="@color/main_text_col"
-                    android:textSize="9sp" />
+                   />
 
                 <TextView
                     android:id="@+id/tv_release_pay_3"
@@ -194,37 +194,37 @@
                     android:padding="2dp"
                     android:text="押一付三"
                     android:textColor="@color/main_text_col"
-                    android:textSize="9sp" />
+                    />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:background="@drawable/main_parting_line" />
+                android:layout_height="5dp"
+                android:background="#55e0e0e0" />
             <!--基本信息-->
             <include layout="@layout/include_release_information_layout" />
             <View
                 android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:background="@drawable/main_parting_line" />
+                android:layout_height="5dp"
+                android:background="#55e0e0e0" />
             <!--租金情况-->
             <include layout="@layout/include_release_money_layout"/>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:background="@drawable/main_parting_line" />
+                android:layout_height="5dp"
+                android:background="#55e0e0e0" />
             <!--联系方式-->
             <include layout="@layout/include_release_contacts"/>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:background="@drawable/main_parting_line" />
+                android:layout_height="5dp"
+                android:background="#55e0e0e0" />
             <!--房源图片-->
             <include layout="@layout/include_release_picture"/>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="9dp"
-                android:background="@drawable/main_parting_line" />
+                android:layout_height="5dp"
+                android:background="#55e0e0e0" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@drawable/main_parting_line" />
+                android:background="#55e0e0e0" />
             <EditText
                 android:id="@+id/et_release_describe"
                 android:layout_width="match_parent"
@@ -245,14 +245,16 @@
                 android:hint="10-200字，可介绍房源亮点"
                 android:layout_marginLeft="11dp"
                 android:paddingLeft="11dp"/>
-            <ImageView
+            <Button
                 android:id="@+id/iv_selease_rel"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
-                android:background="@drawable/release_button_normal"
                 android:layout_marginTop="11dp"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:background="@color/main_top_col"
                 />
             <Button
                 android:id="@+id/bt_release_save"
