@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.Fragment.MainCommFragment">
+    tools:context=".view.ui.Fragment.MainCommFragment"
+    >
 
 
     <!-- 头部-->
@@ -57,6 +58,7 @@
             android:background="@drawable/main_add_button"
             android:clickable="true" />
     </RelativeLayout>
+
     <!--主页内容-->
         <!--下拉刷新-->
         <com.baoyz.widget.PullRefreshLayout
@@ -143,8 +145,35 @@
                     android:id="@+id/rv_comm"
                     android:layout_width="match_parent"
                     android:layout_height="185dp" />
+                <!--社区店铺-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="#55e0e0e0" />
+            <include layout="@layout/include_comm_shop_layout"/>
+                <!--活动推荐-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="#55e0e0e0" />
+                <include layout="@layout/include_comm_activitys_layout"/>
+
+                <!--话题推荐-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="#55e0e0e0" />
+                <include layout="@layout/include_comm_topic_layout"/>
             </LinearLayout>
         </ScrollView>
 
     </com.baoyz.widget.PullRefreshLayout>
+    <ImageView
+        android:id="@+id/iv_comm_floating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/floating_button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"/>
 </RelativeLayout>

@@ -44,7 +44,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ui.SplashActivity">
+        <activity android:name=".view.ui.avtivity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,34 +53,34 @@
         </activity>
         <!-- <activity android:name=".view.ui.LoginActivity"></activity> -->
         <activity
-            android:name=".view.ui.ScanActivity"
+            android:name=".view.ui.avtivity.ScanActivity"
             android:label="@string/title_activity_scan"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.MainActivity"
+            android:name=".view.ui.avtivity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.LeaseCentreActivity"
+            android:name=".view.ui.avtivity.LeaseCentreActivity"
             android:label="@string/title_activity_lease_centre"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.FeedbackActivity"
+            android:name=".view.ui.avtivity.FeedbackActivity"
             android:label="@string/title_activity_feed_back"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.SetingActivity"
+            android:name=".view.ui.avtivity.SetingActivity"
             android:label="@string/title_activity_seting"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.LoginActivity"
+            android:name=".view.ui.avtivity.LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.RegisterActivity"
+            android:name=".view.ui.avtivity.RegisterActivity"
             android:label="@string/title_activity_register2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.ForgetPwdActivity"
+            android:name=".view.ui.avtivity.ForgetPwdActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 支付宝 -->
         <activity
@@ -94,42 +94,47 @@
             android:exported="false"
             android:screenOrientation="behind" />
         <activity
-            android:name=".view.ui.PayFeesActivity"
+            android:name=".view.ui.avtivity.PayFeesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.PayMentRecordActivity"
+            android:name=".view.ui.avtivity.PayMentRecordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.CityPickerActivity"
+            android:name=".view.ui.avtivity.CityPickerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.PayingActivity"
+            android:name=".view.ui.avtivity.PayingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.FeedbackHistoryActivity"
+            android:name=".view.ui.avtivity.FeedbackHistoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.RentDatailActivity"
+            android:name=".view.ui.avtivity.RentDatailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.ReleaseRentActivity"
+            android:name=".view.ui.avtivity.ReleaseRentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.InCommunityActivity"
+            android:name=".view.ui.avtivity.InCommunityActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.CommAddListAtivity"
+            android:name=".view.ui.avtivity.CommAddListAtivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".view.ui.WebViewActivity"
+            android:name=".view.ui.avtivity.WebViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.ui.PersonalDataActivity" />
-        <activity android:name=".view.ui.SetUserMsgActivity" />
-        <activity android:name=".view.ui.RepairsActivity" />
-        <activity android:name=".view.ui.MyApplyActivity" />
-        <activity android:name=".view.ui.NoticeAcitivty" />
-        <activity android:name=".view.ui.FitmentActivity" />
-        <activity android:name=".view.ui.MyFitmentListActivity"></activity>
+        <activity android:name=".view.ui.avtivity.PersonalDataActivity" />
+        <activity android:name=".view.ui.avtivity.SetUserMsgActivity" />
+        <activity android:name=".view.ui.avtivity.RepairsActivity" />
+        <activity android:name=".view.ui.avtivity.MyApplyActivity" />
+        <activity android:name=".view.ui.avtivity.NoticeAcitivty" />
+        <activity android:name=".view.ui.avtivity.FitmentActivity" />
+        <activity android:name=".view.ui.avtivity.MyFitmentListActivity" />
+        <activity android:name=".view.ui.avtivity.ConveServiceActivity" />
+        <activity android:name=".view.ui.avtivity.ConveDetailsActivity" />
+        <activity android:name=".view.ui.avtivity.CellPhoneActivity" />
+        <activity android:name=".view.ui.avtivity.ConveColumnActivity" />
+        <activity android:name=".view.ui.avtivity.ReleaseTopicActivity"></activity>
     </application>
 
 </manifest>

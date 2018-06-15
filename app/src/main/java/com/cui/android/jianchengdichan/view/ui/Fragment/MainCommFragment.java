@@ -10,6 +10,7 @@ import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -28,10 +29,13 @@ import android.widget.ViewSwitcher;
 import com.baoyz.widget.PullRefreshLayout;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.CommentActBean;
+import com.cui.android.jianchengdichan.http.bean.CommentTopicBean;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.http.bean.NoticeThreelistBean;
 import com.cui.android.jianchengdichan.presenter.MainCommPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
@@ -39,21 +43,19 @@ import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.Comm
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.CommRvAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.CommRvBottomAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
-import com.cui.android.jianchengdichan.view.ui.LeaseCentreActivity;
-import com.cui.android.jianchengdichan.view.ui.LoginActivity;
-import com.cui.android.jianchengdichan.view.ui.NoticeAcitivty;
-import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
-import com.cui.android.jianchengdichan.view.ui.RepairsActivity;
+import com.cui.android.jianchengdichan.view.ui.adapter.CommentTopicAdapter;
+import com.cui.android.jianchengdichan.view.ui.avtivity.LeaseCentreActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.LoginActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.NoticeAcitivty;
+import com.cui.android.jianchengdichan.view.ui.avtivity.PayFeesActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.RepairsActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
-import com.cui.android.jianchengdichan.view.ui.customview.GridDivider;
-import com.cui.android.jianchengdichan.view.ui.customview.RefreshableView;
+import com.cui.android.jianchengdichan.view.ui.customview.UIImageView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,10 +71,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MainCommFragment extends Fragment implements IBaseView {
 
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
     @BindView(R.id.tv_comm_top_qrcode)
     TextView tvCommTopQrcode;
     @BindView(R.id.et_comm_top_seek)
@@ -93,20 +92,41 @@ public class MainCommFragment extends Fragment implements IBaseView {
     RecyclerView rvComm;
     @BindView(R.id.prl_comm_refreshable)
     PullRefreshLayout prl_comm_refreshable;
-
-    Unbinder unbinder;
-    MainCommPresenter mainCommPresenter = new MainCommPresenter();
     @BindView(R.id.ll_comm_notice)
     LinearLayout llCommNotice;
-    // TODO: Rename and change types of parameters
+    @BindView(R.id.iv_comm_floating)
+    ImageView ivCommFloating;
+    @BindView(R.id.tv_comm_shop_look)
+    TextView tvCommShopLook;
+    @BindView(R.id.uiv_comm_act_more)
+    TextView uivCommActMore;
+    @BindView(R.id.uiv_comm_act_pic)
+    UIImageView uivCommActPic;
+    @BindView(R.id.tv_comm_act_like)
+    TextView tvCommActLike;
+    @BindView(R.id.tv_comm_act_topic)
+    TextView tvCommActTopic;
+    @BindView(R.id.tv_comm_act_time)
+    TextView tvCommActTime;
+    @BindView(R.id.uiv_comm_topic_more)
+    TextView uivCommTopicMore;
+    @BindView(R.id.rv_comm_topic_data)
+    RecyclerView rvCommTopicData;
+
     private String mParam1;
     private String mParam2;
     private List<CommRvBean> dataTop = new ArrayList<>();
     private List<CommRvBean> dataRv = new ArrayList<>();
     private List<HomeDataBean.AdBean> mDataList = new ArrayList<>();//轮播图数据
+    List<CommentTopicBean> topicData = new ArrayList<>();//活动数据
     private List<String> noticeList = new ArrayList<>();//公告数据
     public static final int NEWS_MESSAGE_TEXTVIEW = 300;//通知公告信息
+    Unbinder unbinder;
+    MainCommPresenter mainCommPresenter = new MainCommPresenter();
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
     private int index = 0;//textview上下滚动下标
+    CommentTopicAdapter commentTopicAdapter;
     @SuppressLint("HandlerLeak")
     Handler noticeHandler = new Handler() {
         @Override
@@ -142,10 +162,8 @@ public class MainCommFragment extends Fragment implements IBaseView {
      * @param param2 Parameter 2.
      * @return A new instance of fragment MainCommFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static MainCommFragment newInstance(String param1, String param2) {
         LogUtils.i("newInstance");
-
         MainCommFragment fragment = new MainCommFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -163,19 +181,19 @@ public class MainCommFragment extends Fragment implements IBaseView {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        dataTop.add(new CommRvBean(R.drawable.comm_express_icon,"快递站点","家里的衣服这里洗"));
-        dataTop.add(new CommRvBean(R.drawable.comm_washer_icon,"优质洗衣","集多项服务于一体"));
-        dataTop.add(new CommRvBean(R.drawable.comm_hospital_icon,"生病就医","集多项服务于一体"));
-        dataTop.add(new CommRvBean(R.drawable.comm_canteen_icon,"饿了食堂","各色菜系人你选择"));
-        dataTop.add(new CommRvBean(R.drawable.comm_bank_icon,"附近银行","有钱没钱来这里"));
-        dataTop.add(new CommRvBean(R.drawable.comm_school_icon,"学生读书","给孩子一个好学校"));
+        dataTop.add(new CommRvBean(R.drawable.comm_express_icon, "快递站点", "家里的衣服这里洗"));
+        dataTop.add(new CommRvBean(R.drawable.comm_washer_icon, "优质洗衣", "集多项服务于一体"));
+        dataTop.add(new CommRvBean(R.drawable.comm_hospital_icon, "生病就医", "集多项服务于一体"));
+        dataTop.add(new CommRvBean(R.drawable.comm_canteen_icon, "饿了食堂", "各色菜系人你选择"));
+        dataTop.add(new CommRvBean(R.drawable.comm_bank_icon, "附近银行", "有钱没钱来这里"));
+        dataTop.add(new CommRvBean(R.drawable.comm_school_icon, "学生读书", "给孩子一个好学校"));
 
-        dataRv.add(new CommRvBean(R.drawable.comm_stop_car,"我要停车","线上支付更快捷"));
-        dataRv.add(new CommRvBean(R.drawable.comm_lease_icon,"租赁中心","超多房源任你挑选"));
-        dataRv.add(new CommRvBean(R.drawable.comm_carport_icon,"车位管理","查询并管理车位"));
-        dataRv.add(new CommRvBean(R.drawable.comm_pay_icon,"物业缴费","每月线上缴费服务"));
-        dataRv.add(new CommRvBean(R.drawable.comm_black_list_icon,"黑白名单","管理分组和下发"));
-        dataRv.add(new CommRvBean(R.drawable.comm_more_icon,"报事报修","线上预约更方便"));
+        dataRv.add(new CommRvBean(R.drawable.comm_stop_car, "我要停车", "线上支付更快捷"));
+        dataRv.add(new CommRvBean(R.drawable.comm_lease_icon, "租赁中心", "超多房源任你挑选"));
+        dataRv.add(new CommRvBean(R.drawable.comm_carport_icon, "车位管理", "查询并管理车位"));
+        dataRv.add(new CommRvBean(R.drawable.comm_pay_icon, "物业缴费", "每月线上缴费服务"));
+        dataRv.add(new CommRvBean(R.drawable.comm_black_list_icon, "黑白名单", "管理分组和下发"));
+        dataRv.add(new CommRvBean(R.drawable.comm_more_icon, "报事报修", "线上预约更方便"));
     }
 
     @Override
@@ -205,6 +223,7 @@ public class MainCommFragment extends Fragment implements IBaseView {
                 return textView;
             }
         });
+
         return view;
     }
 
@@ -214,11 +233,13 @@ public class MainCommFragment extends Fragment implements IBaseView {
         getData();
     }
 
-    public void getData(){
+    public void getData() {
         int uid = (Integer) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
         mainCommPresenter.getAdList(uid, token, "2", "2");
         mainCommPresenter.getNoticeList(uid, token, "2");
+        mainCommPresenter.getCommentAct();
+        mainCommPresenter.getCommentTopic();
     }
 
     public <T> ObservableTransformer<T, T> setThread() {
@@ -300,7 +321,11 @@ public class MainCommFragment extends Fragment implements IBaseView {
             }
         });
         rvComm.setAdapter(commRvAdapter1);
-
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvCommTopicData.setLayoutManager(linearLayoutManager);
+        commentTopicAdapter= new CommentTopicAdapter(R.layout.item_comm_topic_layout,topicData);
+        rvCommTopicData.setAdapter(commentTopicAdapter);
+        rvCommTopicData.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
     }
 
     /**
@@ -388,8 +413,41 @@ public class MainCommFragment extends Fragment implements IBaseView {
         }.start();
     }
 
-    @OnClick(R.id.ll_comm_notice)
-    public void onViewClicked() {
-        startActivity(new Intent(getContext(), NoticeAcitivty.class));
+    @OnClick({R.id.ll_comm_notice, R.id.iv_comm_floating, R.id.tv_comm_shop_look, R.id.uiv_comm_act_more, R.id.tv_comm_act_like, R.id.tv_comm_act_topic, R.id.uiv_comm_topic_more})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_comm_floating:
+                break;
+            case R.id.tv_comm_shop_look:
+                break;
+            case R.id.uiv_comm_act_more:
+                break;
+            case R.id.tv_comm_act_like:
+                break;
+            case R.id.tv_comm_act_topic:
+                break;
+            case R.id.uiv_comm_topic_more:
+                break;
+            case R.id.ll_comm_notice:
+                startActivity(new Intent(getContext(), NoticeAcitivty.class));
+                break;
+        }
+    }
+
+    public void getCommentAct(CommentActBean data) {
+        if(data!=null){
+//            uivCommActPic
+            Okhttp3Utils.getInstance().glide(getContext(),data.getPic(),uivCommActPic);
+            tvCommActTime.setText(data.getCreate_time());
+        }
+
+    }
+
+    public void getCommentTopic(List<CommentTopicBean> data) {
+        topicData.clear();
+        if(data!=null){
+            topicData.addAll(data);
+        }
+        commentTopicAdapter.notifyDataSetChanged();
     }
 }

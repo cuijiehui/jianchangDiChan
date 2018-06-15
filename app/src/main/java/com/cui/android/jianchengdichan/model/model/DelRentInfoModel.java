@@ -28,7 +28,7 @@ public class DelRentInfoModel extends BaseModel<BasesBean> {
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    protected void onError(Throwable e, boolean isNetWorkError) throws Exception {
                         callback.onError();
                     }
                 });

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+    <ImageView
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:src="@drawable/shop_img"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="社区商铺"
+            android:textColor="@color/main_you_like_text_col"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/tv_comm_shop_look"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="去查看"
+            android:textSize="15sp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_circular_bead_yellow_col"
+            android:padding="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="12dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/yellow_to_icon"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            />
+    </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="外卖、家政、便利店
+……"/>
+</LinearLayout>
+</LinearLayout>

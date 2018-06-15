@@ -63,9 +63,9 @@ public abstract class BasesObserver implements Observer<BasesBean> {
                     || e instanceof TimeoutException
                     || e instanceof NetworkErrorException
                     || e instanceof UnknownHostException) {
-                onFailure(e, true);
+                onError(e, true);
             } else {
-                onFailure(e, false);
+                onError(e, false);
             }
         } catch (Exception e1) {
             e1.printStackTrace();
@@ -98,7 +98,7 @@ public abstract class BasesObserver implements Observer<BasesBean> {
      * @param isNetWorkError 是否是网络错误
      * @throws Exception
      */
-    protected abstract void onFailure(Throwable e, boolean isNetWorkError) throws Exception;
+    protected abstract void onError(Throwable e, boolean isNetWorkError) throws Exception;
 
     protected void onRequestStart() {
     }

@@ -7,6 +7,13 @@ import com.cui.android.jianchengdichan.http.bean.AnotherBatchBean;
 import com.cui.android.jianchengdichan.http.bean.CatesBean;
 import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
 import com.cui.android.jianchengdichan.http.bean.CityListBean;
+import com.cui.android.jianchengdichan.http.bean.CivilianAdvBean;
+import com.cui.android.jianchengdichan.http.bean.CivilianDetailBean;
+import com.cui.android.jianchengdichan.http.bean.CivilianListBean;
+import com.cui.android.jianchengdichan.http.bean.CommentActBean;
+import com.cui.android.jianchengdichan.http.bean.CommentTopicBean;
+import com.cui.android.jianchengdichan.http.bean.HomeCivilianListBean;
+import com.cui.android.jianchengdichan.http.bean.CivilianserviceBean;
 import com.cui.android.jianchengdichan.http.bean.CommunityBean;
 import com.cui.android.jianchengdichan.http.bean.HistoryDataBean;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
@@ -21,6 +28,7 @@ import com.cui.android.jianchengdichan.http.bean.RentDetailBean;
 import com.cui.android.jianchengdichan.http.bean.RepairCateBean;
 import com.cui.android.jianchengdichan.http.bean.RepairsBean;
 import com.cui.android.jianchengdichan.http.bean.SplashAdvBean;
+import com.cui.android.jianchengdichan.http.bean.TelephoneBean;
 import com.cui.android.jianchengdichan.http.bean.UserCommunityBean;
 import com.cui.android.jianchengdichan.http.bean.UserEntranceBean;
 import com.cui.android.jianchengdichan.http.bean.UserInfoPicBean;
@@ -154,4 +162,34 @@ public interface APIFunction {
     Observable<BaseBean<List<NoticeThreelistBean>>> getNoticeThreelist(@Body RequestBody route);
     @POST(URLConfig.POSTH_GET_USER_INFO_URL)
     Observable<BaseBean<LoginBean>> getUserInfo(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_LEAVE_MSG_LIST_URL)
+    Observable<BaseBean<LoginBean>> leaveMsgList(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_CIVILIAN_SERVICE_URL)
+    Observable<BaseBean<HomeCivilianListBean>> getHomeCivilianList();
+
+    @POST(URLConfig.POSTH_CIVILIAN_DETAIL_URL)
+    Observable<BaseBean<CivilianDetailBean>> getCivilianDetail(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_TELEPHONE_LIST_URL)
+    Observable<BaseBean<List<TelephoneBean>>> getTelephone(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_CIVILIANSERVICE_CATE_URL)
+    Observable<BaseBean<List<CivilianserviceBean>>> getCivilianservice();
+
+    @POST(URLConfig.POSTH_CIVILIANSERVICE_LIST_URL)
+    Observable<BaseBean<List<CivilianListBean>>> getCivilianList(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_CIVILIANSERVICE_AD_URL)
+    Observable<BaseBean<List<CivilianAdvBean>>> getCivilianAdv(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_COMMENT_ACTIVITY_URL)
+    Observable<BaseBean<CommentActBean>> getCommentAct();
+
+    @POST(URLConfig.POSTH_COMMENT_TOPIC_URL)
+    Observable<BaseBean<List<CommentTopicBean>>> getCommentTopic();
+
+    @POST(URLConfig.POSTH_RELEASE_TOPIC_URL)
+    Observable<BaseBean<Object>> setReleaseTopic(@Body RequestBody route);
 }

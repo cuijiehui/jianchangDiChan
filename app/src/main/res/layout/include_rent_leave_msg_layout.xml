@@ -5,12 +5,12 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="29dp"
+        android:layout_height="39dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <ImageView
-            android:layout_width="13dp"
-            android:layout_height="13dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@color/rent_leave_msg_col"
             android:src="@drawable/rent_leave_msg_icon"
             android:layout_marginLeft="12dp"/>
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:text="留言"
         android:textColor="@color/rent_leave_msg_col"
-        android:textSize="11sp"
+        android:layout_marginLeft="1dp"
         />
     </LinearLayout>
 <View
@@ -28,39 +28,38 @@
     android:background="#55e0e0e0"/>
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="wrap_content"
     >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_rent_leave_msg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/iv_rent_to_msg"
-        android:visibility="gone"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginBottom="30dp"/>
     <RelativeLayout
         android:id="@+id/rl_rent_no_msg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/iv_rent_to_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
         >
         <TextView
             android:id="@+id/rent_leave_liuyan"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="11sp"
             android:textColor="@color/main_flash_sale_text"
             android:text="还没有人留言，快来抢占沙发呗"
+            android:gravity="center_horizontal"
             android:layout_centerInParent="true"/>
 
     </RelativeLayout>
     <ImageView
         android:id="@+id/iv_rent_to_msg"
-        android:layout_width="33dp"
-        android:layout_height="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:background="@drawable/rent_leave_msg"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp"
+        android:layout_alignParentBottom="true"
         />
 </RelativeLayout>
 </LinearLayout>

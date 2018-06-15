@@ -25,6 +25,11 @@ android {
         mavenCentral()
         google()
     }
+    allprojects {
+        repositories {
+            maven { url "https://jitpack.io" }
+        }
+    }
 }
 
 dependencies {
@@ -67,4 +72,5 @@ dependencies {
     implementation files('libs/alipaySdk-20170725.jar')
     //下拉刷新
     implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
 }

@@ -7,9 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:text="基本信息"
-    android:gravity="center_vertical"
-    android:padding="11dp"
-    android:textColor="@color/main_text_col"/>
+    style="@style/release_title_style"
+    />
 <View
     android:layout_width="match_parent"
     android:layout_height="1dp"
@@ -29,14 +28,12 @@
             android:layout_height="wrap_content"
             android:text="小区 |"
             android:layout_marginLeft="11dp"
-            android:textColor="@color/main_flash_sale_text"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             />
         <EditText
             android:id="@+id/et_release_home_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:layout_marginLeft="11dp"
+            style="@style/release_name_hint_style"
             android:hint="填写小区名称"/>
     </LinearLayout>
     <View
@@ -53,19 +50,17 @@
             android:layout_height="wrap_content"
             android:text="面积 |"
             android:layout_marginLeft="11dp"
-            android:textColor="@color/main_flash_sale_text"
+            android:textSize="16sp"
+
+            android:textColor="@color/black"
             android:layout_centerVertical="true"
             />
         <EditText
             android:id="@+id/et_release_area"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:layout_marginLeft="11dp"
             android:inputType="number"
             android:layout_toRightOf="@+id/release_rent_area"
             android:layout_toLeftOf="@+id/release_rent_m2"
-            android:layout_centerVertical="true"
+            style="@style/release_name_hint_style"
             android:hint="填写建筑面积"/>
         <TextView
             android:id="@+id/release_rent_m2"
@@ -75,6 +70,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="11dp"
             android:layout_centerVertical="true"
+            android:textSize="15sp"
             android:text="平米"/>
     </RelativeLayout>
     <View
@@ -91,18 +87,17 @@
             android:layout_height="wrap_content"
             android:text="朝向 |"
             android:layout_margin="11dp"
-            android:textColor="@color/main_flash_sale_text"
+            android:textColor="@color/black"
             android:layout_centerVertical="true"
             />
         <TextView
             android:id="@+id/tv_release_ori"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="11dp"
             android:layout_toRightOf="@+id/release_rent_ori"
             android:layout_toLeftOf="@+id/release_rent_rig"
             android:text="东/南/西/北"
             android:textColor="@color/main_seek_text_col"
+            style="@style/release_name_hint_style"
+            android:gravity="center_vertical"
             />
         <ImageView
             android:id="@+id/release_rent_rig"
@@ -128,12 +123,12 @@
             android:layout_height="wrap_content"
             android:text="户型 |"
             android:layout_marginLeft="11dp"
-            android:textColor="@color/main_flash_sale_text"
+            android:textColor="@color/black"
             />
         <EditText
             android:id="@+id/et_release_room"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="11dp"
             android:inputType="number"
             />
@@ -141,11 +136,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="室"
-            android:textColor="@color/main_flash_sale_text"/>
+            android:textColor="@color/black"/>
         <EditText
             android:id="@+id/et_release_office"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="11dp"
             android:inputType="number"
 
@@ -154,11 +149,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="厅"
-            android:textColor="@color/main_flash_sale_text"/>
+            android:textColor="@color/black"/>
         <EditText
             android:id="@+id/et_release_wc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="11dp"
             android:inputType="number"
 
@@ -167,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="卫"
-            android:textColor="@color/main_flash_sale_text"/>
+            android:textColor="@color/black"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"
@@ -183,14 +178,12 @@
             android:layout_height="wrap_content"
             android:text="楼层 |"
             android:layout_marginLeft="11dp"
-            android:textColor="@color/main_flash_sale_text"
+            android:textColor="@color/black"
             />
         <EditText
             android:id="@+id/et_release_floor"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
             android:background="@null"
-            android:layout_marginLeft="11dp"
+            style="@style/release_name_hint_style"
             android:inputType="number"
             android:hint="第几层"/>
     </LinearLayout>
@@ -208,15 +201,12 @@
             android:layout_height="wrap_content"
             android:text="楼层 |"
             android:layout_marginLeft="11dp"
-            android:textColor="@color/main_flash_sale_text"
+            android:textColor="@color/black"
             />
         <EditText
             android:id="@+id/et_release_total_floor"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:layout_marginLeft="11dp"
             android:inputType="number"
+            style="@style/release_name_hint_style"
             android:hint="共几层"/>
     </LinearLayout>
     <View
@@ -233,20 +223,17 @@
             android:layout_height="wrap_content"
             android:text="区域选择 |"
             android:layout_margin="11dp"
-            android:textColor="@color/main_flash_sale_text"
+            android:textColor="@color/black"
             android:layout_centerVertical="true"
             />
         <TextView
             android:id="@+id/tv_release_area"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:layout_margin="11dp"
             android:layout_toRightOf="@+id/release_rent_region"
             android:layout_toLeftOf="@+id/release_rent_rig_region"
             android:text="省/市/区"
-            android:layout_centerVertical="true"
             android:textColor="@color/main_seek_text_col"
+            style="@style/release_name_hint_style"
+            android:gravity="center_vertical"
             />
         <ImageView
             android:id="@+id/release_rent_rig_region"
@@ -265,22 +252,19 @@
         android:background="#55e0e0e0"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="详细地址 |"
             android:layout_marginLeft="11dp"
-            android:textColor="@color/main_flash_sale_text"
+            android:textColor="@color/black"
             />
         <EditText
             android:id="@+id/et_release_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:layout_marginLeft="11dp"
+            style="@style/release_name_hint_style"
             android:hint="街道/小区/门牌号"/>
     </LinearLayout>
 </LinearLayout>

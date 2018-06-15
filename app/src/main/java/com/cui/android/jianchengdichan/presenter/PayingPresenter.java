@@ -6,7 +6,7 @@ import com.cui.android.jianchengdichan.http.bean.WeChatPayBean;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
-import com.cui.android.jianchengdichan.view.ui.PayingActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.PayingActivity;
 import com.google.gson.JsonObject;
 
 public class PayingPresenter extends BasePresenter<PayingActivity> {

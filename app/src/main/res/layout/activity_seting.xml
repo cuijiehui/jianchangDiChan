@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.SetingActivity"
+    tools:context=".view.ui.avtivity.SetingActivity"
     android:orientation="vertical">
 
 <include layout="@layout/include_top_layout"/>

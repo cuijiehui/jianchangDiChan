@@ -35,10 +35,11 @@ public class ChargeCateModel extends BaseModel<BaseBean<List<ChargeCateBean>>> {
 
                     }
 
+
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                        LogUtils.i("onResponse"+e.getLocalizedMessage());
+                    protected void onError(Throwable e, boolean isNetWorkError) throws Exception {
                         callback.onError();
+
                     }
                 });
 

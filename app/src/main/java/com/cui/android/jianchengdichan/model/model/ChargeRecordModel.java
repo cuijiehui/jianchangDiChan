@@ -28,12 +28,14 @@ public class ChargeRecordModel extends BaseModel<BaseBean<List<PayRecordsBean>>>
 
                     @Override
                     protected void onCodeError(BaseBean<List<PayRecordsBean>> t) throws Exception {
-                        callback.onError();
+                        callback.onFailure(t.getMsg());
+
                     }
 
+
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                        callback.onFailure(e.getMessage());
+                    protected void onError(Throwable e, boolean isNetWorkError) throws Exception {
+                        callback.onError();
 
                     }
                 });

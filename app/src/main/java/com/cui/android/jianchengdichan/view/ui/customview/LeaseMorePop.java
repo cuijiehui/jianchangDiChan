@@ -59,7 +59,7 @@ public class LeaseMorePop extends PopupWindow {
 
         wayList.add("整租");
         wayList.add("合租");
-//        wayList.add("公寓");
+        wayList.add("短租");
 
         payWayList.add("压一付一");
         payWayList.add("压二付一");

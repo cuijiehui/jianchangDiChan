@@ -48,4 +48,38 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/cp_gray</item>
     </style>
+    <!-- 我的页面  设置item部分y右边>的style-->
+    <style name="release_title_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">11dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="release_name_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">11dp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="release_name_hint_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:layout_marginLeft">11dp</item>
+        <item name="android:textColorHint">@color/main_seek_text_col</item>
+        <item name="android:textColor">@color/main_seek_text_col</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:ellipsize">end</item>
+
+    </style>
 </resources>

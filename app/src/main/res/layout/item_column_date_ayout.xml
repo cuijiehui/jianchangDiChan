@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+<LinearLayout
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center">
+<com.cui.android.jianchengdichan.view.ui.customview.UIImageView
+    android:id="@+id/uiv_column_pic"
+    android:layout_width="96dp"
+    android:layout_height="96dp"
+    />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tv_column_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中通快递"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/tv_column_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="地址：广州市天河区林和西路128号"
+            android:textColor="@color/main_flash_sale_text"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/tv_column_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电话：18726156622"
+            android:textColor="@color/main_flash_sale_text"/>
+        <TextView
+            android:id="@+id/tv_column_browse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="22"
+            android:drawableLeft="@drawable/browse_icon"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/main_flash_sale_text"/>
+    </LinearLayout>
+</LinearLayout>

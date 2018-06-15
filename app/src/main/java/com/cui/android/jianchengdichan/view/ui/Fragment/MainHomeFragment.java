@@ -26,7 +26,6 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.baoyz.widget.PullRefreshLayout;
-import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
@@ -37,27 +36,25 @@ import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
-import com.cui.android.jianchengdichan.view.ui.FitmentActivity;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.AdapterBean.CommunityBean;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRecyclerAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvCommunityAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvNewGoodsAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvYouLikeAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
-import com.cui.android.jianchengdichan.view.ui.InCommunityActivity;
-import com.cui.android.jianchengdichan.view.ui.LeaseCentreActivity;
-import com.cui.android.jianchengdichan.view.ui.LoginActivity;
-import com.cui.android.jianchengdichan.view.ui.MainActivity;
-import com.cui.android.jianchengdichan.view.ui.MyFitmentListActivity;
-import com.cui.android.jianchengdichan.view.ui.NoticeAcitivty;
-import com.cui.android.jianchengdichan.view.ui.PayFeesActivity;
-import com.cui.android.jianchengdichan.view.ui.RentDatailActivity;
-import com.cui.android.jianchengdichan.view.ui.RepairsActivity;
-import com.cui.android.jianchengdichan.view.ui.ScanActivity;
-import com.cui.android.jianchengdichan.view.ui.WebViewActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.InCommunityActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.LeaseCentreActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.LoginActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.MainActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.MyFitmentListActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.NoticeAcitivty;
+import com.cui.android.jianchengdichan.view.ui.avtivity.PayFeesActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.RentDatailActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.RepairsActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.ScanActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.WebViewActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.ConveServiceActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
-import com.cui.android.jianchengdichan.view.ui.customview.RefreshableView;
-import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.youth.banner.Banner;
@@ -474,6 +471,7 @@ public class MainHomeFragment extends Fragment implements IBaseView, OnRecyclerV
                 }
                 break;
             case 2:
+                startActivity(new Intent(getContext(), ConveServiceActivity.class));
                 break;
             case 3:
                 break;

@@ -32,8 +32,9 @@ public class CityListModel extends BaseModel<BaseBean<List<CityListBean>>> {
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    protected void onError(Throwable e, boolean isNetWorkError) throws Exception {
                         callback.onError();
+
                     }
                 });
     }

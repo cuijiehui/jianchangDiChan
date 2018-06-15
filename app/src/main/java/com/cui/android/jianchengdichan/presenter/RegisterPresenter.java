@@ -7,7 +7,7 @@ import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
-import com.cui.android.jianchengdichan.view.ui.RegisterActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.RegisterActivity;
 import com.google.gson.JsonObject;
 
 import org.json.JSONException;

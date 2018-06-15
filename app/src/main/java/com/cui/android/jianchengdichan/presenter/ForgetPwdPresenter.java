@@ -7,7 +7,7 @@ import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
-import com.cui.android.jianchengdichan.view.ui.ForgetPwdActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.ForgetPwdActivity;
 import com.google.gson.JsonObject;
 
 import org.json.JSONException;

@@ -44,6 +44,15 @@ public class Token {
     public static final String API_GET_REN_LIST_MODEL= PACKAGE_NAME + "RenovationListModel";
     public static final String API_GET_REPAIR_CATE_MODEL= PACKAGE_NAME + "RepairCateModel";
     public static final String API_GET_USER_INFO_MODEL= PACKAGE_NAME + "GetUserInfoModel";
+    public static final String API_CIVILIAN_LIST_MODEL= PACKAGE_NAME + "CivilianListModel";
+    public static final String API_CIVILIAN_DETAIL_MODEL= PACKAGE_NAME + "CivilianDetailModel";
+    public static final String API_CIVILIAN_SERVICE_MODEL= PACKAGE_NAME + "CivilianserviceModel";
+    public static final String API_TELE_PHONE_MODEL= PACKAGE_NAME + "TelephoneModel";
+    public static final String API_CIVILIAN_LISTS_MODEL= PACKAGE_NAME + "CivilianListsModel";
+    public static final String API_CIVILIAN_ADV_MODEL= PACKAGE_NAME + "CivilianAdvModel";
+    public static final String API_COMMENT_ACT_MODEL= PACKAGE_NAME + "CommentActModel";
+    public static final String API_COMMENT_TOPIC_MODEL= PACKAGE_NAME + "CommentTopicModel";
+    public static final String API_RELEASE_TOPIC_MODEL= PACKAGE_NAME + "ReleaseTopicModel";
 
 
 }

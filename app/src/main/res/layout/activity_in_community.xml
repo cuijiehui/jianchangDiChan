@@ -9,7 +9,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:background="@color/in_community_col"
-    tools:context=".view.ui.InCommunityActivity">
+    tools:context=".view.ui.avtivity.InCommunityActivity">
 
     <include layout="@layout/include_top_layout" />
     <RelativeLayout

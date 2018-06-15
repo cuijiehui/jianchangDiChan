@@ -48,6 +48,17 @@ public interface URLConfig {
     String POSTH_GET_RENOVATION_INFO_URL ="/api/Renovation/getRenovationInfoList";//删除装修申请信息接口
     String POSTH_GET_REPAIR_CATE_URL ="/api/Repaircate/getRepairCate";//删除装修申请信息接口
     String POSTH_GET_USER_INFO_URL ="/api/Appuser/getUserInfo";//删除装修申请信息接口
+    String POSTH_LEAVE_MSG_LIST_URL ="/api/Rentinfo/leaveMsgList";//获取租赁信息留言列表接口
+    String POSTH_CIVILIAN_SERVICE_URL ="/api/Civilianservice/indexInfo";//便民服务首页界面接口
+    String POSTH_CIVILIAN_DETAIL_URL ="/api/Civilianservice/getDetail";//查看便民服务详情接口
+    String POSTH_TELEPHONE_LIST_URL ="/api/Telephone/getList";//获取电话本列表数据接口
+    String POSTH_CIVILIANSERVICE_CATE_URL ="/api/Civilianservice/getCate";//获取便民服务所有分类接口
+    String POSTH_CIVILIANSERVICE_LIST_URL ="/api/Civilianservice/getList";//获取对应分类的便民服务信息列表接口
+    String POSTH_CIVILIANSERVICE_AD_URL ="/api/Civilianservice/getAd";//获取对应分类的广告接口
+    String POSTH_COMMENT_ACTIVITY_URL ="/api/Activity/commentActivity";//获取推荐活动接口
+    String POSTH_COMMENT_TOPIC_URL ="/api/Topic/commentTopic";//获取推荐话题接口
+    String POSTH_RELEASE_TOPIC_URL ="/api/Release/topic";//发布话题、拼车、跳蚤市场接口
+
 
 
 

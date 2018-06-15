@@ -2,7 +2,6 @@ package com.cui.android.jianchengdichan.view.ui.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.presenter.MyApplyPresenter;
@@ -23,7 +21,7 @@ import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.TimeUtil;
-import com.cui.android.jianchengdichan.view.ui.ReleaseRentActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.ReleaseRentActivity;
 import com.google.gson.Gson;
 
 import java.util.List;

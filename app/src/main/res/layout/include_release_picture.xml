@@ -7,11 +7,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="11dp"
         android:text="房源图片"
-        android:textColor="@color/main_text_col"
-        android:textSize="11sp" />
+        style="@style/release_title_style"
+        />
 
     <View
         android:layout_width="match_parent"
@@ -55,6 +53,7 @@
             android:textColor="@color/main_seek_text_col_t"
             android:layout_below="@+id/rv_detailed_drawing"
             android:layout_marginLeft="11dp"
+            android:layout_marginBottom="8dp"
             android:textSize="11sp"/>
     </RelativeLayout>
 </LinearLayout>

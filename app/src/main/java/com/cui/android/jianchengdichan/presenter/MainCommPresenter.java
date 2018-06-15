@@ -1,6 +1,8 @@
 package com.cui.android.jianchengdichan.presenter;
 
 import com.cui.android.jianchengdichan.http.base.BaseBean;
+import com.cui.android.jianchengdichan.http.bean.CommentActBean;
+import com.cui.android.jianchengdichan.http.bean.CommentTopicBean;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.http.bean.NoticeThreelistBean;
 import com.cui.android.jianchengdichan.model.DataModel;
@@ -11,6 +13,8 @@ import com.cui.android.jianchengdichan.view.ui.Fragment.MainCommFragment;
 import com.google.gson.JsonObject;
 
 import java.util.List;
+
+import retrofit2.http.PUT;
 
 public class MainCommPresenter  extends BasePresenter<MainCommFragment> {
     public void getAdList(int uid,String token,String terminal,String display){
@@ -35,12 +39,12 @@ public class MainCommPresenter  extends BasePresenter<MainCommFragment> {
 
                     @Override
                     public void onFailure(String msg) {
-
+                        getView().onFailure(msg);
                     }
 
                     @Override
                     public void onError() {
-
+getView().onError();
                     }
 
                     @Override
@@ -70,11 +74,76 @@ public class MainCommPresenter  extends BasePresenter<MainCommFragment> {
 
                     @Override
                     public void onFailure(String msg) {
+                        getView().onFailure(msg);
 
                     }
 
                     @Override
                     public void onError() {
+                        getView().onError();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+    public void getCommentAct(){
+        LogUtils.i("getCommentAct()");
+        if (!isViewAttached()) {
+            //如果没有View引用就不加载数据
+            return;
+        }
+        DataModel.request(Token.API_COMMENT_ACT_MODEL)
+                .execute(new CallBack<BaseBean<CommentActBean>>() {
+                    @Override
+                    public void onSuccess(BaseBean<CommentActBean> data) {
+                        getView().getCommentAct(data.getData());
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        getView().onFailure(msg);
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().onError();
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+    public void getCommentTopic(){
+        LogUtils.i("getCommentTopic()");
+        if (!isViewAttached()) {
+            //如果没有View引用就不加载数据
+            return;
+        }
+        DataModel.request(Token.API_COMMENT_TOPIC_MODEL)
+                .execute(new CallBack<BaseBean<List<CommentTopicBean>>>() {
+                    @Override
+                    public void onSuccess(BaseBean<List<CommentTopicBean>> data) {
+                        getView().getCommentTopic(data.getData());
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        getView().onFailure(msg);
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().onError();
 
                     }
 

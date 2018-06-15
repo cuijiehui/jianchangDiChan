@@ -34,7 +34,7 @@ public class GetUserInfoModel extends BaseModel<BaseBean<LoginBean>> {
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    protected void onError(Throwable e, boolean isNetWorkError) throws Exception {
                         callback.onError();
                     }
                 });

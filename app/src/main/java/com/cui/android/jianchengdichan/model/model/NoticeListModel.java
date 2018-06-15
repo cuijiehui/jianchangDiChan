@@ -7,7 +7,6 @@ import com.cui.android.jianchengdichan.http.base.BaseObserver;
 import com.cui.android.jianchengdichan.http.bean.NoticeBean;
 import com.cui.android.jianchengdichan.model.base.BaseModel;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
-import com.cui.android.jianchengdichan.view.ui.MyApplyActivity;
 
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class NoticeListModel extends BaseModel<BaseBean<List<NoticeBean>>> {
                     }
 
                     @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                    protected void onError(Throwable e, boolean isNetWorkError) throws Exception {
                         callback.onError();
                     }
                 });

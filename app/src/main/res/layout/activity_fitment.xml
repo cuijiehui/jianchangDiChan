@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.ui.FitmentActivity">
+    tools:context=".view.ui.avtivity.FitmentActivity">
 
     <include layout="@layout/include_top_layout" />
 
@@ -19,18 +19,14 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:text="业主" />
+            android:text="业主"
+            android:textColor="@color/black"
+            />
 
         <EditText
             android:id="@+id/et_fitment_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="16dp"
             android:layout_toRightOf="@+id/tv_fitment_name"
-            android:background="@null"
-            android:maxLines="1"
+            style="@style/release_name_hint_style"
             android:hint="请输入你的姓名" />
     </RelativeLayout>
 
@@ -44,20 +40,14 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
+            android:textColor="@color/black"
+
             android:text="房号" />
 
         <EditText
             android:id="@+id/et_fitment_num"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="16dp"
             android:layout_toRightOf="@+id/tv_fitment_num"
-            android:background="@null"
-            android:maxLines="1"
-
+            style="@style/release_name_hint_style"
             android:hint="请输入你的门牌号" />
     </RelativeLayout>
 
@@ -71,20 +61,14 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
+            android:textColor="@color/black"
+
             android:text="装修公司" />
 
         <EditText
             android:id="@+id/et_fitment_company"
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="16dp"
             android:layout_toRightOf="@+id/tv_fitment_company"
-            android:background="@null"
-            android:maxLines="1"
-
+            style="@style/release_name_hint_style"
             android:hint="请输入你的装修公司" />
     </RelativeLayout>
 
@@ -98,7 +82,10 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:text="装修时间" />
+            android:text="装修时间"
+            android:textColor="@color/black"
+
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,14 +100,19 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
-                android:hint="年／月／日" />
+                android:hint="年／月／日"
+                android:textSize="15sp"
+                android:textColor="@color/main_seek_text_col"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:text="-" />
+                android:text="-"
+                android:textSize="15sp"
+                android:textColor="@color/main_seek_text_col"/>
 
             <TextView
                 android:id="@+id/tv_fitemt_end_time"
@@ -128,7 +120,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
-                android:hint="年／月／日" />
+                android:hint="年／月／日"
+                android:textSize="15sp"
+                android:textColor="@color/main_seek_text_col"/>
         </LinearLayout>
 
     </RelativeLayout>
@@ -143,19 +137,15 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:text="联系电话" />
+            android:text="联系电话"
+            android:textColor="@color/black"
+            />
 
         <EditText
             android:id="@+id/et_fitment_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="16dp"
             android:layout_toRightOf="@+id/tv_fitment_phone"
-            android:background="@null"
-            android:maxLines="1"
             android:inputType="number"
+            style="@style/release_name_hint_style"
             android:hint="请输入你的联系电话" />
     </RelativeLayout>
 
@@ -167,7 +157,11 @@
         android:layout_marginRight="18dp"
         android:background="@drawable/et_feedback_background_shape"
         android:gravity="top"
-        android:hint="备注内容"/>
+        android:hint="备注内容"
+        android:textSize="15sp"
+        android:textColor="@color/main_seek_text_col"
+        android:textColorHint="@color/main_seek_text_col"
+        />
     <TextView
         android:id="@+id/tv_fitment_submit"
         android:layout_width="match_parent"

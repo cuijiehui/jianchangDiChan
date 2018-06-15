@@ -1,16 +1,12 @@
 package com.cui.android.jianchengdichan.presenter;
 
-import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.base.BasesBean;
-import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
 import com.cui.android.jianchengdichan.utils.LogUtils;
-import com.cui.android.jianchengdichan.view.ui.ReleaseRentActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.ReleaseRentActivity;
 import com.google.gson.JsonObject;
-
-import java.util.List;
 
 public class ReleaseRentPresenter extends BasePresenter<ReleaseRentActivity> {
 

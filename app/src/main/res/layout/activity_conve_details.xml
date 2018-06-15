@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/like_back_col"
+    android:orientation="vertical"
+    tools:context="com.cui.android.jianchengdichan.view.ui.avtivity.ConveDetailsActivity">
+
+    <include layout="@layout/include_top_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--轮播图-->
+            <com.youth.banner.Banner
+                android:id="@+id/bn_conve_detail_adv"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="13dp"
+                android:layout_marginTop="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_datail_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:gravity="center"
+                    android:text="广州潜水学校"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_datail_browse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="12dp"
+                    android:drawableLeft="@drawable/browse_icon"
+                    android:drawablePadding="2dp"
+                    android:gravity="center"
+                    android:text="已有99次浏览" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_datail_content"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:padding="8dp"
+                android:text="学校座落于广州珠江之滨，毗邻广州大学城和瀛洲生态公园，校园绿树成荫，环境优美
+学校开设工程潜水专业和旅游潜水专业、值班水手专业、值班机工专业等四个专业
+学校也是交通运输部民用潜水员培训中心、中国船级社（CCS）水下焊接与切割及水下检测培训中心、船员教育与培训中心、交通运输部和广东省劳动与社会保障厅的职业技能鉴定中心、世界潜水联合培训机构。" />
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="48dp"
+           android:layout_marginTop="12dp"
+           android:background="@color/white"
+
+           >
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="其他信息"
+               android:textColor="@color/white"
+               android:layout_centerVertical="true"
+               android:background="@drawable/bt_half_shape"
+               android:paddingRight="12dp"
+               android:textSize="18sp"
+               android:paddingLeft="15dp"/>
+       </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_datail_addres"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="地址：南洲路2354号"
+            android:paddingTop="12dp"
+            android:textColor="@color/black"
+            android:paddingLeft="12dp"
+            android:background="@color/white"
+            android:layout_marginTop="0.5dp"
+            />
+            <TextView
+                android:id="@+id/tv_datail_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="联系人：李赞宗"
+                android:textColor="@color/black"
+                android:background="@color/white"
+
+                android:paddingLeft="12dp"/>
+            <TextView
+                android:id="@+id/tv_datail_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="电话：(020)34060983"
+                android:textColor="@color/black"
+                android:background="@color/white"
+
+                android:paddingLeft="12dp"
+                android:layout_marginBottom="12dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

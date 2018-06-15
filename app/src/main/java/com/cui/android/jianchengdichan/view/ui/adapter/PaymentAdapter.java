@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
 import com.cui.android.jianchengdichan.utils.LogUtils;
-import com.cui.android.jianchengdichan.view.ui.PayingActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.PayingActivity;
 import com.cui.android.jianchengdichan.view.ui.beans.PayingBean;
 
 import java.util.List;

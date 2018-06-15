@@ -6,7 +6,7 @@ import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
 import com.cui.android.jianchengdichan.utils.LogUtils;
-import com.cui.android.jianchengdichan.view.ui.RentDatailActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.RentDatailActivity;
 import com.google.gson.JsonObject;
 
 public class RentDatailPresenter extends BasePresenter<RentDatailActivity> {
