@@ -9,23 +9,26 @@ import java.util.List;
  */
 public class CommentTopicBean {
 
+
     /**
      * id : 4
      * title : 【新活动】换购
-     * pic : ["http://jc.szshide.cn:8888/public/uploads/20180612/5ec9fa049f57d37bd963d772c0492171.jpg"]
+     * pic : /uploads/20180612/5ec9fa049f57d37bd963d772c0492171.jpg
      * nickname : 柠檬
      * headimg : http://jc.szshide.cn:8888/public/uploads/20180525/d5ca72808ddb5480964953fdaed1c1be.jpg
      * content : 电路出问题了。
      * create_time : 2018-06-13 18:17:21
+     * pics : ["http://jc.szshide.cn:8888/public/uploads/20180612/5ec9fa049f57d37bd963d772c0492171.jpg"]
      */
 
     private String id;
     private String title;
+    private String pic;
     private String nickname;
     private String headimg;
     private String content;
     private String create_time;
-    private List<String> pic;
+    private List<String> pics;
 
     public String getId() {
         return id;
@@ -41,6 +44,14 @@ public class CommentTopicBean {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     public String getNickname() {
@@ -75,11 +86,11 @@ public class CommentTopicBean {
         this.create_time = create_time;
     }
 
-    public List<String> getPic() {
-        return pic;
+    public List<String> getPics() {
+        return pics;
     }
 
-    public void setPic(List<String> pic) {
-        this.pic = pic;
+    public void setPics(List<String> pics) {
+        this.pics = pics;
     }
 }

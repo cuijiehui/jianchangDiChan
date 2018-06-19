@@ -69,6 +69,15 @@ public class Okhttp3Utils {
 
 
     }
+    public void glide(Context context , String url, ImageView view,int wight,int height){
+        GlideApp.with(context)
+                .load(url)
+                .placeholder(R.drawable.image_cache)
+                .override(wight,height)
+                .into(view);
+
+
+    }
     /**
      * Get请求
      *

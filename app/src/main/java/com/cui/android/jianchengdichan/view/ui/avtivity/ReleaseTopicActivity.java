@@ -1,11 +1,14 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -16,9 +19,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.ReleaseTopicPresenter;
 import com.cui.android.jianchengdichan.utils.Bimp;
+import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
@@ -27,11 +33,16 @@ import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRec
 import com.cui.android.jianchengdichan.view.ui.adapter.DatailedDrawingAdapter;
 import com.cui.android.jianchengdichan.view.ui.beans.ReleaseImgBean;
 import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class ReleaseTopicActivity extends BaseActivtity {
     @BindView(R.id.top_back)
@@ -59,10 +70,14 @@ public class ReleaseTopicActivity extends BaseActivtity {
     private String typeView = "我要拼车";
     private String typeViewId = "1";
     public LinkedList<ReleaseImgBean> addImgList = new LinkedList<>();
+    private LinkedList<String> uplodeUrl = new LinkedList<>();
+
     DatailedDrawingAdapter datailedDrawingAdapter;
     CameraPopupWindows cameraPopupWindows;
     public Uri themUrl = null;
     ReleaseTopicPresenter releaseTopicPresenter = new ReleaseTopicPresenter();
+    public final static int UPLODE_IMG = 300;
+    public final static int UPLODE_IMG_FAIL = -300;
     @Override
     public BasePresenter initPresenter() {
         return releaseTopicPresenter;
@@ -72,7 +87,27 @@ public class ReleaseTopicActivity extends BaseActivtity {
     public void initParms(Bundle parms) {
 
     }
+    @SuppressLint("HandlerLeak")
+    Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case UPLODE_IMG:
+                    String uplode = (String) msg.obj;
+                    String[] uplodes = uplode.split(",");
+                    for (String url : uplodes) {
+                        LogUtils.i("url=" + url);
+                        uplodeUrl.addFirst(url);
+                    }
+                    submit();
 
+                    break;
+                case UPLODE_IMG_FAIL:
+                    ToastUtil.makeToast("上传图片失败");
+                    break;
+            }
+        }
+    };
     @Override
     public int bindLayout() {
         return R.layout.activity_release_topic;
@@ -166,11 +201,11 @@ public class ReleaseTopicActivity extends BaseActivtity {
                 setTypeView(3);
                 break;
             case R.id.tv_topic_submit:
-                submit();
+                check();
                 break;
         }
     }
-    public void submit(){
+    public void check(){
         String title = etTopicTitle.getText().toString().trim();
         if(TextUtils.isEmpty(title)){
             ToastUtil.makeToast("标题不能为空！");
@@ -185,9 +220,59 @@ public class ReleaseTopicActivity extends BaseActivtity {
             ToastUtil.makeToast("图片不能为空！");
             return;
         }
+        uplodeImg();
+    }
+    public void submit(){
+        String title = etTopicTitle.getText().toString().trim();
+        String content = etTopicTxt.getText().toString().trim();
         int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
-        releaseTopicPresenter.topic(uid,token,title,content,"","1");
+        StringBuffer pics = new StringBuffer();
+        for(String url :uplodeUrl){
+            pics.append(url);
+            if (uplodeUrl.size() > 1) {
+                pics.append(",");
+            }
+        }
+        releaseTopicPresenter.topic(uid,token,title,content,pics.toString(),typeViewId);
+    }
+    public void uplodeImg() {
+
+        LinkedList imgList = new LinkedList();
+        if (addImgList.size() == 1) {
+            submit();
+        } else {
+            for (ReleaseImgBean bean : addImgList) {
+                if (bean.getType() == 1) {
+                    imgList.add(bean.getPath());
+                }
+            }
+
+            Okhttp3Utils.getInstance().uplodeImgList(imgList.size(), imgList, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+//                call.request().body()
+                    LogUtils.i(call.request().body().toString());
+                    Message message = new Message();
+                    message.what = UPLODE_IMG_FAIL;
+                    mHandler.sendMessage(message);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String str = response.body().string();
+                    Gson gson = new Gson();
+                    UplodeImgBean uplodeImgBean = gson.fromJson(str, UplodeImgBean.class);
+                    String pic = uplodeImgBean.getData().getPics();
+                    LogUtils.i(pic);
+                    Message message = new Message();
+                    message.what = UPLODE_IMG;
+                    message.obj = pic;
+                    mHandler.sendMessage(message);
+                }
+            });
+        }
+
     }
     public void setTypeView(int type) {
         Drawable backColorSele = getResources().getDrawable(R.drawable.shape_circular_bead_blue_col);
@@ -237,5 +322,10 @@ public class ReleaseTopicActivity extends BaseActivtity {
                 break;
 
         }
+    }
+
+    public void topic() {
+        ToastUtil.makeToast("发布成功");
+        finish();
     }
 }

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/like_back_col"
+    android:orientation="vertical"
+    tools:context="com.cui.android.jianchengdichan.view.ui.avtivity.PlazaActivity">
+
+    <include layout="@layout/include_top_layout" />
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--轮播图-->
+            <com.youth.banner.Banner
+                android:id="@+id/bn_plaza_adv"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rl_act_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/act_icon"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:layout_marginLeft="12dp"
+                        android:background="@drawable/activity_iocn" />
+
+                    <TextView
+                        android:id="@+id/act_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_toRightOf="@+id/act_icon"
+                        android:drawableRight="@drawable/main_font_icon"
+                        android:text="活动"
+                        android:textColor="@color/main_flash_sale_back"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/act_text"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_toRightOf="@+id/act_icon"
+                        android:text="建城活动等你来……"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_car_button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/car_icon"
+                        android:layout_width="53dp"
+                        android:layout_height="53dp"
+                        android:background="@drawable/joint_car_icon" />
+
+                    <TextView
+                        android:id="@+id/car_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_toRightOf="@+id/car_icon"
+                        android:drawableRight="@drawable/main_font_icon"
+                        android:text="我要拼车"
+                        android:textColor="@color/main_top_col"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/car_text"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_toRightOf="@+id/car_icon"
+                        android:text="上下班／城市出行……"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/sales_volume"
+                    android:text="话题"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tv_topic_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/main_font_icon"
+                    android:gravity="center_vertical"
+                    android:paddingRight="12dp"
+                    android:text="查看更多" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/like_back_col" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/white">
+                <com.cui.android.jianchengdichan.view.ui.customview.UIImageView
+                    android:id="@+id/uiv_topic_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="2dp"
+                    android:scaleType="center" />
+            </LinearLayout>
+
+
+            <TextView
+                android:background="@color/white"
+                android:id="@+id/tv_topic_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="12dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="#农历新年之后，新年才算开始，促使春天悄悄到……#"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/white"
+                >
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_bazaar_tx"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="12dp"
+                        android:gravity="center_vertical"
+                        android:text="#新鲜水果夏日来……"
+                        android:textColor="@color/black" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_bazaar_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:drawableLeft="@drawable/bazaar_icon"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="12dp"
+                        android:text="#跳蚤市场#"
+                        android:textColor="@color/main_top_col" />
+                </RelativeLayout>
+            </LinearLayout>
+            <include layout="@layout/include_plaza_list_layout"/>
+        </LinearLayout>
+</ScrollView>
+
+
+</LinearLayout>

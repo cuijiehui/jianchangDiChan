@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusableInTouchMode="true"
+    android:focusable="true"
+    tools:context="com.cui.android.jianchengdichan.view.ui.avtivity.ReleaseTopicActivity">
+    <include layout="@layout/include_top_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/like_back_col"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="22dp"
+                    android:gravity="center"
+                    android:text="标题"
+                    android:textColor="@color/black"
+                    />
+
+                <EditText
+                    android:id="@+id/et_activity_title"
+                    android:hint="请输入你的标题"
+                    style="@style/release_name_hint_style"
+                    />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_activity_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="活动开始时间"
+                    android:textColor="@color/black"
+
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/tv_activity_time"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_act_start_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
+                        android:hint="年/月/份 00:00"
+                        android:textColor="@color/main_seek_text_col"
+                        android:gravity="center_vertical"
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="1dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_activity_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="活动结束时间"
+                    android:textColor="@color/black"
+
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/tv_activity_end_time"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_act_end_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="8dp"
+                        android:gravity="center_vertical"
+                        android:hint="年/月/份 00:00"
+                        android:textColor="@color/main_seek_text_col"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    android:id="@+id/tv_act_addres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="活动地址"
+                    android:textColor="@color/black"
+                    />
+
+                <EditText
+                    android:id="@+id/et_act_addres"
+                    android:layout_toRightOf="@+id/tv_act_addres"
+                    style="@style/release_name_hint_style"
+                    android:hint="请输入活动的具体地址" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:layout_marginTop="1dp">
+
+                <TextView
+                    android:id="@+id/tv_act_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:text="联系电话"
+                    android:textColor="@color/black"
+                    />
+
+                <EditText
+                    android:id="@+id/et_act_phone"
+                    android:layout_toRightOf="@+id/tv_act_phone"
+                    android:inputType="number"
+                    style="@style/release_name_hint_style"
+                    android:hint="请输入你的电话号码" />
+            </RelativeLayout>
+            <EditText
+                android:id="@+id/et_act_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_feedback_title"
+                android:layout_margin="15dp"
+                android:background="@drawable/et_feedback_background_shape"
+                android:gravity="top"
+                android:hint="请输入内容"
+                android:maxLength="140"
+                android:padding="15dp"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/iv_act_plot"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/add_pic_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="2dp"
+                android:text="封面图（1张）"
+                android:textColor="@color/main_seek_text_col" />
+
+            <TextView
+                android:id="@+id/tv_act_submit"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/selector_bt_state_change"
+                android:gravity="center"
+                android:text="发布"
+                android:textColor="#ffffff" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

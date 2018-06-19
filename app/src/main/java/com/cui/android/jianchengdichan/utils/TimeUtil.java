@@ -105,8 +105,8 @@ public class TimeUtil {
      * @param dateTaken
      * @return
      */
-    public static String timeString(long dateTaken) {
-        return android.text.format.DateFormat.format("yyyy-MM-dd HH:mm:ss", dateTaken).toString();
+    public static String timeString(long dateTaken,String inFormat) {
+        return android.text.format.DateFormat.format(inFormat, dateTaken).toString();
     }
 
     /**
@@ -182,7 +182,7 @@ public class TimeUtil {
         } else if(time >= 3600 * 24 && time <= 3600 * 24 * 7){
             return time / (3600 * 24) + "天前";
         } else {
-            return timeString(timeStamp);
+            return timeString(timeStamp,"yyyy-MM-dd HH:mm:ss");
         }
     }
 

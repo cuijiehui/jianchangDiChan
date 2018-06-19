@@ -58,6 +58,10 @@ public interface URLConfig {
     String POSTH_COMMENT_ACTIVITY_URL ="/api/Activity/commentActivity";//获取推荐活动接口
     String POSTH_COMMENT_TOPIC_URL ="/api/Topic/commentTopic";//获取推荐话题接口
     String POSTH_RELEASE_TOPIC_URL ="/api/Release/topic";//发布话题、拼车、跳蚤市场接口
+    String POSTH_RELEASE_ACTIVITY_URL ="/api/Release/activity";//用户活动发布接口
+    String POSTH_ACTIVITY_LIST_URL ="/api/Activity/getList";//更多活动接口
+    String POSTH_ACTIVITY_DETAIL_URL ="/api/Activity/activityDetail";//获取活动详情界面数据接口
+    String POSTH_GET_TOPIC_LIST_URL ="/api/Topic/getTopicList";//获取话题拼车跳蚤市场列表接口
 
 
 

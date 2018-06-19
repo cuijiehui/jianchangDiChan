@@ -30,14 +30,16 @@
     <TextView
         android:id="@+id/tv_top_right"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="17dp"
-        android:layout_marginTop="15dp"
+        android:paddingRight="17dp"
+        android:paddingLeft="5dp"
         android:text="发布"
-        android:visibility="gone"
+        android:gravity="center_vertical"
         android:textColor="@color/white"
+        android:visibility="gone"
+
         android:textSize="12sp" />
 
     <ImageView
@@ -46,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:visibility="gone"
         android:layout_marginRight="17dp"
+        android:visibility="gone"
         android:background="@drawable/top_right_set_icon" />
 </RelativeLayout>

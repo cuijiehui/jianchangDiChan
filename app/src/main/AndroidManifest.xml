@@ -134,7 +134,11 @@
         <activity android:name=".view.ui.avtivity.ConveDetailsActivity" />
         <activity android:name=".view.ui.avtivity.CellPhoneActivity" />
         <activity android:name=".view.ui.avtivity.ConveColumnActivity" />
-        <activity android:name=".view.ui.avtivity.ReleaseTopicActivity"></activity>
+        <activity android:name=".view.ui.avtivity.ReleaseTopicActivity" />
+        <activity android:name=".view.ui.avtivity.ReleaseActActivity" />
+        <activity android:name=".view.ui.avtivity.ActListActivity" />
+        <activity android:name=".view.ui.avtivity.ActDetaiActivity" />
+        <activity android:name=".view.ui.avtivity.PlazaActivity"></activity>
     </application>
 
 </manifest>

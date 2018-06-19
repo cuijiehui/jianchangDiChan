@@ -28,7 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/main_home_icon_name" />
+            android:text="@string/main_home_icon_name"
+            android:textSize="9sp"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -55,6 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textSize="9sp"
+
             android:text="@string/main_community_icon_name" />
     </LinearLayout>
 
@@ -81,6 +85,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textSize="9sp"
+
             android:text="@string/main_shop_icon_name" />
     </LinearLayout>
 
@@ -107,6 +113,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textSize="9sp"
+
             android:text="@string/main_my_icon_name" />
     </LinearLayout>
 </LinearLayout>

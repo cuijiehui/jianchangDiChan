@@ -1,6 +1,7 @@
 package com.cui.android.jianchengdichan.http;
 
 import com.cui.android.jianchengdichan.http.base.BasesBean;
+import com.cui.android.jianchengdichan.http.bean.ActivityDetailBean;
 import com.cui.android.jianchengdichan.http.bean.AliPayBean;
 import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.AnotherBatchBean;
@@ -29,6 +30,7 @@ import com.cui.android.jianchengdichan.http.bean.RepairCateBean;
 import com.cui.android.jianchengdichan.http.bean.RepairsBean;
 import com.cui.android.jianchengdichan.http.bean.SplashAdvBean;
 import com.cui.android.jianchengdichan.http.bean.TelephoneBean;
+import com.cui.android.jianchengdichan.http.bean.TopicListBean;
 import com.cui.android.jianchengdichan.http.bean.UserCommunityBean;
 import com.cui.android.jianchengdichan.http.bean.UserEntranceBean;
 import com.cui.android.jianchengdichan.http.bean.UserInfoPicBean;
@@ -192,4 +194,14 @@ public interface APIFunction {
 
     @POST(URLConfig.POSTH_RELEASE_TOPIC_URL)
     Observable<BaseBean<Object>> setReleaseTopic(@Body RequestBody route);
+    @POST(URLConfig.POSTH_RELEASE_ACTIVITY_URL)
+    Observable<BaseBean<Object>> setReleaseAct(@Body RequestBody route);
+
+
+    @POST(URLConfig.POSTH_ACTIVITY_LIST_URL)
+    Observable<BaseBean<List<CommentActBean>>> getActList(@Body RequestBody route);
+    @POST(URLConfig.POSTH_ACTIVITY_DETAIL_URL)
+    Observable<BaseBean<ActivityDetailBean>> getActivityDetail(@Body RequestBody route);
+    @POST(URLConfig.POSTH_GET_TOPIC_LIST_URL)
+    Observable<BaseBean<List<TopicListBean>>> getTopicList(@Body RequestBody route);
 }

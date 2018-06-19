@@ -44,10 +44,14 @@ import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.CommRvAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.CommRvBottomAdapter;
 import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.cui.android.jianchengdichan.view.ui.adapter.CommentTopicAdapter;
+import com.cui.android.jianchengdichan.view.ui.avtivity.ActListActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.ConveColumnActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.LeaseCentreActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.LoginActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.NoticeAcitivty;
 import com.cui.android.jianchengdichan.view.ui.avtivity.PayFeesActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.PlazaActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.ReleaseTopicActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.RepairsActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
 import com.cui.android.jianchengdichan.view.ui.customview.UIImageView;
@@ -271,7 +275,11 @@ public class MainCommFragment extends Fragment implements IBaseView {
         CommRvAdapter commRvAdapter = new CommRvAdapter(dataTop, new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Bundle bundle = new Bundle();
+                bundle.putInt("type",position+1);
+                Intent  intent =new Intent(getContext(),ConveColumnActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
 
             @Override
@@ -417,16 +425,21 @@ public class MainCommFragment extends Fragment implements IBaseView {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_comm_floating:
+                startActivity(new Intent(getContext(), ReleaseTopicActivity.class));
+
                 break;
             case R.id.tv_comm_shop_look:
                 break;
             case R.id.uiv_comm_act_more:
+                startActivity(new Intent(getContext(), ActListActivity.class));
                 break;
             case R.id.tv_comm_act_like:
                 break;
             case R.id.tv_comm_act_topic:
                 break;
             case R.id.uiv_comm_topic_more:
+                startActivity(new Intent(getContext(), PlazaActivity.class));
+
                 break;
             case R.id.ll_comm_notice:
                 startActivity(new Intent(getContext(), NoticeAcitivty.class));

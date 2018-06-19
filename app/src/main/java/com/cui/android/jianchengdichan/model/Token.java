@@ -53,6 +53,10 @@ public class Token {
     public static final String API_COMMENT_ACT_MODEL= PACKAGE_NAME + "CommentActModel";
     public static final String API_COMMENT_TOPIC_MODEL= PACKAGE_NAME + "CommentTopicModel";
     public static final String API_RELEASE_TOPIC_MODEL= PACKAGE_NAME + "ReleaseTopicModel";
+    public static final String API_RELEASE_ACT_MODEL= PACKAGE_NAME + "ReleaseActModel";
+    public static final String API_ACT_LIST_MODEL= PACKAGE_NAME + "ActListModel";
+    public static final String API_ACT_DETAIL_MODEL= PACKAGE_NAME + "ActivityDetailModel";
+    public static final String API_TOPIC_LIST_MODEL= PACKAGE_NAME + "TopicListModel";
 
 
 }

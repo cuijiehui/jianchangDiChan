@@ -110,12 +110,13 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
             unbinder= ButterKnife.bind(this,mContextView);
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setCancelable(false);
+            initView(mContextView);
             mPresenter=initPresenter();
             mPresenter.attachView(this);
             mPresenter.setTransformer(setThread());
-
-            initView(mContextView);
             doBusiness(this);
+
+
             View backView =initBack();
             if(backView!=null){
                 gotoBack(backView);

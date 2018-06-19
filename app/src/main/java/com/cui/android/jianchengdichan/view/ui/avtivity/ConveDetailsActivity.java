@@ -100,9 +100,9 @@ public class ConveDetailsActivity extends BaseActivtity {
         }
         bnConveDetailAdv.update(imgUrl);
         tvDatailTitle.setText(data.getTitle());
-        tvDatailPhone.setText(data.getPhone());
-        tvDatailAddres.setText(data.getAddress());
-        tvDatailName.setText(data.getContact());
+        tvDatailPhone.setText("电话："+data.getPhone());
+        tvDatailAddres.setText("地址："+data.getAddress());
+        tvDatailName.setText("联系人："+data.getContact());
         tvDatailContent.setText(data.getDescribe());
         tvDatailBrowse.setText("已有"+data.getFlow()+"次浏览");
     }

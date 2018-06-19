@@ -73,4 +73,5 @@ dependencies {
     //下拉刷新
     implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+    implementation 'com.contrarywind:Android-PickerView:4.1.3'
 }

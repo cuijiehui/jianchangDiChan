@@ -1,19 +1,15 @@
 package com.cui.android.jianchengdichan.view.ui.adapter;
 
-import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.cui.android.jianchengdichan.R;
-import com.cui.android.jianchengdichan.http.bean.CommentTopicBean;
+import com.cui.android.jianchengdichan.http.bean.TopicListBean;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.ScreenUtils;
 import com.cui.android.jianchengdichan.view.ui.customview.CircleImageView;
@@ -23,16 +19,16 @@ import java.util.List;
 
 /**
  * @author CUI
- * @data 2018/6/15.
+ * @data 2018/6/19.
  * @details
  */
-public class CommentTopicAdapter extends BaseQuickAdapter<CommentTopicBean,BaseViewHolder> {
-    public CommentTopicAdapter(int layoutResId, @Nullable List<CommentTopicBean> data) {
+public class TopicListDataAdapter extends BaseQuickAdapter<TopicListBean,BaseViewHolder> {
+    public TopicListDataAdapter(int layoutResId, @Nullable List<TopicListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CommentTopicBean item) {
+    protected void convert(BaseViewHolder helper, TopicListBean item) {
         CircleImageView headimg = helper.getView(R.id.iv_topic_headimg);
         GridLayout rl_topic_pic = helper.getView(R.id.rl_topic_pic);
 //        ImageView iv_topic_one_pic = helper.getView(R.id.iv_topic_one_pic);
@@ -86,7 +82,7 @@ public class CommentTopicAdapter extends BaseQuickAdapter<CommentTopicBean,BaseV
                 gridLayout.setLayoutParams(layoutParams1);
             }
             layoutParams.setMargins(marginSize, marginSize, marginSize, marginSize);
-            Okhttp3Utils.getInstance().glide(mContext,imageModels.get(i),imageView,ScreenUtils.dip2px(mContext, 300),ScreenUtils.dip2px(mContext, 300));
+            Okhttp3Utils.getInstance().glide(mContext,imageModels.get(i),imageView);
             gridLayout.addView(imageView, layoutParams);
         }
     }
