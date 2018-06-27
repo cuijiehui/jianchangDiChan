@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="48dp">
@@ -16,7 +17,7 @@
             android:drawablePadding="1dp"
             android:text="话题推荐"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/uiv_comm_topic_more"
@@ -31,9 +32,7 @@
             android:textColor="@color/main_flash_sale_text" />
     </RelativeLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/like_back_col" />
+        style="@style/cut_off_rule_style" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_comm_topic_data"
         android:layout_width="match_parent"

@@ -4,8 +4,6 @@ import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.http.RetrofitFactory;
 import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.base.BaseObserver;
-import com.cui.android.jianchengdichan.http.base.BasesBean;
-import com.cui.android.jianchengdichan.http.base.BasesObserver;
 import com.cui.android.jianchengdichan.http.bean.UserInfoPicBean;
 import com.cui.android.jianchengdichan.model.base.BaseModel;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;

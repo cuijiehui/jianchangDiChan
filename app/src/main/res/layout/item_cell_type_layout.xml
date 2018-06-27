@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:text="全部"
+        android:textSize="11sp"
         android:textColor="@color/black" />
 
     <LinearLayout

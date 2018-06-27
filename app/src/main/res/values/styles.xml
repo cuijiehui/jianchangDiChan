@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -7,10 +7,30 @@
         <item name="colorPrimaryDark">@color/main_top_col</item>
         <item name="colorAccent">@color/main_top_col</item>
     </style>
+    <!-- animation 样式 -->
+    <style name="activityAnimation" parent="@android:style/Animation">
 
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
+    </style>
+    <style name="FullScreenStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowContentTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:windowActivityTransitions" tools:ignore="NewApi">true</item>
+        <item name="android:windowSharedElementEnterTransition" tools:ignore="NewApi">@transition/changebounds</item>
+        <item name="android:windowSharedElementReturnTransition" tools:ignore="NewApi">@transition/changebounds</item>
+    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/main_top_col</item>
+        <item name="colorPrimaryDark">@color/main_top_col</item>
+        <item name="colorAccent">@color/main_top_col</item>
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -54,7 +74,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">11dp</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -70,16 +90,31 @@
     <style name="release_name_hint_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@null</item>
         <item name="android:paddingBottom">3dp</item>
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
-        <item name="android:layout_marginLeft">11dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:textColorHint">@color/main_seek_text_col</item>
         <item name="android:textColor">@color/main_seek_text_col</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@drawable/et_c_bg</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <!--分割线的style-->
+    <style name="cut_off_rule_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/like_back_col</item>
+
+    </style>
+    <!--分割线的style-->
+    <style name="cut_off_rule_5dp_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">5dp</item>
+        <item name="android:background">@color/like_back_col</item>
 
     </style>
 </resources>

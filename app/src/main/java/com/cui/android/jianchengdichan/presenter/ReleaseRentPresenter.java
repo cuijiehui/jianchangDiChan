@@ -1,6 +1,6 @@
 package com.cui.android.jianchengdichan.presenter;
 
-import com.cui.android.jianchengdichan.http.base.BasesBean;
+import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
@@ -84,9 +84,9 @@ public class ReleaseRentPresenter extends BasePresenter<ReleaseRentActivity> {
         String json =jsonObject.toString();
         DataModel.request(Token.API_REPAIR_RENT_INFO)
                 .params(json)
-                .execute(new CallBack<BasesBean>() {
+                .execute(new CallBack<BaseBean<Object>>() {
                     @Override
-                    public void onSuccess(BasesBean data) {
+                    public void onSuccess(BaseBean<Object> data) {
                         getView().publishRentInfo();
                     }
 
@@ -183,9 +183,9 @@ public class ReleaseRentPresenter extends BasePresenter<ReleaseRentActivity> {
         String json =jsonObject.toString();
         DataModel.request(Token.API_UPDATE_RENT_MODEL_MODEL)
                 .params(json)
-                .execute(new CallBack<BasesBean>() {
+                .execute(new CallBack<BaseBean<Object>>() {
                     @Override
-                    public void onSuccess(BasesBean data) {
+                    public void onSuccess(BaseBean<Object> data) {
                         getView().publishRentInfo();
                     }
 

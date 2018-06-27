@@ -16,9 +16,8 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.MyFitmentListPresenter;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.FitmentListAdapter;
-import com.cui.android.jianchengdichan.view.ui.avtivity.FitmentActivity;
 
 import java.util.ArrayList;
 import java.util.List;

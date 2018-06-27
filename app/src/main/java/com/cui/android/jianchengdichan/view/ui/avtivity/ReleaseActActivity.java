@@ -30,8 +30,7 @@ import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.TimeUtil;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
-import com.cui.android.jianchengdichan.view.ui.beans.ReleaseImgBean;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
 import com.google.gson.Gson;
 
@@ -41,7 +40,6 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;

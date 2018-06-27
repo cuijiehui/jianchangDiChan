@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <TextView
         android:layout_width="match_parent"
@@ -12,9 +13,7 @@
         />
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0" />
+        style="@style/cut_off_rule_style" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,6 +34,7 @@
             android:layout_marginLeft="11dp"
             android:textSize="11sp"/>
     </RelativeLayout>
+    <View style="@style/cut_off_rule_style"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

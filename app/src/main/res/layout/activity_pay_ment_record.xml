@@ -30,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:text="全部"
                 android:gravity="center"
-                android:textSize="18dp"
+                android:textSize="13dp"
                 />
             <View
                 android:id="@+id/v_pay_all_bt"
@@ -56,7 +56,7 @@
                 android:layout_height="match_parent"
                 android:text="已缴"
                 android:gravity="center"
-                android:textSize="18dp"
+                android:textSize="13dp"
                 />
             <View
                 android:id="@+id/v_pay_has_bt"
@@ -84,7 +84,7 @@
                 android:layout_height="match_parent"
                 android:text="未缴"
                 android:gravity="center"
-                android:textSize="18dp"
+                android:textSize="13dp"
                 />
             <View
                 android:id="@+id/v_pay_no_bt"

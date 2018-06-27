@@ -7,9 +7,7 @@ import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
 import com.cui.android.jianchengdichan.utils.LogUtils;
-import com.cui.android.jianchengdichan.view.ui.Fragment.MainHomeFragment;
-
-import java.util.List;
+import com.cui.android.jianchengdichan.view.ui.fragment.MainHomeFragment;
 
 public class MainHomePresenter extends BasePresenter<MainHomeFragment> {
     public void getData(){

@@ -34,23 +34,23 @@ public class FullyLinearLayoutManager extends LinearLayoutManager {
     private int overScrollMode = ViewCompat.OVER_SCROLL_ALWAYS;
     private final Rect tmpRect = new Rect();
 
-    public FullyLinearLayoutManager (Context context) {
+    public FullyLinearLayoutManager(Context context) {
         super(context);
         this.view = null;
     }
 
-    public FullyLinearLayoutManager (Context context, int orientation, boolean reverseLayout) {
+    public FullyLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
         super(context, orientation, reverseLayout);
         this.view = null;
     }
 
-    public FullyLinearLayoutManager (RecyclerView view) {
+    public FullyLinearLayoutManager(RecyclerView view) {
         super(view.getContext());
         this.view = view;
         this.overScrollMode = ViewCompat.getOverScrollMode(view);
     }
 
-    public FullyLinearLayoutManager (RecyclerView view, int orientation, boolean reverseLayout) {
+    public FullyLinearLayoutManager(RecyclerView view, int orientation, boolean reverseLayout) {
         super(view.getContext(), orientation, reverseLayout);
         this.view = view;
         this.overScrollMode = ViewCompat.getOverScrollMode(view);
@@ -284,5 +284,4 @@ public class FullyLinearLayoutManager extends LinearLayoutManager {
             Log.w("LinearLayoutManager", "Can't make LayoutParams insets dirty, decorations measurements might be incorrect");
         }
     }
-
 }

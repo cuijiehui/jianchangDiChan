@@ -9,100 +9,121 @@
     android:orientation="vertical"
     tools:context="com.cui.android.jianchengdichan.view.ui.avtivity.ConveServiceActivity">
     <include layout="@layout/include_top_layout" />
-    <ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:orientation="horizontal"
-            android:background="@color/in_community_col"
-            android:gravity="center">
-
-            <EditText
-                android:id="@+id/et_conve_seek"
-                android:layout_width="250dp"
-                android:layout_height="25dp"
-                android:background="@drawable/et_bg_shape" />
-            <Button
-                android:id="@+id/bt_conve_seek"
-                android:layout_width="50dp"
-                android:layout_height="25dp"
-                android:text="搜索"
-                android:textColor="@color/white"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/bt_pressed_shape"/>
-        </LinearLayout>
-        <!--轮播图-->
-        <com.youth.banner.Banner
-            android:id="@+id/bn_conve_adv"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="@color/like_back_col"/>
-        <RelativeLayout
+        android:layout_height="wrap_content">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_conve_column"
+            android:layout_marginBottom="50dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
-        </RelativeLayout>
+                android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:background="@color/like_back_col"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:gravity="center_vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@color/black"
-                android:text="官方推荐"
-                android:drawableRight="@drawable/sales_volume"
-                android:drawablePadding="5dp"
-                android:layout_marginLeft="12dp"
-                android:gravity="center_vertical"
-                />
-            <TextView
-                android:id="@+id/tv_conve_more"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingLeft="12dp"
-                android:text="查看更多"
-                android:textColor="@color/main_seek_text_col_t"
-                android:drawableRight="@drawable/main_font_icon"
-                android:layout_alignParentRight="true"
-                android:drawablePadding="2dp"
-                android:layout_marginRight="12dp"/>
-        </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/like_back_col"
-            />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_conve_recommend"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:background="@color/in_community_col"
+                    android:gravity="center">
+
+                    <EditText
+                        android:id="@+id/et_conve_seek"
+                        android:layout_width="250dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/et_bg_shape"
+                        android:hint="医院／银行／派出所／学校"
+                        android:paddingLeft="5dp"
+                        android:singleLine="true"
+                        android:textSize="11sp"/>
+                    <Button
+                        android:id="@+id/bt_conve_seek"
+                        android:layout_width="50dp"
+                        android:layout_height="25dp"
+                        android:text="搜索"
+                        android:textColor="@color/white"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/bt_pressed_shape"/>
+                </LinearLayout>
+                <!--轮播图-->
+                <com.youth.banner.Banner
+                    android:id="@+id/bn_conve_adv"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+                <View
+                    style="@style/cut_off_rule_5dp_style"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_conve_column"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        />
+                    <RelativeLayout
+                        android:id="@+id/rl_conve_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_alignParentBottom="true">
+                        <View
+                            style="@style/cut_off_rule_style"/>
+                        <ImageView
+                            android:id="@+id/iv_conve_icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/conve_dow_icon"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <View
+                    style="@style/cut_off_rule_5dp_style"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:text="官方推荐"
+                        android:drawableRight="@drawable/sales_volume"
+                        android:drawablePadding="5dp"
+                        android:layout_marginLeft="12dp"
+                        android:gravity="center_vertical"
+                        />
+                    <TextView
+                        android:id="@+id/tv_conve_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingLeft="12dp"
+                        android:text="查看更多"
+                        android:textColor="@color/main_seek_text_col_t"
+                        android:drawableRight="@drawable/main_font_icon"
+                        android:layout_alignParentRight="true"
+                        android:drawablePadding="2dp"
+                        android:textSize="11sp"
+                        android:layout_marginRight="12dp"/>
+                </RelativeLayout>
+                <View
+                    style="@style/cut_off_rule_style"
+                    />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_conve_recommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </ScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="15dp">
+            android:layout_alignParentBottom="true"
+            >
             <TextView
                 android:id="@+id/tv_conve_property"
                 android:layout_width="0dp"
@@ -128,6 +149,6 @@
                 android:gravity="center"
                 android:drawableLeft="@drawable/cell_phone"/>
         </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </RelativeLayout>
+
 </LinearLayout>

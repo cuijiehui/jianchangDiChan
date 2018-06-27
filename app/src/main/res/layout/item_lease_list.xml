@@ -17,10 +17,11 @@
 
         <ImageView
             android:id="@+id/iv_room_pic"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_margin="10dp"
             android:src="@drawable/splash_bg"
+            android:scaleType="center"
             />
 
         <LinearLayout
@@ -63,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:textSize="16dp"
+                    android:textSize="11dp"
                     android:textColor="@color/app_bottom_color"
                     />
 
@@ -86,7 +87,7 @@
                     android:id="@+id/tv_room_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
+                    android:textSize="11dp"
                     android:textColor="#999999"
                     android:singleLine="true"
                     android:ellipsize="end"

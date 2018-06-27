@@ -62,21 +62,16 @@
                         style="@style/mine_setting_text_style"
                         android:layout_marginLeft="20dp"
                         android:text="标题"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        />
 
                     <EditText
                         android:id="@+id/ed_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/tv_repairs_title"
-                        android:background="@null"
-                        android:gravity="center_vertical"
                         android:hint="漏水/漏电(2-10个字)"
                         android:maxLength="10"
-                        android:textSize="15dp"
                         android:singleLine="true"
+                        style="@style/release_name_hint_style"
                         />
 
                 </RelativeLayout>
@@ -101,17 +96,10 @@
 
                     <EditText
                         android:id="@+id/ed_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/tv_repairs_name"
-                        android:background="@null"
-                        android:gravity="center_vertical"
                         android:hint="请输入联系人姓名"
-                        android:maxLength="10"
-                        android:textSize="15dp"
                         android:singleLine="true"
+                        style="@style/release_name_hint_style"
                         />
 
                 </RelativeLayout>
@@ -135,18 +123,11 @@
 
                     <EditText
                         android:id="@+id/ed_repairs_num"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/tv_repairs_num"
-                        android:background="@null"
-                        android:gravity="center_vertical"
                         android:hint="请输入房间号"
-                        android:inputType="number"
-                        android:maxLength="10"
-                        android:textSize="15dp"
                         android:singleLine="true"
+                        style="@style/release_name_hint_style"
+
                         />
 
                 </RelativeLayout>
@@ -170,17 +151,11 @@
 
                     <EditText
                         android:id="@+id/ed_tel"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/tv_repairs_phone"
-                        android:background="@null"
-                        android:layout_marginRight="16dp"
-                        android:gravity="center_vertical"
                         android:hint="请输入联系电话"
-                        android:maxLength="11"
-                        android:textSize="15dp"
                         android:singleLine="true"
+                        style="@style/release_name_hint_style"
+
                         />
                 </RelativeLayout>
             </LinearLayout>
@@ -197,15 +172,15 @@
                 android:hint="请描述你的问题"
                 android:maxLength="140"
                 android:padding="15dp"
-                android:textSize="15dp" />
+                android:textSize="11sp" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_add_img"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_marginRight="15dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:background="@color/white"/>
+                android:background="@drawable/et_c_bg"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

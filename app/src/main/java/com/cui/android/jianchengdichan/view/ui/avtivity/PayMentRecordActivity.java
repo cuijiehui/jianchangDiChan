@@ -1,6 +1,7 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.PayRecordsBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
@@ -16,15 +18,14 @@ import com.cui.android.jianchengdichan.presenter.PayMentRecordPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
-import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainRvYouLikeAdapter;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.PayMentRecordAdapter;
+import com.cui.android.jianchengdichan.view.ui.beans.PayingBean;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class PayMentRecordActivity extends BaseActivtity {
@@ -192,7 +193,28 @@ public class PayMentRecordActivity extends BaseActivtity {
     private void initRecyclerView() {
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
         rvPayData.setLayoutManager(layoutManager1);
-        mainRvYouLikeAdapter = new PayMentRecordAdapter(showDataList,mContext);
+        mainRvYouLikeAdapter = new PayMentRecordAdapter(showDataList);
         rvPayData.setAdapter(mainRvYouLikeAdapter);
+        mainRvYouLikeAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                PayRecordsBean payRecordsBean = showDataList.get(position);
+                final PayingBean payingBean = new PayingBean(payRecordsBean.getId()
+                        ,"path"
+                        ,"广州寰城海航广场"
+                        ,payRecordsBean.getCreate_time()
+                        ,payRecordsBean.getNum()+payRecordsBean.getUnit()
+                        ,payRecordsBean.getSum());
+                if(payRecordsBean.getPay_status().equals("1")){
+                    LogUtils.i("-------------------" + payRecordsBean.getId());
+                    Intent intent = new Intent(mContext , PayingActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("bean" , payingBean);
+                    bundle.putString( "typeName" , "typaName");
+                    intent.putExtras(bundle);
+                    mContext.startActivity(intent);
+                }
+            }
+        });
     }
 }

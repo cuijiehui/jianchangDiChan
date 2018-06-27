@@ -1,38 +1,41 @@
 package com.cui.android.jianchengdichan.http.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author CUI
  * @data 2018/6/19.
- * @details
+ * @details 话题数据
  */
-public class TopicListBean  {
+public class TopicListBean implements Serializable {
 
 
     /**
-     * id : 15
-     * title : 【促销】沃尔玛
-     * pic : /uploads/20180612/5ec9fa049f57d37bd963d772c0492171.jpg,/uploads/20180612/d1cd90d3ebdaf6d83d2d77783ceaf61f.jpg
-     * content : 5月2日早上一睁眼，微信里躺着老板转发的几条信息：“看看别人家的五一活动，咱们什么都没做啊！”老板说的对，可是，哥还没睡醒啊……想了想房贷车贷消费贷，想了想即将汹涌上市的95后应届生，我战战兢兢地回了一句话：“端午见。”。
-     * praise_num : 0
-     * comment_num : 0
-     * create_time : 2018-06-19 09:31:52
+     * id : 4
+     * title : 【新活动】换购
+     * pic : /uploads/20180612/5ec9fa049f57d37bd963d772c0492171.jpg
      * nickname : 柠檬
      * headimg : http://jc.szshide.cn:8888/public/uploads/20180525/d5ca72808ddb5480964953fdaed1c1be.jpg
-     * pics : ["http://jc.szshide.cn:8888/public/uploads/20180612/5ec9fa049f57d37bd963d772c0492171.jpg","http://jc.szshide.cn:8888/public/uploads/20180612/d1cd90d3ebdaf6d83d2d77783ceaf61f.jpg"]
+     * content : 电路出问题了。
+     * create_time : 2018-06-13 18:17:21
+     * praise_num : 0
+     * comment_num : 7
+     * uid : 1
+     * pics : ["http://jc.szshide.cn:8888/public/uploads/20180612/5ec9fa049f57d37bd963d772c0492171.jpg"]
      * is_praise : 0
      */
 
     private String id;
     private String title;
     private String pic;
-    private String content;
-    private String praise_num;
-    private String comment_num;
-    private String create_time;
     private String nickname;
     private String headimg;
+    private String content;
+    private String create_time;
+    private String praise_num;
+    private String comment_num;
+    private String uid;
     private int is_praise;
     private List<String> pics;
 
@@ -60,12 +63,36 @@ public class TopicListBean  {
         this.pic = pic;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getHeadimg() {
+        return headimg;
+    }
+
+    public void setHeadimg(String headimg) {
+        this.headimg = headimg;
+    }
+
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getCreate_time() {
+        return create_time;
+    }
+
+    public void setCreate_time(String create_time) {
+        this.create_time = create_time;
     }
 
     public String getPraise_num() {
@@ -84,28 +111,12 @@ public class TopicListBean  {
         this.comment_num = comment_num;
     }
 
-    public String getCreate_time() {
-        return create_time;
+    public String getUid() {
+        return uid;
     }
 
-    public void setCreate_time(String create_time) {
-        this.create_time = create_time;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getHeadimg() {
-        return headimg;
-    }
-
-    public void setHeadimg(String headimg) {
-        this.headimg = headimg;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public int getIs_praise() {

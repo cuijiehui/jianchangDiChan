@@ -24,6 +24,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
@@ -37,9 +38,8 @@ import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.interfaces.ChooseCityInterface;
-import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.cui.android.jianchengdichan.view.ui.adapter.DatailedDrawingAdapter;
 import com.cui.android.jianchengdichan.view.ui.beans.ReleaseImgBean;
 import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
@@ -584,36 +584,40 @@ public class ReleaseRentActivity extends BaseActivtity {
             }
         });
     }
-    OnRecyclerViewItemClickListener listener =new OnRecyclerViewItemClickListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            detailDrawingData.remove(position);
-            datailedDrawingAdapter.notifyDataSetChanged();
-        }
 
-        @Override
-        public void onItemLongClick(View view, int position) {
-
-        }
-    };
     public void initRecyclerView() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvDetailedDrawing.setLayoutManager(linearLayoutManager);
-        datailedDrawingAdapter = new DatailedDrawingAdapter(detailDrawingData, new View.OnClickListener() {
+        datailedDrawingAdapter = new DatailedDrawingAdapter(detailDrawingData);
+        rvDetailedDrawing.setAdapter(datailedDrawingAdapter);
+        datailedDrawingAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onClick(View v) {
-                if(detailDrawingData.size()>6){
-                    ToastUtil.makeToast("细节图不能大于6张");
-                    return;
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                detailDrawingData.remove(position);
+                datailedDrawingAdapter.notifyDataSetChanged();
+            }
+
+
+        });
+        datailedDrawingAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ReleaseImgBean releaseImgBean = detailDrawingData.get(position);
+                if(releaseImgBean.getType()==-1){
+                    if(detailDrawingData.size()>6){
+                        ToastUtil.makeToast("细节图不能大于6张");
+                        return;
+                    }
+                    //点击添加图片
+                    isSurface = false;
+                    cameraPopupWindows = new CameraPopupWindows(ReleaseRentActivity.this, getRootView());
+                }else{
+
                 }
-                //点击添加图片
-                isSurface = false;
-                cameraPopupWindows = new CameraPopupWindows(ReleaseRentActivity.this, getRootView());
 
             }
-        }, listener);
-        rvDetailedDrawing.setAdapter(datailedDrawingAdapter);
+        });
     }
 
     @Override

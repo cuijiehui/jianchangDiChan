@@ -27,7 +27,7 @@ import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
 import com.cui.android.jianchengdichan.view.ui.customview.CircleImageView;
 import com.google.gson.Gson;
@@ -147,8 +147,9 @@ public class PersonalDataActivity extends BaseActivtity {
     }
 
 
-    @OnClick({R.id.img_userhead, R.id.bt_log_out,R.id.rel_user_nickname,R.id.rel_user_real_name})
+    @OnClick({R.id.img_userhead, R.id.bt_log_out,R.id.rel_user_nickname,R.id.rel_user_real_name,R.id.rel_user_reset})
     public void onViewClicked(View view) {
+        Bundle bundle = new Bundle();
 
         switch (view.getId()) {
             case R.id.img_userhead:
@@ -171,7 +172,6 @@ public class PersonalDataActivity extends BaseActivtity {
                 finish();
                 break;
             case R.id.rel_user_real_name:
-                Bundle bundle =new Bundle();
                 bundle.putString("name","修改真实名字");
                 bundle.putString("hint","请输入真实名字");
                 bundle.putString("key","name");
@@ -180,12 +180,16 @@ public class PersonalDataActivity extends BaseActivtity {
 
                 break;
             case R.id.rel_user_nickname:
-                Bundle bundle2 =new Bundle();
-                bundle2.putString("name","修改昵称");
-                bundle2.putString("hint","请输入昵称");
-                bundle2.putString("key","nickname");
-                startActivity(SetUserMsgActivity.class,bundle2);
+                bundle.putString("name","修改昵称");
+                bundle.putString("hint","请输入昵称");
+                bundle.putString("key","nickname");
+                startActivity(SetUserMsgActivity.class,bundle);
                 finish();
+
+                break;
+            case R.id.rel_user_reset:
+                bundle.putString("type", "2");
+                startActivity(ForgetPwdActivity.class, bundle);
 
                 break;
         }

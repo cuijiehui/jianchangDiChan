@@ -35,24 +35,16 @@ public class CommentTopicAdapter extends BaseQuickAdapter<CommentTopicBean,BaseV
     protected void convert(BaseViewHolder helper, CommentTopicBean item) {
         CircleImageView headimg = helper.getView(R.id.iv_topic_headimg);
         GridLayout rl_topic_pic = helper.getView(R.id.rl_topic_pic);
-//        ImageView iv_topic_one_pic = helper.getView(R.id.iv_topic_one_pic);
-//        RecyclerView rv_topic_pic = helper.getView(R.id.rv_topic_pic);
         Okhttp3Utils.getInstance().glide(mContext,item.getHeadimg(),headimg);
         helper.setText(R.id.tv_topic_name,item.getNickname());
         helper.setText(R.id.tv_topic_content,item.getContent());
         helper.setText(R.id.tv_topic_title,item.getTitle());
+        helper.setGone(R.id.tv_topic_like,false);
+        helper.setGone(R.id.tv_comm_act_topic,false);
         if(item.getPic()!=null&&item.getPics().size()>0){
             rl_topic_pic.setVisibility(View.VISIBLE);
             updateViewGroup(item.getPics(),rl_topic_pic);
-//            if(item.getPic().size()==1){
-////                iv_topic_one_pic.setVisibility(View.VISIBLE);
-////                rv_topic_pic.setVisibility(View.GONE);
-//                String piUrl = item.getPic().get(0);
-////                Okhttp3Utils.getInstance().glide(mContext,piUrl,iv_topic_one_pic);
-//            }else{
-////                iv_topic_one_pic.setVisibility(View.GONE);
-////                rv_topic_pic.setVisibility(View.VISIBLE);
-//            }
+
         }else{
             rl_topic_pic.setVisibility(View.GONE);
         }
@@ -74,19 +66,19 @@ public class CommentTopicAdapter extends BaseQuickAdapter<CommentTopicBean,BaseV
                 columnSpec = GridLayout.spec(i % columnCount, 1.0f);
             }
             ImageView imageView = new SquareImageView(mContext);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setScaleType(ImageView.ScaleType.CENTER);
             //由于宽（即列）已经定义权重比例 宽设置为0 保证均分
             GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams(new ViewGroup.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT));
             layoutParams.rowSpec=rowSpec;
             layoutParams.columnSpec=columnSpec;
             if(imageModels.size()==1){
                 ViewGroup.LayoutParams layoutParams1 = gridLayout.getLayoutParams();
-                layoutParams1.width= ScreenUtils.dip2px(mContext, 300);
-                layoutParams1.height=ScreenUtils.dip2px(mContext, 300);
+                layoutParams1.width= ScreenUtils.dip2px(mContext, 200);
+                layoutParams1.height=ScreenUtils.dip2px(mContext, 200);
                 gridLayout.setLayoutParams(layoutParams1);
             }
             layoutParams.setMargins(marginSize, marginSize, marginSize, marginSize);
-            Okhttp3Utils.getInstance().glide(mContext,imageModels.get(i),imageView,ScreenUtils.dip2px(mContext, 300),ScreenUtils.dip2px(mContext, 300));
+            Okhttp3Utils.getInstance().glide(mContext,imageModels.get(i),imageView,ScreenUtils.dip2px(mContext, 200),ScreenUtils.dip2px(mContext, 200));
             gridLayout.addView(imageView, layoutParams);
         }
     }

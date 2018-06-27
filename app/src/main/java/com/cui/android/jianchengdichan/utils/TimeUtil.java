@@ -56,6 +56,23 @@ public class TimeUtil {
     }
 
     /**
+     *  转换成离现在有多长时间
+     * @param data 时间 2018/06/22 11:23
+     * @param pattern 传进来的时间格式 yyyy-MM-dd HH:mm:ss
+     * @return
+     */
+    public static String getTimeDetail(String data,String pattern){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+        Date date = new Date();
+        try{
+            date = dateFormat.parse(data);
+        } catch(ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return convertTimeToFormat(date.getTime());
+    }
+    /**
      * 将日期差显示为日期或者星期
      *
      * @param xcts
@@ -171,7 +188,10 @@ public class TimeUtil {
      * @return
      */
     public static String convertTimeToFormat(long timeStamp) {
+        LogUtils.i("timeStamp="+timeStamp);
+        LogUtils.i("System.currentTimeMillis()="+System.currentTimeMillis());
         long time = (System.currentTimeMillis() - timeStamp) / 1000;
+        LogUtils.i("time="+time);
         //LogHelper.d("convertTimeToFormat--->",String.valueOf(time)+"  传进来的时间为："+String.valueOf(timeStamp));
         if (time < 60 && time >= 0) {
             return "刚刚";

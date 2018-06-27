@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -29,7 +30,6 @@
             android:text="小区 |"
             android:layout_marginLeft="11dp"
             android:textColor="@color/black"
-            android:textSize="16sp"
             />
         <EditText
             android:id="@+id/et_release_home_name"
@@ -37,9 +37,7 @@
             android:hint="填写小区名称"/>
     </LinearLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0"/>
+        style="@style/cut_off_rule_style"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -50,7 +48,6 @@
             android:layout_height="wrap_content"
             android:text="面积 |"
             android:layout_marginLeft="11dp"
-            android:textSize="16sp"
 
             android:textColor="@color/black"
             android:layout_centerVertical="true"
@@ -74,9 +71,7 @@
             android:text="平米"/>
     </RelativeLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0"/>
+        style="@style/cut_off_rule_style"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -110,9 +105,7 @@
            />
     </RelativeLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0"/>
+        style="@style/cut_off_rule_style"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -165,9 +158,7 @@
             android:textColor="@color/black"/>
     </LinearLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0"/>
+        style="@style/cut_off_rule_style"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -188,9 +179,7 @@
             android:hint="第几层"/>
     </LinearLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0"/>
+        style="@style/cut_off_rule_style"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -210,9 +199,7 @@
             android:hint="共几层"/>
     </LinearLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0"/>
+        style="@style/cut_off_rule_style"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -247,9 +234,7 @@
             />
     </RelativeLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0"/>
+        style="@style/cut_off_rule_style"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"

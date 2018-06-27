@@ -2,8 +2,6 @@ package com.cui.android.jianchengdichan.view.ui.customview;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Handler;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,16 +16,10 @@ import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ScreenUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.ui.customview.Adapter.ComChildAdapter;
+import com.cui.android.jianchengdichan.view.ui.customview.adapter.ComChildAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.interfaces.CodeResultListener;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class ChooseCodePop extends PopupWindow {

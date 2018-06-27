@@ -1,6 +1,5 @@
 package com.cui.android.jianchengdichan.http;
 
-import com.cui.android.jianchengdichan.http.base.BasesBean;
 import com.cui.android.jianchengdichan.http.bean.ActivityDetailBean;
 import com.cui.android.jianchengdichan.http.bean.AliPayBean;
 import com.cui.android.jianchengdichan.http.base.BaseBean;
@@ -12,13 +11,14 @@ import com.cui.android.jianchengdichan.http.bean.CivilianAdvBean;
 import com.cui.android.jianchengdichan.http.bean.CivilianDetailBean;
 import com.cui.android.jianchengdichan.http.bean.CivilianListBean;
 import com.cui.android.jianchengdichan.http.bean.CommentActBean;
-import com.cui.android.jianchengdichan.http.bean.CommentTopicBean;
+import com.cui.android.jianchengdichan.http.bean.CommentListBean;
 import com.cui.android.jianchengdichan.http.bean.HomeCivilianListBean;
 import com.cui.android.jianchengdichan.http.bean.CivilianserviceBean;
 import com.cui.android.jianchengdichan.http.bean.CommunityBean;
 import com.cui.android.jianchengdichan.http.bean.HistoryDataBean;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
+import com.cui.android.jianchengdichan.http.bean.LeaveMsgListBean;
 import com.cui.android.jianchengdichan.http.bean.LoginBean;
 import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.http.bean.NoticeBean;
@@ -59,13 +59,13 @@ public interface APIFunction {
     Observable<BaseBean<LoginBean>> getLogin(@Body RequestBody route);
 
     @POST(URLConfig.POST_REGISTER_URL)
-    Observable<BaseBean> getRegister(@Body RequestBody route);
+    Observable<BaseBean<Object>> getRegister(@Body RequestBody route);
 
     @POST(URLConfig.POST_REGISTER_CODE_URL)
-    Observable<BaseBean> getRegisterCode(@Body RequestBody route);
+    Observable<BaseBean<Object>> getRegisterCode(@Body RequestBody route);
 
     @POST(URLConfig.POST_FORGET_PWD_URL)
-    Observable<BaseBean> getForgetPwd(@Body RequestBody route);
+    Observable<BaseBean<Object>> getForgetPwd(@Body RequestBody route);
 
     @POST(URLConfig.POST_HOME_DATA_URL)
     Observable<BaseBean<HomeDataBean>> getHomeData();
@@ -80,29 +80,32 @@ public interface APIFunction {
     Observable<BaseBean<List<PayRecordsBean>>> getChargeRecord(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_FEEDBACK_URL)
-    Observable<BaseBean> getOpinion(@Body RequestBody route);
+    Observable<BaseBean<Object>> getOpinion(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_FEEDBACK_LIST_URL)
     Observable<BaseBean<List<HistoryDataBean>>> getOpinionList(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_DEL_FEEDBACK_URL)
-    Observable<BaseBean> delOpinion(@Body RequestBody route);
+    Observable<BaseBean<Object>> delOpinion(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_CITY_LIST_URL)
     Observable<BaseBean<List<CityListBean>>> getCityList(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_RENT_LIST_URL)
     Observable<BaseBean<List<LeaseRoomBean>>> getRentList(@Body RequestBody route);
+
     @POST(URLConfig.POSTH_RENT_DETAIL_URL)
     Observable<BaseBean<RentDetailBean>> getRentDetail(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_WX_PAY_URL)
     Observable<BaseBean<WeChatPayBean>> getWeChatPay(@Body RequestBody route);
+
     @POST(URLConfig.POSTH_ALI_PAY_URL)
     Observable<BaseBean<AliPayBean>> getAliPay(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_USER_ENTRAN_URL)
     Observable<BaseBean<List<UserEntranceBean>>> getUserEntrance(@Body RequestBody route);
+
     @POST(URLConfig.POSTH_USER_COMMUNIT_URL)
     Observable<BaseBean<UserCommunityBean>> setUserCommunity(@Body RequestBody route);
 
@@ -114,33 +117,34 @@ public interface APIFunction {
 
     @POST(URLConfig.POSTH_PROPERTY_LIST_URL)
     Observable<BaseBean<List<ChildCommunityBean>>> getPropertyList(@Body RequestBody route);
+
     @POST(URLConfig.POSTH_USER_INFO_URL)
-    Observable<BasesBean> setUserInfo(@Body RequestBody route);
+    Observable<BaseBean<Object>> setUserInfo(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_USER_INFO_URL)
     Observable<BaseBean<UserInfoPicBean>> setUserInfoPic(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_REPAIR_INFO_URL)
-    Observable<BasesBean> submitRepairInfo(@Body RequestBody route);
+    Observable<BaseBean<Object>> submitRepairInfo(@Body RequestBody route);
 
 
     @POST(URLConfig.POSTH_REPAIR_INFO_LIST_URL)
     Observable<BaseBean<List<RepairsBean>>> getRepairInfoList(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_REPAIR_RENT_INFO_URL)
-    Observable<BasesBean> publishRentInfo(@Body RequestBody route);
+    Observable<BaseBean<Object>> publishRentInfo(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_REPAIR_DEL_RENTINFO_URL)
-    Observable<BasesBean> delRentInfo(@Body RequestBody route);
+    Observable<BaseBean<Object>> delRentInfo(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_SUBMIT_RENOVATION_INFO_URL)
-    Observable<BasesBean> submitRenovationInfo(@Body RequestBody route);
+    Observable<BaseBean<Object>> submitRenovationInfo(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_DEL_RENOVATION_INFO_URL)
-    Observable<BasesBean> delRenovationInfo(@Body RequestBody route);
+    Observable<BaseBean<Object>> delRenovationInfo(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_UPDATE_RENT_URL)
-    Observable<BasesBean> updateRent(@Body RequestBody route);
+    Observable<BaseBean<Object>> updateRent(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_REPAIR_MY_APPLY_URL)
     Observable<BaseBean<List<MyApplyBean>>> myApply(@Body RequestBody route);
@@ -162,11 +166,15 @@ public interface APIFunction {
 
     @POST(URLConfig.POSTH_NOTICE_GET_THREELIST_URL)
     Observable<BaseBean<List<NoticeThreelistBean>>> getNoticeThreelist(@Body RequestBody route);
+
     @POST(URLConfig.POSTH_GET_USER_INFO_URL)
     Observable<BaseBean<LoginBean>> getUserInfo(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_LEAVE_MSG_LIST_URL)
-    Observable<BaseBean<LoginBean>> leaveMsgList(@Body RequestBody route);
+    Observable<BaseBean<List<LeaveMsgListBean>>> leaveMsgList(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_LEAVE_MSG_URL)
+    Observable<BaseBean<Object>> leaveMsg(@Body RequestBody route);
 
     @POST(URLConfig.POSTH_CIVILIAN_SERVICE_URL)
     Observable<BaseBean<HomeCivilianListBean>> getHomeCivilianList();
@@ -190,18 +198,33 @@ public interface APIFunction {
     Observable<BaseBean<CommentActBean>> getCommentAct();
 
     @POST(URLConfig.POSTH_COMMENT_TOPIC_URL)
-    Observable<BaseBean<List<CommentTopicBean>>> getCommentTopic();
+    Observable<BaseBean<List<TopicListBean>>> getCommentTopic();
 
     @POST(URLConfig.POSTH_RELEASE_TOPIC_URL)
     Observable<BaseBean<Object>> setReleaseTopic(@Body RequestBody route);
+
     @POST(URLConfig.POSTH_RELEASE_ACTIVITY_URL)
     Observable<BaseBean<Object>> setReleaseAct(@Body RequestBody route);
 
-
     @POST(URLConfig.POSTH_ACTIVITY_LIST_URL)
     Observable<BaseBean<List<CommentActBean>>> getActList(@Body RequestBody route);
+
     @POST(URLConfig.POSTH_ACTIVITY_DETAIL_URL)
     Observable<BaseBean<ActivityDetailBean>> getActivityDetail(@Body RequestBody route);
+
     @POST(URLConfig.POSTH_GET_TOPIC_LIST_URL)
     Observable<BaseBean<List<TopicListBean>>> getTopicList(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_DO_PRAISE_URL)
+    Observable<BaseBean<Object>> doPraise(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_CANCEL_PRAISE_URL)
+    Observable<BaseBean<Object>> cancelPraise(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_COMMENT_LIST_URL)
+    Observable<BaseBean<List<CommentListBean>>> getCommList(@Body RequestBody route);
+
+    @POST(URLConfig.POSTH_RELEASE_COMMENT_TOPIC_URL)
+    Observable<BaseBean<Object>> releaseCommentTopic(@Body RequestBody route);
+
 }

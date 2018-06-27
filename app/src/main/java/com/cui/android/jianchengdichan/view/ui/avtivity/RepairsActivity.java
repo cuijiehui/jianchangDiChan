@@ -22,9 +22,9 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.RepairsPresenter;
 import com.cui.android.jianchengdichan.utils.Bimp;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
-import com.cui.android.jianchengdichan.view.ui.Fragment.RepairsFragment;
-import com.cui.android.jianchengdichan.view.ui.Fragment.RepairsRecordFragment;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.ui.fragment.RepairsFragment;
+import com.cui.android.jianchengdichan.view.ui.fragment.RepairsRecordFragment;
 import com.cui.android.jianchengdichan.view.ui.beans.ReleaseImgBean;
 import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
 

@@ -16,6 +16,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.CityListBean;
 import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
@@ -24,7 +25,7 @@ import com.cui.android.jianchengdichan.presenter.LeaseCentrePresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.LeaseAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.ChildCommunityBean;
 import com.cui.android.jianchengdichan.view.ui.customview.ChooseAreaPop;
@@ -43,7 +44,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class LeaseCentreActivity extends BaseActivtity implements AdapterView.OnItemSelectedListener {
+public class LeaseCentreActivity extends BaseActivtity  {
     @BindView(R.id.tv_content_name)
     TextView tvContentName;
     @BindView(R.id.top_back)
@@ -146,7 +147,7 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
 
     private void initRcLease() {
         rcLease.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        leaseAdapter = new LeaseAdapter(leaseRoomBeans, this);
+        leaseAdapter = new LeaseAdapter(leaseRoomBeans);
 
         rcLease.setAdapter(leaseAdapter);
 
@@ -171,6 +172,14 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
                 }
             }
         });
+        leaseAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id",leaseRoomBeans.get(position).getId());
+                startActivity(RentDatailActivity.class,bundle);
+            }
+        });
     }
 
     @Override
@@ -184,20 +193,13 @@ public class LeaseCentreActivity extends BaseActivtity implements AdapterView.On
         mLeaseCentrePresenter.getRentList(uid, token, chooseCity, page, data);
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        LogUtils.i("position=" + position);
-    }
 
     @Override
     public View initBack() {
         return topBack;
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
 
-    }
 
     IdentityResultListener listener = new IdentityResultListener() {
         @Override

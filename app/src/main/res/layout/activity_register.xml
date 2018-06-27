@@ -42,9 +42,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/register_get_number" />
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#55e0e0e0"
+            style="@style/cut_off_rule_style"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
     <RelativeLayout
@@ -74,9 +72,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/login_delete_icon" />
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#55e0e0e0"
+            style="@style/cut_off_rule_style"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
     <RelativeLayout
@@ -107,9 +103,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/login_see_pwd_selector" />
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#55e0e0e0"
+            style="@style/cut_off_rule_style"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
     <RelativeLayout
@@ -131,9 +125,7 @@
 
             />
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#55e0e0e0"
+            style="@style/cut_off_rule_style"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>
     <LinearLayout

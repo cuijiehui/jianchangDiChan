@@ -2,19 +2,21 @@ package com.cui.android.jianchengdichan.view.ui.avtivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.cui.android.jianchengdichan.MyApplication;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
+import com.cui.android.jianchengdichan.http.bean.LeaveMsgListBean;
 import com.cui.android.jianchengdichan.http.bean.RentDetailBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.RentDatailPresenter;
@@ -22,9 +24,10 @@ import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.LeaseAdapter;
-import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
+import com.cui.android.jianchengdichan.view.ui.adapter.RentLeaveMsgAdapter;
+import com.cui.android.jianchengdichan.view.ui.customview.EditTextView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -33,10 +36,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RentDatailActivity extends BaseActivtity {
+public class RentDatailActivity extends BaseActivtity implements View.OnLayoutChangeListener {
 
     @BindView(R.id.top_back)
     RelativeLayout topBack;
@@ -78,12 +80,25 @@ public class RentDatailActivity extends BaseActivtity {
     RelativeLayout rlRentCall;
     @BindView(R.id.rl_rent_subscribe)
     RelativeLayout rlRentSubscribe;
+    @BindView(R.id.rl_comment_com)
+    RelativeLayout rlCommentCom;
+    @BindView(R.id.tv_comment_sent)
+    TextView tvCommentSent;
+    @BindView(R.id.et_comment_content)
+    EditTextView et_comment_content;
     LeaseAdapter leaseAdapter;
 
     RentDatailPresenter rentDatailPresenter ;
     private List<LeaseRoomBean> leaseRoomBeans = new ArrayList<LeaseRoomBean>();
+    List<LeaveMsgListBean> leaveData = new ArrayList<>();
     private String mId;
     private List<String > picData= new ArrayList<>();
+    RentLeaveMsgAdapter rentLeaveMsgAdapter;
+    int page=1;
+    //屏幕高度
+    private int screenHeight = 0;
+    //软件盘弹起后所占高度阀值
+    private int keyHeight = 0;
     @Override
     public BasePresenter initPresenter() {
         rentDatailPresenter=new RentDatailPresenter();
@@ -109,9 +124,34 @@ public class RentDatailActivity extends BaseActivtity {
         ivTopRight.setBackgroundResource(R.drawable.share_icon);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         rvRentRecommend.setLayoutManager(linearLayoutManager);
-        leaseAdapter = new LeaseAdapter(leaseRoomBeans, this);
+        leaseAdapter = new LeaseAdapter(leaseRoomBeans);
 
         rvRentRecommend.setAdapter(leaseAdapter);
+        leaseAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                Bundle bundle = new Bundle();
+                bundle.putString("id",leaseRoomBeans.get(position).getId());
+                startActivity(RentDatailActivity.class,bundle);
+            }
+        });
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(mContext);
+        rvRentLeaveMsg.setLayoutManager(linearLayoutManager1);
+        rentLeaveMsgAdapter=new RentLeaveMsgAdapter(R.layout.rent_leave_msg_layout,leaveData);
+        rvRentLeaveMsg.setAdapter(rentLeaveMsgAdapter);
+        rvRentLeaveMsg.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL));
+        if(leaveData.size()>0){
+            rvRentLeaveMsg.setVisibility(View.VISIBLE);
+            rlRentNoMsg.setVisibility(View.GONE);
+        }else{
+            rvRentLeaveMsg.setVisibility(View.GONE);
+            rlRentNoMsg.setVisibility(View.VISIBLE);
+
+        }
+        //获取屏幕高度
+        screenHeight = this.getWindowManager().getDefaultDisplay().getHeight();
+        //阀值设置为屏幕高度的1/3
+        keyHeight = screenHeight/3;
     }
 
     @Override
@@ -124,15 +164,29 @@ public class RentDatailActivity extends BaseActivtity {
         int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
         rentDatailPresenter.rentDetail(uid,token,mId);
+        rentDatailPresenter.leaveMsgList(mId,page,uid,token);
     }
 
 
-    @OnClick({ R.id.iv_top_right, R.id.iv_rent_to_msg,R.id.rl_rent_call, R.id.rl_rent_subscribe})
+    @OnClick({ R.id.iv_top_right, R.id.iv_rent_to_msg,R.id.rl_rent_call, R.id.rl_rent_subscribe,R.id.tv_comment_sent})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_top_right:
                 break;
             case R.id.iv_rent_to_msg:
+
+                // 弹出输入法
+                InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                rlCommentCom.setVisibility(View.VISIBLE);
+
+                break;
+            case R.id.tv_comment_sent:
+                rlCommentCom.setVisibility(View.GONE);
+                // 隐藏输入法，然后暂存当前输入框的内容，方便下次使用
+                InputMethodManager im = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                im.hideSoftInputFromWindow(tvCommentSent.getWindowToken(), 0);
+                sent();
                 break;
             case R.id.rl_rent_call:
                 break;
@@ -141,6 +195,15 @@ public class RentDatailActivity extends BaseActivtity {
         }
     }
 
+    private void sent() {
+        String content =et_comment_content.getText().toString().trim();
+        if(TextUtils.isEmpty(content)){
+            return;
+        }
+        int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
+        String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
+        rentDatailPresenter.leaveMsg(mId,uid,token,content);
+    }
 
 
     public void getRentDetail(RentDetailBean data) {
@@ -196,6 +259,29 @@ public class RentDatailActivity extends BaseActivtity {
         bnRentDatail.setIndicatorGravity(BannerConfig.CENTER);
         bnRentDatail.start();
     }
+
+    public void leaveMsgList(List<LeaveMsgListBean> data) {
+        leaveData.clear();
+        if(leaveData!=null){
+            leaveData.addAll(data);
+        }
+        rentLeaveMsgAdapter.notifyDataSetChanged();
+        if(leaveData.size()>0){
+            rvRentLeaveMsg.setVisibility(View.VISIBLE);
+            rlRentNoMsg.setVisibility(View.GONE);
+        }else{
+            rvRentLeaveMsg.setVisibility(View.GONE);
+            rlRentNoMsg.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    public void leaveMsg() {
+        int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
+        String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
+        rentDatailPresenter.leaveMsgList(mId,page,uid,token);
+    }
+
     class GlideLoader extends ImageLoader{
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
@@ -212,6 +298,16 @@ public class RentDatailActivity extends BaseActivtity {
                 textView.setText(msg+"  ");
                 llRentRentMsg.addView(textView);
             }
+        }
+    }
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        //现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
+        if(oldBottom != 0 && bottom != 0 &&(oldBottom - bottom > keyHeight)){
+            LogUtils.i("监听到软键盘弹起");
+        }else if(oldBottom != 0 && bottom != 0 &&(bottom - oldBottom > keyHeight)){
+            LogUtils.i("监听到软件盘关闭");
+            rlCommentCom.setVisibility(View.GONE);
         }
     }
 }

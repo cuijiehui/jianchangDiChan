@@ -15,14 +15,13 @@ import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.CommentActBean;
 import com.cui.android.jianchengdichan.presenter.ActListPresenter;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.ActListAdapter;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ActListActivity extends BaseActivtity {
@@ -79,7 +78,7 @@ public class ActListActivity extends BaseActivtity {
                 startActivity(ActDetaiActivity.class,bundle);
             }
         });
-        rvActList.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.HORIZONTAL));
+        rvActList.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL));
     }
 
     @Override

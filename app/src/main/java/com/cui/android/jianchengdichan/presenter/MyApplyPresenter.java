@@ -1,7 +1,6 @@
 package com.cui.android.jianchengdichan.presenter;
 
 import com.cui.android.jianchengdichan.http.base.BaseBean;
-import com.cui.android.jianchengdichan.http.base.BasesBean;
 import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
@@ -74,9 +73,9 @@ public class MyApplyPresenter extends BasePresenter<MyApplyActivity> {
         String json =jsonObject.toString();
         DataModel.request(Token.API_DEL_RENT_INFO_MODEL)
                 .params(json)
-                .execute(new CallBack<BasesBean>() {
+                .execute(new CallBack<BaseBean<Object>>() {
                     @Override
-                    public void onSuccess(BasesBean data) {
+                    public void onSuccess(BaseBean<Object> data) {
                         getView().delRentInfo();
                     }
 

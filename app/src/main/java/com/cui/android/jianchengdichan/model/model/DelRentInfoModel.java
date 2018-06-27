@@ -2,28 +2,28 @@ package com.cui.android.jianchengdichan.model.model;
 
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.http.RetrofitFactory;
-import com.cui.android.jianchengdichan.http.base.BasesBean;
-import com.cui.android.jianchengdichan.http.base.BasesObserver;
+import com.cui.android.jianchengdichan.http.base.BaseBean;
+import com.cui.android.jianchengdichan.http.base.BaseObserver;
 import com.cui.android.jianchengdichan.model.base.BaseModel;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
 
 import okhttp3.RequestBody;
 
-public class DelRentInfoModel extends BaseModel<BasesBean> {
+public class DelRentInfoModel extends BaseModel<BaseBean<Object>> {
     @Override
-    public void execute( final CallBack<BasesBean> callback) {
+    public void execute( final CallBack<BaseBean<Object>> callback) {
         RequestBody body= RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),mParams[0]);
         RetrofitFactory.getInstence().API()
                 .delRentInfo(body)
-                .compose(MyApplication.getInstance().<BasesBean>setThread())
-                .subscribe(new BasesObserver() {
+                .compose(MyApplication.getInstance().<BaseBean<Object>>setThread())
+                .subscribe(new BaseObserver<Object>() {
                     @Override
-                    protected void onSuccees(BasesBean t) throws Exception {
+                    protected void onSuccees(BaseBean<Object> t) throws Exception {
                         callback.onSuccess(t);
                     }
 
                     @Override
-                    protected void onCodeError(BasesBean t) throws Exception {
+                    protected void onCodeError(BaseBean<Object> t) throws Exception {
                         callback.onFailure(t.getMsg());
                     }
 

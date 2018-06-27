@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.ui.Fragment.MainMyFragment">
+    tools:context=".view.ui.fragment.MainMyFragment">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -62,9 +62,9 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="65dp"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/civ_my_head_portrait">
 
                 <TextView
@@ -83,7 +83,7 @@
                     android:layout_height="20dp"
                     android:layout_below="@+id/tv_my_user_name"
                     android:background="@drawable/my_member_center"
-                    android:layout_marginTop="3dp"/>
+                    android:layout_marginTop="8dp"/>
 
                 <TextView
                     android:id="@+id/tv_my_collect"
@@ -91,17 +91,19 @@
                     android:layout_height="wrap_content"
                     android:text="我的收藏"
                     android:textColor="@color/white"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="10dp"
                     android:textSize="12sp"
                     android:drawableLeft="@drawable/my_collect_icon"
-                    android:layout_below="@+id/iv_my_member"/>
+                    android:layout_below="@+id/iv_my_member"
+                    />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="我的足迹"
                     android:textColor="@color/white"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="10dp"
                     android:textSize="12sp"
+                    android:layout_marginLeft="12dp"
                     android:drawableLeft="@drawable/my_foot_print"
                     android:layout_below="@+id/iv_my_member"
                     android:layout_toRightOf="@+id/tv_my_collect"/>
@@ -144,9 +146,7 @@
                 android:layout_marginRight="16dp"/>
         </RelativeLayout>
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#55e0e0e0"
+            style="@style/cut_off_rule_style"
             android:visibility="gone"
 
             />
@@ -191,73 +191,68 @@
                 android:drawableTop="@drawable/my_chek_datails"/>
         </LinearLayout>
         <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="#55e0e0e0"/>
+            style="@style/cut_off_rule_style"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:text="更多功能"
             android:textColor="@color/main_text_col"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:paddingLeft="7dp"
             android:gravity="center_vertical"/>
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#55e0e0e0"/>
+            style="@style/cut_off_rule_style"/>
         <TextView
             android:id="@+id/tv_my_in_comm"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:text="入驻社区"
             android:textColor="@color/main_flash_sale_text"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:paddingLeft="10dp"
             android:gravity="center_vertical"
+            android:drawablePadding="8dp"
             android:drawableLeft="@drawable/my_in_community"/>
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#55e0e0e0"/>
+            style="@style/cut_off_rule_style"/>
         <TextView
             android:id="@+id/tv_my_release_record"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:text="发布记录"
             android:textColor="@color/main_flash_sale_text"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:paddingLeft="10dp"
             android:gravity="center_vertical"
+            android:drawablePadding="8dp"
+
             android:drawableLeft="@drawable/my_release_record"/>
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#55e0e0e0"/>
+            style="@style/cut_off_rule_style"/>
         <TextView
             android:id="@+id/tv_my_feed_back"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:text="意见反馈"
             android:textColor="@color/main_flash_sale_text"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:paddingLeft="10dp"
             android:gravity="center_vertical"
             android:visibility="gone"
             android:drawableLeft="@drawable/my_feed_back"/>
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#55e0e0e0"/>
+            style="@style/cut_off_rule_style"/>
         <TextView
             android:id="@+id/tv_my_contact_us"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:text="联系我们"
             android:textColor="@color/main_flash_sale_text"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:paddingLeft="10dp"
             android:gravity="center_vertical"
+            android:drawablePadding="8dp"
+
             android:drawableLeft="@drawable/my_contact_us"/>
     </LinearLayout>
 </ScrollView>

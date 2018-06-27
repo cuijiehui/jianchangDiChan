@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/ll_act_title"
 
     android:orientation="vertical">
@@ -18,7 +18,7 @@
             android:drawablePadding="1dp"
             android:text="活动推荐"
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/uiv_comm_act_more"
@@ -33,9 +33,7 @@
     </RelativeLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/like_back_col" />
+        style="@style/cut_off_rule_style"/>
 
     <com.cui.android.jianchengdichan.view.ui.customview.UIImageView
         android:id="@+id/uiv_act_pic"
@@ -81,6 +79,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="12dp"
+            android:textSize="11sp"
             android:text="2018/06/04  21:30" />
     </RelativeLayout>
 </LinearLayout>

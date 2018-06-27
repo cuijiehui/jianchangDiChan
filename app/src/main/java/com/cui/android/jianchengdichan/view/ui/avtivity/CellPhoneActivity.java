@@ -1,8 +1,8 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,18 +19,14 @@ import com.cui.android.jianchengdichan.http.bean.CivilianserviceBean;
 import com.cui.android.jianchengdichan.http.bean.TelephoneBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.CellPhonePresenter;
-import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.CellDataAdapter;
 import com.cui.android.jianchengdichan.view.ui.adapter.CellTypeAdapter;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class CellPhoneActivity extends BaseActivtity {
     @BindView(R.id.top_back)
@@ -100,18 +96,29 @@ public class CellPhoneActivity extends BaseActivtity {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 TelephoneBean telephoneBean = dataList.get(position);
-                //获取剪贴板管理器：
-                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                // 创建普通字符型ClipData
-                ClipData mClipData = ClipData.newPlainText("Label", telephoneBean.getPhone());
-                // 将ClipData内容放到系统剪贴板里。
-                cm.setPrimaryClip(mClipData);
-                ToastUtil.makeToast("复制成功");
+//                //获取剪贴板管理器：
+//                ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+//                // 创建普通字符型ClipData
+//                ClipData mClipData = ClipData.newPlainText("Label", telephoneBean.getPhone());
+//                // 将ClipData内容放到系统剪贴板里。
+//                cm.setPrimaryClip(mClipData);
+//                ToastUtil.makeToast("复制成功");
+                diallPhone(telephoneBean.getPhone());
             }
         });
         rvCellData.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL));
     }
-
+    /**
+     * 拨打电话（跳转到拨号界面，用户手动点击拨打）
+     *
+     * @param phoneNum 电话号码
+     */
+    public void diallPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
+    }
     @Override
     protected void onResume() {
         super.onResume();

@@ -13,10 +13,10 @@ import com.cui.android.jianchengdichan.http.bean.ActivityDetailBean;
 import com.cui.android.jianchengdichan.presenter.ActDetaiPresenter;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.ui.customview.UIImageView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ActDetaiActivity extends BaseActivtity {
@@ -29,7 +29,7 @@ public class ActDetaiActivity extends BaseActivtity {
     @BindView(R.id.iv_top_right)
     ImageView ivTopRight;
     @BindView(R.id.iv_act_detai_pic)
-    ImageView ivActDetaiPic;
+    UIImageView ivActDetaiPic;
     @BindView(R.id.tv_act_datail_title)
     TextView tvActDatailTitle;
     @BindView(R.id.tv_act_datail_browse)
@@ -71,11 +71,11 @@ public class ActDetaiActivity extends BaseActivtity {
     @Override
     protected void onResume() {
         super.onResume();
-        actDetaiPresenter.getData(id);
     }
 
     @Override
     public void doBusiness(Context mContext) {
+        actDetaiPresenter.getData(id);
 
     }
 
@@ -101,6 +101,6 @@ public class ActDetaiActivity extends BaseActivtity {
         tvActDatailAddres.setText("活动地址："+data.getAddress());
         tvActDatailName.setText("活动时间："+data.getStartdate()+"至"+data.getEnddate());
         tvActDatailContent.setText(data.getContent());
-//        tvActDatailBrowse.setText("已有"+data.getEnddate()+"次浏览");
+        tvActDatailBrowse.setText("已有"+data.getFlow()+"次浏览");
     }
 }

@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.utils.ScreenUtils;
-import com.cui.android.jianchengdichan.view.ui.customview.Adapter.LeaseMoreAdapter;
+import com.cui.android.jianchengdichan.view.ui.customview.adapter.LeaseMoreAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.interfaces.ReturnMoreListener;
 
 import java.util.ArrayList;

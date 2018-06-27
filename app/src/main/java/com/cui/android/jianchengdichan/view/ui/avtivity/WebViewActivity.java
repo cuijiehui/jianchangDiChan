@@ -51,7 +51,10 @@ public class WebViewActivity extends AppCompatActivity {
     //获取上个页面传递过来的数据
     private void getData() {
         Intent intent = getIntent();
-        link = intent.getStringExtra("data");
+        Bundle extras = intent.getExtras();
+        if(extras!=null){
+            link = extras.getString("data");
+        }
 
         LogUtils.i("---------www----------" + link);
 

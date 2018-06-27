@@ -10,6 +10,7 @@
     android:text="text"
     android:padding="9dp"
     android:textColor="@color/white"
+    android:textSize="11sp"
     android:layout_marginLeft="9dp"
     android:background="@drawable/bt_pressed_gray_shape"/>
 </LinearLayout>

@@ -19,11 +19,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:background="@color/white">
 
                 <TextView
                     style="@style/release_title_style"
                     android:layout_marginLeft="11dp"
+                    android:textSize="16sp"
                     android:text="类型" />
 
                 <TextView
@@ -34,6 +36,7 @@
                     android:background="@drawable/shape_circular_bead_blue_col"
                     android:padding="3dp"
                     android:text="我要拼车"
+                    android:textSize="11sp"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -43,14 +46,15 @@
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/shape_circular_bead_gray_col"
                     android:padding="5dp"
-                    android:textSize="14sp"
                     android:text="话题"
+                    android:textSize="11sp"
+
                     android:textColor="@color/main_text_col"
                     />
                 <TextView
                     android:id="@+id/tv_topic_type_shop"
                     android:padding="5dp"
-                    android:textSize="14sp"
+                    android:textSize="11sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -63,25 +67,20 @@
                android:layout_width="match_parent"
                android:layout_height="48dp"
                android:background="@color/white"
-               android:layout_marginTop="8dp">
+               android:layout_marginTop="1dp">
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="match_parent"
                    android:text="标题"
                    android:textColor="@color/black"
-                   android:textSize="18sp"
+                   android:textSize="16sp"
                    android:gravity="center"
                    android:layout_marginLeft="22dp"/>
                <EditText
                    android:id="@+id/et_topic_title"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:background="@null"
-                   android:paddingLeft="12dp"
-                   android:paddingRight="15dp"
                    android:hint="请输入你的标题"
-                   android:textSize="16sp"
-                   android:textColor="@color/main_flash_sale_text"/>
+                   style="@style/release_name_hint_style"
+                   />
 
            </LinearLayout>
             <EditText
@@ -89,30 +88,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_feedback_title"
-                android:layout_margin="15dp"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/et_feedback_background_shape"
                 android:gravity="top"
                 android:hint="请输入内容"
                 android:maxLength="140"
                 android:padding="15dp"
                 android:textSize="15dp" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_topic_add_img"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_marginRight="15dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:layout_marginTop="1dp">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_topic_add_img"
+                    android:layout_width="wrap_content"
+                    android:paddingRight="15dp"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"/>
+            </RelativeLayout>
 
-            </android.support.v7.widget.RecyclerView>
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="2dp"
+                android:paddingLeft="15dp"
                 android:textColor="@color/main_seek_text_col"
-                android:text="添加图片（1-9张）"/>
+                android:text="添加图片（1-9张）"
+                android:background="@color/white"
+                android:paddingBottom="5dp"/>
             <TextView
                 android:id="@+id/tv_topic_submit"
                 android:layout_width="match_parent"

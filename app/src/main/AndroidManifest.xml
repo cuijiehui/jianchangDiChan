@@ -15,6 +15,7 @@
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission
         android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -43,7 +44,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".view.ui.avtivity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -138,7 +139,13 @@
         <activity android:name=".view.ui.avtivity.ReleaseActActivity" />
         <activity android:name=".view.ui.avtivity.ActListActivity" />
         <activity android:name=".view.ui.avtivity.ActDetaiActivity" />
-        <activity android:name=".view.ui.avtivity.PlazaActivity"></activity>
+        <activity android:name=".view.ui.avtivity.PlazaActivity" />
+        <activity
+            android:name=".view.ui.avtivity.CommentActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".view.ui.avtivity.TopicListActivity" />
+        <activity android:name=".view.ui.avtivity.ContactUsActivity"/>
+        <activity android:name=".view.ui.avtivity.PhotoBrowseActivity" android:theme="@style/FullScreenStyle"/>
     </application>
 
 </manifest>

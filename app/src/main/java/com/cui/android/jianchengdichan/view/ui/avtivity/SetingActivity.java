@@ -11,7 +11,7 @@ import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.LoginPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

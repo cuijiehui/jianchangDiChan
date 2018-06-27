@@ -38,6 +38,7 @@ public class AndroidPermissionUtils {
             Manifest.permission.ACCESS_WIFI_STATE,
             Manifest.permission.CHANGE_WIFI_MULTICAST_STATE,
             Manifest.permission.WRITE_SYNC_SETTINGS,
+            Manifest.permission.CALL_PHONE
     };
 
 

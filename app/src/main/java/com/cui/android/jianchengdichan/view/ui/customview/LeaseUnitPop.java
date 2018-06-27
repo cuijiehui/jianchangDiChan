@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.utils.ScreenUtils;
-import com.cui.android.jianchengdichan.view.ui.customview.Adapter.IdentityAdapter;
+import com.cui.android.jianchengdichan.view.ui.customview.adapter.IdentityAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.interfaces.IdentityResultListener;
 
 import java.util.ArrayList;

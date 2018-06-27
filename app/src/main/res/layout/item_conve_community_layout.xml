@@ -16,9 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="租贷中心"
-        android:textColor="@color/main_seek_text_col"
+        android:textColor="@color/cp_gray_deep"
         android:layout_marginTop="10dp"
-        android:textSize="14sp"
+        android:textSize="11sp"
         android:layout_gravity="center"
         />
 </LinearLayout>

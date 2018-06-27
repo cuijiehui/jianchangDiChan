@@ -1,6 +1,7 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,15 +10,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.CivilianAdvBean;
 import com.cui.android.jianchengdichan.http.bean.CivilianListBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.ConveColumnPresenter;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.ColumnDataAdapter;
-import com.cui.android.jianchengdichan.view.ui.adapter.ConveAdvLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -26,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ConveColumnActivity extends BaseActivtity {
 
@@ -47,6 +47,7 @@ public class ConveColumnActivity extends BaseActivtity {
     List<CivilianAdvBean> advDataList = new ArrayList<>();
     ColumnDataAdapter columnDataAdapter ;
     int type =0;
+    String typeName ="全部";
     int page = 1;
     String key="";
     String is_recommend="";
@@ -59,6 +60,8 @@ public class ConveColumnActivity extends BaseActivtity {
     public void initParms(Bundle parms) {
         if(parms!=null){
             type= parms.getInt("type");
+            typeName= parms.getString("typeName");
+            key=typeName;
         }
     }
 
@@ -90,18 +93,30 @@ public class ConveColumnActivity extends BaseActivtity {
                 tvContentName.setText("学校");
                 break;
         }
+        tvContentName.setText(typeName);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         rvColumnData.setLayoutManager(linearLayoutManager);
         columnDataAdapter = new ColumnDataAdapter(R.layout.item_column_date_ayout,dataList);
         rvColumnData.setAdapter(columnDataAdapter);
         initAdvViewPage();
         bnColumnAdv.setVisibility(View.GONE);
+        columnDataAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CivilianListBean civilianListBean = dataList.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",civilianListBean.getId()+"");
+                Intent intent = new Intent(mContext,ConveDetailsActivity.class);
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        conveColumnPresenter.getColumnData(type,key,is_recommend,page);
+        conveColumnPresenter.getColumnData(0,key,is_recommend,page);
         conveColumnPresenter.getColumnAdv(type);
 
     }

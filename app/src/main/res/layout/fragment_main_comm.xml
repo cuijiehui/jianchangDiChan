@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.Fragment.MainCommFragment"
-    >
+    android:background="@color/white"
+    tools:context=".view.ui.fragment.MainCommFragment">
 
 
     <!-- 头部-->
@@ -38,12 +38,18 @@
 
             <EditText
                 android:id="@+id/et_comm_top_seek"
-                android:layout_width="279dp"
-                android:layout_height="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:background="@color/white"
+                android:background="@drawable/et_c_bg"
                 android:textColorHint="@color/main_seek_text_col"
-                android:textSize="15px" />
+                android:textColor="@color/main_seek_text_col"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:textSize="15sp" />
 
 
         </RelativeLayout>
@@ -60,12 +66,13 @@
     </RelativeLayout>
 
     <!--主页内容-->
-        <!--下拉刷新-->
-        <com.baoyz.widget.PullRefreshLayout
-            android:id="@+id/prl_comm_refreshable"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/rl_comm_top">
+    <!--下拉刷新-->
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/prl_comm_refreshable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_comm_top">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -79,21 +86,21 @@
                 <com.youth.banner.Banner
                     android:id="@+id/bn_main_comm_adv"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
-
+                    android:layout_height="180dp" />
+                <View style="@style/cut_off_rule_5dp_style"/>
                 <!--最新公告-->
                 <LinearLayout
                     android:id="@+id/ll_comm_notice"
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
-                    android:layout_marginTop="13dp"
+                    android:background="@color/white"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="17dp"
-                        android:layout_marginTop="9dp"
                         android:background="@drawable/main_new_notice" />
 
                     <LinearLayout
@@ -106,6 +113,7 @@
                             android:id="@+id/tv_main_comm_notice_new"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
                             android:text="#建设智慧社区门户网站将在月底开……# "
                             android:textSize="16sp" />
 
@@ -113,21 +121,16 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="#55e0e0e0" />
-
+                <View style="@style/cut_off_rule_5dp_style"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_comm_top"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="@color/white" />
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="#55e0e0e0" />
+                    style="@style/cut_off_rule_5dp_style" />
 
                 <ImageView
                     android:id="@+id/iv_comm_con"
@@ -137,43 +140,36 @@
                     android:scaleType="center" />
 
                 <View
+                    style="@style/cut_off_rule_5dp_style" />
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="#55e0e0e0" />
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_comm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
+                </RelativeLayout>
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_comm"
-                    android:layout_width="match_parent"
-                    android:layout_height="185dp" />
-                <!--社区店铺-->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="#55e0e0e0" />
-            <include layout="@layout/include_comm_shop_layout"/>
+
                 <!--活动推荐-->
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="#55e0e0e0" />
-                <include layout="@layout/include_comm_activitys_layout"/>
+                    style="@style/cut_off_rule_5dp_style"/>
 
+                <include layout="@layout/include_comm_activitys_layout" />
+                <!--进入广场-->
+                <View
+                    style="@style/cut_off_rule_5dp_style" />
+
+                <include layout="@layout/include_comm_shop_layout" />
                 <!--话题推荐-->
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="#55e0e0e0" />
-                <include layout="@layout/include_comm_topic_layout"/>
+                    style="@style/cut_off_rule_5dp_style" />
+
+                <include layout="@layout/include_comm_topic_layout" />
             </LinearLayout>
         </ScrollView>
 
     </com.baoyz.widget.PullRefreshLayout>
-    <ImageView
-        android:id="@+id/iv_comm_floating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/floating_button"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="12dp"/>
+
 </RelativeLayout>

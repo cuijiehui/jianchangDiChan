@@ -25,7 +25,7 @@
             android:layout_toRightOf="@+id/iv_apply_icon"
             android:text="公寓"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
 
         <ImageView
             android:id="@+id/iv_apply_del"
@@ -47,9 +47,7 @@
     </RelativeLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0" />
+       style="@style/cut_off_rule_style"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -65,7 +63,8 @@
                 android:id="@+id/iv_apply_img"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/splash_bg" />
+                android:src="@drawable/splash_bg"
+                android:scaleType="center"/>
 
             <ImageView
                 android:id="@+id/iv_apply_checked"
@@ -87,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:text="text"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tv_apply_time_day"
@@ -96,14 +95,13 @@
                 android:layout_marginTop="10dp"
                 android:text="yifabu"
                 android:textColor="@color/main_seek_text_col"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
+            style="@style/cut_off_rule_style"
             android:layout_below="@+id/rl_img"
-            android:background="#55e0e0e0" />
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -118,7 +116,7 @@
                 android:layout_height="wrap_content"
                 android:text="创建人："
                 android:textColor="@color/main_top_text_col"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
 
             <TextView
                 android:id="@+id/tv_apply_username"
@@ -126,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:text="kkkkk"
                 android:textColor="@color/main_seek_text_col"
-                android:textSize="10sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
         <TextView
@@ -134,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2018-04-18"
-            android:textSize="10sp"
+            android:textSize="11sp"
             android:textColor="@color/main_seek_text_col"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"

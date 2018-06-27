@@ -3,7 +3,7 @@ package com.cui.android.jianchengdichan.http.bean;
 /**
  * @author CUI
  * @data 2018/6/15.
- * @details
+ * @details 促销活动数据
  */
 public class CommentActBean {
 

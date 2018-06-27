@@ -16,7 +16,7 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.CommAddListPresenter;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.SectionAdapter;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class CommAddListAtivity extends BaseActivtity {
     FrameLayout comAppComtainer;
     List<UserEntranceBean> userEntranceBeans = new ArrayList<>();
     CommAddListPresenter commAddListPresenter ;
-
+    SectionAdapter sectionAdapter;
     @Override
     public BasePresenter initPresenter() {
         commAddListPresenter=new CommAddListPresenter();
@@ -67,7 +67,7 @@ public class CommAddListAtivity extends BaseActivtity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         exComApp.setLayoutManager(layoutManager);
-        SectionAdapter sectionAdapter =new SectionAdapter(userEntranceBeans);
+        sectionAdapter =new SectionAdapter(userEntranceBeans);
         exComApp.setAdapter(sectionAdapter);
     }
 
@@ -97,8 +97,10 @@ public class CommAddListAtivity extends BaseActivtity {
 
     public void getUserEnterance(List<UserEntranceBean> data) {
         userEntranceBeans.clear();
-        userEntranceBeans.addAll(data);
-        SectionAdapter sectionAdapter =new SectionAdapter(userEntranceBeans);
-        exComApp.setAdapter(sectionAdapter);
+        if(data!=null){
+            userEntranceBeans.addAll(data);
+
+        }
+        sectionAdapter.notifyDataSetChanged();
     }
 }

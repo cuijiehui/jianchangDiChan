@@ -24,9 +24,8 @@
         android:textSize="@dimen/city_text_size"
         android:textColor="@color/cp_gray_deep"/>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
+        style="@style/cut_off_rule_style"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="@dimen/side_letter_bar_width"
-        android:background="@color/cp_divider"/>
+        />
 </LinearLayout>

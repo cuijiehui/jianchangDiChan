@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -10,6 +14,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,6 +33,12 @@ android {
     allprojects {
         repositories {
             maven { url "https://jitpack.io" }
+        }
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            outputFileName = "jianchengdichan" + defaultConfig.versionName + releaseTime() + ".apk"
         }
     }
 }
@@ -74,4 +85,5 @@ dependencies {
     implementation 'com.baoyz.pullrefreshlayout:library:1.2.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
     implementation 'com.contrarywind:Android-PickerView:4.1.3'
+    implementation 'com.nineoldandroids:library:2.4.0'
 }

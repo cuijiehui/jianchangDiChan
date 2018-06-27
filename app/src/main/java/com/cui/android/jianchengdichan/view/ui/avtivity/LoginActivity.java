@@ -22,7 +22,7 @@ import com.cui.android.jianchengdichan.utils.PhoneNumUtil;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +51,8 @@ public class LoginActivity extends BaseActivtity {
     Button btLoginLogin;
 
     LoginPresenter mLoginPresenter;
-    private boolean isPwdSee=false;
+    private boolean isPwdSee = false;
+
     @Override
     public BasePresenter initPresenter() {
         mLoginPresenter = new LoginPresenter();
@@ -70,15 +71,16 @@ public class LoginActivity extends BaseActivtity {
 
     @Override
     public void initView(View view) {
-      String userName =(String)  SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_SIP_NUMBER_KEY,SPUtils.DATA_STRING);
-      if(!TextUtils.isEmpty(userName)){
-          etLoginUserName.setText(userName);
-      }
+        String userName = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_SIP_NUMBER_KEY, SPUtils.DATA_STRING);
+        if (!TextUtils.isEmpty(userName)) {
+            etLoginUserName.setText(userName);
+        }
     }
 
     @Override
     public void doBusiness(Context mContext) {
     }
+
     @Override
     public View initBack() {
         return null;
@@ -87,26 +89,28 @@ public class LoginActivity extends BaseActivtity {
 
     /**
      * 登录返回的信息
+     *
      * @param msg
      */
-    public void showView(String msg,int type) {
-        LogUtils.i("showView="+msg);
-        if(type==200){
+    public void showView(String msg, int type) {
+        LogUtils.i("showView=" + msg);
+        if (type == 200) {
             String userName = etLoginUserName.getText().toString();
             String pwd = etLoginPwd.getText().toString();
-            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_NUMBER_KEY,userName);
-            SPUtils.INSTANCE.setSPValue(SPKey.SP_LOAGIN_KEY,true);
-            startActivity(new Intent(getContext(),MainActivity.class));
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_NUMBER_KEY, userName);
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_LOAGIN_KEY, true);
+            startActivity(new Intent(getContext(), MainActivity.class));
+            finish();
         }
         hideLoading();
     }
 
-    private void changePwdIsSee(){
-        if(isPwdSee){
-            isPwdSee=false;
+    private void changePwdIsSee() {
+        if (isPwdSee) {
+            isPwdSee = false;
             etLoginPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        }else{
-            isPwdSee=true;
+        } else {
+            isPwdSee = true;
             etLoginPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         }
         ivLoginLook.setSelected(isPwdSee);
@@ -125,12 +129,12 @@ public class LoginActivity extends BaseActivtity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_login_register,  R.id.iv_login_delete,  R.id.iv_login_look, R.id.tv_login_forget_pwd, R.id.bt_login_login})
+    @OnClick({R.id.tv_login_register, R.id.iv_login_delete, R.id.iv_login_look, R.id.tv_login_forget_pwd, R.id.bt_login_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_login_register:
                 LogUtils.i("tv_login_register");
-                startActivity(new Intent(getContext(),RegisterActivity.class));
+                startActivity(new Intent(getContext(), RegisterActivity.class));
                 break;
 
             case R.id.iv_login_delete:
@@ -145,8 +149,9 @@ public class LoginActivity extends BaseActivtity {
                 break;
             case R.id.tv_login_forget_pwd:
                 LogUtils.i("tv_login_forget_pwd");
-                startActivity(new Intent(getContext(),ForgetPwdActivity.class));
-
+                Bundle bundle = new Bundle();
+                bundle.putString("type", "1");
+                startActivity(ForgetPwdActivity.class, bundle);
                 break;
             case R.id.bt_login_login:
                 LogUtils.i("bt_login_login");
@@ -157,22 +162,22 @@ public class LoginActivity extends BaseActivtity {
 
     private void toLogin() {
         String userName = etLoginUserName.getText().toString();
-        if(TextUtils.isEmpty(userName)){
+        if (TextUtils.isEmpty(userName)) {
             ToastUtil.makeToast("用户名不能为空");
             return;
         }
-        if(!PhoneNumUtil.verifyPhone(userName)){
+        if (!PhoneNumUtil.verifyPhone(userName)) {
             ToastUtil.makeToast("请输入正确的用户名格式");
             return;
 
         }
         String pws = etLoginPwd.getText().toString();
-        if(TextUtils.isEmpty(pws)){
+        if (TextUtils.isEmpty(pws)) {
             ToastUtil.makeToast("密码不能为空");
             return;
 
         }
-        mLoginPresenter.login(userName,pws);
+        mLoginPresenter.login(userName, pws);
         showLoading();
     }
 }

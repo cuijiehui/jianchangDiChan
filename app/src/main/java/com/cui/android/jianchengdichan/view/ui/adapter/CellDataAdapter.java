@@ -24,6 +24,6 @@ public class CellDataAdapter extends BaseQuickAdapter<TelephoneBean,BaseViewHold
     protected void convert(BaseViewHolder helper, TelephoneBean item) {
         helper.setText(R.id.tv_cell_name,item.getName());
         helper.setText(R.id.tv_cell_phone,item.getPhone());
-        helper.addOnClickListener(R.id.tv_cell_copy);
+        helper.addOnClickListener(R.id.iv_cell_call);
     }
 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".view.ui.avtivity.ForgetPwdActivity">
 
     <include layout="@layout/include_top_layout" />
@@ -16,13 +17,11 @@
 
         <EditText
             android:id="@+id/et_forget_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_marginLeft="17dp"
-            android:layout_toLeftOf="@+id/iv_register_number"
-            android:background="@null"
+            android:layout_toLeftOf="@+id/tv_forget_number_again"
             android:hint="请输入手机号码"
-            android:textColorHint="@color/main_seek_text_col" />
+            style="@style/release_name_hint_style"
+            android:inputType="number"
+            />
 
         <TextView
             android:id="@+id/tv_forget_number_again"
@@ -42,15 +41,15 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+
             android:background="@drawable/register_get_number" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#55e0e0e0" />
-    </RelativeLayout>
 
+    </RelativeLayout>
+    <View
+        style="@style/cut_off_rule_style"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -58,13 +57,11 @@
 
         <EditText
             android:id="@+id/et_forget_user_number"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_marginLeft="17dp"
-            android:layout_toLeftOf="@+id/iv_register_delete"
-            android:background="@null"
-            android:hint="请输入手机号码"
-            android:textColorHint="@color/main_seek_text_col" />
+            android:layout_toLeftOf="@+id/iv_forget_delete"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            style="@style/release_name_hint_style"
+            />
 
         <ImageView
             android:id="@+id/iv_forget_delete"
@@ -74,15 +71,15 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
+
             android:background="@drawable/login_delete_icon" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#55e0e0e0" />
-    </RelativeLayout>
 
+    </RelativeLayout>
+    <View
+        style="@style/cut_off_rule_style"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -91,13 +88,10 @@
 
         <EditText
             android:id="@+id/et_forget_pwd"
-            android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_marginLeft="17dp"
-            android:layout_toLeftOf="@+id/iv_register_look"
-            android:background="@null"
+            android:layout_toLeftOf="@+id/iv_forget_look"
             android:hint="请输入密码(6-20位数)"
-            android:textColorHint="@color/main_seek_text_col" />
+            style="@style/release_name_hint_style"
+            />
 
         <ImageView
             android:id="@+id/iv_forget_look"
@@ -107,15 +101,13 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="10dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/login_see_pwd_selector" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#55e0e0e0" />
     </RelativeLayout>
-
+    <View
+        style="@style/cut_off_rule_style"
+        />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -125,21 +117,16 @@
         <EditText
             android:id="@+id/et_forget_pwd_again"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_marginLeft="17dp"
-            android:layout_marginRight="16dp"
-            android:background="@null"
             android:hint="请再输入密码"
-            android:textColorHint="@color/main_seek_text_col" />
+            style="@style/release_name_hint_style"
+            />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="#55e0e0e0" />
+
     </RelativeLayout>
 
-
+    <View
+        style="@style/cut_off_rule_style"
+        />
     <Button
         android:id="@+id/bt_forget_forget"
         android:layout_width="match_parent"
@@ -147,7 +134,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="10dp"
-        android:background="@color/main_top_col"
+        android:background="@drawable/bt_pressed_shape"
         android:text="完成"
         android:textColor="@color/white"
         android:textSize="16sp" />

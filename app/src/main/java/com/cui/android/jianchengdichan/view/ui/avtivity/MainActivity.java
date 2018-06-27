@@ -1,5 +1,6 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -16,12 +17,12 @@ import com.cui.android.jianchengdichan.presenter.LoginPresenter;
 import com.cui.android.jianchengdichan.utils.AndroidPermissionUtils;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
-import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.MainPagerAdapter;
-import com.cui.android.jianchengdichan.view.ui.Fragment.MainCommFragment;
-import com.cui.android.jianchengdichan.view.ui.Fragment.MainHomeFragment;
-import com.cui.android.jianchengdichan.view.ui.Fragment.MainMyFragment;
-import com.cui.android.jianchengdichan.view.ui.Fragment.MainShopFragment;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainPagerAdapter;
+import com.cui.android.jianchengdichan.view.ui.fragment.MainCommFragment;
+import com.cui.android.jianchengdichan.view.ui.fragment.MainHomeFragment;
+import com.cui.android.jianchengdichan.view.ui.fragment.MainMyFragment;
+import com.cui.android.jianchengdichan.view.ui.fragment.MainShopFragment;
 import com.cui.android.jianchengdichan.view.ui.customview.MainNavigationView;
 import com.cui.android.jianchengdichan.view.ui.customview.viewpager.CustomViewPager;
 
@@ -75,10 +76,10 @@ public class MainActivity extends BaseActivtity {
     }
     private void setViewPager() {
         mDataList.clear();
-        mDataList.add(MainHomeFragment.newInstance("MainHome","MainHome"));
-        mDataList.add(MainCommFragment.newInstance("MainComm","MainComm"));
+        mDataList.add(MainHomeFragment.newInstance(null));
+        mDataList.add(MainCommFragment.newInstance(null));
         mDataList.add(MainShopFragment.newInstance("MainShop","MainShop"));
-        mDataList.add(MainMyFragment.newInstance("MainMy","MainMy"));
+        mDataList.add(MainMyFragment.newInstance(null));
         mMainPagerAdapter=new MainPagerAdapter(getSupportFragmentManager(),getContext(),mDataList);
         vpMainPager.setAdapter(mMainPagerAdapter);
         vpMainPager.setOffscreenPageLimit(3);
@@ -142,8 +143,19 @@ public class MainActivity extends BaseActivtity {
                 LogUtils.i("onBackSelected=" + conut);
                 if(conut==2){
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
-                    intent.putExtra("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
-                    getContext().startActivity(intent);
+                    Bundle bundle ;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        bundle = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle();
+                        bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                        intent.putExtras(bundle);
+                        getContext().startActivity(intent);
+                    }else{
+                        bundle=new Bundle();
+                        bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                        intent.putExtras(bundle);
+                        getContext().startActivity(intent);
+                    }
+
                 }else{
                     vpMainPager.setCurrentItem(conut);
 

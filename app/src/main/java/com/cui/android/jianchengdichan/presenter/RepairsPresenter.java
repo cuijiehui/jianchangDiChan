@@ -1,7 +1,6 @@
 package com.cui.android.jianchengdichan.presenter;
 
 import com.cui.android.jianchengdichan.http.base.BaseBean;
-import com.cui.android.jianchengdichan.http.base.BasesBean;
 import com.cui.android.jianchengdichan.http.bean.RepairCateBean;
 import com.cui.android.jianchengdichan.http.bean.RepairsBean;
 import com.cui.android.jianchengdichan.model.DataModel;
@@ -57,9 +56,9 @@ public class RepairsPresenter extends BasePresenter<RepairsActivity> {
         String json = jsonObject.toString();
         DataModel.request(Token.API_REPAIR_INFO)
                 .params(json)
-                .execute(new CallBack<BasesBean>() {
+                .execute(new CallBack<BaseBean<Object>>() {
                     @Override
-                    public void onSuccess(BasesBean data) {
+                    public void onSuccess(BaseBean<Object> data) {
                         getView().submitRepairInfo();
                     }
 

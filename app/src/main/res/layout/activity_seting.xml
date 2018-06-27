@@ -29,9 +29,7 @@
         android:layout_marginRight="20dp"/>
 </RelativeLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@drawable/imaginary_line"/>
+        style="@style/cut_off_rule_style"/>
 
     <RelativeLayout
         android:id="@+id/rl_setting_clear"
@@ -54,9 +52,7 @@
             android:layout_marginRight="20dp"/>
     </RelativeLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@drawable/imaginary_line"/>
+        style="@style/cut_off_rule_style"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="44dp">

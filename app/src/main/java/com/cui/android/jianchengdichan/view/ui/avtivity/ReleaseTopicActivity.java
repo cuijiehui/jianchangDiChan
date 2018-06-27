@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.UplodeImgBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
@@ -28,8 +29,7 @@ import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
-import com.cui.android.jianchengdichan.view.ui.Fragment.Adapter.interfaces.OnRecyclerViewItemClickListener;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.DatailedDrawingAdapter;
 import com.cui.android.jianchengdichan.view.ui.beans.ReleaseImgBean;
 import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
@@ -45,6 +45,8 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class ReleaseTopicActivity extends BaseActivtity {
+
+
     @BindView(R.id.top_back)
     RelativeLayout topBack;
     @BindView(R.id.tv_content_name)
@@ -121,31 +123,31 @@ public class ReleaseTopicActivity extends BaseActivtity {
         if (addImgList.size() == 0) {
             addImgList.add(new ReleaseImgBean("", "", -1));
         }
-        datailedDrawingAdapter = new DatailedDrawingAdapter(addImgList, new View.OnClickListener() {
+        datailedDrawingAdapter = new DatailedDrawingAdapter(addImgList);
+        rvTopicAddImg.setAdapter(datailedDrawingAdapter);
+        datailedDrawingAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                addImgList.remove(position);
+                datailedDrawingAdapter.notifyDataSetChanged();
+            }
+        });
+        datailedDrawingAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //点击添加图片
                 if (addImgList.size() > 9) {
-                    ToastUtil.makeToast("故障图为1-9张");
+                    ToastUtil.makeToast("图片为1-9张");
                     return;
                 }
-                cameraPopupWindows = new CameraPopupWindows(ReleaseTopicActivity.this, getRootView());
+                ReleaseImgBean releaseImgBean = addImgList.get(position);
+                if(releaseImgBean.getType()==-1){
+                    cameraPopupWindows = new CameraPopupWindows(ReleaseTopicActivity.this, getRootView());
+                }else{
+                }
             }
-        }, listener);
-        rvTopicAddImg.setAdapter(datailedDrawingAdapter);
+        });
     }
-    OnRecyclerViewItemClickListener listener = new OnRecyclerViewItemClickListener() {
-        @Override
-        public void onItemClick(View view, int position) {
-            addImgList.remove(position);
-            datailedDrawingAdapter.notifyDataSetChanged();
-        }
-
-        @Override
-        public void onItemLongClick(View view, int position) {
-
-        }
-    };
     @Override
     public void doBusiness(Context mContext) {
 

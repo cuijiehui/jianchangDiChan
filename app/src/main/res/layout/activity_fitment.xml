@@ -11,7 +11,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/white"
+        >
 
         <TextView
             android:id="@+id/tv_fitment_name"
@@ -32,7 +34,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/white"
+        >
 
         <TextView
             android:id="@+id/tv_fitment_num"
@@ -53,7 +57,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/white"
+        >
 
         <TextView
             android:id="@+id/tv_fitment_company"
@@ -74,7 +80,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/white"
+        >
 
         <TextView
             android:id="@+id/tv_fitment_time"
@@ -82,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:text="装修时间"
+            android:text="装修开始时间"
             android:textColor="@color/black"
 
             />
@@ -92,44 +100,68 @@
             android:layout_height="match_parent"
             android:layout_toRightOf="@+id/tv_fitment_time"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_margin="8dp"
+            android:background="@drawable/et_c_bg">
 
             <TextView
                 android:id="@+id/tv_fitemt_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="12dp"
                 android:hint="年／月／日"
-                android:textSize="15sp"
+                android:textSize="13sp"
+                android:gravity="center_vertical"
                 android:textColor="@color/main_seek_text_col"
                 />
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="8dp"
-                android:text="-"
-                android:textSize="15sp"
-                android:textColor="@color/main_seek_text_col"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        >
 
+        <TextView
+            android:id="@+id/tv_fitment_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="装修结束时间"
+            android:textColor="@color/black"
+
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/tv_fitment_end_time"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_margin="8dp"
+
+            android:background="@drawable/et_c_bg">
             <TextView
                 android:id="@+id/tv_fitemt_end_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dp"
+                android:gravity="center_vertical"
                 android:hint="年／月／日"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textColor="@color/main_seek_text_col"/>
         </LinearLayout>
 
     </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="50dp"
+        android:background="@color/white"
+        >
 
         <TextView
             android:id="@+id/tv_fitment_phone"
@@ -146,7 +178,8 @@
             android:layout_toRightOf="@+id/tv_fitment_phone"
             android:inputType="number"
             style="@style/release_name_hint_style"
-            android:hint="请输入你的联系电话" />
+            android:hint="请输入你的联系电话"
+            />
     </RelativeLayout>
 
     <EditText
@@ -158,9 +191,11 @@
         android:background="@drawable/et_feedback_background_shape"
         android:gravity="top"
         android:hint="备注内容"
-        android:textSize="15sp"
+        android:textSize="13sp"
+        android:paddingLeft="5dp"
         android:textColor="@color/main_seek_text_col"
         android:textColorHint="@color/main_seek_text_col"
+        android:layout_marginTop="5dp"
         />
     <TextView
         android:id="@+id/tv_fitment_submit"

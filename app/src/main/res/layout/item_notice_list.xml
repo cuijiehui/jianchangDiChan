@@ -14,9 +14,7 @@
         android:text="title" />
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0" />
+        style="@style/cut_off_rule_style" />
 
     <TextView
         android:id="@+id/tv_notice_content"
@@ -49,8 +47,6 @@
             android:padding="5dp"/>
     </RelativeLayout>
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0" />
+        style="@style/cut_off_rule_style" />
 
 </LinearLayout>

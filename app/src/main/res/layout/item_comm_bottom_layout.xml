@@ -3,8 +3,7 @@
     android:id="@+id/rl__bottom_item"
     android:layout_width="164dp"
     android:layout_height="60dp"
-    android:layout_marginBottom="2dp"
-    android:layout_marginLeft="12dp"
+    android:layout_margin="8dp"
     >
 
     <ImageView
@@ -24,7 +23,7 @@
         android:layout_marginTop="9dp"
         android:text="name"
         android:textColor="@color/main_text_col"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tv_item_comm_bottom_content"
@@ -34,5 +33,5 @@
         android:layout_marginLeft="9dp"
         android:text="name"
         android:textColor="@color/main_seek_text_col"
-        android:textSize="12sp" />
+        android:textSize="11sp" />
 </RelativeLayout>

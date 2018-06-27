@@ -24,8 +24,7 @@ import com.cui.android.jianchengdichan.utils.PhoneNumUtil;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
-import com.cui.android.jianchengdichan.view.ui.avtivity.LoginActivity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

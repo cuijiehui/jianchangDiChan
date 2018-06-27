@@ -3,6 +3,7 @@ package com.cui.android.jianchengdichan.view.ui.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
 import com.cui.android.jianchengdichan.utils.LogUtils;
@@ -24,86 +27,26 @@ import java.util.List;
  * Created by Android on 2017/7/18.
  */
 
-public class LeaseAdapter extends RecyclerView.Adapter<LeaseAdapter.ViewHodler>{
-
-    private List<LeaseRoomBean> list;
-    private Context context;
-    private LayoutInflater inflater;
-
-    public LeaseAdapter(List<LeaseRoomBean> list, Context context) {
-        this.list = list;
-        this.context = context;
-        inflater = LayoutInflater.from(context);
+public class LeaseAdapter extends BaseQuickAdapter<LeaseRoomBean,BaseViewHolder> {
+    public LeaseAdapter( @Nullable List<LeaseRoomBean> data) {
+        super(R.layout.item_lease_list, data);
     }
 
     @Override
-    public ViewHodler onCreateViewHolder(ViewGroup parent, int viewType) {
-        LeaseAdapter.ViewHodler viewHodler = new LeaseAdapter.ViewHodler(inflater.inflate(R.layout.item_lease_list , null));
-        return viewHodler;
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHodler holder, int position) {
-
-        final LeaseRoomBean bean = list.get(position);
-        LogUtils.i("LeaseRoomBean="+bean.toString());
-//        ImagerLoaderUtil.displayImage(bean.getPic() , holder.iv_room_pic);
-        Okhttp3Utils.getInstance().glide(context,bean.getPic(),holder.iv_room_pic);
-
-        holder.tv_room_name.setText(bean.getTitle());
-        holder.tv_room_address.setText(bean.getAddress());
-        holder.tv_room_price.setText("¥" + bean.getRental() + "/月");
-        holder.tv_room_attr.setText(bean.getHouse_type() + "-" + bean.getAcreage() + "㎡-" + bean.getOrientations());
-
-        if (!TextUtils.isEmpty(bean.getCharge_pay())){
-            holder.tv_room_attr1.setText(bean.getCharge_pay());
+    protected void convert(BaseViewHolder helper, LeaseRoomBean item) {
+        ImageView iv_room_pic = helper.getView(R.id.iv_room_pic);
+        Okhttp3Utils.getInstance().glide(mContext,item.getPic(),iv_room_pic);
+        helper.setText(R.id.tv_room_name,item.getTitle());
+        helper.setText(R.id.tv_room_address,item.getAddress());
+        helper.setText(R.id.tv_room_price,"¥" + item.getRental() + "/月");
+        helper.setText(R.id.tv_room_attr,item.getHouse_type() + "-" + item.getAcreage() + "㎡-" + item.getOrientations());
+        if (!TextUtils.isEmpty(item.getCharge_pay())){
+            helper.setText(R.id.tv_room_attr1,item.getCharge_pay());
         }
-
-        if (!TextUtils.isEmpty(bean.getDecoration())){
-            holder.tv_room_attr2.setText(bean.getDecoration());
+        if (!TextUtils.isEmpty(item.getDecoration())){
+            helper.setText(R.id.tv_room_attr2,item.getDecoration());
         }
-
-        holder.rel_content.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context , RentDatailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("id",bean.getId());
-                intent.putExtras(bundle);
-                context.startActivity(intent);
-            }
-        });
-
+        helper.addOnClickListener(R.id.rel_content);
     }
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    public class ViewHodler extends RecyclerView.ViewHolder {
-
-        ImageView iv_room_pic;
-        TextView tv_room_name;
-        TextView tv_room_attr;
-        TextView tv_room_price;
-        TextView tv_room_address;
-        TextView tv_room_attr1;
-        TextView tv_room_attr2;
-        RelativeLayout rel_content;
-
-        public ViewHodler(View itemView) {
-            super(itemView);
-            iv_room_pic = (ImageView) itemView.findViewById(R.id.iv_room_pic);
-            tv_room_name = (TextView) itemView.findViewById(R.id.tv_room_name);
-            tv_room_attr = (TextView) itemView.findViewById(R.id.tv_room_attr);
-            tv_room_price = (TextView) itemView.findViewById(R.id.tv_room_price);
-            tv_room_address = (TextView) itemView.findViewById(R.id.tv_room_address);
-
-            tv_room_attr1 = (TextView) itemView.findViewById(R.id.tv_room_attr1);
-            tv_room_attr2 = (TextView) itemView.findViewById(R.id.tv_room_attr2);
-
-            rel_content = (RelativeLayout) itemView.findViewById(R.id.rel_content);
-        }
-    }
 }

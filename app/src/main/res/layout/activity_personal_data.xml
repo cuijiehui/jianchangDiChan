@@ -7,6 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
+    android:background="@color/like_back_col"
     tools:context=".view.ui.avtivity.PersonalDataActivity">
 
     <include layout="@layout/include_top_layout" />
@@ -18,7 +19,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/relative_register_title"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -32,15 +33,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-
+                android:textColor="@color/black"
                 android:layout_marginLeft="20dp"
                 android:text="头像" />
 
 
             <com.cui.android.jianchengdichan.view.ui.customview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/img_userhead"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
@@ -50,12 +51,7 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="20dp"
-            android:background="#cccccc" />
-
+     <View style="@style/cut_off_rule_style"/>
         <RelativeLayout
             android:id="@+id/rel_user_nickname"
             android:layout_width="match_parent"
@@ -67,6 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+
                 android:text="昵称" />
 
             <TextView
@@ -77,24 +75,29 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="10dp"
                 android:layout_toRightOf="@+id/textView"
-                android:gravity="center_vertical" />
-
+                android:gravity="right|center_vertical"
+                android:layout_toLeftOf="@+id/back_icon"
+                />
+            <ImageView
+                android:id="@+id/back_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/main_font_icon"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"/>
 
         </RelativeLayout>
+        <View style="@style/cut_off_rule_style"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
 
-            android:background="#cccccc" />
 
 
         <RelativeLayout
             android:id="@+id/rel_user_real_name"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/textView6"
@@ -116,13 +119,8 @@
 
 
         </RelativeLayout>
+        <View style="@style/cut_off_rule_style"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#cccccc" />
 
         <RelativeLayout
             android:id="@+id/rel_user_id"
@@ -135,6 +133,8 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+
                 android:text="绑定的手机号码" />
 
             <TextView
@@ -144,27 +144,45 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="30dp"
-                android:layout_toRightOf="@+id/textView3" />
+                android:layout_toRightOf="@+id/textView3"
+                android:gravity="right|center_vertical"
+                />
 
 
         </RelativeLayout>
+        <View style="@style/cut_off_rule_style"/>
 
-        <View
+        <RelativeLayout
+            android:id="@+id/rel_user_reset"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#cccccc" />
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/textView_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/black"
+                android:text="重置登陆密码" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/main_font_icon"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/bt_log_out"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@color/main_top_col"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
             android:text="退出登录"
-            android:textColor="@color/white" />
+            android:textColor="@color/login_forget_pwd" />
 
     </LinearLayout>
 </LinearLayout>

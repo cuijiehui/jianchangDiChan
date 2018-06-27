@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
@@ -10,9 +11,7 @@
         style="@style/release_title_style"
      />
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#55e0e0e0"/>
+        style="@style/cut_off_rule_style"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="72dp"
@@ -35,6 +34,8 @@
             style="@style/release_name_hint_style"
             android:hint="填写姓名"/>
     </LinearLayout>
+    <View
+        style="@style/cut_off_rule_style"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

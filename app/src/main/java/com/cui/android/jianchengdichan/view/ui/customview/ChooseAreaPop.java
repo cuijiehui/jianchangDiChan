@@ -11,7 +11,7 @@ import android.widget.PopupWindow;
 
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.utils.ScreenUtils;
-import com.cui.android.jianchengdichan.view.ui.customview.Adapter.ComChildAdapter;
+import com.cui.android.jianchengdichan.view.ui.customview.adapter.ComChildAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.interfaces.IdentityResultListener;
 
 import java.util.ArrayList;

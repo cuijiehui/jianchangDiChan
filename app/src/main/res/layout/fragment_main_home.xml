@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ui.Fragment.MainHomeFragment">
+    tools:context=".view.ui.fragment.MainHomeFragment">
 
     <!-- 头部-->
     <RelativeLayout
@@ -16,33 +16,36 @@
             android:id="@+id/iv_main_top_qrcode"
             android:layout_width="21dp"
             android:layout_height="21dp"
-            android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/main_qrcode_button"
             android:clickable="true" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:layout_marginTop="8dp"
             android:layout_centerInParent="true"
-            android:layout_toRightOf="@+id/iv_main_top_qrcode"
             android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@+id/iv_main_top_add"
             android:layout_marginRight="10dp"
-            >
+            android:layout_toLeftOf="@+id/iv_main_top_add"
+            android:layout_toRightOf="@+id/iv_main_top_qrcode"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <EditText
                 android:id="@+id/et_main_top_seek"
-                android:layout_width="279dp"
-                android:layout_height="20dp"
-                android:background="@color/white"
-                android:textColorHint="@color/main_seek_text_col"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textSize="15px"
-                />
+                android:background="@drawable/et_c_bg"
+                android:paddingBottom="2dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="2dp"
+                android:singleLine="true"
+                android:textColor="@color/main_seek_text_col"
+                android:textColorHint="@color/main_seek_text_col"
+                android:textSize="15sp" />
 
 
         </RelativeLayout>
@@ -52,18 +55,18 @@
             android:layout_width="17dp"
             android:layout_height="17dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
             android:background="@drawable/main_add_button"
             android:clickable="true" />
     </RelativeLayout>
     <!--主页内容-->
     <!--下拉刷新-->
-<com.baoyz.widget.PullRefreshLayout
-    android:id="@+id/prl_refreshable"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/rl_main_top">
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/prl_refreshable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_main_top">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -77,14 +80,15 @@
                 <com.youth.banner.Banner
                     android:id="@+id/bn_main_adv"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="180dp" />
 
+
+                <View style="@style/cut_off_rule_5dp_style" />
                 <!--最新公告-->
                 <LinearLayout
                     android:id="@+id/ll_new_notice"
                     android:layout_width="match_parent"
                     android:layout_height="51dp"
-                    android:layout_marginTop="13dp"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -111,10 +115,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#55e0e0e0" />
+                <View style="@style/cut_off_rule_5dp_style" />
                 <!--社区管家-->
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -124,24 +125,24 @@
                         android:id="@+id/iv_main_community_icon"
                         android:layout_width="7dp"
                         android:layout_height="9dp"
+                        android:layout_alignTop="@+id/iv_main_community_text"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="15dp"
+
                         android:background="@drawable/main_house_rent" />
 
                     <TextView
+                        android:id="@+id/iv_main_community_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/iv_main_community_icon"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iv_main_community_icon"
                         android:text="社区管家"
+
                         android:textColor="@color/main_text_col"
                         android:textSize="16sp" />
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#55e0e0e0" />
+                <View style="@style/cut_off_rule_style" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_main_community"
@@ -151,11 +152,10 @@
                     android:paddingLeft="20dp">
 
                 </android.support.v7.widget.RecyclerView>
+
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#55e0e0e0"
-                    android:visibility="gone"/>
+                    style="@style/cut_off_rule_style"
+                    android:layout_height="5dp" />
                 <!--停车专区-->
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -165,81 +165,72 @@
                         android:id="@+id/iv_main_stop_car_icon"
                         android:layout_width="7dp"
                         android:layout_height="9dp"
+                        android:layout_alignTop="@+id/iv_main_stop_car_text"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="15dp"
                         android:background="@drawable/main_stop_car_icon" />
 
                     <TextView
+                        android:id="@+id/iv_main_stop_car_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/iv_main_stop_car_icon"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iv_main_stop_car_icon"
                         android:text="停车专区"
                         android:textColor="@color/main_text_col"
                         android:textSize="16sp" />
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#55e0e0e0" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#55e0e0e0" />
+                <View style="@style/cut_off_rule_style" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="33dp"
-                    android:layout_marginTop="16dp"
-                    >
+                    android:layout_marginTop="16dp">
 
                     <ImageView
                         android:layout_width="114dp"
                         android:layout_height="100dp"
-                        android:layout_marginLeft="12dp"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="12dp"
                         android:background="@drawable/main_car_stop" />
 
                     <ImageView
                         android:layout_width="114dp"
                         android:layout_height="100dp"
-                        android:background="@drawable/main_top_car_manager"
                         android:layout_centerInParent="true"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:background="@drawable/main_top_car_manager" />
 
                     <ImageView
                         android:layout_width="114dp"
                         android:layout_height="100dp"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginRight="12dp"
-                        android:background="@drawable/main_stop_car_break"
-                        />
+                        android:background="@drawable/main_stop_car_break" />
 
                 </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#55e0e0e0" />
+
+                <View style="@style/cut_off_rule_5dp_style" />
                 <!--附近租贷-->
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="44dp">
 
                     <ImageView
                         android:id="@+id/iv_rent_icon"
                         android:layout_width="7dp"
                         android:layout_height="9dp"
+                        android:layout_alignTop="@+id/iv_rent_text"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="15dp"
                         android:background="@drawable/main_house_rent" />
 
                     <TextView
+                        android:id="@+id/iv_rent_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/iv_rent_icon"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iv_rent_icon"
                         android:text="附近租赁"
                         android:textColor="@color/main_text_col"
@@ -255,13 +246,10 @@
                         android:drawableRight="@drawable/main_font_icon"
                         android:text="查看更多"
                         android:textColor="@color/main_seek_text_col"
-                        android:textSize="12sp" />
+                        android:textSize="11sp" />
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@drawable/imaginary_line" />
+                <View style="@style/cut_off_rule_style" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_main_rent"
@@ -273,41 +261,31 @@
                 </android.support.v7.widget.RecyclerView>
 
 
-
                 <!--限时抢购-->
                 <!--<include android:id="@+id/flash_sale_include" layout="@layout/includ_flash_sale_layout"/>-->
                 <ImageView
                     android:id="@+id/iv_flash_sale"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#55e0e0e0"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
 
                 <!--新品上市-->
-                <include android:id="@+id/goods_new_include"
+                <include
+                    android:id="@+id/goods_new_include"
                     layout="@layout/includ_new_goods_layout"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#55e0e0e0"
-                    android:visibility="gone"/>
                 <!--猜你喜欢-->
                 <include
                     android:id="@+id/you_like_include"
-                    android:visibility="gone"
-                    layout="@layout/includ_you_like_layout"/>
+                    layout="@layout/includ_you_like_layout"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
 
         </ScrollView>
-</com.baoyz.widget.PullRefreshLayout>
+    </com.baoyz.widget.PullRefreshLayout>
 </RelativeLayout>

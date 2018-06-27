@@ -5,27 +5,25 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.HistoryDataBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.FeedbackHistoryPresenter;
-import com.cui.android.jianchengdichan.presenter.FeedbackPresenter;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.cui.android.jianchengdichan.view.ui.adapter.HistorysAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
-public class FeedbackHistoryActivity extends BaseActivtity implements HistorysAdapter.ClickCallBack {
+public class FeedbackHistoryActivity extends BaseActivtity  {
     FeedbackHistoryPresenter mfeedbackHistoryPresenter;
     @BindView(R.id.top_back)
     RelativeLayout topBack;
@@ -33,6 +31,7 @@ public class FeedbackHistoryActivity extends BaseActivtity implements HistorysAd
     TextView tvContentName;
     @BindView(R.id.rv_historys_data)
     RecyclerView rvHistorysData;
+    HistorysAdapter historysAdapter;
 
     List<HistoryDataBean> mDataList = new ArrayList<>();
 
@@ -71,20 +70,20 @@ public class FeedbackHistoryActivity extends BaseActivtity implements HistorysAd
     }
 
 
-
   public void initRecyclerView(){
       LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
       rvHistorysData.setLayoutManager(linearLayoutManager);
-      HistorysAdapter historysAdapter = new HistorysAdapter(mDataList,this);
+       historysAdapter = new HistorysAdapter(mDataList);
       rvHistorysData.setAdapter(historysAdapter);
+      historysAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+          @Override
+          public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+              int uid =(int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
+              String token = (String)SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
+              mfeedbackHistoryPresenter.delOpinion(uid,token,mDataList.get(position).getId());
+          }
+      });
   }
-
-    @Override
-    public void onClickItem(int id) {
-        int uid =(int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
-        String token = (String)SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
-        mfeedbackHistoryPresenter.delOpinion(uid,token,id);
-    }
 
     public void getOpinionList(List<HistoryDataBean> dataList) {
         mDataList.clear();

@@ -24,10 +24,9 @@ import com.cui.android.jianchengdichan.utils.PhoneNumUtil;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ForgetPwdActivity extends BaseActivtity {
@@ -61,7 +60,7 @@ public class ForgetPwdActivity extends BaseActivtity {
     private Handler mhandle = new Handler();
     private int codeNum = 30;
     private boolean isPwdSee=false;
-
+    String type = "1";
     @Override
     public BasePresenter initPresenter() {
         mForgetPwdPresenter = new ForgetPwdPresenter();
@@ -71,7 +70,9 @@ public class ForgetPwdActivity extends BaseActivtity {
 
     @Override
     public void initParms(Bundle parms) {
-
+    if(parms!=null){
+        type=parms.getString("type");
+    }
     }
 
     @Override
@@ -81,7 +82,12 @@ public class ForgetPwdActivity extends BaseActivtity {
 
     @Override
     public void initView(View view) {
-        tvContentName.setText("找回密码");
+        if(type.equals("1")){
+            tvContentName.setText("找回密码");
+
+        }else{
+            tvContentName.setText("重置密码");
+        }
 
     }
 
@@ -96,20 +102,23 @@ public class ForgetPwdActivity extends BaseActivtity {
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
     public void showView(String msg , int type){
         if(type == 200){
-            ToastUtil.makeToast("修改密码成功！");
-            String userName = etForgetUserName.getText().toString();
-            String pwd = etForgetPwd.getText().toString();
-            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_NAME_KEY,userName);
-            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PWD_KEY,pwd);
-            startActivity(new Intent(mContext,LoginActivity.class));
+            if(this.type.equals("1")){
+                ToastUtil.makeToast("修改密码成功！");
+                String userName = etForgetUserName.getText().toString();
+                String pwd = etForgetPwd.getText().toString();
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_NAME_KEY,userName);
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PWD_KEY,pwd);
+                startActivity(new Intent(mContext,LoginActivity.class));
+            }else{
+                ToastUtil.makeToast("重置密码成功！");
+                String userName = etForgetUserName.getText().toString();
+                String pwd = etForgetPwd.getText().toString();
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_NAME_KEY,userName);
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PWD_KEY,pwd);
+            }
+
         }
         hideLoading();
 
@@ -120,7 +129,11 @@ public class ForgetPwdActivity extends BaseActivtity {
             ToastUtil.makeToast("请输入正确的用户名格式");
             return;
         }
-        mForgetPwdPresenter.getCode(userName, "sms_reg", "0");
+        if(type.equals("1")){
+            mForgetPwdPresenter.getCode(userName, "sms_forget", "0");
+        }else{
+            mForgetPwdPresenter.getCode(userName, "sms_reset", "0");
+        }
         tvForgetNumberAgain.setVisibility(View.VISIBLE);
         ivForgetNumber.setVisibility(View.GONE);
         mhandle.post(timeRunable);

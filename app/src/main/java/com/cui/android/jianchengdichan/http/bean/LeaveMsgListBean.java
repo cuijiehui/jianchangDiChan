@@ -25,7 +25,7 @@ public class LeaveMsgListBean {
     private Object reply;
     private Object reply_time;
     private int rent_id;
-    private Object username;
+    private String username;
 
     public int getId() {
         return id;
@@ -83,11 +83,11 @@ public class LeaveMsgListBean {
         this.rent_id = rent_id;
     }
 
-    public Object getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(Object username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 }

@@ -12,8 +12,7 @@ import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.SplashPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
-import com.cui.android.jianchengdichan.view.ui.avtivity.MainActivity;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 
 import java.util.Timer;
 import java.util.TimerTask;

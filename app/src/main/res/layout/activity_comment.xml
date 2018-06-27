@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.cui.android.jianchengdichan.view.ui.avtivity.CommentActivity">
+
+    <include layout="@layout/include_top_layout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_comment_button"
+            android:layout_alignParentTop="true"
+            android:fillViewport="true"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/item_comm_topic_layout" />
+                <View
+                 style="@style/cut_off_rule_style"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_comment_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        />
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/rl_comment_com"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_comment_add"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:gravity="center_vertical"
+                android:text=" + "
+                android:textColor="@color/main_flash_sale_text"
+                android:textSize="18sp" />
+
+            <com.cui.android.jianchengdichan.view.ui.customview.EditTextView
+                android:id="@+id/et_comment_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_toLeftOf="@+id/tv_comment_sent"
+                android:layout_toRightOf="@+id/tv_comment_add"
+                android:background="@drawable/et_c_bg"
+                android:paddingLeft="18dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingRight="18dp" />
+
+            <TextView
+                android:id="@+id/tv_comment_sent"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:gravity="center_vertical"
+                android:text="发送"
+                android:textColor="@color/main_top_col"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_comment_button"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/main_flash_sale_back"
+            android:gravity="center"
+            android:text="戳我评论"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</LinearLayout>

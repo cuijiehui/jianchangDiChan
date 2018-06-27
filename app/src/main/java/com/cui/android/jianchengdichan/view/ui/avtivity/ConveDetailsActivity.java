@@ -12,8 +12,7 @@ import com.cui.android.jianchengdichan.http.bean.CivilianDetailBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.ConveDetailsPresenter;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
-import com.cui.android.jianchengdichan.view.BaseActivtity;
-import com.cui.android.jianchengdichan.view.ui.adapter.ConveAdvLoader;
+import com.cui.android.jianchengdichan.view.base.BaseActivtity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ConveDetailsActivity extends BaseActivtity {
