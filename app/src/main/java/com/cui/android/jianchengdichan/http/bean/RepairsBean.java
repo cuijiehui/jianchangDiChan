@@ -2,21 +2,27 @@ package com.cui.android.jianchengdichan.http.bean;
 
 public class RepairsBean {
 
-
     /**
-     * id : 3
-     * name : 测试
+     * id : 16
+     * name : 略略略
      * phone : 13229971658
-     * describe : 测试一下
+     * describe : 战术
      * pics :
-     * create_time : 2018-06-02 10:27:40
-     * uid : 3
+     * create_time : 2018-06-07
+     * uid : 8
      * status : 1
      * type : 1
      * suggestion : null
      * date : null
      * reject : null
      * com_id : 10
+     * cate : 2
+     * room_number : 100
+     * title : 测试
+     * evaluation : 0
+     * ev_remark :
+     * repair_cost : 0.00
+     * repair_who : 22
      */
 
     private String id;
@@ -32,6 +38,13 @@ public class RepairsBean {
     private Object date;
     private Object reject;
     private String com_id;
+    private String cate;
+    private String room_number;
+    private String title;
+    private String evaluation;
+    private String ev_remark;
+    private String repair_cost;
+    private String repair_who;
 
     public String getId() {
         return id;
@@ -135,5 +148,61 @@ public class RepairsBean {
 
     public void setCom_id(String com_id) {
         this.com_id = com_id;
+    }
+
+    public String getCate() {
+        return cate;
+    }
+
+    public void setCate(String cate) {
+        this.cate = cate;
+    }
+
+    public String getRoom_number() {
+        return room_number;
+    }
+
+    public void setRoom_number(String room_number) {
+        this.room_number = room_number;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(String evaluation) {
+        this.evaluation = evaluation;
+    }
+
+    public String getEv_remark() {
+        return ev_remark;
+    }
+
+    public void setEv_remark(String ev_remark) {
+        this.ev_remark = ev_remark;
+    }
+
+    public String getRepair_cost() {
+        return repair_cost;
+    }
+
+    public void setRepair_cost(String repair_cost) {
+        this.repair_cost = repair_cost;
+    }
+
+    public String getRepair_who() {
+        return repair_who;
+    }
+
+    public void setRepair_who(String repair_who) {
+        this.repair_who = repair_who;
     }
 }

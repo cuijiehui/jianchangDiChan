@@ -23,11 +23,13 @@
                 android:layout_alignParentTop="true"
                 android:background="#ffffff"
                 android:orientation="vertical">
+
                 <RelativeLayout
                     android:id="@+id/rel_repairs_type"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
                     >
 
                     <TextView
@@ -41,77 +43,52 @@
                         android:id="@+id/rv_repairs_type"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_toRightOf="@+id/tv_repairs_type"
-                        />
+                        android:layout_toRightOf="@+id/tv_repairs_type" />
 
 
                 </RelativeLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#eeeeee" />
+
                 <RelativeLayout
                     android:id="@+id/rel_repairs_title"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
-                    android:layout_marginTop="10dp"
-                    >
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/tv_repairs_title"
                         style="@style/mine_setting_text_style"
                         android:layout_marginLeft="20dp"
-                        android:text="标题"
-                        android:textSize="15dp"
-                        />
-
-                    <EditText
-                        android:id="@+id/ed_title"
-                        android:layout_toRightOf="@+id/tv_repairs_title"
-                        android:hint="漏水/漏电(2-10个字)"
-                        android:maxLength="10"
-                        android:singleLine="true"
-                        style="@style/release_name_hint_style"
-                        />
-
-                </RelativeLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#eeeeee" />
-
-                <RelativeLayout
-                    android:id="@+id/rel_repairs_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_marginTop="10dp"
-                    >
-
-                    <TextView
-                        android:id="@+id/tv_repairs_name"
-                        style="@style/mine_setting_text_style"
-                        android:layout_marginLeft="20dp"
-                        android:text="名称"
+                        android:text="项目地点:"
                         android:textSize="15dp" />
 
                     <EditText
-                        android:id="@+id/ed_name"
-                        android:layout_toRightOf="@+id/tv_repairs_name"
-                        android:hint="请输入联系人姓名"
-                        android:singleLine="true"
+                        android:id="@+id/ed_title"
                         style="@style/release_name_hint_style"
-                        />
+                        android:layout_toRightOf="@+id/tv_repairs_title"
+                        android:hint="请输入故障地点"
+                        android:maxLength="10"
+                        android:singleLine="true" />
 
                 </RelativeLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#eeeeee" />
+
+
                 <RelativeLayout
                     android:id="@+id/rel_repairs_num"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="10dp"
+                    android:visibility="gone"
+
                     >
 
                     <TextView
@@ -123,70 +100,144 @@
 
                     <EditText
                         android:id="@+id/ed_repairs_num"
+                        style="@style/release_name_hint_style"
                         android:layout_toRightOf="@+id/tv_repairs_num"
                         android:hint="请输入房间号"
                         android:singleLine="true"
-                        style="@style/release_name_hint_style"
 
                         />
 
                 </RelativeLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#eeeeee" />
+                    android:background="#eeeeee"
+                    android:visibility="gone" />
 
 
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                >
+
+                <TextView
+                    android:id="@+id/tv_feedback"
+                    style="@style/mine_setting_text_style"
+                    android:layout_marginLeft="20dp"
+                    android:text="维修内容"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/et_feedback_txt"
+                    style="@style/release_name_hint_style"
+                    android:layout_toRightOf="@+id/tv_feedback"
+                    android:background="@drawable/et_feedback_background_shape"
+                    android:hint="请描述你的问题（200字以内）"
+                    android:maxLength="140"
+                    android:textSize="11sp" />
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eeeeee"
+                android:paddingRight="15dp"
+                android:paddingLeft="15dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                >
                 <RelativeLayout
-                    android:id="@+id/rel_repairs_phone"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
+                    android:background="#66efeff4"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     >
-                    <TextView
-                        android:id="@+id/tv_repairs_phone"
-                        style="@style/mine_setting_text_style"
-                        android:layout_marginLeft="20dp"
-                        android:text="联系电话"
-                        android:textSize="15dp" />
-
-                    <EditText
-                        android:id="@+id/ed_tel"
-                        android:layout_toRightOf="@+id/tv_repairs_phone"
-                        android:hint="请输入联系电话"
-                        android:singleLine="true"
-                        style="@style/release_name_hint_style"
-
-                        />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_add_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/et_c_bg" />
                 </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="添加故障图(1-3张)"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginBottom="5dp"/>
+
             </LinearLayout>
 
 
-            <EditText
-                android:id="@+id/et_feedback_txt"
+            <RelativeLayout
+                android:id="@+id/rel_repairs_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rl_feedback_title"
-                android:layout_margin="15dp"
-                android:background="@drawable/et_feedback_background_shape"
-                android:gravity="top"
-                android:hint="请描述你的问题"
-                android:maxLength="140"
-                android:padding="15dp"
-                android:textSize="11sp" />
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_add_img"
-                android:layout_width="wrap_content"
-                android:layout_marginRight="15dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:background="@drawable/et_c_bg"/>
+                >
+
+                <TextView
+                    android:id="@+id/tv_repairs_name"
+                    style="@style/mine_setting_text_style"
+                    android:layout_marginLeft="20dp"
+                    android:text="联系人"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/ed_name"
+                    style="@style/release_name_hint_style"
+                    android:layout_toRightOf="@+id/tv_repairs_name"
+                    android:hint="请输入联系人姓名"
+                    android:singleLine="true" />
+
+            </RelativeLayout>
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/main_seek_text_col"
-                android:text="故障图（1-3张）"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eeeeee" />
+
+            <RelativeLayout
+                android:id="@+id/rel_repairs_phone"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+
+                >
+
+                <TextView
+                    android:id="@+id/tv_repairs_phone"
+                    style="@style/mine_setting_text_style"
+                    android:layout_marginLeft="20dp"
+                    android:text="联系电话"
+                    android:textSize="15dp" />
+
+                <EditText
+                    android:id="@+id/ed_tel"
+                    style="@style/release_name_hint_style"
+                    android:layout_toRightOf="@+id/tv_repairs_phone"
+                    android:hint="请输入联系电话"
+                    android:singleLine="true"
+
+                    />
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/tv_submit"
                 android:layout_width="match_parent"

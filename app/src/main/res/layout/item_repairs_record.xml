@@ -1,39 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:background="#ffffff"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center_vertical">
+    android:layout_marginTop="8dp"
+    android:background="@color/white">
 
-    <TextView
-        android:id="@+id/tv_repairs_record_name"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:text="mengjinxitongguzhang" />
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        >
 
-    <TextView
-        android:id="@+id/tv_repairs_record_time"
-        android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/repairs_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/iv_repairs_record_dispose"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tv_repairs_record_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="mengjinxitongguzhang"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_repairs_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:text="维修费：23元"
+                android:textColor="@color/main_seek_text_col" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/repairs_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/repairs_top"
+            android:layout_toLeftOf="@+id/iv_repairs_record_dispose"
+            >
+
+            <TextView
+                android:id="@+id/tv_repairs_record_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:text="2018/05/06 00:30"
+                android:textColor="@color/main_seek_text_col"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_repairs_maintain_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:text="维修人：张之洞"
+                android:textColor="@color/main_seek_text_col" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_repairs_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/repairs_time"
+            android:layout_marginLeft="16dp"
+            android:text="上述工程已全部完成，并未造成工程外其它部分设施设备之损坏"
+            android:textColor="@color/main_seek_text_col"
+            android:layout_toLeftOf="@+id/iv_repairs_record_dispose"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/iv_repairs_record_dispose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/accomplish_icon"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_evaluation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
-        android:text="2018/05/06 00:30"
-        android:layout_below="@+id/tv_repairs_record_name"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/main_seek_text_col"
-        android:textSize="8sp" />
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_repairs_record_dispose"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/accomplish_icon"
-        android:gravity="center"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/main_seek_text_col" />
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="客户意见"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/repairs_sele_selector"
+                android:layout_marginLeft="15dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_flash_sale_text"
+                android:layout_marginLeft="2dp"
+                android:text="满意"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/repairs_sele_selector"
+                android:layout_marginLeft="8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_flash_sale_text"
+                android:layout_marginLeft="2dp"
+                android:text="不满意"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/repairs_sele_selector"
+                android:layout_marginLeft="8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/main_flash_sale_text"
+                android:layout_marginLeft="2dp"
+                android:text="其他"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

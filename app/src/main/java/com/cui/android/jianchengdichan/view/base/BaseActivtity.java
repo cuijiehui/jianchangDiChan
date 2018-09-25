@@ -126,7 +126,7 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
     /**
      * [沉浸状态栏]
      */
-    private void steepStatusBar() {
+    public void steepStatusBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 透明状态栏
             getWindow().addFlags(

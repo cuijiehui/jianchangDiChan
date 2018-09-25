@@ -62,7 +62,7 @@ public class SplashActivity extends BaseActivtity {
 
     @Override
     public void initView(View view) {
-
+        steepStatusBar();
     }
 
     @Override

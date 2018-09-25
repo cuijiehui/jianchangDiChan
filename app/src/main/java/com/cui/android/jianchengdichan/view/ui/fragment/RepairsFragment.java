@@ -262,7 +262,7 @@ public class RepairsFragment extends Fragment {
         String tel = edTel.getText().toString().trim();
         String content = etFeedbackTxt.getText().toString().trim();
         String title = edTitle.getText().toString().trim();
-        String num =edRepairsNum.getText().toString().trim();
+//        String num =edRepairsNum.getText().toString().trim();
         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
 
         if (TextUtils.isEmpty(name)) {
@@ -279,16 +279,17 @@ public class RepairsFragment extends Fragment {
                 return;
             }
         }
-        if (TextUtils.isEmpty(num)) {
-            ToastUtil.makeToast("请输入房间号");
-            return;
-        }
+
+//        if (TextUtils.isEmpty(num)) {
+//            ToastUtil.makeToast("请输入房间号");
+//            return;
+//        }
         if (TextUtils.isEmpty(content)) {
             ToastUtil.makeToast("请输入报修内容");
             return;
         }
         if (TextUtils.isEmpty(title)) {
-            ToastUtil.makeToast("请输入标题");
+            ToastUtil.makeToast("请输入故障地点");
             return;
         }
         StringBuffer pics = new StringBuffer();
@@ -307,7 +308,6 @@ public class RepairsFragment extends Fragment {
                 , pics.toString()
                 , "1"
                 , repairsAdapter.selePosition
-                , num
                 , title);
     }
 

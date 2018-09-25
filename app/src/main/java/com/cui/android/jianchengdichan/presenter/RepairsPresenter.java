@@ -34,7 +34,6 @@ public class RepairsPresenter extends BasePresenter<RepairsActivity> {
             , String pics
             , String type
             , String cate
-            , String room_number
             , String title
     ) {
         LogUtils.i("submitRepairInfo()");
@@ -51,7 +50,6 @@ public class RepairsPresenter extends BasePresenter<RepairsActivity> {
         jsonObject.addProperty("pics", pics);
         jsonObject.addProperty("type", type);
         jsonObject.addProperty("cate", cate);
-        jsonObject.addProperty("room_number", room_number);
         jsonObject.addProperty("title", title);
         String json = jsonObject.toString();
         DataModel.request(Token.API_REPAIR_INFO)
