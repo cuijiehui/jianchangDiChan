@@ -172,7 +172,7 @@ public class MainHomeFragment extends BaseFragment  {
         communityBeanList.add(new CommunityBean(R.drawable.main_car_go_out, "车辆出行"));
         communityBeanList.add(new CommunityBean(R.drawable.main_apply_server, "装修申请"));
         communityBeanList.add(new CommunityBean(R.drawable.main_breakdown, "报事报修"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_more_button, "更多"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_shop_icon, "社区商场"));
     }
 
     @Override
