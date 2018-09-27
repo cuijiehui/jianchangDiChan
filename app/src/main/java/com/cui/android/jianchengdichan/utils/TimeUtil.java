@@ -188,11 +188,7 @@ public class TimeUtil {
      * @return
      */
     public static String convertTimeToFormat(long timeStamp) {
-        LogUtils.i("timeStamp="+timeStamp);
-        LogUtils.i("System.currentTimeMillis()="+System.currentTimeMillis());
         long time = (System.currentTimeMillis() - timeStamp) / 1000;
-        LogUtils.i("time="+time);
-        //LogHelper.d("convertTimeToFormat--->",String.valueOf(time)+"  传进来的时间为："+String.valueOf(timeStamp));
         if (time < 60 && time >= 0) {
             return "刚刚";
         } else if (time >= 60 && time < 3600) {

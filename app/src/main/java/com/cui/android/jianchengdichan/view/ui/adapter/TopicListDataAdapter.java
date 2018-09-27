@@ -63,7 +63,6 @@ public class TopicListDataAdapter extends BaseQuickAdapter<TopicListBean, BaseVi
             tv_topic_like.setText("+" + item.getPraise_num());
             TextView tv_comm_act_topic = helper.getView(R.id.tv_comm_act_topic);
             tv_comm_act_topic.setText("+" + item.getComment_num());
-            LogUtils.i(item.getIs_praise() + "==item.getIs_praise");
             if (item.getIs_praise() == 0) {
                 Drawable drawable = mContext.getResources().getDrawable(R.drawable.to_like_icon);
                 drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());

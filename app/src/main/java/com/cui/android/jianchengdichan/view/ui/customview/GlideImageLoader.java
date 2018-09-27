@@ -19,7 +19,6 @@ public class GlideImageLoader extends ImageLoader {
     public void displayImage(final Context context, Object path, ImageView imageView) {
         //Glide 加载图片简单用法
        final HomeDataBean.AdBean adBean =(HomeDataBean.AdBean)path;
-        LogUtils.i("轮播图测试:"+adBean.getPic());
         Okhttp3Utils.getInstance().glide(context,adBean.getPic(),imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

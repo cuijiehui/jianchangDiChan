@@ -339,7 +339,6 @@ public class MainHomeFragment extends BaseFragment  {
      * @param data 首页数据
      */
     private void updataData(HomeDataBean data) {
-                LogUtils.i("轮播图测试:");
         mDataList.clear();
         rentDataList.clear();
         newGoodsBeanList.clear();

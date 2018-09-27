@@ -75,24 +75,20 @@ public class MainNavigationView extends LinearLayout {
         }
         switch (view.getId()) {
             case R.id.ll_main_home:
-                LogUtils.i("ll_main_home");
                 setSelected(ivMainHomeIcon);
                 mCallBack.onBackSelected(0);
                 break;
             case R.id.ll_main_community:
-                LogUtils.i("ll_main_community");
                 setSelected(ivMainCommunityIcon);
                 mCallBack.onBackSelected(1);
 
                 break;
             case R.id.ll_main_shop:
-                LogUtils.i("ll_main_shop");
 //                setSelected(ivMainShopIcon);
                 mCallBack.onBackSelected(2);
 
                 break;
             case R.id.ll_main_my:
-                LogUtils.i("ll_main_my");
                 setSelected(ivMainMyIcon);
                 mCallBack.onBackSelected(3);
 
@@ -101,7 +97,6 @@ public class MainNavigationView extends LinearLayout {
     }
 
     private void setSelected(ImageView view) {
-        LogUtils.i("setSelected");
         if (mImageView != null) {
             if (view.getId() != mImageView.getId()) {
                 ivMainHomeIcon.setSelected(false);
@@ -111,7 +106,6 @@ public class MainNavigationView extends LinearLayout {
                 view.setSelected(true);
             }
         } else {
-            LogUtils.i("mImageView==null");
             view.setSelected(true);
 
         }

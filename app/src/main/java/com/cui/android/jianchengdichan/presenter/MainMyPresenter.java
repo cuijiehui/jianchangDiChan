@@ -25,7 +25,6 @@ public class MainMyPresenter  extends BasePresenter<MainMyFragment>{
         jsonObject.addProperty("uid", uid);
         jsonObject.addProperty("token", token);
         String json = jsonObject.toString();
-        LogUtils.i("json=()" + json);
         DataModel.request(Token.API_GET_USER_INFO_MODEL)
                 .params(json)
                 .execute(new CallBack<BaseBean<LoginBean>>() {

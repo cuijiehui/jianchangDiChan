@@ -130,7 +130,9 @@ public class MainMyFragment extends BaseFragment {
         }
         int uid =(int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
         String token = (String)SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
-        mainMyPresenter.getUserInfo(uid,token);
+        if(uid>0){
+            mainMyPresenter.getUserInfo(uid,token);
+        }
     }
 
     @OnClick({R.id.iv_my_top_back, R.id.tv_content_name, R.id.iv_top_right_set, R.id.civ_my_head_portrait, R.id.tv_my_user_name, R.id.iv_my_member, R.id.tv_my_collect, R.id.tv_my_sign, R.id.tv_my_order, R.id.tv_my_delivery, R.id.tv_my_pickup, R.id.tv_my_datails
