@@ -46,6 +46,7 @@ import com.cui.android.jianchengdichan.view.ui.avtivity.LeaseCentreActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.LoginActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.NoticeAcitivty;
 import com.cui.android.jianchengdichan.view.ui.avtivity.PayFeesActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.PhotoBrowseActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.PlazaActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.RepairsActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.FullyLinearLayoutManager;
@@ -60,6 +61,7 @@ import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -304,7 +306,13 @@ public class MainCommFragment extends BaseFragment {
         FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(mContext);
         rvCommTopicData.setLayoutManager(linearLayoutManager);
         topicListDataAdapter = new TopicListDataAdapter(R.layout.item_comm_topic_layout, topDataList,mActivity);
-
+        topicListDataAdapter.setImageClickListener(new TopicListDataAdapter.ImageClickListener() {
+            @Override
+            public void onClick(List<String> urls, int firstIndex, View view) {
+                mActivity.startActivity(PhotoBrowseActivity.startWithElement(getActivity(),urls,firstIndex,view));
+                mActivity.overridePendingTransition(0,0);
+            }
+        });
         rvCommTopicData.setAdapter(topicListDataAdapter);
         rvCommTopicData.setHasFixedSize(true);
         rvCommTopicData.setNestedScrollingEnabled(false);

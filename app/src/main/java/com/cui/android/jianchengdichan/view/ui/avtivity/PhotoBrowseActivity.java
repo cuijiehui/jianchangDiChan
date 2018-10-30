@@ -3,61 +3,87 @@ package com.cui.android.jianchengdichan.view.ui.avtivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.app.SharedElementCallback;
+import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.model.interfaces.CallBack;
+import com.cui.android.jianchengdichan.utils.GlideApp;
+import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
-import com.cui.android.jianchengdichan.view.ui.customview.viewpager.BaseAnimCloseViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import io.reactivex.annotations.NonNull;
 
 /**
  * @author CUI
  * @data 2018/6/27.
  * @details
  */
-public class PhotoBrowseActivity extends AppCompatActivity {
+public class PhotoBrowseActivity extends Activity {
+
+    @BindView(R.id.viewpager)
+    ViewPager imageViewPager;
+    @BindView(R.id.iv_animate)
+    ImageView ivAnimate;
+    @BindView(R.id.rl_root)
+    RelativeLayout rlRoot;
 
     private int firstDisplayImageIndex = 0;
     private boolean newPageSelected = false;
     private ImageView mCurImage;
-    private BaseAnimCloseViewPager imageViewPager;
     private List<String> pictureList;
 
     PagerAdapter adapter;
 
     boolean canDrag = false;
+    private Bundle mEndValues;
+    private Bundle mStartValues;
 
-    public static void startWithElement(Activity context, List<String> urls,
-                                        int firstIndex, View view) {
+    public static Intent startWithElement(Activity context, List<String> urls,
+                                          int firstIndex, View view) {
         Intent intent = new Intent(context, PhotoBrowseActivity.class);
         ArrayList<String> urlData = new ArrayList<>();
         urlData.addAll(urls);
         intent.putStringArrayListExtra("urls", urlData);
         intent.putExtra("index", firstIndex);
-        ActivityOptionsCompat compat = null;
-        if (view == null) {
-            compat = ActivityOptionsCompat.makeSceneTransitionAnimation(context);
-        } else {
-            compat = ActivityOptionsCompat.makeSceneTransitionAnimation(context, view,
-                    "tansition_view");
-        }
-        ActivityCompat.startActivity(context, intent, compat.toBundle());
+        intent.putExtra("view", captureValues(view));
+        return intent;
+    }
+
+    private static Bundle captureValues(@NonNull View view) {
+        Bundle b = new Bundle();
+        int[] screenLocation = new int[2];
+        view.getLocationOnScreen(screenLocation);
+        LogUtils.i("坐标："+screenLocation[0]);
+        LogUtils.i("坐标："+screenLocation[1]);
+        b.putInt("PROPNAME_SCREENLOCATION_LEFT", screenLocation[0]);
+        b.putInt("PROPNAME_SCREENLOCATION_TOP", screenLocation[1]);
+        b.putInt("PROPNAME_WIDTH", view.getWidth());
+        b.putInt("PROPNAME_HEIGHT", view.getHeight());
+        return b;
     }
 
     @Override
@@ -66,29 +92,90 @@ public class PhotoBrowseActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_photo_browse);
+        ButterKnife.bind(this);
         initView();
+        imageViewPager.setVisibility(View.INVISIBLE);
+        glide(pictureList.get(firstDisplayImageIndex));
+    }
+    public void glide(String url){
+        GlideApp.with(this)
+                .load(url)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        onUiReady();
+                        return false;
+                    }
+                })
+                .placeholder(R.drawable.image_cache)
+                .into(ivAnimate);
+    }
+    public void onUiReady(){
+        ivAnimate.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                ivAnimate.getViewTreeObserver().removeOnPreDrawListener(this);
+                mEndValues = captureValues(ivAnimate);
+                ivAnimate.setTranslationX(1);
+                ivAnimate.setTranslationY(1);
+                ivAnimate.animate()
+                        .setDuration(5*1000)
+                        .translationX(0)
+                        .translationY(0)
+                        .start();
+                return true;
+            }
+        });
+    }
+
+    public void prepareScene(){
+        mEndValues = captureValues(ivAnimate);
+        scaleDelta(mStartValues,mEndValues);
+        ivAnimate.setScaleX(5);
+        ivAnimate.setScaleY(5);
+        ivAnimate.setTranslationX(5);
+        ivAnimate.setTranslationY(5);
+
+    }
+
+    private int scaleDelta(Bundle mStartValues, Bundle mEndValues) {
+        mStartValues.getInt("PROPNAME_SCREENLOCATION_LEFT");
+        mStartValues.getInt("PROPNAME_SCREENLOCATION_TOP");
+        mStartValues.getInt("PROPNAME_WIDTH");
+        mStartValues.getInt("PROPNAME_HEIGHT");
+
+        mEndValues.getInt("PROPNAME_SCREENLOCATION_LEFT");
+        mEndValues.getInt("PROPNAME_SCREENLOCATION_TOP");
+        mEndValues.getInt("PROPNAME_WIDTH");
+        mEndValues.getInt("PROPNAME_HEIGHT");
+        return 0;
     }
 
     public void initView() {
         pictureList = getIntent().getStringArrayListExtra("urls");
         firstDisplayImageIndex = Math.min(getIntent().getIntExtra("index", firstDisplayImageIndex), pictureList.size());
+        mStartValues=getIntent().getBundleExtra("view");
 
-        imageViewPager = (BaseAnimCloseViewPager) findViewById(R.id.viewpager);
         setViewPagerAdapter();
 
-        setEnterSharedElementCallback(new SharedElementCallback() {
-
-            @Override
-            public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
-                ViewGroup layout = (ViewGroup) imageViewPager.findViewWithTag(imageViewPager.getCurrentItem());
-                if (layout == null) {
-                    return;
-                }
-                View sharedView = layout.findViewById(R.id.image_view);
-                sharedElements.clear();
-                sharedElements.put("tansition_view", sharedView);
-            }
-        });
+//        setEnterSharedElementCallback(new SharedElementCallback() {
+//
+//            @Override
+//            public void onMapSharedElements(List<String> names, Map<String, View> sharedElements) {
+//                ViewGroup layout = (ViewGroup) imageViewPager.findViewWithTag(imageViewPager.getCurrentItem());
+//                if (layout == null) {
+//                    return;
+//                }
+//                View sharedView = layout.findViewById(R.id.image_view);
+//                sharedElements.clear();
+//                sharedElements.put("tansition_view", sharedView);
+//            }
+//        });
     }
 
     private void setViewPagerAdapter() {
@@ -137,7 +224,7 @@ public class PhotoBrowseActivity extends AppCompatActivity {
         };
 
         imageViewPager.setAdapter(adapter);
-        imageViewPager.setOffscreenPageLimit(1);
+        imageViewPager.setOffscreenPageLimit(9);
         imageViewPager.setCurrentItem(firstDisplayImageIndex);
         imageViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -158,26 +245,26 @@ public class PhotoBrowseActivity extends AppCompatActivity {
 
             }
         });
-        imageViewPager.setiAnimClose(new BaseAnimCloseViewPager.IAnimClose() {
-            @Override
-            public boolean canDrag() {
-                return canDrag;
-            }
-
-            @Override
-            public void onPictureClick() {
-                finishAfterTransition();
-            }
-
-            @Override
-            public void onPictureRelease(View view) {
-                finishAfterTransition();
-            }
-        });
+//        imageViewPager.setiAnimClose(new BaseAnimCloseViewPager.IAnimClose() {
+//            @Override
+//            public boolean canDrag() {
+//                return canDrag;
+//            }
+//
+//            @Override
+//            public void onPictureClick() {
+//                finishAfterTransition();
+//            }
+//
+//            @Override
+//            public void onPictureRelease(View view) {
+//                finishAfterTransition();
+//            }
+//        });
     }
 
 
-    View.OnClickListener onClickListener = new View.OnClickListener() {
+    OnClickListener onClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             finishAfterTransition();
@@ -204,7 +291,7 @@ public class PhotoBrowseActivity extends AppCompatActivity {
             return;
         }
         canDrag = false;
-        Okhttp3Utils.getInstance().glide(this,path,mCurImage);
+        Okhttp3Utils.getInstance().glide(this, path, mCurImage);
     }
 
     // 初始化每个view的image
@@ -221,7 +308,7 @@ public class PhotoBrowseActivity extends AppCompatActivity {
             return;
         }
         mCurImage = (ImageView) currentLayout.findViewById(R.id.image_view);
-        imageViewPager.setCurrentShowView(mCurImage);
+//        imageViewPager.setCurrentShowView(mCurImage);
     }
 
 

@@ -59,8 +59,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.avtivity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ui.avtivity.LeaseCentreActivity"
             android:label="@string/title_activity_lease_centre"
@@ -95,36 +95,18 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind" />
-        <activity
-            android:name=".view.ui.avtivity.PayFeesActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.avtivity.PayMentRecordActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.avtivity.CityPickerActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.avtivity.PayingActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.avtivity.FeedbackHistoryActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.avtivity.RentDatailActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.avtivity.ReleaseRentActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.avtivity.InCommunityActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".view.ui.avtivity.CommAddListAtivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".view.ui.avtivity.PayFeesActivity" />
+        <activity android:name=".view.ui.avtivity.PayMentRecordActivity" />
+        <activity android:name=".view.ui.avtivity.CityPickerActivity" />
+        <activity android:name=".view.ui.avtivity.PayingActivity" />
+        <activity android:name=".view.ui.avtivity.FeedbackHistoryActivity" />
+        <activity android:name=".view.ui.avtivity.RentDatailActivity" />
+        <activity android:name=".view.ui.avtivity.ReleaseRentActivity" />
+        <activity android:name=".view.ui.avtivity.InCommunityActivity" />
+        <activity android:name=".view.ui.avtivity.CommAddListAtivity" />
         <activity
             android:name=".view.ui.avtivity.WebViewActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoWebActionBar" />
         <activity android:name=".view.ui.avtivity.PersonalDataActivity" />
         <activity android:name=".view.ui.avtivity.SetUserMsgActivity" />
         <activity android:name=".view.ui.avtivity.RepairsActivity" />
@@ -145,8 +127,12 @@
             android:name=".view.ui.avtivity.CommentActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".view.ui.avtivity.TopicListActivity" />
-        <activity android:name=".view.ui.avtivity.ContactUsActivity"/>
-        <activity android:name=".view.ui.avtivity.PhotoBrowseActivity" android:theme="@style/FullScreenStyle"/>
+        <activity android:name=".view.ui.avtivity.ContactUsActivity" />
+        <activity
+            android:name=".view.ui.avtivity.PhotoBrowseActivity"
+            android:theme="@style/FullScreenStyle" />
+        <activity android:name=".view.ui.avtivity.CarGoingActivity" />
+        <activity android:name=".view.ui.avtivity.CheckedCarActivity"></activity>
     </application>
 
 </manifest>

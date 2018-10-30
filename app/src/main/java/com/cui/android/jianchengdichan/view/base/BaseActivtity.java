@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
+import com.cui.android.jianchengdichan.utils.DensityUtils;
 import com.cui.android.jianchengdichan.view.interfaces.IBaseView;
 
 import butterknife.ButterKnife;
@@ -112,8 +113,7 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
                 mPresenter.setTransformer(setThread());
             }
             doBusiness(this);
-
-
+            DensityUtils.setCusTomDensity(this,getApplication());
             View backView =initBack();
             if(backView!=null){
                 gotoBack(backView);

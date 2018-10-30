@@ -1,21 +1,22 @@
 package com.cui.android.jianchengdichan.http;
 
+import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.ActivityDetailBean;
 import com.cui.android.jianchengdichan.http.bean.AliPayBean;
-import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.AnotherBatchBean;
+import com.cui.android.jianchengdichan.http.bean.CarGoingBean;
 import com.cui.android.jianchengdichan.http.bean.CatesBean;
 import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
 import com.cui.android.jianchengdichan.http.bean.CityListBean;
 import com.cui.android.jianchengdichan.http.bean.CivilianAdvBean;
 import com.cui.android.jianchengdichan.http.bean.CivilianDetailBean;
 import com.cui.android.jianchengdichan.http.bean.CivilianListBean;
+import com.cui.android.jianchengdichan.http.bean.CivilianserviceBean;
 import com.cui.android.jianchengdichan.http.bean.CommentActBean;
 import com.cui.android.jianchengdichan.http.bean.CommentListBean;
-import com.cui.android.jianchengdichan.http.bean.HomeCivilianListBean;
-import com.cui.android.jianchengdichan.http.bean.CivilianserviceBean;
 import com.cui.android.jianchengdichan.http.bean.CommunityBean;
 import com.cui.android.jianchengdichan.http.bean.HistoryDataBean;
+import com.cui.android.jianchengdichan.http.bean.HomeCivilianListBean;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.http.bean.LeaseRoomBean;
 import com.cui.android.jianchengdichan.http.bean.LeaveMsgListBean;
@@ -227,4 +228,6 @@ public interface APIFunction {
     @POST(URLConfig.POSTH_RELEASE_COMMENT_TOPIC_URL)
     Observable<BaseBean<Object>> releaseCommentTopic(@Body RequestBody route);
 
+    @POST(URLConfig.POST_PARKING_INFO)
+    Observable<BaseBean<List<CarGoingBean>>> postParkingInfo(@Body RequestBody route);
 }

@@ -34,5 +34,7 @@
     <color name="color_gray">#E1E6E5</color>
     <color name="comm_item_col">#99F5FCFF</color>
     <color name="contact_us_bg_col">#990095D9</color>
+    <color name="_011DA9">#011DA9</color>
+    <color name="_333333">#333333</color>
 
 </resources>

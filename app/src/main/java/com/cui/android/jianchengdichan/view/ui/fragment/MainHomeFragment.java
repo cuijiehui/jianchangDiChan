@@ -1,8 +1,10 @@
 package com.cui.android.jianchengdichan.view.ui.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +37,7 @@ import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.base.BaseFragment;
+import com.cui.android.jianchengdichan.view.ui.avtivity.CarGoingActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.ConveServiceActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.InCommunityActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.LeaseCentreActivity;
@@ -258,6 +261,7 @@ public class MainHomeFragment extends BaseFragment  {
                     case 3:
                         break;
                     case 4:
+                        startActivity(CarGoingActivity.getStartIntent(mContext));
                         break;
                     case 5:
                         startActivity(MyFitmentListActivity.class);
@@ -269,8 +273,19 @@ public class MainHomeFragment extends BaseFragment  {
 
                         break;
                     case 7:
-                        MainActivity mainActivity =(MainActivity)getActivity();
-                        mainActivity.vpMainPager.setCurrentItem(1);
+                        Intent intent = new Intent(getContext(), WebViewActivity.class);
+                        Bundle bundle ;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
+                            bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                            intent.putExtras(bundle);
+                            getContext().startActivity(intent);
+                        }else{
+                            bundle=new Bundle();
+                            bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                            intent.putExtras(bundle);
+                            getContext().startActivity(intent);
+                        }
                         break;
                 }
             }

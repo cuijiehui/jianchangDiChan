@@ -40,7 +40,7 @@ public class TopicListDataAdapter extends BaseQuickAdapter<TopicListBean, BaseVi
         mActivity=activity;
 
     }
-
+    ImageClickListener imageClickListener;
     List<Object> payloads = new LinkedList<>();
 
     @Override
@@ -102,16 +102,24 @@ public class TopicListDataAdapter extends BaseQuickAdapter<TopicListBean, BaseVi
         this.payloads = payloads;
         super.onBindViewHolder(holder, position, payloads);
     }
-
+    public void setImageClickListener(ImageClickListener listener){
+        imageClickListener=listener;
+    }
+    public interface ImageClickListener{
+        void onClick(List<String> urls,
+                     int firstIndex, View view);
+    }
     /**
      * 动态添加控件
      *
      * @param imageModels 图片集合
      */
     public void updateViewGroup(final List<String> imageModels, GridLayout gridLayout) {
+        if (gridLayout==null) return;
         gridLayout.removeAllViews();//清空子视图 防止原有的子视图影响
         int columnCount = gridLayout.getColumnCount();//得到列数
         int marginSize = ScreenUtils.dip2px(mContext, 4);//得到经过dp转化的margin值
+        LogUtils.i("imageModels.size()="+imageModels.size());
         //遍历集合 动态添加
         for (int i = 0, size = imageModels.size(); i < size; i++) {
             GridLayout.Spec rowSpec = GridLayout.spec(i / columnCount);//行数
@@ -125,26 +133,38 @@ public class TopicListDataAdapter extends BaseQuickAdapter<TopicListBean, BaseVi
             GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams(new ViewGroup.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT));
             layoutParams.rowSpec = rowSpec;
             layoutParams.columnSpec = columnSpec;
-            if (imageModels.size() == 1) {
+            LogUtils.i("size="+size);
+
+            if (size == 1) {
                 ViewGroup.LayoutParams layoutParams1 = gridLayout.getLayoutParams();
                 layoutParams1.width = ScreenUtils.dip2px(mContext, 200);
                 layoutParams1.height = ScreenUtils.dip2px(mContext, 200);
                 gridLayout.setLayoutParams(layoutParams1);
                 Okhttp3Utils.getInstance().glide(mContext, imageModels.get(i), imageView, ScreenUtils.dip2px(mContext, 200), ScreenUtils.dip2px(mContext, 200));
-            } else {
+            } else if (size == 2){
                 ViewGroup.LayoutParams layoutParams1 = gridLayout.getLayoutParams();
                 layoutParams1.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 layoutParams1.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 gridLayout.setLayoutParams(layoutParams1);
-                Okhttp3Utils.getInstance().glide(mContext, imageModels.get(i), imageView);
-
+                Okhttp3Utils.getInstance().glide(mContext, imageModels.get(i), imageView,(gridLayout.getMeasuredWidth()/2-marginSize), (gridLayout.getMeasuredWidth()/2-marginSize));
+            }else{
+                ViewGroup.LayoutParams layoutParams1 = gridLayout.getLayoutParams();
+                layoutParams1.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                layoutParams1.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                gridLayout.setLayoutParams(layoutParams1);
+                LogUtils.i("gridLayout.W="+(gridLayout.getMeasuredWidth()/3-marginSize*2));
+                Okhttp3Utils.getInstance().glide(mContext, imageModels.get(i), imageView, (gridLayout.getMeasuredWidth()/3-marginSize*2), (gridLayout.getMeasuredWidth()/3-marginSize*2));
             }
+
+
             layoutParams.setMargins(marginSize, marginSize, marginSize, marginSize);
             final  int position =i;
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    PhotoBrowseActivity.startWithElement(mActivity,imageModels,position,imageView);
+                    if(imageClickListener!=null){
+                        imageClickListener.onClick(imageModels,position,imageView);
+                    }
                 }
             });
             gridLayout.addView(imageView, layoutParams);

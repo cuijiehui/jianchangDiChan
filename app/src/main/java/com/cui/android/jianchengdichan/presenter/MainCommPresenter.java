@@ -52,7 +52,6 @@ getView().onError();
                 });
     }
     public void getNoticeList(int uid,String token,String terminal){
-        LogUtils.i("getAdList()");
         if (!isViewAttached()) {
             //如果没有View引用就不加载数据
             return;

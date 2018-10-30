@@ -135,26 +135,5 @@ public class MainNavigationView extends LinearLayout {
     public interface SelectedCallBack {
         void onBackSelected(int conut);
     }
-//    @OnClick({R.id.ll_main_home, R.id.ll_main_community, R.id.ll_main_shop, R.id.ll_main_my})
-//    public void onViewClicked(View view) {
-//        switch (view.getId()) {
-//            case R.id.ll_main_home:
-//                LogUtils.i("ll_main_home");
-//                ivMainHomeIcon.setSelected(true);
-//                break;
-//            case R.id.ll_main_community:
-//                LogUtils.i("ll_main_community");
-//                ivMainCommunityIcon.setSelected(true);
-//                break;
-//            case R.id.ll_main_shop:
-//                LogUtils.i("ll_main_shop");
-//                ivMainShopIcon.setSelected(true);
-//                break;
-//            case R.id.ll_main_my:
-//                LogUtils.i("ll_main_my");
-//                ivMainMyIcon.setSelected(true);
-//
-//                break;
-//        }
-//    }
+
 }

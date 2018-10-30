@@ -13,7 +13,7 @@ public interface URLConfig {
     String POST_GET_TOKEN_URL=HOME_URL+"/api/System/getServerInfo";                                          //获取token
     String POST_FORGET_PWD_URL=HOME_URL+"/api/Pwd/setPwd";                                                   //忘记密码
     String POST_REGISTER_CODE_URL=HOME_URL+"app/index.php?i=1&c=entry&m=ewei_shopv" +
-            "2&do=mobile&r=account.apiVerifycode2";                                                 //获取验证码
+            "2&do=mobile&r=account.apiVerifycode2";                                                             //获取验证码
     String POST_HOME_DATA_URL = HOME_URL+"/api/Home/homeData";                                               //获取主页信息
     String POST_CATES_URL = HOME_URL+"/api/Charge/getCates";                                                 //缴费类列表
    String POST_CHARGE_CATES_URL=HOME_URL+"/api/Charge/getChargeCate";                                        //待缴费列表
@@ -49,7 +49,7 @@ public interface URLConfig {
     String POSTH_GET_REPAIR_CATE_URL =HOME_URL+"/api/Repaircate/getRepairCate";                              // 获取保修类别接口
     String POSTH_GET_USER_INFO_URL =HOME_URL+"/api/Appuser/getUserInfo";                                     //获取用户个人信息
     String POSTH_LEAVE_MSG_LIST_URL =HOME_URL+"/api/Rentinfo/leaveMsgList";                                  //获取租赁信息留言列表接口
-    String POSTH_LEAVE_MSG_URL =HOME_URL+"/api/Rent/leaveMsg";                                  //获取租赁信息留言列表接口
+    String POSTH_LEAVE_MSG_URL =HOME_URL+"/api/Rent/leaveMsg";                                                //获取租赁信息留言列表接口
     String POSTH_CIVILIAN_SERVICE_URL =HOME_URL+"/api/Civilianservice/indexInfo";                            //便民服务首页界面接口
     String POSTH_CIVILIAN_DETAIL_URL =HOME_URL+"/api/Civilianservice/getDetail";                             //查看便民服务详情接口
     String POSTH_TELEPHONE_LIST_URL =HOME_URL+"/api/Telephone/getList";                                      //获取电话本列表数据接口
@@ -67,6 +67,7 @@ public interface URLConfig {
     String POSTH_CANCEL_PRAISE_URL =HOME_URL+"/api/Release/cancelPraise";                                    //取消点赞接口
     String POSTH_COMMENT_LIST_URL =HOME_URL+"/api/Topic/commentList";                                        //获取话题评论列表接口
     String POSTH_RELEASE_COMMENT_TOPIC_URL =HOME_URL+"/api/Release/commentTopic";                            //评论话题接口
+    String POST_PARKING_INFO =HOME_URL+"/api/parking/parkingInfo";                                            //获取车场信息
 
 
 

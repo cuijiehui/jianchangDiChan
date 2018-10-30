@@ -30,9 +30,17 @@
         <item name="colorPrimary">@color/main_top_col</item>
         <item name="colorPrimaryDark">@color/main_top_col</item>
         <item name="colorAccent">@color/main_top_col</item>
-        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+        <!--<item name="android:windowAnimationStyle">@style/activityAnimation</item>-->
     </style>
 
+    <style name="AppTheme.NoWebActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/main_top_col</item>
+        <item name="colorPrimaryDark">@color/main_top_col</item>
+        <item name="colorAccent">@color/main_top_col</item>
+        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
