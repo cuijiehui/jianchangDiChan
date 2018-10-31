@@ -38,4 +38,5 @@ public abstract class BaseModel<T> {
     public void setTransformer(ObservableTransformer transformer) {
         this.transformer = transformer;
     }
+
 }

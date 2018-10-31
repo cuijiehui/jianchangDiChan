@@ -41,6 +41,15 @@ public class CarGoingBean  {
     private String surplusCount;
     private String keepCount;
     private String useCount;
+    private String distance;
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
 
     public String getId() {
         return id;

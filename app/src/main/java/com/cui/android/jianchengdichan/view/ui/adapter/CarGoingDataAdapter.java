@@ -24,8 +24,13 @@ public class CarGoingDataAdapter extends BaseQuickAdapter<CarGoingBean,BaseViewH
 //                ImageView iv_car_pic = helper.getView(R.id.iv_car_pic);
 //                Okhttp3Utils.getInstance().glide(mContext,item.getIconPath(),iv_car_pic);
 //            }
-//            helper.setText(R.id.tv_car_title,item.getTitle());
-//            helper.setText(R.id.tv_car_distance,item.getTitle());//距离
+
+            helper.setText(R.id.tv_car_title,item.getParkName());
+            helper.setText(R.id.tv_car_distance,item.getDistance());
+            helper.setText(R.id.tv_car_all,"总车位："+item.getCount());
+            helper.setText(R.id.tv_car_residue,"剩余车位："+item.getSurplusCount());
+            helper.setText(R.id.tv_car_address,item.getAddress());
+
 //            helper.setText(R.id.tv_car_all,item.getTitle());
     }
 }

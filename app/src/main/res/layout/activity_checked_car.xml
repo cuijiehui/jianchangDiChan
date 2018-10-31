@@ -12,60 +12,86 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="184dp"
-        android:background="@color/white">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_car_icon"
-            android:layout_width="114dp"
-            android:layout_height="82dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/checked_car_icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/iv_car_icon"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="12dp"
-            android:text="尊敬的用户，请输入您的车牌进行识别~"
-            android:textColor="@color/main_seek_text_col"
-            android:textSize="@dimen/sp_16" />
-    </RelativeLayout>
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginTop="6dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="184dp"
+                android:background="@color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="17dp"
-            android:gravity="center_vertical"
-            android:text="车牌：" />
+                <ImageView
+                    android:id="@+id/iv_car_icon"
+                    android:layout_width="114dp"
+                    android:layout_height="82dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/checked_car_icon" />
 
-        <com.cui.android.jianchengdichan.view.ui.customview.PayPwdEditText
-            android:id="@+id/ppet_car_number"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_car_icon"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="12dp"
+                    android:text="尊敬的用户，请输入您的车牌进行识别~"
+                    android:textColor="@color/main_seek_text_col"
+                    android:textSize="@dimen/sp_16" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/white"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="17dp"
+                    android:gravity="center_vertical"
+                    android:text="车牌：" />
+
+                <com.cui.android.jianchengdichan.view.ui.customview.PayPwdEditText
+                    android:id="@+id/ppet_car_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="8dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="55dp"
+                    android:paddingBottom="5dp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_goto_checked"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/shape_circular_bead_blue_col"
+                android:text="开始查询"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <!--下拉刷新-->
+        <com.baoyz.widget.PullRefreshLayout
+            android:id="@+id/prl_refreshable"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="55dp"
-            android:paddingBottom="5dp" />
-    </LinearLayout>
+            android:layout_below="@+id/rl_main_top">
 
-    <Button
-        android:id="@+id/bt_goto_checked"
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="12dp"
-        android:background="@drawable/shape_circular_bead_blue_col"
-        android:text="开始查询"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_charge_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+        </com.baoyz.widget.PullRefreshLayout>
+    </RelativeLayout>
+
 </LinearLayout>

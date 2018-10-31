@@ -20,11 +20,34 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_margin="10dp"
-            android:scaleType="center"
-            android:src="@drawable/splash_bg" />
-
+            android:src="@mipmap/ic_launcher" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="12dp"
+            >
+            <ImageView
+                android:id="@+id/iv_distance_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/parking_lot_navigation"
+                />
+            <TextView
+                android:id="@+id/tv_car_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="200"
+                android:textSize="12dp"
+                android:textColor="@color/login_forget_pwd"
+                android:layout_below="@+id/iv_distance_icon"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/ll_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
@@ -46,21 +69,14 @@
                     android:textSize="14sp"
                     tools:text="林和中" />
 
-                <TextView
-                    android:id="@+id/tv_car_distance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dp"
-                    android:textColor="@color/login_forget_pwd"
-                    android:textSize="14sp"
-                    tools:text="200米" />
+
             </RelativeLayout>
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:layout_marginBottom="10dp">
 
                 <TextView
@@ -69,30 +85,20 @@
                     android:layout_height="wrap_content"
                     android:textColor="#666666"
                     android:textSize="12sp"
-                    tools:text="林和中" />
+                    tools:text="总车位：500" />
 
-                <View
-                    android:layout_width="0.5dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="12dp"
-                    android:layout_toRightOf="@+id/tv_car_all"
-                    android:background="#666666"
 
-                    />
 
                 <TextView
                     android:id="@+id/tv_car_residue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toRightOf="@+id/tv_car_all"
                     android:textColor="#666666"
                     android:textSize="12sp"
-                    tools:text="林和中"
-
+                    tools:text="剩余车位：500"
                     />
 
-            </RelativeLayout>
+            </LinearLayout>
 
 
             <LinearLayout
@@ -113,7 +119,7 @@
                     android:paddingBottom="3dp"
                     android:textColor="@color/white"
                     android:textSize="12dp"
-                    tools:text="收费" />
+                    android:text="收费" />
 
                 <TextView
                     android:id="@+id/tv_car_outdoors"
@@ -126,21 +132,15 @@
                     android:paddingBottom="3dp"
                     android:textColor="@color/white"
                     android:textSize="12dp"
+                    android:visibility="gone"
                     tools:text="露天" />
 
-                <TextView
-                    android:id="@+id/tv_car_charge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
-                    android:textColor="@color/login_forget_pwd"
-                    android:textSize="12dp"
-                    tools:text="200元/小时" />
+
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="2dp"

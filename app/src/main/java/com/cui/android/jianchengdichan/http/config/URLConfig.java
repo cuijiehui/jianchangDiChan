@@ -69,6 +69,8 @@ public interface URLConfig {
     String POSTH_RELEASE_COMMENT_TOPIC_URL =HOME_URL+"/api/Release/commentTopic";                            //评论话题接口
     String POST_PARKING_INFO =HOME_URL+"/api/parking/parkingInfo";                                            //获取车场信息
     String POST_PARKING_GET_COST =HOME_URL+"/api/parking/getCost";                                            //车辆费用查询
+    String POST_PARKING_GET_ENTER_LOG =HOME_URL+"/api/parking/enterLog";                                            //进离记录
+    String POST_PARKING_GET_CHARGE_LOG =HOME_URL+"/api/parking/chargeLog";                                            //缴费记录
 
 
 

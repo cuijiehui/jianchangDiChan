@@ -45,6 +45,7 @@ import com.cui.android.jianchengdichan.view.ui.avtivity.LoginActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.MainActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.MyFitmentListActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.NoticeAcitivty;
+import com.cui.android.jianchengdichan.view.ui.avtivity.ParkingLotActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.PayFeesActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.RentDatailActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.RepairsActivity;
@@ -170,12 +171,12 @@ public class MainHomeFragment extends BaseFragment  {
     public void initData() {
         communityBeanList.add(new CommunityBean(R.drawable.main_rent_centre, "租贷中心"));
         communityBeanList.add(new CommunityBean(R.drawable.main_tenement_pay, "物业缴费"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_service, "便民服务"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_service, "管家服务"));
         communityBeanList.add(new CommunityBean(R.drawable.main_pwd_icon, "门禁密码"));
         communityBeanList.add(new CommunityBean(R.drawable.main_car_go_out, "车辆出行"));
         communityBeanList.add(new CommunityBean(R.drawable.main_apply_server, "装修申请"));
         communityBeanList.add(new CommunityBean(R.drawable.main_breakdown, "报事报修"));
-        communityBeanList.add(new CommunityBean(R.drawable.main_shop_icon, "社区商场"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_shop_icon, "管家商场"));
     }
 
     @Override
@@ -261,7 +262,7 @@ public class MainHomeFragment extends BaseFragment  {
                     case 3:
                         break;
                     case 4:
-                        startActivity(CarGoingActivity.getStartIntent(mContext));
+                        startActivity(ParkingLotActivity.getStartIntent(mContext));
                         break;
                     case 5:
                         startActivity(MyFitmentListActivity.class);
@@ -353,7 +354,7 @@ public class MainHomeFragment extends BaseFragment  {
      * 更新数据
      * @param data 首页数据
      */
-    private void updataData(HomeDataBean data) {
+    private void updateData(HomeDataBean data) {
         mDataList.clear();
         rentDataList.clear();
         newGoodsBeanList.clear();
@@ -520,7 +521,7 @@ public class MainHomeFragment extends BaseFragment  {
         if (prl_refreshable != null) {
             prl_refreshable.setRefreshing(false);
         }
-        updataData(data);
+        updateData(data);
     }
 
     /**

@@ -37,6 +37,7 @@
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
 
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -132,7 +133,8 @@
             android:name=".view.ui.avtivity.PhotoBrowseActivity"
             android:theme="@style/FullScreenStyle" />
         <activity android:name=".view.ui.avtivity.CarGoingActivity" />
-        <activity android:name=".view.ui.avtivity.CheckedCarActivity"></activity>
+        <activity android:name=".view.ui.avtivity.CheckedCarActivity" />
+        <activity android:name=".view.ui.avtivity.ParkingLotActivity"></activity>
     </application>
 
 </manifest>

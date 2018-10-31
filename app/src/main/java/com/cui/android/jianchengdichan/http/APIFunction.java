@@ -4,7 +4,9 @@ import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.ActivityDetailBean;
 import com.cui.android.jianchengdichan.http.bean.AliPayBean;
 import com.cui.android.jianchengdichan.http.bean.AnotherBatchBean;
+import com.cui.android.jianchengdichan.http.bean.CarChargeLogBean;
 import com.cui.android.jianchengdichan.http.bean.CarCostBean;
+import com.cui.android.jianchengdichan.http.bean.CarEnterLogBean;
 import com.cui.android.jianchengdichan.http.bean.CarGoingBean;
 import com.cui.android.jianchengdichan.http.bean.CatesBean;
 import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
@@ -230,8 +232,14 @@ public interface APIFunction {
     Observable<BaseBean<Object>> releaseCommentTopic(@Body RequestBody route);
 
     @POST(URLConfig.POST_PARKING_INFO)
-    Observable<BaseBean<List<CarGoingBean>>> postParkingInfo(@Body RequestBody route);
+    Observable<BaseBean<List<CarGoingBean>>> postParkingInfo();
 
     @POST(URLConfig.POST_PARKING_GET_COST)
     Observable<BaseBean<List<CarCostBean>>> parkingGetCost(@Body RequestBody route);
+
+    @POST(URLConfig.POST_PARKING_GET_ENTER_LOG)
+    Observable<BaseBean<List<CarEnterLogBean>>> getCarEnterLog(@Body RequestBody route);
+
+    @POST(URLConfig.POST_PARKING_GET_CHARGE_LOG)
+    Observable<BaseBean<List<CarChargeLogBean>>> getCarChargeLog(@Body RequestBody route);
 }
