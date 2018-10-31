@@ -18,7 +18,7 @@ import com.cui.android.jianchengdichan.presenter.PayMentRecordPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.PayMentRecordAdapter;
 import com.cui.android.jianchengdichan.view.ui.beans.PayingBean;
 
@@ -28,7 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class PayMentRecordActivity extends BaseActivtity {
+public class PayMentRecordActivity extends BaseActivity {
 
     @BindView(R.id.top_back)
     RelativeLayout topBack;

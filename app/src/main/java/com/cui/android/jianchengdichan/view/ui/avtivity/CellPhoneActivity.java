@@ -19,7 +19,7 @@ import com.cui.android.jianchengdichan.http.bean.CivilianserviceBean;
 import com.cui.android.jianchengdichan.http.bean.TelephoneBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.CellPhonePresenter;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.CellDataAdapter;
 import com.cui.android.jianchengdichan.view.ui.adapter.CellTypeAdapter;
 
@@ -28,7 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class CellPhoneActivity extends BaseActivtity {
+public class CellPhoneActivity extends BaseActivity {
     @BindView(R.id.top_back)
     RelativeLayout topBack;
     @BindView(R.id.tv_content_name)

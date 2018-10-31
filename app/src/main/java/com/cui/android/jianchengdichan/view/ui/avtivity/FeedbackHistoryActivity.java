@@ -15,7 +15,7 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.FeedbackHistoryPresenter;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.HistorysAdapter;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class FeedbackHistoryActivity extends BaseActivtity  {
+public class FeedbackHistoryActivity extends BaseActivity {
     FeedbackHistoryPresenter mfeedbackHistoryPresenter;
     @BindView(R.id.top_back)
     RelativeLayout topBack;

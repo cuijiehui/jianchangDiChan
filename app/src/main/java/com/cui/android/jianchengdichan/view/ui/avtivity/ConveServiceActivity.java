@@ -17,7 +17,7 @@ import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.HomeCivilianListBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.ConveServicePresenter;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.adapterBean.CommunityBean;
 import com.cui.android.jianchengdichan.view.ui.adapter.ConveAdapter;
 import com.cui.android.jianchengdichan.view.ui.adapter.ConveAdvLoader;
@@ -31,7 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ConveServiceActivity extends BaseActivtity {
+public class ConveServiceActivity extends BaseActivity {
     ConveServicePresenter conveServicePresenter = new ConveServicePresenter();
     @BindView(R.id.top_back)
     RelativeLayout topBack;

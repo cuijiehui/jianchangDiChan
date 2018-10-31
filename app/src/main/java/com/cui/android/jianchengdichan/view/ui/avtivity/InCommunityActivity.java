@@ -24,7 +24,7 @@ import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.ChildCommunityBean;
 import com.cui.android.jianchengdichan.view.ui.customview.ChooseCodePop;
 import com.cui.android.jianchengdichan.view.ui.customview.ChooseComPop;
@@ -38,7 +38,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class InCommunityActivity extends BaseActivtity {
+public class InCommunityActivity extends BaseActivity {
 
 
     Button btGotoSave;

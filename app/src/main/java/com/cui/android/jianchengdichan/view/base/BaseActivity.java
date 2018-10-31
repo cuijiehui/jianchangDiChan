@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -29,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
  * @data 2018/5/16.
  * @description activit基础类
  */
-public abstract class BaseActivtity extends FragmentActivity implements IBaseView  {
+public abstract class BaseActivity extends PermissionActivity implements IBaseView  {
 
 
     private ProgressDialog mProgressDialog;
@@ -72,7 +71,7 @@ public abstract class BaseActivtity extends FragmentActivity implements IBaseVie
 
     @Override
     public Context getContext() {
-        return BaseActivtity.this;
+        return BaseActivity.this;
     }
 
 

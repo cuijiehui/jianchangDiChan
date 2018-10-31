@@ -11,13 +11,13 @@ import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.LoginPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SetingActivity extends BaseActivtity {
+public class SetingActivity extends BaseActivity {
 
     LoginPresenter mLoginPresenter;
     @BindView(R.id.top_back)

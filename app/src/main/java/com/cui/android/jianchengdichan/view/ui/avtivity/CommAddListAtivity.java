@@ -16,7 +16,7 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.CommAddListPresenter;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.SectionAdapter;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class CommAddListAtivity extends BaseActivtity {
+public class CommAddListAtivity extends BaseActivity {
 
     @BindView(R.id.top_back)
     RelativeLayout topBack;

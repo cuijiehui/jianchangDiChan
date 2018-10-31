@@ -64,6 +64,7 @@ public class Token {
     public static final String API_LEAVE_MSG_LIST_MODEL= PACKAGE_NAME + "LeaveMsgListModel";
     public static final String API_LEAVE_MSG_MODEL= PACKAGE_NAME + "LeaveMsgModel";
     public static final String API_CARGOING_MODEL= PACKAGE_NAME + "CarGoingModel";
+    public static final String API_CARGOING_COST_MODEL= PACKAGE_NAME + "CarCostModel";
 
 
 }

@@ -12,7 +12,7 @@ import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.SplashPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,7 +20,7 @@ import java.util.TimerTask;
 import butterknife.BindView;
 
 
-public class SplashActivity extends BaseActivtity {
+public class SplashActivity extends BaseActivity {
 
     @BindView(R.id.img_splash)
     ImageView img_splash;

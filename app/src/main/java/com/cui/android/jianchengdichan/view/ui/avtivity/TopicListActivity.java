@@ -16,7 +16,7 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.TopicListPresenter;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.TopicListDataAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.FullyLinearLayoutManager;
 
@@ -25,7 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class TopicListActivity extends BaseActivtity {
+public class TopicListActivity extends BaseActivity {
     @BindView(R.id.top_back)
     RelativeLayout topBack;
     @BindView(R.id.tv_content_name)

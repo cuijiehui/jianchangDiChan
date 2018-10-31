@@ -17,7 +17,7 @@ import com.cui.android.jianchengdichan.http.bean.CivilianListBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.ConveColumnPresenter;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.ColumnDataAdapter;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -28,7 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ConveColumnActivity extends BaseActivtity {
+public class ConveColumnActivity extends BaseActivity {
 
     @BindView(R.id.top_back)
     RelativeLayout topBack;

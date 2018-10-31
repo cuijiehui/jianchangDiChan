@@ -68,6 +68,7 @@ public interface URLConfig {
     String POSTH_COMMENT_LIST_URL =HOME_URL+"/api/Topic/commentList";                                        //获取话题评论列表接口
     String POSTH_RELEASE_COMMENT_TOPIC_URL =HOME_URL+"/api/Release/commentTopic";                            //评论话题接口
     String POST_PARKING_INFO =HOME_URL+"/api/parking/parkingInfo";                                            //获取车场信息
+    String POST_PARKING_GET_COST =HOME_URL+"/api/parking/getCost";                                            //车辆费用查询
 
 
 

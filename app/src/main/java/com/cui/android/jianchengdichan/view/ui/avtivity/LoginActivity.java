@@ -22,13 +22,13 @@ import com.cui.android.jianchengdichan.utils.PhoneNumUtil;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends BaseActivtity {
+public class LoginActivity extends BaseActivity {
 
 
     @BindView(R.id.tv_login_register)

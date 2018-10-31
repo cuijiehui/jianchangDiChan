@@ -16,7 +16,7 @@ import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.CarGoingBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.CarGoingPresenter;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.CarGoingDataAdapter;
 import com.youth.banner.Banner;
 
@@ -24,10 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CarGoingActivity extends BaseActivtity {
+public class CarGoingActivity extends BaseActivity {
 
     CarGoingPresenter mCarGoingPresenter;
     @BindView(R.id.top_back)

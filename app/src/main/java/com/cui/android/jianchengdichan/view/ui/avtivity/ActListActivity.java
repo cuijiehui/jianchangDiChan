@@ -15,7 +15,7 @@ import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.CommentActBean;
 import com.cui.android.jianchengdichan.presenter.ActListPresenter;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.ActListAdapter;
 
 import java.util.LinkedList;
@@ -24,7 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ActListActivity extends BaseActivtity {
+public class ActListActivity extends BaseActivity {
     @BindView(R.id.top_back)
     RelativeLayout topBack;
     @BindView(R.id.tv_content_name)

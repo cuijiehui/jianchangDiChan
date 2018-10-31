@@ -17,7 +17,7 @@ import com.cui.android.jianchengdichan.presenter.LoginPresenter;
 import com.cui.android.jianchengdichan.utils.AndroidPermissionUtils;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainPagerAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.MainCommFragment;
 import com.cui.android.jianchengdichan.view.ui.fragment.MainHomeFragment;
@@ -32,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivtity {
+public class MainActivity extends BaseActivity {
 
     LoginPresenter loginPresenter;
     @BindView(R.id.main_navigation_view)
@@ -65,15 +65,15 @@ public class MainActivity extends BaseActivtity {
         setCallBack();
         setViewPager();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            checkAllPermission();
+//            checkAllPermission();
         }
     }
-    private void checkAllPermission() {
-        String[] unCheckPermissions = AndroidPermissionUtils.checkPermission(this);
-        if (unCheckPermissions.length != 0) {
-            ActivityCompat.requestPermissions(this, unCheckPermissions, 100);
-        }
-    }
+//    private void checkAllPermission() {
+//        String[] unCheckPermissions = AndroidPermissionUtils.checkPermission(this);
+//        if (unCheckPermissions.length != 0) {
+//            ActivityCompat.requestPermissions(this, unCheckPermissions, 100);
+//        }
+//    }
     private void setViewPager() {
         mDataList.clear();
         mDataList.add(MainHomeFragment.newInstance(null));

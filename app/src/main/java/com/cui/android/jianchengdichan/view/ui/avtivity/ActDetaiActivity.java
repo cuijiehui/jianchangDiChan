@@ -13,13 +13,13 @@ import com.cui.android.jianchengdichan.http.bean.ActivityDetailBean;
 import com.cui.android.jianchengdichan.presenter.ActDetaiPresenter;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.UIImageView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ActDetaiActivity extends BaseActivtity {
+public class ActDetaiActivity extends BaseActivity {
     @BindView(R.id.top_back)
     RelativeLayout topBack;
     @BindView(R.id.tv_content_name)

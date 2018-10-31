@@ -22,7 +22,7 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.RepairsPresenter;
 import com.cui.android.jianchengdichan.utils.Bimp;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.fragment.RepairsFragment;
 import com.cui.android.jianchengdichan.view.ui.fragment.RepairsRecordFragment;
 import com.cui.android.jianchengdichan.view.ui.beans.ReleaseImgBean;
@@ -33,7 +33,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RepairsActivity extends BaseActivtity {
+public class RepairsActivity extends BaseActivity {
 
     @BindView(R.id.top_back)
     RelativeLayout topBack;

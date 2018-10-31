@@ -17,12 +17,12 @@ import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SetUserMsgActivity extends BaseActivtity {
+public class SetUserMsgActivity extends BaseActivity {
 
     @BindView(R.id.top_back)
     RelativeLayout topBack;

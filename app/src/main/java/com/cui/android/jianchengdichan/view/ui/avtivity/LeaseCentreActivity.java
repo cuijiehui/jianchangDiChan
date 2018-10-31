@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +24,7 @@ import com.cui.android.jianchengdichan.presenter.LeaseCentrePresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.LeaseAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.ChildCommunityBean;
 import com.cui.android.jianchengdichan.view.ui.customview.ChooseAreaPop;
@@ -44,7 +43,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class LeaseCentreActivity extends BaseActivtity  {
+public class LeaseCentreActivity extends BaseActivity {
     @BindView(R.id.tv_content_name)
     TextView tvContentName;
     @BindView(R.id.top_back)

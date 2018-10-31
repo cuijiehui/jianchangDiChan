@@ -4,6 +4,7 @@ import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.ActivityDetailBean;
 import com.cui.android.jianchengdichan.http.bean.AliPayBean;
 import com.cui.android.jianchengdichan.http.bean.AnotherBatchBean;
+import com.cui.android.jianchengdichan.http.bean.CarCostBean;
 import com.cui.android.jianchengdichan.http.bean.CarGoingBean;
 import com.cui.android.jianchengdichan.http.bean.CatesBean;
 import com.cui.android.jianchengdichan.http.bean.ChargeCateBean;
@@ -230,4 +231,7 @@ public interface APIFunction {
 
     @POST(URLConfig.POST_PARKING_INFO)
     Observable<BaseBean<List<CarGoingBean>>> postParkingInfo(@Body RequestBody route);
+
+    @POST(URLConfig.POST_PARKING_GET_COST)
+    Observable<BaseBean<List<CarCostBean>>> parkingGetCost(@Body RequestBody route);
 }

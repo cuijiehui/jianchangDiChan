@@ -27,7 +27,7 @@ import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ScreenUtils;
 import com.cui.android.jianchengdichan.utils.TimeUtil;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.CommentDataAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.CircleImageView;
 import com.cui.android.jianchengdichan.view.ui.customview.EditTextView;
@@ -40,7 +40,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class CommentActivity extends BaseActivtity implements View.OnLayoutChangeListener {
+public class CommentActivity extends BaseActivity implements View.OnLayoutChangeListener {
     @BindView(R.id.top_back)
     RelativeLayout topBack;
     @BindView(R.id.tv_content_name)

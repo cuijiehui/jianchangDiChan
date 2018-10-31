@@ -19,7 +19,7 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.MyApplyPresenter;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.ApplyCententAdapter;
 import com.google.gson.Gson;
 
@@ -28,7 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MyApplyActivity extends BaseActivtity {
+public class MyApplyActivity extends BaseActivity {
 
     @BindView(R.id.top_back)
     RelativeLayout topBack;

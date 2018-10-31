@@ -24,7 +24,7 @@ import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.LeaseAdapter;
 import com.cui.android.jianchengdichan.view.ui.adapter.RentLeaveMsgAdapter;
 import com.cui.android.jianchengdichan.view.ui.customview.EditTextView;
@@ -38,7 +38,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class RentDatailActivity extends BaseActivtity implements View.OnLayoutChangeListener {
+public class RentDatailActivity extends BaseActivity implements View.OnLayoutChangeListener {
 
     @BindView(R.id.top_back)
     RelativeLayout topBack;

@@ -25,7 +25,7 @@ import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.utils.WXPayUtil2;
-import com.cui.android.jianchengdichan.view.base.BaseActivtity;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.PayResult;
 import com.cui.android.jianchengdichan.view.ui.beans.PayingBean;
 
@@ -34,7 +34,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class PayingActivity extends BaseActivtity {
+public class PayingActivity extends BaseActivity {
 
     @BindView(R.id.top_back)
     RelativeLayout topBack;
