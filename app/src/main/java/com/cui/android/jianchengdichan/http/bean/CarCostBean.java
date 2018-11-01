@@ -1,6 +1,9 @@
 package com.cui.android.jianchengdichan.http.bean;
 
-public class CarCostBean {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CarCostBean implements Parcelable {
 
     /**
      * code : 0501
@@ -175,4 +178,65 @@ public class CarCostBean {
     public void setNextChargeMoney(String nextChargeMoney) {
         this.nextChargeMoney = nextChargeMoney;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.code);
+        dest.writeString(this.startTime);
+        dest.writeString(this.endTime);
+        dest.writeString(this.parkTime);
+        dest.writeString(this.chargeTime);
+        dest.writeString(this.chargingCar);
+        dest.writeString(this.totalCharge);
+        dest.writeString(this.hasCharge);
+        dest.writeString(this.favMoney);
+        dest.writeString(this.favTime);
+        dest.writeString(this.currFavMoney);
+        dest.writeString(this.currFavTime);
+        dest.writeString(this.partyMoney);
+        dest.writeString(this.payCharge);
+        dest.writeString(this.lastPayTime);
+        dest.writeString(this.nextChargeTime);
+        dest.writeString(this.nextChargeMoney);
+    }
+
+    public CarCostBean() {
+    }
+
+    protected CarCostBean(Parcel in) {
+        this.code = in.readString();
+        this.startTime = in.readString();
+        this.endTime = in.readString();
+        this.parkTime = in.readString();
+        this.chargeTime = in.readString();
+        this.chargingCar = in.readString();
+        this.totalCharge = in.readString();
+        this.hasCharge = in.readString();
+        this.favMoney = in.readString();
+        this.favTime = in.readString();
+        this.currFavMoney = in.readString();
+        this.currFavTime = in.readString();
+        this.partyMoney = in.readString();
+        this.payCharge = in.readString();
+        this.lastPayTime = in.readString();
+        this.nextChargeTime = in.readString();
+        this.nextChargeMoney = in.readString();
+    }
+
+    public static final Parcelable.Creator<CarCostBean> CREATOR = new Parcelable.Creator<CarCostBean>() {
+        @Override
+        public CarCostBean createFromParcel(Parcel source) {
+            return new CarCostBean(source);
+        }
+
+        @Override
+        public CarCostBean[] newArray(int size) {
+            return new CarCostBean[size];
+        }
+    };
 }

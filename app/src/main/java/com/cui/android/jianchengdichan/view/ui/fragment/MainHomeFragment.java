@@ -38,6 +38,7 @@ import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.base.BaseFragment;
 import com.cui.android.jianchengdichan.view.ui.avtivity.CarGoingActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.CheckedCarActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.ConveServiceActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.InCommunityActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.LeaseCentreActivity;
@@ -534,5 +535,13 @@ public class MainHomeFragment extends BaseFragment  {
             newGoodsBeanList.addAll(data);
             mainRvNewGoodsAdapter.notifyDataSetChanged();
         }
+    }
+    @OnClick(R.id.rl_checked_car)
+    public void onCheckedCar(){
+        startActivity(CheckedCarActivity.getStartIntent(mContext,"0"));
+    }
+    @OnClick(R.id.rl_nearby_car)
+    public void onNearbyCar(){
+        startActivity(ParkingLotActivity.getStartIntent(mContext));
     }
 }

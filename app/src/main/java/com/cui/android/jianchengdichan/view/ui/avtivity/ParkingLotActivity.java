@@ -9,6 +9,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.cui.android.jianchengdichan.utils.LocationUtils;
 import com.cui.android.jianchengdichan.utils.ScreenUtils;
 import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.CarGoingDataAdapter;
+import com.cui.android.jianchengdichan.view.ui.customview.MapPopupWindows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,6 +103,17 @@ public class ParkingLotActivity extends BaseActivity {
                 //TODO 跳界面
             }
         });
+        mCarGoingDataAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+//                Log.i("onclick测试", "onItemChildClick: "+position);
+                CarGoingBean carGoingBean = dataList.get(position);
+                double latitude = new Double(carGoingBean.getLatitude());
+                double loingitude = new Double(carGoingBean.getLongitude());
+                MapPopupWindows mapPopupWindows = new MapPopupWindows(ParkingLotActivity.this, getRootView(), latitude, loingitude);
+            }
+        });
     }
 
     public void getCarGoingInfo(List<CarGoingBean> data) {
@@ -139,7 +152,7 @@ public class ParkingLotActivity extends BaseActivity {
     }
     @OnClick(R.id.tv_top_right)
     public void onTopRightClick(){
-        startActivity(CheckedCarActivity.getStartIntent(mContext));
+        startActivity(CheckedCarActivity.getStartIntent(mContext,"1"));
     }
 
 }

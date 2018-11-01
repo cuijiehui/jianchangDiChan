@@ -38,10 +38,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:background="@drawable/et_c_bg"
-                android:paddingBottom="2dp"
                 android:paddingLeft="8dp"
-                android:paddingRight="8dp"
                 android:paddingTop="2dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="2dp"
                 android:singleLine="true"
                 android:textColor="@color/main_seek_text_col"
                 android:textColorHint="@color/main_seek_text_col"
@@ -182,35 +182,80 @@
 
                 <View style="@style/cut_off_rule_style" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="33dp"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="114dp"
-                        android:layout_height="100dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="12dp"
-                        android:background="@drawable/main_car_stop" />
+                    <RelativeLayout
+                        android:id="@+id/rl_checked_car"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
 
-                    <ImageView
-                        android:layout_width="114dp"
-                        android:layout_height="100dp"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center"
-                        android:background="@drawable/main_top_car_manager" />
+                        <TextView
+                            android:id="@+id/tv_car_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="5dp"
+                            android:text="找车缴费"
+                            android:textSize="12sp"
+                            android:textColor="@color/color_app_base_color_grey"/>
 
-                    <ImageView
-                        android:layout_width="114dp"
-                        android:layout_height="100dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="12dp"
-                        android:background="@drawable/main_stop_car_break" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_car_text"
+                            android:layout_marginLeft="12dp"
+                            android:text="线上支付跟快捷"
+                            android:textSize="10sp" />
 
-                </RelativeLayout>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="12dp"
+                            android:background="@drawable/comm_stop_car" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rl_nearby_car"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tv_nearby_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="5dp"
+                            android:text="附近车场"
+                            android:textColor="@color/main_top_col"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_nearby_text"
+                            android:layout_marginLeft="12dp"
+                            android:text="查询停车场情况"
+                            android:textSize="10sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="12dp"
+                            android:background="@drawable/comm_carport_icon" />
+                    </RelativeLayout>
+
+                </LinearLayout>
 
                 <View style="@style/cut_off_rule_5dp_style" />
                 <!--附近租贷-->
@@ -241,8 +286,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="32dp"
                         android:layout_marginTop="17dp"
+                        android:layout_marginRight="32dp"
                         android:drawableRight="@drawable/main_font_icon"
                         android:text="查看更多"
                         android:textColor="@color/main_seek_text_col"

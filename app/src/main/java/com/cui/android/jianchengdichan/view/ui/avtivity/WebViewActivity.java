@@ -44,8 +44,10 @@ public class WebViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
         ButterKnife.bind(this);
-        getData();
-        setSettings();
+        tvContentName.setText("管家商城");
+
+//        getData();
+//        setSettings();
     }
 
     //获取上个页面传递过来的数据
@@ -56,7 +58,6 @@ public class WebViewActivity extends AppCompatActivity {
             link = extras.getString("data");
         }
 
-        LogUtils.i("---------www----------" + link);
 
     }
 

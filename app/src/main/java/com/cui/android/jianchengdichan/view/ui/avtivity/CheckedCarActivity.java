@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CheckedCarActivity extends BaseActivity {
+    public static final String TYPE_KEY = "type_key";
     @BindView(R.id.top_back)
     RelativeLayout topBack;
     @BindView(R.id.tv_content_name)
@@ -43,8 +44,9 @@ public class CheckedCarActivity extends BaseActivity {
     CarChargeDataAdapter mAdapter;
     List<CarChargeLogBean> dataList = new ArrayList<>();
     int page =1;
-    public static Intent getStartIntent(Context context) {
+    public static Intent getStartIntent(Context context,String type) {
         Intent intent = new Intent(context, CheckedCarActivity.class);
+        intent.putExtra(TYPE_KEY,type);
         return intent;
     }
 
@@ -112,6 +114,7 @@ public class CheckedCarActivity extends BaseActivity {
         dataList.clear();
         dataList.addAll(data);
         mAdapter.notifyDataSetChanged();
+
     }
 
 

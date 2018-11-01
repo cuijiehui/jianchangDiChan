@@ -104,7 +104,7 @@ public class CarGoingActivity extends BaseActivity {
             case R.id.tv_address:
                 break;
             case R.id.rl_find_car:
-                startActivity(CheckedCarActivity.getStartIntent(mContext));
+//                startActivity(CheckedCarActivity.getStartIntent(mContext));
                 break;
         }
     }
