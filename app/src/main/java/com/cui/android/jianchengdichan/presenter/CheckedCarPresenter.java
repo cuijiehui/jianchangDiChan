@@ -30,9 +30,9 @@ public class CheckedCarPresenter extends BasePresenter<CheckedCarActivity> {
         String json = jsonObject.toString();
         DataModel.request(Token.API_CARGOING_COST_MODEL)
                 .params(json)
-                .execute(new CallBack<BaseBean<List<CarCostBean>>>() {
+                .execute(new CallBack<BaseBean<CarCostBean>>() {
                     @Override
-                    public void onSuccess(BaseBean<List<CarCostBean>> data) {
+                    public void onSuccess(BaseBean<CarCostBean> data) {
                         getView().checkedCarCost(data.getData());
                     }
 

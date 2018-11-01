@@ -103,7 +103,7 @@
         android:background="@color/white"
         android:paddingLeft="16dp"
         android:paddingBottom="5dp"
-        android:padding5op="8dp"
+        android:paddingTop="8dp"
         android:text="支付方式"
         android:textColor="@color/black"
         android:textSize="14sp" />

@@ -21,6 +21,7 @@ import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.view.base.BaseFragment;
+import com.cui.android.jianchengdichan.view.ui.avtivity.CheckedCarActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.CommAddListAtivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.ContactUsActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.FeedbackActivity;
@@ -309,5 +310,9 @@ public class MainMyFragment extends BaseFragment {
             }
         }
 
+    }
+    @OnClick(R.id.tv_my_car)
+    public void onMyCar(){
+        startActivity(CheckedCarActivity.getStartIntent(mContext,"1"));
     }
 }

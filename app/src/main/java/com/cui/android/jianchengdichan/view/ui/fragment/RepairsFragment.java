@@ -27,6 +27,7 @@ import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.DatailedDrawingAdapter;
 import com.cui.android.jianchengdichan.view.ui.beans.ReleaseImgBean;
 import com.cui.android.jianchengdichan.view.ui.customview.CameraPopupWindows;
@@ -222,7 +223,7 @@ public class RepairsFragment extends Fragment {
                 }
                 ReleaseImgBean releaseImgBean = detailDrawingData.get(position);
                 if(releaseImgBean.getType()==-1){
-                    cameraPopupWindows = new CameraPopupWindows(getActivity(), view);
+                    cameraPopupWindows = new CameraPopupWindows((BaseActivity) getActivity(), view);
                 }else{
 
                 }

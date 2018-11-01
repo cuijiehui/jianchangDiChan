@@ -1,5 +1,6 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
+import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -41,6 +42,12 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void initParms(Bundle parms) {
+        checkPermission(new CheckPermListener() {
+            @Override
+            public void superPermission() {
+
+            }
+        },R.string.perm_tip, Manifest.permission.INTERNET);
         TimerTask task = new TimerTask() {
             @Override
             public void run() {

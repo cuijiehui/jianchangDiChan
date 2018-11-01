@@ -284,6 +284,7 @@ public abstract class BaseActivity extends PermissionActivity implements IBaseVi
     }
     @Override
     public void onFailure(String msg) {
+        hideLoading();
         showToast(msg);
     }
 
@@ -297,6 +298,7 @@ public abstract class BaseActivity extends PermissionActivity implements IBaseVi
     }
     @Override
     public void onError() {
+        hideLoading();
         showToast("网络异常，请稍后重试");
 
     }

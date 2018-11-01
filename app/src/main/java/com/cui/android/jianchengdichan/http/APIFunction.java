@@ -235,7 +235,7 @@ public interface APIFunction {
     Observable<BaseBean<List<CarGoingBean>>> postParkingInfo();
 
     @POST(URLConfig.POST_PARKING_GET_COST)
-    Observable<BaseBean<List<CarCostBean>>> parkingGetCost(@Body RequestBody route);
+    Observable<BaseBean<CarCostBean>> parkingGetCost(@Body RequestBody route);
 
     @POST(URLConfig.POST_PARKING_GET_ENTER_LOG)
     Observable<BaseBean<List<CarEnterLogBean>>> getCarEnterLog(@Body RequestBody route);

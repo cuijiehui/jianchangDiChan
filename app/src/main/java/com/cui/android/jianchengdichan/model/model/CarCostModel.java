@@ -12,21 +12,21 @@ import java.util.List;
 
 import okhttp3.RequestBody;
 
-public class CarCostModel extends BaseModel<BaseBean<List<CarCostBean>>> {
+public class CarCostModel extends BaseModel<BaseBean<CarCostBean>> {
     @Override
-    public void execute(final CallBack<BaseBean<List<CarCostBean>>> callback) {
+    public void execute(final CallBack<BaseBean<CarCostBean>> callback) {
         RequestBody body= RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),mParams[0]);
         RetrofitFactory.getInstence().API()
                 .parkingGetCost(body)
-                .compose(MyApplication.getInstance().<BaseBean<List<CarCostBean>>>setThread())
-                .subscribe(new BaseObserver<List<CarCostBean>>() {
+                .compose(MyApplication.getInstance().<BaseBean<CarCostBean>>setThread())
+                .subscribe(new BaseObserver<CarCostBean>() {
                     @Override
-                    protected void onSuccees(BaseBean<List<CarCostBean>> t) throws Exception {
+                    protected void onSuccees(BaseBean<CarCostBean> t) throws Exception {
                         callback.onSuccess(t);
                     }
 
                     @Override
-                    protected void onCodeError(BaseBean<List<CarCostBean>> t) throws Exception {
+                    protected void onCodeError(BaseBean<CarCostBean> t) throws Exception {
                         callback.onFailure(t.getMsg());
                     }
 

@@ -1,5 +1,6 @@
 package com.cui.android.jianchengdichan.view.ui.customview;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
+import com.cui.android.jianchengdichan.view.base.PermissionActivity;
 
 import java.io.File;
 
@@ -30,7 +33,7 @@ public class CameraPopupWindows extends PopupWindow {
     public Uri getPhotoUri(){
         return photoUri;
     }
-    public CameraPopupWindows(final Activity mContext, View parent) {
+    public CameraPopupWindows(final BaseActivity mContext, View parent) {
 
         View view = View
                 .inflate(mContext, R.layout.add_picture_layout, null);
@@ -51,8 +54,13 @@ public class CameraPopupWindows extends PopupWindow {
         photograph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                photo(mContext);
-                dismiss();
+                mContext.checkPermission(new PermissionActivity.CheckPermListener() {
+                    @Override
+                    public void superPermission() {
+                        photo(mContext);
+                        dismiss();
+                    }
+                },R.string.perm_tip, Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
         });
         RelativeLayout albums = view.findViewById(R.id.rl_albums);

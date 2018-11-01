@@ -1,6 +1,8 @@
 package com.cui.android.jianchengdichan.view.ui.fragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
@@ -36,7 +38,9 @@ import com.cui.android.jianchengdichan.utils.Okhttp3Utils;
 import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
+import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.base.BaseFragment;
+import com.cui.android.jianchengdichan.view.base.PermissionActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.CarGoingActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.CheckedCarActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.ConveServiceActivity;
@@ -70,7 +74,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class MainHomeFragment extends BaseFragment  {
+public class MainHomeFragment extends BaseFragment {
 
     @BindView(R.id.iv_main_top_qrcode)
     ImageView ivMainTopQrcode;
@@ -124,18 +128,20 @@ public class MainHomeFragment extends BaseFragment  {
     MainRvNewGoodsAdapter mainRvNewGoodsAdapter; //新品上市
     MainRvYouLikeAdapter mainRvYouLikeAdapter;  //猜你喜欢
     private static MainHomeFragment instance;
+
     public MainHomeFragment() {
     }
+
     public static MainHomeFragment newInstance(Bundle bundle) {
         LogUtils.i("newInstance");
-        if(instance==null){
-            synchronized (MainHomeFragment.class){
-                if(instance==null){
-                    instance=new MainHomeFragment();
+        if (instance == null) {
+            synchronized (MainHomeFragment.class) {
+                if (instance == null) {
+                    instance = new MainHomeFragment();
                 }
             }
         }
-        if(bundle!=null){
+        if (bundle != null) {
             instance.setArguments(bundle);
         }
         return instance;
@@ -147,7 +153,7 @@ public class MainHomeFragment extends BaseFragment  {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case NEWS_MESSAGE_TEXTVIEW:
-                    if(tvMainNoticeNew1!=null){
+                    if (tvMainNoticeNew1 != null) {
                         tvMainNoticeNew1.setText(noticeList.get(index));
                         index++;
                         if (index == noticeList.size()) {
@@ -202,7 +208,7 @@ public class MainHomeFragment extends BaseFragment  {
     /**
      * 初始化公告
      */
-    private void initNotice(){
+    private void initNotice() {
         //公告
         tvMainNoticeNew1.setFactory(new ViewSwitcher.ViewFactory() {
             @Override
@@ -220,6 +226,7 @@ public class MainHomeFragment extends BaseFragment  {
             }
         });
     }
+
     /**
      * 初始化recycler
      */
@@ -248,11 +255,11 @@ public class MainHomeFragment extends BaseFragment  {
 
                         break;
                     case 1:
-                        String com_id =(String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_COM_ID_KEY,SPUtils.DATA_STRING);
+                        String com_id = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_COM_ID_KEY, SPUtils.DATA_STRING);
 
-                        if(TextUtils.isEmpty(com_id)){
+                        if (TextUtils.isEmpty(com_id)) {
                             startActivity(InCommunityActivity.class);
-                        }else{
+                        } else {
                             startActivity(PayFeesActivity.class);
                         }
                         break;
@@ -276,14 +283,14 @@ public class MainHomeFragment extends BaseFragment  {
                         break;
                     case 7:
                         Intent intent = new Intent(getContext(), WebViewActivity.class);
-                        Bundle bundle ;
+                        Bundle bundle;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
                             bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
                             intent.putExtras(bundle);
                             getContext().startActivity(intent);
-                        }else{
-                            bundle=new Bundle();
+                        } else {
+                            bundle = new Bundle();
                             bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
                             intent.putExtras(bundle);
                             getContext().startActivity(intent);
@@ -292,7 +299,7 @@ public class MainHomeFragment extends BaseFragment  {
                 }
             }
         });
-        if (rentDataList != null ) {
+        if (rentDataList != null) {
             //附近租贷
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -312,12 +319,12 @@ public class MainHomeFragment extends BaseFragment  {
                     }
                     HomeDataBean.RentBean rentBean = rentDataList.get(position);
                     Bundle bundle = new Bundle();
-                    bundle.putString("id",rentBean.getId()+"");
-                    startActivity(RentDatailActivity.class,bundle);
+                    bundle.putString("id", rentBean.getId() + "");
+                    startActivity(RentDatailActivity.class, bundle);
                 }
             });
         }
-        if (newGoodsBeanList != null ) {
+        if (newGoodsBeanList != null) {
             //新品上市
             LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
             layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -325,7 +332,7 @@ public class MainHomeFragment extends BaseFragment  {
             mainRvNewGoodsAdapter = new MainRvNewGoodsAdapter(newGoodsBeanList);
             rvMainNewGoods.setAdapter(mainRvNewGoodsAdapter);
         }
-        if (youLikeBeanList != null ) {
+        if (youLikeBeanList != null) {
             //猜你喜欢
             GridLayoutManager gridLayoutManager2 = new GridLayoutManager(mContext, 2);
             rvYouLike.setLayoutManager(gridLayoutManager2);
@@ -353,6 +360,7 @@ public class MainHomeFragment extends BaseFragment  {
 
     /**
      * 更新数据
+     *
      * @param data 首页数据
      */
     private void updateData(HomeDataBean data) {
@@ -362,48 +370,48 @@ public class MainHomeFragment extends BaseFragment  {
         youLikeBeanList.clear();
         noticeList.clear();
         //广告图片
-        if(data.getAd()!=null){
+        if (data.getAd() != null) {
             mDataList.addAll(data.getAd());
 
         }
 
         //公告信息
-        if(data.getNotice()!=null){
+        if (data.getNotice() != null) {
             List<HomeDataBean.NoticeBean> noticeBeans = data.getNotice();
-            StringBuffer json =new StringBuffer();
+            StringBuffer json = new StringBuffer();
             for (HomeDataBean.NoticeBean noticeBean : noticeBeans) {
                 noticeList.add(noticeBean.getTitle());
-                json.append(noticeBean.getTitle()+",");
+                json.append(noticeBean.getTitle() + ",");
             }
-            SPUtils.INSTANCE.setSPValue(SPKey.SP_HOME_DATA_NOTICE_KEY,json);
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_HOME_DATA_NOTICE_KEY, json);
         }
 
 
         //租贷数据
-        if(data.getRent()!=null){
-            rentDataList .addAll(data.getRent()) ;
+        if (data.getRent() != null) {
+            rentDataList.addAll(data.getRent());
 
         }
         //抢购数据
-        if(data.getLimit_time()!=null){
-            limit_time= data.getLimit_time();
+        if (data.getLimit_time() != null) {
+            limit_time = data.getLimit_time();
 
         }
 
         //最新上市数据
-        if(data.getNewgood()!=null){
-            newGoodsBeanList .addAll( data.getNewgood());
+        if (data.getNewgood() != null) {
+            newGoodsBeanList.addAll(data.getNewgood());
 
         }
         //猜你喜欢数据
-        if(data.getFavor()!=null){
-            youLikeBeanList .addAll(data.getFavor()) ;
+        if (data.getFavor() != null) {
+            youLikeBeanList.addAll(data.getFavor());
         }
 
         bnMainAdv.update(mDataList);
 
         recyclAdapter.notifyDataSetChanged();
-        if (noticeList != null ) {
+        if (noticeList != null) {
             tvMainNoticeNew1.setText(noticeList.get(0));
             notice(noticeList);
         }
@@ -446,7 +454,7 @@ public class MainHomeFragment extends BaseFragment  {
         }
     }
 
-    @OnClick({R.id.iv_main_top_qrcode, R.id.iv_main_top_add,R.id.tv_rent_more,R.id.ll_new_notice,R.id.tv_main_updata,R.id.iv_flash_sale})
+    @OnClick({R.id.iv_main_top_qrcode, R.id.iv_main_top_add, R.id.tv_rent_more, R.id.ll_new_notice, R.id.tv_main_updata, R.id.iv_flash_sale})
     public void onViewClicked(View view) {
         boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
         if (isLogin) {
@@ -458,10 +466,17 @@ public class MainHomeFragment extends BaseFragment  {
         switch (view.getId()) {
             case R.id.iv_main_top_qrcode:
                 LogUtils.i("iv_main_top_qrcode");
-                new IntentIntegrator(getActivity())
-                        .setOrientationLocked(false)
-                        .setCaptureActivity(ScanActivity.class) // 设置自定义的activity是ScanActivity
-                        .initiateScan(); // 初始化扫描
+                BaseActivity activity = (BaseActivity) getActivity();
+                activity.checkPermission(new PermissionActivity.CheckPermListener() {
+                    @Override
+                    public void superPermission() {
+                        new IntentIntegrator(getActivity())
+                                .setOrientationLocked(false)
+                                .setCaptureActivity(ScanActivity.class) // 设置自定义的activity是ScanActivity
+                                .initiateScan(); // 初始化扫描
+                    }
+                }, R.string.perm_tip, Manifest.permission.CAMERA);
+
                 break;
             case R.id.iv_main_top_add:
                 LogUtils.i("iv_main_top_add");
@@ -485,9 +500,9 @@ public class MainHomeFragment extends BaseFragment  {
 
                 break;
             case R.id.iv_flash_sale:
-                    Intent intent = new Intent(mContext, WebViewActivity.class);
-                    intent.putExtra("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
-                    startActivity(intent);
+                Intent intent = new Intent(mContext, WebViewActivity.class);
+                intent.putExtra("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                startActivity(intent);
                 break;
         }
     }
@@ -495,7 +510,7 @@ public class MainHomeFragment extends BaseFragment  {
 
     private void initRimit_time() {
         if (limit_time != null) {
-            Okhttp3Utils.getInstance().glide(mContext,limit_time.getThumb(),iv_flash_sale);
+            Okhttp3Utils.getInstance().glide(mContext, limit_time.getThumb(), iv_flash_sale);
         }
     }
 
@@ -516,6 +531,7 @@ public class MainHomeFragment extends BaseFragment  {
 
     /**
      * 获取首页数据
+     *
      * @param data
      */
     public void getData(HomeDataBean data) {
@@ -527,21 +543,24 @@ public class MainHomeFragment extends BaseFragment  {
 
     /**
      * 商品
+     *
      * @param data
      */
     public void getAnotherBatch(List<HomeDataBean.NewgoodBean> data) {
         newGoodsBeanList.clear();
-        if(data!=null&&data.size()>0){
+        if (data != null && data.size() > 0) {
             newGoodsBeanList.addAll(data);
             mainRvNewGoodsAdapter.notifyDataSetChanged();
         }
     }
+
     @OnClick(R.id.rl_checked_car)
-    public void onCheckedCar(){
-        startActivity(CheckedCarActivity.getStartIntent(mContext,"0"));
+    public void onCheckedCar() {
+        startActivity(CheckedCarActivity.getStartIntent(mContext, "0"));
     }
+
     @OnClick(R.id.rl_nearby_car)
-    public void onNearbyCar(){
+    public void onNearbyCar() {
         startActivity(ParkingLotActivity.getStartIntent(mContext));
     }
 }

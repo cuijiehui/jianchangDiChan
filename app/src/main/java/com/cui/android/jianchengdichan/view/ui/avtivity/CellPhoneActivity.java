@@ -1,5 +1,6 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -113,11 +114,17 @@ public class CellPhoneActivity extends BaseActivity {
      *
      * @param phoneNum 电话号码
      */
-    public void diallPhone(String phoneNum) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        Uri data = Uri.parse("tel:" + phoneNum);
-        intent.setData(data);
-        startActivity(intent);
+    public void diallPhone(final String phoneNum) {
+        checkPermission(new CheckPermListener() {
+            @Override
+            public void superPermission() {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + phoneNum);
+                intent.setData(data);
+                startActivity(intent);
+            }
+        },R.string.perm_tip, Manifest.permission.CALL_PHONE);
+
     }
     @Override
     protected void onResume() {

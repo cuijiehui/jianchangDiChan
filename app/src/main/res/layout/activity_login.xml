@@ -55,6 +55,7 @@
             android:hint="账号/用户名"
             android:textColorHint="@color/main_seek_text_col"
             android:layout_toLeftOf="@+id/iv_login_delete"
+            android:maxLines="1"
             android:layout_toRightOf="@+id/login_username_icon" />
 
         <ImageView
@@ -89,6 +90,7 @@
             android:layout_toLeftOf="@+id/iv_login_look"
             android:hint="请输入密码"
             android:inputType="textPassword"
+            android:maxLines="1"
             android:textColorHint="@color/main_seek_text_col"
             android:layout_toRightOf="@+id/login_pwd_icon" />
 

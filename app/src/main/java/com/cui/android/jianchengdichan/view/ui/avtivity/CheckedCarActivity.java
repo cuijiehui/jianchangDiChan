@@ -3,10 +3,14 @@ package com.cui.android.jianchengdichan.view.ui.avtivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,6 +21,7 @@ import com.cui.android.jianchengdichan.http.bean.CarChargeLogBean;
 import com.cui.android.jianchengdichan.http.bean.CarCostBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.CheckedCarPresenter;
+import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.CarChargeDataAdapter;
 import com.cui.android.jianchengdichan.view.ui.adapter.CarGoingDataAdapter;
@@ -39,14 +44,19 @@ public class CheckedCarActivity extends BaseActivity {
     PayPwdEditText ppetCarNumber;
     @BindView(R.id.rv_charge_data)
     RecyclerView rvChargeData;
+    @BindView(R.id.ll_checked)
+    LinearLayout llChecked;
     @BindView(R.id.prl_refreshable)
     PullRefreshLayout prlRefreshable;
     CarChargeDataAdapter mAdapter;
     List<CarChargeLogBean> dataList = new ArrayList<>();
-    int page =1;
-    public static Intent getStartIntent(Context context,String type) {
+    boolean isChargeLog = false;
+    int page = 1;
+    String type = "0";
+
+    public static Intent getStartIntent(Context context, String type) {
         Intent intent = new Intent(context, CheckedCarActivity.class);
-        intent.putExtra(TYPE_KEY,type);
+        intent.putExtra(TYPE_KEY, type);
         return intent;
     }
 
@@ -69,7 +79,12 @@ public class CheckedCarActivity extends BaseActivity {
 
     @Override
     public void initView(View view) {
-        tvContentName.setText("找车缴费");
+        type = getIntent().getStringExtra(TYPE_KEY);
+        if ("0".equals(type)) {
+            tvContentName.setText("找车缴费");
+        } else {
+            tvContentName.setText("查询车俩缴费记录");
+        }
         initRv();
     }
 
@@ -80,7 +95,7 @@ public class CheckedCarActivity extends BaseActivity {
 
     @Override
     public View initBack() {
-        return topBack;
+        return null;
     }
 
 
@@ -88,14 +103,25 @@ public class CheckedCarActivity extends BaseActivity {
     public void onViewClicked() {
         Log.i("测试", "onViewClicked: " + ppetCarNumber.getPwdText());
 
-        StringBuffer carNo = new StringBuffer();
+        String carNo = ppetCarNumber.getPwdText();
+        if (TextUtils.isEmpty(carNo)) {
+            ToastUtil.makeToast("车牌不能为空！");
+            return;
+        }
 
-//        mCheckedCarPresenter.checkedCarCost("粤AFN898",null);
-        mCheckedCarPresenter.getChargeLog(ppetCarNumber.getPwdText(), page+"");
+        if ("0".equals(type)) {
+            mCheckedCarPresenter.checkedCarCost(carNo, null);
+        } else {
+            mCheckedCarPresenter.getChargeLog(carNo, page + "");
+            isChargeLog = true;
+        }
+        showLoading();
     }
 
-    public void checkedCarCost(List<CarCostBean> data) {
 
+    public void checkedCarCost(CarCostBean data) {
+        hideLoading();
+        startActivity(ParkingPaymentActivity.getStartIntent(mContext, data));
     }
 
     private void initRv() {
@@ -111,11 +137,40 @@ public class CheckedCarActivity extends BaseActivity {
     }
 
     public void getChargeLog(List<CarChargeLogBean> data) {
+        hideLoading();
         dataList.clear();
         dataList.addAll(data);
         mAdapter.notifyDataSetChanged();
-
+        changeView();
     }
 
+    public void changeView() {
+        if (isChargeLog) {
+            llChecked.setVisibility(View.GONE);
+            rvChargeData.setVisibility(View.VISIBLE);
+        } else {
+            llChecked.setVisibility(View.VISIBLE);
+            rvChargeData.setVisibility(View.GONE);
+        }
+    }
 
+    @OnClick({R.id.top_back})
+    public void onBack() {
+        if (isChargeLog) {
+            isChargeLog = false;
+            changeView();
+        } else {
+            finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isChargeLog) {
+            isChargeLog = false;
+            changeView();
+        } else {
+            finish();
+        }
+    }
 }

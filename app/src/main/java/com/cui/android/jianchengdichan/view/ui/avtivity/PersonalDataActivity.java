@@ -1,5 +1,6 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -154,7 +155,6 @@ public class PersonalDataActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.img_userhead:
                 cameraPopupWindows = new CameraPopupWindows(PersonalDataActivity.this, getRootView());
-
                 break;
             case R.id.bt_log_out:
 
