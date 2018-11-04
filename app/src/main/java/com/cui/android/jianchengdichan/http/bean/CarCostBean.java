@@ -42,6 +42,24 @@ public class CarCostBean implements Parcelable {
     private String lastPayTime;
     private String nextChargeTime;
     private String nextChargeMoney;
+    private String carNo;
+    private String is_free;
+
+    public String getIs_free() {
+        return is_free;
+    }
+
+    public void setIs_free(String is_free) {
+        this.is_free = is_free;
+    }
+
+    public String getCarNo() {
+        return carNo;
+    }
+
+    public void setCarNo(String mCarNo) {
+        this.carNo = mCarNo;
+    }
 
     public String getCode() {
         return code;
@@ -203,6 +221,7 @@ public class CarCostBean implements Parcelable {
         dest.writeString(this.lastPayTime);
         dest.writeString(this.nextChargeTime);
         dest.writeString(this.nextChargeMoney);
+        dest.writeString(this.carNo);
     }
 
     public CarCostBean() {
@@ -226,6 +245,7 @@ public class CarCostBean implements Parcelable {
         this.lastPayTime = in.readString();
         this.nextChargeTime = in.readString();
         this.nextChargeMoney = in.readString();
+        this.carNo = in.readString();
     }
 
     public static final Parcelable.Creator<CarCostBean> CREATOR = new Parcelable.Creator<CarCostBean>() {

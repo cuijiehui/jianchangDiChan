@@ -21,7 +21,7 @@ public abstract class BaseModel<T> {
     }
     // 添加Callback并执行数据请求
     // 具体的数据请求由子类实现
-    public abstract void execute(CallBack<T> callback);
+    public abstract void execute(final CallBack<T> callback);
     // 执行Get网络请求，此类看需求由自己选择写与不写
     protected void requestGetAPI(String url,CallBack<T> callback){
         //这里写具体的网络请求

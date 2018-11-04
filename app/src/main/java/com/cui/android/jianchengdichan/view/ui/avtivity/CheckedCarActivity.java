@@ -53,7 +53,7 @@ public class CheckedCarActivity extends BaseActivity {
     boolean isChargeLog = false;
     int page = 1;
     String type = "0";
-
+    String mCarNo = "";
     public static Intent getStartIntent(Context context, String type) {
         Intent intent = new Intent(context, CheckedCarActivity.class);
         intent.putExtra(TYPE_KEY, type);
@@ -108,9 +108,11 @@ public class CheckedCarActivity extends BaseActivity {
             ToastUtil.makeToast("车牌不能为空！");
             return;
         }
-
+        mCarNo=carNo;
+//        mCarNo="粤A9P9T6";
         if ("0".equals(type)) {
-            mCheckedCarPresenter.checkedCarCost(carNo, null);
+//            mCheckedCarPresenter.checkedCarCost("粤A9P9T6", "20070580001");
+            mCheckedCarPresenter.checkedCarCost(carNo, "20070580001");
         } else {
             mCheckedCarPresenter.getChargeLog(carNo, page + "");
             isChargeLog = true;
@@ -121,6 +123,15 @@ public class CheckedCarActivity extends BaseActivity {
 
     public void checkedCarCost(CarCostBean data) {
         hideLoading();
+        if (TextUtils.isEmpty(mCarNo)) {
+            ToastUtil.makeToast("车牌号不能为空！");
+            return;
+        }
+        if("1".equals(data.getIs_free())){
+            ToastUtil.makeToast("车俩使用月卡不用缴费！");
+            return;
+        }
+        data.setCarNo(mCarNo);
         startActivity(ParkingPaymentActivity.getStartIntent(mContext, data));
     }
 

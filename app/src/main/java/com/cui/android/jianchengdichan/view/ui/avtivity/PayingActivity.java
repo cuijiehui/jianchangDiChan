@@ -71,7 +71,7 @@ public class PayingActivity extends BaseActivity {
 
     @Override
     public BasePresenter initPresenter() {
-        payingPresenter=new PayingPresenter();
+        payingPresenter = new PayingPresenter();
         return payingPresenter;
     }
 
@@ -97,7 +97,7 @@ public class PayingActivity extends BaseActivity {
         tvPayingName.setText(mBean.getName());
         tvPayingTime.setText(mBean.getTime());
         tvPayingNum.setText(mBean.getNum());
-        tvPayingPrice.setText(mBean.getPrice()+"元");
+        tvPayingPrice.setText(mBean.getPrice() + "元");
     }
 
     @Override
@@ -131,17 +131,17 @@ public class PayingActivity extends BaseActivity {
                     ToastUtil.makeToast("微信支付");
                     if (CheckApp.isWeixinAvilible(mContext)) {
 //                        WXPayUtil2 wxpay = new WXPayUtil2(mContext);
-                      int uid= (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
-                      String token =(String)  SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
-                        payingPresenter.getWeixin(uid,token,mBean.getId());
+                        int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
+                        String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
+                        payingPresenter.getWeixin(uid, token, mBean.getId());
                     } else {
                         ToastUtil.makeToast("您未安装微信");
                     }
                 } else {
                     ToastUtil.makeToast("支付宝支付");
-                    int uid= (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
-                    String token =(String)  SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
-                    payingPresenter.getAliPay(uid,token,mBean.getId());
+                    int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
+                    String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
+                    payingPresenter.getAliPay(uid, token, mBean.getId());
                 }
                 break;
         }
@@ -152,7 +152,8 @@ public class PayingActivity extends BaseActivity {
         WXPayUtil2 wxpay = new WXPayUtil2(mContext);
         wxpay.payExChange(data);
     }
-  public final static int   SDK_PAY_FLAG = 22;
+
+    public final static int SDK_PAY_FLAG = 22;
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
@@ -182,6 +183,7 @@ public class PayingActivity extends BaseActivity {
             }
         }
     };
+
     public void getAliPay(final AliPayBean data) {
 
         Runnable payRunnable = new Runnable() {

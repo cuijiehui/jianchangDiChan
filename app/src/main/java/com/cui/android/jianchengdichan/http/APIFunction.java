@@ -18,6 +18,7 @@ import com.cui.android.jianchengdichan.http.bean.CivilianserviceBean;
 import com.cui.android.jianchengdichan.http.bean.CommentActBean;
 import com.cui.android.jianchengdichan.http.bean.CommentListBean;
 import com.cui.android.jianchengdichan.http.bean.CommunityBean;
+import com.cui.android.jianchengdichan.http.bean.CreateOrderBean;
 import com.cui.android.jianchengdichan.http.bean.HistoryDataBean;
 import com.cui.android.jianchengdichan.http.bean.HomeCivilianListBean;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
@@ -242,4 +243,10 @@ public interface APIFunction {
 
     @POST(URLConfig.POST_PARKING_GET_CHARGE_LOG)
     Observable<BaseBean<List<CarChargeLogBean>>> getCarChargeLog(@Body RequestBody route);
+
+    @POST(URLConfig.POST_PARKING_CREATE_ORDER)
+    Observable<BaseBean<CreateOrderBean>> getCreateOrder(@Body RequestBody route);
+    @POST(URLConfig.POST_PARKING_CANCEL_ORDER)
+    Observable<BaseBean<String>> getCancelOrder(@Body RequestBody route);
+
 }

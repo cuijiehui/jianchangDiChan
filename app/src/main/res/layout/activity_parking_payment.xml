@@ -153,6 +153,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:background="@color/white">
