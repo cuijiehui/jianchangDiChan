@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.cui.android.jianchengdichan.R;
@@ -16,6 +17,8 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.LoginPresenter;
 import com.cui.android.jianchengdichan.utils.AndroidPermissionUtils;
 import com.cui.android.jianchengdichan.utils.LogUtils;
+import com.cui.android.jianchengdichan.utils.SPKey;
+import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainPagerAdapter;
@@ -142,16 +145,23 @@ public class MainActivity extends BaseActivity {
             public void onBackSelected(int conut) {
                 LogUtils.i("onBackSelected=" + conut);
                 if(conut==2){
+                    String phone = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_SIP_NUMBER_KEY, SPUtils.DATA_STRING);
+                    if (TextUtils.isEmpty(phone)) {
+                        startActivity(LoginActivity.class);
+                        return;
+                    }
                     Intent intent = new Intent(getContext(), WebViewActivity.class);
                     Bundle bundle ;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         bundle = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle();
-                        bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+//                        bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                        bundle.putString("data", "http://shop.ajunigz.com/app/index.php?i=10&c=entry&m=ewei_shopv2&do=mobile&app_mobile="+phone);
                         intent.putExtras(bundle);
                         getContext().startActivity(intent);
                     }else{
                         bundle=new Bundle();
-                        bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                        bundle.putString("data", "http://shop.ajunigz.com/app/index.php?i=10&c=entry&m=ewei_shopv2&do=mobile&app_mobile="+phone);
+//                        bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
                         intent.putExtras(bundle);
                         getContext().startActivity(intent);
                     }

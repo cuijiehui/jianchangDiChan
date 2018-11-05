@@ -9,7 +9,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ParkingLotActivity extends BaseActivity {
@@ -112,6 +110,13 @@ public class ParkingLotActivity extends BaseActivity {
                 double latitude = new Double(carGoingBean.getLatitude());
                 double loingitude = new Double(carGoingBean.getLongitude());
                 MapPopupWindows mapPopupWindows = new MapPopupWindows(ParkingLotActivity.this, getRootView(), latitude, loingitude);
+            }
+        });
+        mCarGoingDataAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                CarGoingBean carGoingBean = dataList.get(position);
+                startActivity(CheckedCarActivity.getStartIntent(mContext,"0",carGoingBean.getParkCode()));
             }
         });
     }

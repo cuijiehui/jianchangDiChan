@@ -73,6 +73,7 @@ public interface URLConfig {
     String POST_PARKING_GET_CHARGE_LOG =HOME_URL+"/api/parking/chargeLog";                                            //缴费记录
     String POST_PARKING_CREATE_ORDER =HOME_URL+"/api/parking/createOrder";                                            //创建订单
     String POST_PARKING_CANCEL_ORDER=HOME_URL+"/api/parking/cancelOrder";                                            //取消订单
+    String POST_PARKING_PAY_ORDER=HOME_URL+"/api/parking/payOrder";                                            //获取微信订单
 
 
 

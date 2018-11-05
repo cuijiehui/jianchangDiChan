@@ -20,8 +20,6 @@ import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.ParkingPaymentPresenter;
 import com.cui.android.jianchengdichan.utils.CheckApp;
 import com.cui.android.jianchengdichan.utils.LogUtils;
-import com.cui.android.jianchengdichan.utils.SPKey;
-import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.utils.ToastUtil;
 import com.cui.android.jianchengdichan.utils.WXPayUtil2;
 import com.cui.android.jianchengdichan.view.base.BaseActivity;
@@ -122,7 +120,7 @@ public class ParkingPaymentActivity extends BaseActivity {
 //                        WXPayUtil2 wxpay = new WXPayUtil2(mContext);
 //                        int uid= (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
 //                        String token =(String)  SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
-                        mPresenter.createOrder(mCarCostBean.getCarNo(),"20070580001");
+                        mPresenter.createOrder(mCarCostBean.getCarNo(),mCarCostBean.getParkCode());
 
                     } else {
                         ToastUtil.makeToast("您未安装微信");
@@ -136,11 +134,16 @@ public class ParkingPaymentActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.bt_cancel)
+    public void onCancel(){
+        mPresenter.cancelOrder(order_no);
+    }
+
+    private String order_no = "";
     public void getCreateOrder(CreateOrderBean data) {
-        mPresenter.cancelOrder(data.getOrder_no());
-//        int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
-//        String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
-//        mPresenter.getWeixin(uid, token, data.getOrder_no());
+        order_no=data.getOrder_no();
+        LogUtils.i("order_no="+order_no);
+        mPresenter.getWeixin(data.getOrder_no());
     }
 
     public void cancel() {

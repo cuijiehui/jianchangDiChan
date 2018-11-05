@@ -69,6 +69,7 @@ public class Token {
     public static final String API_CAR_CHARGE_LOG_MODEL= PACKAGE_NAME + "CarChargeLogModel";
     public static final String API_CREATE_ORDER_MODEL= PACKAGE_NAME + "CreateOrderModel";
     public static final String API_CREATE_CANCEL_MODEL= PACKAGE_NAME + "CancelOrderModel";
+    public static final String API_PAY_ORDER_MODEL= PACKAGE_NAME + "PayOrderModel";
 
 
 }

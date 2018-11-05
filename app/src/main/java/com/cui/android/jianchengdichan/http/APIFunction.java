@@ -246,7 +246,11 @@ public interface APIFunction {
 
     @POST(URLConfig.POST_PARKING_CREATE_ORDER)
     Observable<BaseBean<CreateOrderBean>> getCreateOrder(@Body RequestBody route);
+
     @POST(URLConfig.POST_PARKING_CANCEL_ORDER)
     Observable<BaseBean<String>> getCancelOrder(@Body RequestBody route);
+
+    @POST(URLConfig.POST_PARKING_PAY_ORDER)
+    Observable<BaseBean<WeChatPayBean>> getPayOrder(@Body RequestBody route);
 
 }

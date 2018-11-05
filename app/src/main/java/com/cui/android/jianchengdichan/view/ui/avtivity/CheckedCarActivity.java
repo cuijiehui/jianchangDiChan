@@ -36,6 +36,8 @@ import butterknife.OnClick;
 
 public class CheckedCarActivity extends BaseActivity {
     public static final String TYPE_KEY = "type_key";
+    public static final String PARK_CODE_KEY = "park_code_key";
+
     @BindView(R.id.top_back)
     RelativeLayout topBack;
     @BindView(R.id.tv_content_name)
@@ -54,6 +56,13 @@ public class CheckedCarActivity extends BaseActivity {
     int page = 1;
     String type = "0";
     String mCarNo = "";
+    String mParkCode="20070580001";
+    public static Intent getStartIntent(Context context, String type,String parkCode) {
+        Intent intent = new Intent(context, CheckedCarActivity.class);
+        intent.putExtra(TYPE_KEY, type);
+        intent.putExtra(PARK_CODE_KEY, parkCode);
+        return intent;
+    }
     public static Intent getStartIntent(Context context, String type) {
         Intent intent = new Intent(context, CheckedCarActivity.class);
         intent.putExtra(TYPE_KEY, type);
@@ -81,6 +90,7 @@ public class CheckedCarActivity extends BaseActivity {
     public void initView(View view) {
         type = getIntent().getStringExtra(TYPE_KEY);
         if ("0".equals(type)) {
+            mParkCode=getIntent().getStringExtra(PARK_CODE_KEY);
             tvContentName.setText("找车缴费");
         } else {
             tvContentName.setText("查询车俩缴费记录");
@@ -112,7 +122,7 @@ public class CheckedCarActivity extends BaseActivity {
 //        mCarNo="粤A9P9T6";
         if ("0".equals(type)) {
 //            mCheckedCarPresenter.checkedCarCost("粤A9P9T6", "20070580001");
-            mCheckedCarPresenter.checkedCarCost(carNo, "20070580001");
+            mCheckedCarPresenter.checkedCarCost(carNo, mParkCode);
         } else {
             mCheckedCarPresenter.getChargeLog(carNo, page + "");
             isChargeLog = true;
@@ -132,6 +142,7 @@ public class CheckedCarActivity extends BaseActivity {
             return;
         }
         data.setCarNo(mCarNo);
+        data.setParkCode(mParkCode);
         startActivity(ParkingPaymentActivity.getStartIntent(mContext, data));
     }
 

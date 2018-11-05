@@ -282,16 +282,23 @@ public class MainHomeFragment extends BaseFragment {
 
                         break;
                     case 7:
+                        String phone = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_SIP_NUMBER_KEY, SPUtils.DATA_STRING);
+                        if (TextUtils.isEmpty(phone)) {
+                            startActivity(LoginActivity.class);
+                            return;
+                        }
                         Intent intent = new Intent(getContext(), WebViewActivity.class);
                         Bundle bundle;
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
-                            bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+//                            bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                            bundle.putString("data", "http://shop.ajunigz.com/app/index.php?i=10&c=entry&m=ewei_shopv2&do=mobile&app_mobile="+phone);
                             intent.putExtras(bundle);
                             getContext().startActivity(intent);
                         } else {
                             bundle = new Bundle();
-                            bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+//                            bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                            bundle.putString("data", "http://shop.ajunigz.com/app/index.php?i=10&c=entry&m=ewei_shopv2&do=mobile&app_mobile="+phone);
                             intent.putExtras(bundle);
                             getContext().startActivity(intent);
                         }
@@ -500,9 +507,26 @@ public class MainHomeFragment extends BaseFragment {
 
                 break;
             case R.id.iv_flash_sale:
-                Intent intent = new Intent(mContext, WebViewActivity.class);
-                intent.putExtra("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
-                startActivity(intent);
+                String phone = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_SIP_NUMBER_KEY, SPUtils.DATA_STRING);
+                if (TextUtils.isEmpty(phone)) {
+                    startActivity(LoginActivity.class);
+                    return;
+                }
+                Intent intent = new Intent(getContext(), WebViewActivity.class);
+                Bundle bundle ;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
+//                        bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                    bundle.putString("data", "http://shop.ajunigz.com/app/index.php?i=10&c=entry&m=ewei_shopv2&do=mobile&app_mobile="+phone);
+                    intent.putExtras(bundle);
+                    getContext().startActivity(intent);
+                }else{
+                    bundle=new Bundle();
+                    bundle.putString("data", "http://shop.ajunigz.com/app/index.php?i=10&c=entry&m=ewei_shopv2&do=mobile&app_mobile="+phone);
+//                        bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                    intent.putExtras(bundle);
+                    getContext().startActivity(intent);
+                }
                 break;
         }
     }
@@ -556,7 +580,9 @@ public class MainHomeFragment extends BaseFragment {
 
     @OnClick(R.id.rl_checked_car)
     public void onCheckedCar() {
-        startActivity(CheckedCarActivity.getStartIntent(mContext, "0"));
+//        startActivity(CheckedCarActivity.getStartIntent(mContext, "0"));
+        startActivity(ParkingLotActivity.getStartIntent(mContext));
+
     }
 
     @OnClick(R.id.rl_nearby_car)

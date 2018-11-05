@@ -44,6 +44,15 @@ public class CarCostBean implements Parcelable {
     private String nextChargeMoney;
     private String carNo;
     private String is_free;
+    private String parkCode;
+
+    public String getParkCode() {
+        return parkCode;
+    }
+
+    public void setParkCode(String parkCode) {
+        this.parkCode = parkCode;
+    }
 
     public String getIs_free() {
         return is_free;
@@ -222,6 +231,7 @@ public class CarCostBean implements Parcelable {
         dest.writeString(this.nextChargeTime);
         dest.writeString(this.nextChargeMoney);
         dest.writeString(this.carNo);
+        dest.writeString(this.parkCode);
     }
 
     public CarCostBean() {
@@ -246,6 +256,7 @@ public class CarCostBean implements Parcelable {
         this.nextChargeTime = in.readString();
         this.nextChargeMoney = in.readString();
         this.carNo = in.readString();
+        this.parkCode = in.readString();
     }
 
     public static final Parcelable.Creator<CarCostBean> CREATOR = new Parcelable.Creator<CarCostBean>() {

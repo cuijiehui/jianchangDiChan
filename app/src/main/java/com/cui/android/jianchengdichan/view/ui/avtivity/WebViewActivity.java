@@ -1,6 +1,7 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -46,8 +48,8 @@ public class WebViewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         tvContentName.setText("管家商城");
 
-//        getData();
-//        setSettings();
+        getData();
+        setSettings();
     }
 
     //获取上个页面传递过来的数据
@@ -107,7 +109,34 @@ public class WebViewActivity extends AppCompatActivity {
 //            }
 //        });
 
+        wvAll.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    Uri url = request.getUrl();
+                    LogUtils.i("url="+url.getAuthority());
+                    if ( url.getScheme().equals("js")) {
 
+                        // 如果 authority  = 预先约定协议里的 webview，即代表都符合约定的协议
+                        // 所以拦截url,下面JS开始调用Android需要的方法
+                        if (url.getAuthority().equals("webview")) {
+
+                            //  步骤3：
+                            // 执行JS所需要调用的逻辑
+//                            System.out.println("js调用了Android的方法");
+//                            // 可以在协议上带有参数并传递到Android上
+//                            HashMap<String, String> params = new HashMap<>();
+//                            Set<String> collection = url.getQueryParameterNames();
+
+                        }
+
+//                        return true;
+                    }
+
+                }
+                return super.shouldOverrideUrlLoading(view, request);
+            }
+        });
     }
 
     @OnClick(R.id.top_back)

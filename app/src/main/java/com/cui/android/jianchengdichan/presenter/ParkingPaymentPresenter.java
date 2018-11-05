@@ -3,17 +3,13 @@ package com.cui.android.jianchengdichan.presenter;
 import android.text.TextUtils;
 
 import com.cui.android.jianchengdichan.http.base.BaseBean;
-import com.cui.android.jianchengdichan.http.bean.CarGoingBean;
 import com.cui.android.jianchengdichan.http.bean.CreateOrderBean;
 import com.cui.android.jianchengdichan.http.bean.WeChatPayBean;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
-import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.view.ui.avtivity.ParkingPaymentActivity;
 import com.google.gson.JsonObject;
-
-import java.util.List;
 
 public class ParkingPaymentPresenter extends BasePresenter<ParkingPaymentActivity> {
 
@@ -84,13 +80,11 @@ public class ParkingPaymentPresenter extends BasePresenter<ParkingPaymentActivit
                     }
                 });
     }
-    public void getWeixin(int uid, String token, String id) {
+    public void getWeixin(String orderNo) {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("uid", uid);
-        jsonObject.addProperty("token", token);
-        jsonObject.addProperty("id", id);
+        jsonObject.addProperty("orderNo", orderNo);
         String json = jsonObject.toString();
-        DataModel.request(Token.API_WE_CHAT_IMG)
+        DataModel.request(Token.API_PAY_ORDER_MODEL)
                 .params(json)
                 .execute(new CallBack<BaseBean<WeChatPayBean>>() {
                     @Override
