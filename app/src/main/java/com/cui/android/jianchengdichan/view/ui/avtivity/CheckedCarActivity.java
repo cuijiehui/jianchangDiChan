@@ -159,6 +159,10 @@ public class CheckedCarActivity extends BaseActivity {
     }
 
     public void getChargeLog(List<CarChargeLogBean> data) {
+        if(data==null){
+            ToastUtil.makeToast("车俩没有缴费订单！");
+            return;
+        }
         hideLoading();
         dataList.clear();
         dataList.addAll(data);
