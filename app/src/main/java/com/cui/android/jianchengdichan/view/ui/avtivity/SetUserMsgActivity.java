@@ -71,11 +71,20 @@ public class SetUserMsgActivity extends BaseActivity {
 
     @Override
     public View initBack() {
-        return topBack;
+        return null;
     }
 
+    @OnClick(R.id.top_back)
+    public void onBack(){
+        startActivity(PersonalDataActivity.class);
+        finish();
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(PersonalDataActivity.class);
+        finish();
 
-
+    }
 
     @OnClick(R.id.bt_set_ok)
     public void onViewClicked() {
@@ -94,7 +103,9 @@ public class SetUserMsgActivity extends BaseActivity {
         String vlues =etSetText.getText().toString();
         if(key.equals("name")){
             SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_TRUE_NAME_KEY, vlues);//真实名字
-        }else{
+        }else if("car_no".equals(key)){
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_CAR_NO_KEY, vlues);
+        }else {
             SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_NAME_KEY, vlues);
         }
         finish();

@@ -580,9 +580,7 @@ public class MainHomeFragment extends BaseFragment {
 
     @OnClick(R.id.rl_checked_car)
     public void onCheckedCar() {
-//        startActivity(CheckedCarActivity.getStartIntent(mContext, "0"));
-        startActivity(ParkingLotActivity.getStartIntent(mContext));
-
+        startActivity(CheckedCarActivity.getStartIntent(mContext,"0"));
     }
 
     @OnClick(R.id.rl_nearby_car)

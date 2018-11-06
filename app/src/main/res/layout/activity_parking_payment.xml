@@ -216,5 +216,6 @@
         android:layout_marginRight="12dp"
         android:background="@drawable/shape_circular_bead_blue_col"
         android:text="支付"
+        android:visibility="gone"
         android:textColor="@color/white" />
 </LinearLayout>

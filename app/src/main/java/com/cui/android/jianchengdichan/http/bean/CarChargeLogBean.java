@@ -1,113 +1,74 @@
 package com.cui.android.jianchengdichan.http.bean;
 
 public class CarChargeLogBean {
-
     /**
-     * outImgPath :
-     * favType :
-     * cardId : 181027163651040117
-     * pst : 2018-10-27 16:36:51
-     * favMoney : 0.0
-     * status : 1
-     * doorName : 车场出口
+     * createTime : 2018-10-27 18:52:44
      * ltdCode : 2007058
-     * inDoorName : 车场入口
-     * cardType : 临时卡
-     * operator : A班
-     * id : 7b014223-7058-4fc7-a9ed-0e17e9d4a656
-     * pfeeTime : 178
-     * carNo : 粤B039EJ
-     * editfee : 24.0
-     * parkName : 文德先生停车场
-     * allfee : 24.0
-     * inImgPath : 20181027/16/20181027163651181027163651040117.jpg
-     * pet : 2018-10-27 19:35:36
-     * parkTime : 178
-     * leaveTime :
-     * favTime : 0
+     * payTime :
+     * noticeTime :
+     * localParkTime : 2018-10-27 18:51:33
+     * id : 0ac43957-d539-4ba0-8ec0-89c842cf26a1
+     * allPrivilege : 0
+     * payFee : 1800
+     * refund : 0
+     * tradeMode :
      * parkCode : 20070580001
-     * chargeCarType : 通用
+     * billingTime : 8040
+     * cardId : 181027163651040117
+     * updateTime : 2018-10-27 18:52:44
+     * tradeNo : 201810271852435493362515
+     * allCouponsTime : 0
+     * effectivePrivilege : 0
+     * entryTime : 2018-10-27 16:36:51
+     * orderStatus : 0
+     * stopTime : 8040
+     * discount : 0.0
+     * chargingCar : 标准收费
+     * effectiveCouponsTime : 0
+     * dcValue : 0
+     * carNo : 粤B039EJ
+     * tradeState : 0
+     * orderNo : 2018102718524420070580001165514
+     * totalFee : 1800
+     * payType :
      */
 
-    private String outImgPath;
-    private String favType;
-    private String cardId;
-    private String pst;
-    private String favMoney;
-    private String status;
-    private String doorName;
+    private String createTime;
     private String ltdCode;
-    private String inDoorName;
-    private String cardType;
-    private String operator;
+    private String payTime;
+    private String noticeTime;
+    private String localParkTime;
     private String id;
-    private String pfeeTime;
-    private String carNo;
-    private String editfee;
-    private String parkName;
-    private String allfee;
-    private String inImgPath;
-    private String pet;
-    private String parkTime;
-    private String leaveTime;
-    private String favTime;
+    private String allPrivilege;
+    private String payFee;
+    private String refund;
+    private String tradeMode;
     private String parkCode;
-    private String chargeCarType;
+    private String billingTime;
+    private String cardId;
+    private String updateTime;
+    private String tradeNo;
+    private String allCouponsTime;
+    private String effectivePrivilege;
+    private String entryTime;
+    private String orderStatus;
+    private String stopTime;
+    private String discount;
+    private String chargingCar;
+    private String effectiveCouponsTime;
+    private String dcValue;
+    private String carNo;
+    private String tradeState;
+    private String orderNo;
+    private String totalFee;
+    private String payType;
 
-    public String getOutImgPath() {
-        return outImgPath;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setOutImgPath(String outImgPath) {
-        this.outImgPath = outImgPath;
-    }
-
-    public String getFavType() {
-        return favType;
-    }
-
-    public void setFavType(String favType) {
-        this.favType = favType;
-    }
-
-    public String getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(String cardId) {
-        this.cardId = cardId;
-    }
-
-    public String getPst() {
-        return pst;
-    }
-
-    public void setPst(String pst) {
-        this.pst = pst;
-    }
-
-    public String getFavMoney() {
-        return favMoney;
-    }
-
-    public void setFavMoney(String favMoney) {
-        this.favMoney = favMoney;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getDoorName() {
-        return doorName;
-    }
-
-    public void setDoorName(String doorName) {
-        this.doorName = doorName;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public String getLtdCode() {
@@ -118,28 +79,28 @@ public class CarChargeLogBean {
         this.ltdCode = ltdCode;
     }
 
-    public String getInDoorName() {
-        return inDoorName;
+    public String getPayTime() {
+        return payTime;
     }
 
-    public void setInDoorName(String inDoorName) {
-        this.inDoorName = inDoorName;
+    public void setPayTime(String payTime) {
+        this.payTime = payTime;
     }
 
-    public String getCardType() {
-        return cardType;
+    public String getNoticeTime() {
+        return noticeTime;
     }
 
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
+    public void setNoticeTime(String noticeTime) {
+        this.noticeTime = noticeTime;
     }
 
-    public String getOperator() {
-        return operator;
+    public String getLocalParkTime() {
+        return localParkTime;
     }
 
-    public void setOperator(String operator) {
-        this.operator = operator;
+    public void setLocalParkTime(String localParkTime) {
+        this.localParkTime = localParkTime;
     }
 
     public String getId() {
@@ -150,84 +111,36 @@ public class CarChargeLogBean {
         this.id = id;
     }
 
-    public String getPfeeTime() {
-        return pfeeTime;
+    public String getAllPrivilege() {
+        return allPrivilege;
     }
 
-    public void setPfeeTime(String pfeeTime) {
-        this.pfeeTime = pfeeTime;
+    public void setAllPrivilege(String allPrivilege) {
+        this.allPrivilege = allPrivilege;
     }
 
-    public String getCarNo() {
-        return carNo;
+    public String getPayFee() {
+        return payFee;
     }
 
-    public void setCarNo(String carNo) {
-        this.carNo = carNo;
+    public void setPayFee(String payFee) {
+        this.payFee = payFee;
     }
 
-    public String getEditfee() {
-        return editfee;
+    public String getRefund() {
+        return refund;
     }
 
-    public void setEditfee(String editfee) {
-        this.editfee = editfee;
+    public void setRefund(String refund) {
+        this.refund = refund;
     }
 
-    public String getParkName() {
-        return parkName;
+    public String getTradeMode() {
+        return tradeMode;
     }
 
-    public void setParkName(String parkName) {
-        this.parkName = parkName;
-    }
-
-    public String getAllfee() {
-        return allfee;
-    }
-
-    public void setAllfee(String allfee) {
-        this.allfee = allfee;
-    }
-
-    public String getInImgPath() {
-        return inImgPath;
-    }
-
-    public void setInImgPath(String inImgPath) {
-        this.inImgPath = inImgPath;
-    }
-
-    public String getPet() {
-        return pet;
-    }
-
-    public void setPet(String pet) {
-        this.pet = pet;
-    }
-
-    public String getParkTime() {
-        return parkTime;
-    }
-
-    public void setParkTime(String parkTime) {
-        this.parkTime = parkTime;
-    }
-
-    public String getLeaveTime() {
-        return leaveTime;
-    }
-
-    public void setLeaveTime(String leaveTime) {
-        this.leaveTime = leaveTime;
-    }
-
-    public String getFavTime() {
-        return favTime;
-    }
-
-    public void setFavTime(String favTime) {
-        this.favTime = favTime;
+    public void setTradeMode(String tradeMode) {
+        this.tradeMode = tradeMode;
     }
 
     public String getParkCode() {
@@ -238,11 +151,147 @@ public class CarChargeLogBean {
         this.parkCode = parkCode;
     }
 
-    public String getChargeCarType() {
-        return chargeCarType;
+    public String getBillingTime() {
+        return billingTime;
     }
 
-    public void setChargeCarType(String chargeCarType) {
-        this.chargeCarType = chargeCarType;
+    public void setBillingTime(String billingTime) {
+        this.billingTime = billingTime;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getTradeNo() {
+        return tradeNo;
+    }
+
+    public void setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+    }
+
+    public String getAllCouponsTime() {
+        return allCouponsTime;
+    }
+
+    public void setAllCouponsTime(String allCouponsTime) {
+        this.allCouponsTime = allCouponsTime;
+    }
+
+    public String getEffectivePrivilege() {
+        return effectivePrivilege;
+    }
+
+    public void setEffectivePrivilege(String effectivePrivilege) {
+        this.effectivePrivilege = effectivePrivilege;
+    }
+
+    public String getEntryTime() {
+        return entryTime;
+    }
+
+    public void setEntryTime(String entryTime) {
+        this.entryTime = entryTime;
+    }
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public String getStopTime() {
+        return stopTime;
+    }
+
+    public void setStopTime(String stopTime) {
+        this.stopTime = stopTime;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
+    public String getChargingCar() {
+        return chargingCar;
+    }
+
+    public void setChargingCar(String chargingCar) {
+        this.chargingCar = chargingCar;
+    }
+
+    public String getEffectiveCouponsTime() {
+        return effectiveCouponsTime;
+    }
+
+    public void setEffectiveCouponsTime(String effectiveCouponsTime) {
+        this.effectiveCouponsTime = effectiveCouponsTime;
+    }
+
+    public String getDcValue() {
+        return dcValue;
+    }
+
+    public void setDcValue(String dcValue) {
+        this.dcValue = dcValue;
+    }
+
+    public String getCarNo() {
+        return carNo;
+    }
+
+    public void setCarNo(String carNo) {
+        this.carNo = carNo;
+    }
+
+    public String getTradeState() {
+        return tradeState;
+    }
+
+    public void setTradeState(String tradeState) {
+        this.tradeState = tradeState;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(String totalFee) {
+        this.totalFee = totalFee;
+    }
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
     }
 }

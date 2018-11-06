@@ -18,6 +18,7 @@ public interface SPKey {
     String SP_USER_SIP_PWD_KEY = "sip_pwd_number";                                                  // SIM PWD
     String SP_USER_PIC_URL_KEY = "pic_url_number";                                                  // 头像
     String SP_USER_TRUE_NAME_KEY = "true_name_number";                                                  // 真实姓名
+    String SP_CAR_NO_KEY = "car_no";                                                  // 真实姓名
 
     String SP_HOME_DATA_ADV_KEY = "home_data_adv";                                                  //主页广告数据
     String SP_HOME_DATA_NOTICE_KEY = "home_data_notice";                                            //主页公告数据

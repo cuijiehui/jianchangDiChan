@@ -73,11 +73,14 @@ public class PersonalDataActivity extends BaseActivity {
     String pic;
     String trueName;
     String phone="";
+    String carNo="";
     CameraPopupWindows cameraPopupWindows;
     @BindView(R.id.tv_user_nickname)
     TextView tvUserNickname;
     @BindView(R.id.tv_user_real_name)
     TextView tvUserRealName;
+    @BindView(R.id.tv_car_no)
+    TextView tv_car_no;
     private Uri themUrl = null;
     PersonalDataPresenter personalDataPresenter;
 
@@ -126,9 +129,11 @@ public class PersonalDataActivity extends BaseActivity {
         pic = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_PIC_URL_KEY, SPUtils.DATA_STRING);
         trueName = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TRUE_NAME_KEY, SPUtils.DATA_STRING);
         phone = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_SIP_NUMBER_KEY, SPUtils.DATA_STRING);
+        carNo = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_CAR_NO_KEY, SPUtils.DATA_STRING);
         tvContentName.setText("个人资料");
         tvUserNickname.setText(userName);
         tvUserRealName.setText(trueName);
+        tv_car_no.setText(carNo);
         tvUserId.setText(phone);
         LogUtils.i("pic="+pic);
         if (!TextUtils.isEmpty(pic)) {
@@ -148,7 +153,7 @@ public class PersonalDataActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.img_userhead, R.id.bt_log_out,R.id.rel_user_nickname,R.id.rel_user_real_name,R.id.rel_user_reset})
+    @OnClick({R.id.img_userhead, R.id.bt_log_out,R.id.rel_user_nickname,R.id.rel_user_real_name,R.id.rel_user_reset,R.id.rl_car_no})
     public void onViewClicked(View view) {
         Bundle bundle = new Bundle();
 
@@ -168,6 +173,8 @@ public class PersonalDataActivity extends BaseActivity {
                 SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_NUMBER_KEY,"");
                 SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_PWD_KEY,"");
                 SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PIC_URL_KEY, "");
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_TRUE_NAME_KEY, "");
+                SPUtils.INSTANCE.setSPValue(SPKey.SP_CAR_NO_KEY, "");
                 startActivity(LoginActivity.class);
                 finish();
                 break;
@@ -183,6 +190,14 @@ public class PersonalDataActivity extends BaseActivity {
                 bundle.putString("name","修改昵称");
                 bundle.putString("hint","请输入昵称");
                 bundle.putString("key","nickname");
+                startActivity(SetUserMsgActivity.class,bundle);
+                finish();
+
+                break;
+            case R.id.rl_car_no:
+                bundle.putString("name","修改车牌");
+                bundle.putString("hint","请输入车车牌");
+                bundle.putString("key","car_no");
                 startActivity(SetUserMsgActivity.class,bundle);
                 finish();
 

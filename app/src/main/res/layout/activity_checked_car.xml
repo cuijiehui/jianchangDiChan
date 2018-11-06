@@ -42,7 +42,33 @@
                     android:textColor="@color/main_seek_text_col"
                     android:textSize="@dimen/sp_16" />
             </RelativeLayout>
-
+            <RelativeLayout
+                android:id="@+id/rl_car_park"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white"
+                android:layout_marginTop="1dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="所在车场"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    />
+                <TextView
+                    android:id="@+id/tv_car_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请选择车场"
+                    android:textSize="13sp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="12dp"
+                    android:drawableRight="@drawable/main_font_icon"
+                    android:drawablePadding="5dp"/>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
@@ -55,16 +81,18 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="17dp"
                     android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
                     android:text="车牌：" />
 
                 <com.cui.android.jianchengdichan.view.ui.customview.PayPwdEditText
                     android:id="@+id/ppet_car_number"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:paddingBottom="5dp"
                     android:paddingLeft="8dp"
-                    android:paddingTop="8dp"
                     android:paddingRight="55dp"
-                    android:paddingBottom="5dp" />
+                    android:paddingTop="8dp" />
             </LinearLayout>
 
             <Button
@@ -72,27 +100,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginLeft="12dp"
-                android:layout_marginTop="16dp"
                 android:layout_marginRight="12dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/shape_circular_bead_blue_col"
                 android:text="开始查询"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
         </LinearLayout>
-        <!--下拉刷新-->
-        <com.baoyz.widget.PullRefreshLayout
-            android:id="@+id/prl_refreshable"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/rl_main_top">
+        <!--&lt;!&ndash;下拉刷新&ndash;&gt;-->
+        <!--<com.baoyz.widget.PullRefreshLayout-->
+            <!--android:id="@+id/prl_refreshable"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_below="@+id/rl_main_top">-->
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_charge_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                />
 
-        </com.baoyz.widget.PullRefreshLayout>
+        <!--</com.baoyz.widget.PullRefreshLayout>-->
     </RelativeLayout>
 
 </LinearLayout>

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.CarGoingBean;
+import com.cui.android.jianchengdichan.http.bean.CarInfoBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.ParkingLotPresenter;
 import com.cui.android.jianchengdichan.utils.LocationUtils;
@@ -32,6 +33,9 @@ import butterknife.OnClick;
 
 public class ParkingLotActivity extends BaseActivity {
     ParkingLotPresenter mPresenter = new ParkingLotPresenter();
+    public static final String CAR_NO_KEY = "car_no_key";
+    public static final String TYPE_KEY = "type_key";
+
     @BindView(R.id.top_back)
     RelativeLayout topBack;
     @BindView(R.id.tv_content_name)
@@ -44,6 +48,15 @@ public class ParkingLotActivity extends BaseActivity {
     Location mBest;
     @BindView(R.id.tv_top_right)
     TextView tvTopRight;
+
+    String carNo="";
+    String mType = "3";
+    public static Intent getStartIntent(Context context,String carNo,String type) {
+        Intent intent = new Intent(context, ParkingLotActivity.class);
+        intent.putExtra(CAR_NO_KEY,carNo);
+        intent.putExtra(TYPE_KEY,type);
+        return intent;
+    }
 
     public static Intent getStartIntent(Context context) {
         Intent intent = new Intent(context, ParkingLotActivity.class);
@@ -69,7 +82,7 @@ public class ParkingLotActivity extends BaseActivity {
     public void initView(View view) {
         tvContentName.setText("附近车场");
         tvTopRight.setVisibility(View.VISIBLE);
-        tvTopRight.setText("缴费记录");
+        tvTopRight.setText("订单记录");
         initRv();
         checkPermission(new CheckPermListener() {
             @Override
@@ -81,6 +94,8 @@ public class ParkingLotActivity extends BaseActivity {
 
     @Override
     public void doBusiness(Context mContext) {
+        carNo=getIntent().getStringExtra(CAR_NO_KEY);
+        mType=getIntent().getStringExtra(TYPE_KEY);
         getBestLocation();
         mPresenter.getCarGoingInfo();
     }
@@ -88,7 +103,7 @@ public class ParkingLotActivity extends BaseActivity {
 
     @Override
     public View initBack() {
-        return topBack;
+        return null;
     }
 
     private void initRv() {
@@ -115,8 +130,17 @@ public class ParkingLotActivity extends BaseActivity {
         mCarGoingDataAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                CarGoingBean carGoingBean = dataList.get(position);
-                startActivity(CheckedCarActivity.getStartIntent(mContext,"0",carGoingBean.getParkCode()));
+                if ("0".equals(mType)) {
+                    CarGoingBean carGoingBean = dataList.get(position);
+                    CarInfoBean carInfoBean =new CarInfoBean(carNo,carGoingBean.getParkCode(),carGoingBean.getParkName());
+                    startActivity(CheckedCarActivity.getStartIntent(mContext,"0",carInfoBean));
+                    finish();
+                }else if("1".equals(mType)){
+                    CarGoingBean carGoingBean = dataList.get(position);
+                    CarInfoBean carInfoBean =new CarInfoBean(carNo,carGoingBean.getParkCode(),carGoingBean.getParkName());
+                    startActivity(CheckedCarActivity.getStartIntent(mContext,"1",carInfoBean));
+                    finish();
+                }
             }
         });
     }
@@ -159,5 +183,37 @@ public class ParkingLotActivity extends BaseActivity {
     public void onTopRightClick(){
         startActivity(CheckedCarActivity.getStartIntent(mContext,"1"));
     }
+    @OnClick(R.id.top_back)
+    public void onBack(){
+        if ("0".equals(mType)) {
+            CarInfoBean carInfoBean =new CarInfoBean();
+            carInfoBean.setCarNo(carNo);
+            startActivity(CheckedCarActivity.getStartIntent(mContext,"0",carInfoBean));
+            finish();
+        }else if("1".equals(mType)){
+            CarInfoBean carInfoBean =new CarInfoBean();
+            carInfoBean.setCarNo(carNo);
+            startActivity(CheckedCarActivity.getStartIntent(mContext,"1",carInfoBean));
+            finish();
+        }else{
+            finish();
+        }
+    }
 
+    @Override
+    public void onBackPressed() {
+        if ("0".equals(mType)) {
+            CarInfoBean carInfoBean =new CarInfoBean();
+            carInfoBean.setCarNo(carNo);
+            startActivity(CheckedCarActivity.getStartIntent(mContext,"0",carInfoBean));
+            finish();
+        }else if("1".equals(mType)){
+            CarInfoBean carInfoBean =new CarInfoBean();
+            carInfoBean.setCarNo(carNo);
+            startActivity(CheckedCarActivity.getStartIntent(mContext,"1",carInfoBean));
+            finish();
+        }else{
+            super.onBackPressed();
+        }
+    }
 }

@@ -284,4 +284,9 @@ public class PayPwdEditText extends RelativeLayout {
             editText.setText("");
         }
     }
+    public void setEditText(String text){
+        if(editText!=null){
+            editText.setText(text);
+        }
+    }
 }

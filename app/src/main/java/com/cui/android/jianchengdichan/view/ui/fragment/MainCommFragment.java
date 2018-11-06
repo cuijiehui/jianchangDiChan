@@ -145,13 +145,14 @@ public class MainCommFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        dataTop.clear();
         dataTop.add(new CommRvBean(R.drawable.comm_express_icon, "快递站点", "集多项服务于一体"));
         dataTop.add(new CommRvBean(R.drawable.shop_comm_icon, "便利商店", "生活超市全程服务"));
         dataTop.add(new CommRvBean(R.drawable.homemaking_icon, "家政保洁", "专业成就好的品牌"));
         dataTop.add(new CommRvBean(R.drawable.comm_canteen_icon, "饿了食堂", "各色菜系人你选择"));
         dataTop.add(new CommRvBean(R.drawable.nurse_icon, "护理保健", "专业成就好的品牌"));
         dataTop.add(new CommRvBean(R.drawable.train_icon, "个人培训", "生活超市全程服务"));
-
+        dataRv.clear();
         dataRv.add(new CommRvBean(R.drawable.comm_stop_car, "我要停车", "线上支付更快捷"));
         dataRv.add(new CommRvBean(R.drawable.comm_lease_icon, "租赁中心", "超多房源任你挑选"));
         dataRv.add(new CommRvBean(R.drawable.comm_carport_icon, "车位管理", "查询并管理车位"));
@@ -253,6 +254,7 @@ public class MainCommFragment extends BaseFragment {
         rvCommTop.setLayoutManager(gridLayoutManager);
         rvCommTop.addItemDecoration(new SpaceItemDecoration(0));
         CommRvAdapter commRvAdapter = new CommRvAdapter(dataTop);
+
         rvCommTop.setAdapter(commRvAdapter);
         rvCommTop.setHasFixedSize(true);
         rvCommTop.setNestedScrollingEnabled(false);

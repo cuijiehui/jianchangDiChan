@@ -86,4 +86,36 @@ public class CheckedCarPresenter extends BasePresenter<CheckedCarActivity> {
                     }
                 });
     }
+    public void cancelOrder(String orderNo){
+        if (!isViewAttached()) {
+            //如果没有View引用就不加载数据
+            return;
+        }
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("orderNo",orderNo);
+        String json =jsonObject.toString();
+        DataModel.request(Token.API_CREATE_CANCEL_MODEL)
+                .params(json)
+                .execute(new CallBack<BaseBean<String>>() {
+                    @Override
+                    public void onSuccess(BaseBean<String> data) {
+                        getView().cancel();
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        getView().onFailure(msg);
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().onError();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
 }
