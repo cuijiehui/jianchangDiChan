@@ -135,6 +135,7 @@
         <activity android:name=".view.ui.avtivity.CheckedCarActivity" />
         <activity android:name=".view.ui.avtivity.ParkingLotActivity" />
         <activity android:name=".view.ui.avtivity.ParkingPaymentActivity"></activity>
+        <activity android:name=".zxing.CaptureActivity"></activity>
     </application>
 
 </manifest>

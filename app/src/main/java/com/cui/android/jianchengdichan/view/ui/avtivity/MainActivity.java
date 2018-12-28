@@ -139,6 +139,13 @@ public class MainActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        LogUtils.d("onActivityResult",data.toString());
+        LogUtils.d("resultCode",resultCode+"");
+        LogUtils.d("requestCode",requestCode+"");
+    }
+
     private void setCallBack() {
         mainNavigationView.setCallBack(new MainNavigationView.SelectedCallBack() {
             @Override

@@ -51,7 +51,6 @@ import com.cui.android.jianchengdichan.view.ui.avtivity.ParkingLotActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.PayFeesActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.RentDatailActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.RepairsActivity;
-import com.cui.android.jianchengdichan.view.ui.avtivity.ScanActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.WebViewActivity;
 import com.cui.android.jianchengdichan.view.ui.customview.GlideImageLoader;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRecyclerAdapter;
@@ -59,7 +58,7 @@ import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvCommunityA
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvNewGoodsAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvYouLikeAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.adapterBean.CommunityBean;
-import com.google.zxing.integration.android.IntentIntegrator;
+import com.cui.android.jianchengdichan.zxing.CaptureActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -474,10 +473,13 @@ public class MainHomeFragment extends BaseFragment {
                 activity.checkPermission(new PermissionActivity.CheckPermListener() {
                     @Override
                     public void superPermission() {
-                        new IntentIntegrator(getActivity())
-                                .setOrientationLocked(false)
-                                .setCaptureActivity(ScanActivity.class) // 设置自定义的activity是ScanActivity
-                                .initiateScan(); // 初始化扫描
+//                        new IntentIntegrator(getActivity())
+//                                .setOrientationLocked(false)
+//                                .setCaptureActivity(ScanActivity.class) // 设置自定义的activity是ScanActivity
+//                                .initiateScan(); // 初始化扫描
+                        Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivityForResult(intent, 1);
                     }
                 }, R.string.perm_tip, Manifest.permission.CAMERA);
 
@@ -528,6 +530,12 @@ public class MainHomeFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        LogUtils.d("onActivityResult",data.toString());
+        LogUtils.d("resultCode",resultCode+"");
+        LogUtils.d("requestCode",requestCode+"");
+    }
 
     private void initRimit_time() {
         if (limit_time != null) {
