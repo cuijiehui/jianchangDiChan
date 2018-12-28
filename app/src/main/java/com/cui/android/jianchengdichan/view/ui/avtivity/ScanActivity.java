@@ -1,21 +1,27 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.widget.ImageView;
 
 import com.cui.android.jianchengdichan.R;
+import com.journeyapps.barcodescanner.CaptureActivity;
 import com.journeyapps.barcodescanner.CaptureManager;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ScanActivity extends AppCompatActivity {
 
     @BindView(R.id.dbv)
     DecoratedBarcodeView mDBV;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
     private CaptureManager captureManager;     //捕获管理器
 
     @Override
@@ -55,6 +61,11 @@ public class ScanActivity extends AppCompatActivity {
         captureManager = new CaptureManager(this,mDBV);
         captureManager.initializeFromIntent(getIntent(),savedInstanceState);
         captureManager.decode();
+        startActivity(new Intent(this, CaptureActivity.class));
+    }
+    @OnClick(R.id.iv_back)
+    public void onBack(){
+        finish();
     }
 
 }

@@ -30,7 +30,7 @@ import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
 
-
+public static final String STACK_NAME_KEY = "stack_name_key";
     @BindView(R.id.tv_login_register)
     TextView tvLoginRegister;
     @BindView(R.id.login_username_icon)
@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParam(Bundle param) {
 
     }
 
@@ -125,16 +125,17 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 
     @OnClick({R.id.tv_login_register, R.id.iv_login_delete, R.id.iv_login_look, R.id.tv_login_forget_pwd, R.id.bt_login_login})
     public void onViewClicked(View view) {
+        Bundle bundle = new Bundle();
         switch (view.getId()) {
             case R.id.tv_login_register:
                 LogUtils.i("tv_login_register");
-                startActivity(new Intent(getContext(), RegisterActivity.class));
+                bundle.putString(STACK_NAME_KEY,this.getLocalClassName());
+                startActivity(RegisterActivity.class,bundle);
                 break;
 
             case R.id.iv_login_delete:
@@ -149,7 +150,6 @@ public class LoginActivity extends BaseActivity {
                 break;
             case R.id.tv_login_forget_pwd:
                 LogUtils.i("tv_login_forget_pwd");
-                Bundle bundle = new Bundle();
                 bundle.putString("type", "1");
                 startActivity(ForgetPwdActivity.class, bundle);
                 break;

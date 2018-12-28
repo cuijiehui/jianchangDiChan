@@ -11,10 +11,13 @@
         android:layout_height="44dp"
         android:background="@color/main_top_col">
         <ImageView
-            android:layout_width="7dp"
-            android:layout_height="15dp"
+            android:id="@+id/iv_back"
+            android:layout_width="12dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:background="@drawable/top_back_icon"
+            />
     </RelativeLayout>
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView

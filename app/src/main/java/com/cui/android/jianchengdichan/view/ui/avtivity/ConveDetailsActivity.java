@@ -55,8 +55,8 @@ public class ConveDetailsActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
-        id=parms.getString("id");
+    public void initParam(Bundle param) {
+        id= param.getString("id");
     }
 
     @Override

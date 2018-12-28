@@ -54,9 +54,9 @@ public class CellPhoneActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
-        if(parms!=null){
-            type=parms.getString("type");
+    public void initParam(Bundle param) {
+        if(param !=null){
+            type= param.getString("type");
         }
     }
 

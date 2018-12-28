@@ -47,9 +47,9 @@ public class TopicListActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
-        if(parms!=null){
-            type=  parms.getInt("type");
+    public void initParam(Bundle param) {
+        if(param !=null){
+            type=  param.getInt("type");
         }
     }
 

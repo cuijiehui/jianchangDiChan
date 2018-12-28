@@ -57,7 +57,7 @@ public class CarGoingActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParam(Bundle param) {
 
     }
 

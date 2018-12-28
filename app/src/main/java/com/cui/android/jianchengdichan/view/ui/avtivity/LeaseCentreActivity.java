@@ -112,7 +112,7 @@ public class LeaseCentreActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParam(Bundle param) {
         data.put("key", "");
         data.put("area", "");
         data.put("house_type", "");

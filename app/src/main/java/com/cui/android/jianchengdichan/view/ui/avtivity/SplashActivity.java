@@ -41,7 +41,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParam(Bundle param) {
         checkPermission(new CheckPermListener() {
             @Override
             public void superPermission() {

@@ -107,9 +107,9 @@ public class CommentActivity extends BaseActivity implements View.OnLayoutChange
     }
 
     @Override
-    public void initParms(Bundle parms) {
-        if (parms != null) {
-            topicListBean = (TopicListBean) parms.getSerializable("data");
+    public void initParam(Bundle param) {
+        if (param != null) {
+            topicListBean = (TopicListBean) param.getSerializable("data");
         }
     }
 

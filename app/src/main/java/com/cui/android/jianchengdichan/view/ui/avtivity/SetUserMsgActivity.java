@@ -46,10 +46,10 @@ public class SetUserMsgActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
-        name = parms.getString("name");
-       hine= parms.getString("hint");
-       key= parms.getString("key");
+    public void initParam(Bundle param) {
+        name = param.getString("name");
+       hine= param.getString("hint");
+       key= param.getString("key");
 
 
     }

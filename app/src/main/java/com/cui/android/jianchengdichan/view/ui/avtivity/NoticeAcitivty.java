@@ -44,7 +44,7 @@ public class NoticeAcitivty extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParam(Bundle param) {
 
     }
 

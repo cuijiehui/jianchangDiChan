@@ -77,9 +77,9 @@ public class PayingActivity extends BaseActivity {
 
 
     @Override
-    public void initParms(Bundle parms) {
-        mBean = (PayingBean) parms.getSerializable("bean");
-        mTypeName = parms.getString("typeName");
+    public void initParam(Bundle param) {
+        mBean = (PayingBean) param.getSerializable("bean");
+        mTypeName = param.getString("typeName");
         LogUtils.i("-------------------" + mTypeName);
 
     }

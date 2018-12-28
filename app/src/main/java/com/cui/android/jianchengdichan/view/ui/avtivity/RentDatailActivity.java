@@ -106,9 +106,9 @@ public class RentDatailActivity extends BaseActivity implements View.OnLayoutCha
     }
 
     @Override
-    public void initParms(Bundle parms) {
-        if(parms!=null){
-            mId =   parms.getString("id");
+    public void initParam(Bundle param) {
+        if(param !=null){
+            mId =   param.getString("id");
         }
     }
 

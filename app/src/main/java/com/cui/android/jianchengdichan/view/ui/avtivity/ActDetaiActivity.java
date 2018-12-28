@@ -52,9 +52,9 @@ public class ActDetaiActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
-        if(parms!=null){
-            id=parms.getInt("id");
+    public void initParam(Bundle param) {
+        if(param !=null){
+            id= param.getInt("id");
         }
     }
 

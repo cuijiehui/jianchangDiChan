@@ -84,7 +84,7 @@ public abstract class BaseActivity extends PermissionActivity implements IBaseVi
         mContext=this;
         try {
             Bundle bundle = getIntent().getExtras();
-            initParms(bundle);
+            initParam(bundle);
             mContextView = LayoutInflater.from(this)
                     .inflate(bindLayout(), null);
 //            if (mAllowFullScreen) {
@@ -141,9 +141,9 @@ public abstract class BaseActivity extends PermissionActivity implements IBaseVi
     /**
      * [初始化Bundle参数]
      *
-     * @param parms
+     * @param param
      */
-    public abstract void initParms(Bundle parms);
+    public abstract void initParam(Bundle param);
 
     /**
      * [绑定布局]
@@ -236,7 +236,9 @@ public abstract class BaseActivity extends PermissionActivity implements IBaseVi
         if(mPresenter!=null&&mPresenter.isViewAttached()){
             mPresenter.detachView();
         }
-        unbinder.unbind();
+        if (unbinder!=null) {
+            unbinder.unbind();
+        }
     }
 
     /**

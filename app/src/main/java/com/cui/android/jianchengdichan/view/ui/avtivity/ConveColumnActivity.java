@@ -57,10 +57,10 @@ public class ConveColumnActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
-        if(parms!=null){
-            type= parms.getInt("type");
-            typeName= parms.getString("typeName");
+    public void initParam(Bundle param) {
+        if(param !=null){
+            type= param.getInt("type");
+            typeName= param.getString("typeName");
             key=typeName;
         }
     }

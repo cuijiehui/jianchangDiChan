@@ -40,7 +40,8 @@ import butterknife.OnClick;
 
 public class InCommunityActivity extends BaseActivity {
 
-
+    public static final String TYPE_KEY = "type_key";
+    public static final String NAME_KEY = "name_key";
     Button btGotoSave;
     InCommunityPresenter inCommunityPresenter;
     @BindView(R.id.top_back)
@@ -65,7 +66,8 @@ public class InCommunityActivity extends BaseActivity {
     TextView tvCommunityName;
     @BindView(R.id.rel_community_name)
     RelativeLayout relCommunityName;
-
+    @BindView(R.id.rl_name)
+    RelativeLayout rlName;
 
 
     @BindView(R.id.tv_submit)
@@ -81,17 +83,19 @@ public class InCommunityActivity extends BaseActivity {
     private String userName;
     private ChooseIdentityPop identityPop;
     private String identity;
-    private Handler handler = new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 200:
                     showPop2(unit_id);
                     break;
             }
         }
     };
+    private int type;
+    private String mName;
 
     @Override
     public BasePresenter initPresenter() {
@@ -100,7 +104,11 @@ public class InCommunityActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParam(Bundle param) {
+        if (param!=null) {
+            mName = param.getString(NAME_KEY);
+            type = param.getInt(TYPE_KEY);
+        }
     }
 
     @Override
@@ -111,7 +119,10 @@ public class InCommunityActivity extends BaseActivity {
     @Override
     public void initView(View view) {
         tvContentName.setText("入驻申请");
-
+        if (type>0) {
+            rlName.setVisibility(View.GONE);
+            edName.setText(mName);
+        }
     }
 
     @Override
@@ -126,8 +137,8 @@ public class InCommunityActivity extends BaseActivity {
 
 
     public void getUserEnterance(UserCommunityBean data) {
-                ToastUtil.makeToast("尊敬的用户，请耐心等我们审核完毕～");
-               finish();
+        ToastUtil.makeToast("尊敬的用户，请耐心等我们审核完毕～");
+        finish();
     }
 
     private void showPop() {
@@ -163,7 +174,7 @@ public class InCommunityActivity extends BaseActivity {
 //            tvCommunityName.setText(communityName);
 //
             codeId = "";
-            handler.obtainMessage(200 ).sendToTarget();
+            handler.obtainMessage(200).sendToTarget();
 
             LogUtils.i("选择地社区" + communityName);
         }
@@ -205,43 +216,33 @@ public class InCommunityActivity extends BaseActivity {
                     ToastUtil.makeToast("单元号不能为空");
                     return;
                 }
-//
-//                AuditBean auditBean = new AuditBean();
-//                auditBean.setUid(cUid);
-//                auditBean.setToken(token);
-                    String type ="5";
-                if (identity.equals("业主")){
-                    type ="1";
-                }else if(identity.equals("家人")){
-                    type ="2";
-                }else if (identity.equals("物业员工")){
-                    type ="3";
-                }else if (identity.equals("物业高管")){
-                    type ="4";
-                }else if (identity.equals("其他")){
-                    type ="5";
+                String type = "5";
+                if (identity.equals("业主")) {
+                    type = "1";
+                } else if (identity.equals("家人")) {
+                    type = "2";
+                } else if (identity.equals("物业员工")) {
+                    type = "3";
+                } else if (identity.equals("物业高管")) {
+                    type = "4";
+                } else if (identity.equals("其他")) {
+                    type = "5";
                 }
-//
-//                auditBean.setName(userName);
-//                auditBean.setCommunity_id(community_id);
-//                auditBean.setUnit_id(unit_id);
-//                auditBean.setProperty_id(codeId);
-//
-//                auditData(auditBean);
-               int cUid =(int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY,SPUtils.DATA_INT);
-               String token = (String)SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY,SPUtils.DATA_STRING);
+                int cUid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
+                String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
                 inCommunityPresenter.setUserCommunity(
                         cUid
-                        ,token
-                        ,userName
-                        ,type
-                        ,community_id
-                        ,unit_id
-                        ,codeId
+                        , token
+                        , userName
+                        , type
+                        , community_id
+                        , unit_id
+                        , codeId
                 );
                 break;
         }
     }
+
     private void showIdentityPop() {
         if (identityPop == null) {
             identityPop = new ChooseIdentityPop(mContext, identityResultListener);
@@ -255,6 +256,7 @@ public class InCommunityActivity extends BaseActivity {
             identityPop.dismiss();
         }
     }
+
     IdentityResultListener identityResultListener = new IdentityResultListener() {
         @Override
         public void identityResult(String result) {
@@ -264,10 +266,11 @@ public class InCommunityActivity extends BaseActivity {
 
         }
     };
+
     private void showPop2(String id) {
 
         if (codePop == null) {
-            codePop = new ChooseCodePop(mContext, id, codeResultListener,inCommunityPresenter);
+            codePop = new ChooseCodePop(mContext, id, codeResultListener, inCommunityPresenter);
             codePop.setOnDismissListener(dismissListener);
         }
 
@@ -279,13 +282,15 @@ public class InCommunityActivity extends BaseActivity {
         }
 
     }
+
     CodeResultListener codeResultListener = new CodeResultListener() {
         @Override
         public void codeBean(ChildCommunityBean bean) {
-             tvCommunityName.setText(communityName+bean.getName());
+            tvCommunityName.setText(communityName + bean.getName());
             codeId = bean.getId();
         }
     };
+
     public void getCommunityList(List<CommunityBean> data) {
         chooseComPop.getCommunityList(data);
     }
@@ -293,7 +298,6 @@ public class InCommunityActivity extends BaseActivity {
     public void getUnitList(List<ChildCommunityBean> data) {
         codePop.getUnitList(data);
     }
-
 
 
 }

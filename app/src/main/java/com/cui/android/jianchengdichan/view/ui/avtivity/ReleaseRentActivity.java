@@ -180,9 +180,9 @@ public class ReleaseRentActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
-        if (parms != null) {
-            String json = parms.getString("json");
+    public void initParam(Bundle param) {
+        if (param != null) {
+            String json = param.getString("json");
             Gson gson = new Gson();
             myApplyBean = gson.fromJson(json, MyApplyBean.class);
             LogUtils.i(json);

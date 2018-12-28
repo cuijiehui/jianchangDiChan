@@ -1,7 +1,6 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Selection;
@@ -16,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.RegisterPresenter;
@@ -67,6 +67,9 @@ public class RegisterActivity extends BaseActivity {
     private boolean isProtocol=true;
     RegisterPresenter mRegisterPresenter;
     private Handler mhandle = new Handler();
+    private String mpwd;
+    private String loginName="";
+
     @Override
     public BasePresenter initPresenter() {
         mRegisterPresenter = new RegisterPresenter();
@@ -74,8 +77,8 @@ public class RegisterActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
-
+    public void initParam(Bundle param) {
+        loginName = param.getString(LoginActivity.STACK_NAME_KEY);
     }
 
     @Override
@@ -102,22 +105,28 @@ public class RegisterActivity extends BaseActivity {
 
 
     public void showView(String msg, int type) {
-        if(type==200){
-            String userName = etRegisterUserName.getText().toString();
-            String pwd = etRegisterPwd.getText().toString();
+        String userName = etRegisterUserName.getText().toString();
+        String pwd = etRegisterPwd.getText().toString();
+        if(type==100){
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_NUMBER_KEY, userName);
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_LOAGIN_KEY, true);
             SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_NAME_KEY,userName);
             SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_PWD_KEY,pwd);
             ToastUtil.makeToast("注册成功");
-            startActivity(new Intent(getContext(),LoginActivity.class));
+            Bundle bundle = new Bundle();
+            MyApplication.getInstance().finishActivityByName(loginName);
+            bundle.putInt(InCommunityActivity.TYPE_KEY,type);
+            bundle.putString(InCommunityActivity.NAME_KEY,userName);
+            startActivity(InCommunityActivity.class,bundle);
+            finish();
+        }else if (type == 123 ){
+            mRegisterPresenter.login(userName, pwd);
         }
         hideLoading();
-
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 
@@ -166,18 +175,18 @@ public class RegisterActivity extends BaseActivity {
             ToastUtil.makeToast("验证码不能为空");
             return;
         }
-        String pwd = etRegisterPwd.getText().toString();
-        if(TextUtils.isEmpty(pwd)){
+        mpwd = etRegisterPwd.getText().toString();
+        if(TextUtils.isEmpty(mpwd)){
             ToastUtil.makeToast("密码不能为空");
             return;
         }else{
-            if(pwd.length()<6||pwd.length()>20){
+            if(mpwd.length()<6|| mpwd.length()>20){
                 ToastUtil.makeToast("密码长度6位到20位之间");
                 return;
             }
         }
         String pwdAgain = etRegisterPwdAgain.getText().toString();
-        if(!pwdAgain.equals(pwd)){
+        if(!pwdAgain.equals(mpwd)){
             ToastUtil.makeToast("两次密码不相等");
             return;
         }
@@ -185,7 +194,8 @@ public class RegisterActivity extends BaseActivity {
             ToastUtil.makeToast("请同意用户协议");
             return;
         }
-        mRegisterPresenter.register(name,pwd,code);
+
+        mRegisterPresenter.register(name, mpwd,code);
     }
 
     private void changeProtocaol() {
