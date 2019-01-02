@@ -12,11 +12,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.http.bean.MyApplyBean;
 import com.cui.android.jianchengdichan.presenter.MyApplyPresenter;
@@ -47,6 +49,14 @@ public class ApplyCententAdapter extends BaseQuickAdapter<MyApplyBean,BaseViewHo
           iv_apply_checked.setBackgroundResource(R.drawable.under_review);
         }else{
            iv_apply_checked.setBackgroundResource(R.drawable.checked_icon);
+        }
+        if (item.getIs_pay()==0) {
+            helper.setGone(R.id.ll_paying,true);
+            helper.setText(R.id.tv_pay_amount, String.format(MyApplication.getAppContext().getString(R.string.amount_paid),item.getPay_money()+""));
+            helper.addOnClickListener(R.id.bt_paying);
+        }else{
+            helper.setGone(R.id.ll_paying,false);
+
         }
         if(!TextUtils.isEmpty(item.getPic())){
             Okhttp3Utils.getInstance().glide(mContext,item.getPic(),iv_apply_img);

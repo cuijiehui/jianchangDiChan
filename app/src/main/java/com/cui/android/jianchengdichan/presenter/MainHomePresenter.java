@@ -1,13 +1,17 @@
 package com.cui.android.jianchengdichan.presenter;
 
+import android.text.TextUtils;
+
 import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.AnotherBatchBean;
+import com.cui.android.jianchengdichan.http.bean.CarCostBean;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
 import com.cui.android.jianchengdichan.model.interfaces.CallBack;
 import com.cui.android.jianchengdichan.utils.LogUtils;
 import com.cui.android.jianchengdichan.view.ui.fragment.MainHomeFragment;
+import com.google.gson.JsonObject;
 
 public class MainHomePresenter extends BasePresenter<MainHomeFragment> {
     public void getData(){
@@ -69,6 +73,42 @@ public class MainHomePresenter extends BasePresenter<MainHomeFragment> {
                     @Override
                     public void onComplete() {
                         getView().hideLoading();
+                    }
+                });
+    }
+    public void checkedCarCost(String carNo, String parkCode) {
+        LogUtils.i("getPhoneList()");
+        if (!isViewAttached()) {
+            //如果没有View引用就不加载数据
+            return;
+        }
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("carNo", carNo);
+        if (!TextUtils.isEmpty(parkCode)) {
+            jsonObject.addProperty("parkCode", parkCode);
+        }
+        String json = jsonObject.toString();
+        DataModel.request(Token.API_CARGOING_COST_MODEL)
+                .params(json)
+                .execute(new CallBack<BaseBean<CarCostBean>>() {
+                    @Override
+                    public void onSuccess(BaseBean<CarCostBean> data) {
+                        getView().onCallBack(data.getData());
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        getView().onFailure(msg);
+                    }
+
+                    @Override
+                    public void onError() {
+                        getView().onError();
+                    }
+
+                    @Override
+                    public void onComplete() {
+
                     }
                 });
     }

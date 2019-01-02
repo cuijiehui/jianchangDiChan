@@ -140,4 +140,27 @@
             android:layout_marginRight="14dp"
             />
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/ll_paying"
+        android:layout_width="match_parent"
+        android:layout_height="38dp">
+        <TextView
+            android:id="@+id/tv_pay_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/amount_paid"
+            android:textSize="11sp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="12dp"
+            />
+        <Button
+            android:id="@+id/bt_paying"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="11sp"
+            android:text="@string/paying"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"/>
+    </RelativeLayout>
 </LinearLayout>

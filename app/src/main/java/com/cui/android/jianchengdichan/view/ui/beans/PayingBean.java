@@ -9,6 +9,25 @@ public class PayingBean implements Serializable {
     private String time;//时间
     private String num;//数量
     private String price;//总价格
+    private String type="1"; //缴费类型 1：水电物业（之前缴费类型） 2：租赁缴费
+
+    public PayingBean(String id, String path, String name, String time, String num, String price, String type) {
+        this.id = id;
+        this.path = path;
+        this.name = name;
+        this.time = time;
+        this.num = num;
+        this.price = price;
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public PayingBean(String id, String path, String name, String time, String num, String price) {
         this.id = id;

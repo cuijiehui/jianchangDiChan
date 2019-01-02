@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
 import com.cui.android.jianchengdichan.R;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
@@ -28,6 +29,8 @@ import com.cui.android.jianchengdichan.view.ui.fragment.MainMyFragment;
 import com.cui.android.jianchengdichan.view.ui.fragment.MainShopFragment;
 import com.cui.android.jianchengdichan.view.ui.customview.MainNavigationView;
 import com.cui.android.jianchengdichan.view.ui.customview.viewpager.CustomViewPager;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,12 +142,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LogUtils.d("onActivityResult",data.toString());
-        LogUtils.d("resultCode",resultCode+"");
-        LogUtils.d("requestCode",requestCode+"");
-    }
 
     private void setCallBack() {
         mainNavigationView.setCallBack(new MainNavigationView.SelectedCallBack() {

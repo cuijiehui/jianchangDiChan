@@ -168,6 +168,7 @@ public class ReleaseRentActivity extends BaseActivity {
                     break;
                 case UPLODE_IMG_FAIL:
                     ToastUtil.makeToast("上传图片失败");
+                    hideLoading();
                     break;
             }
         }
@@ -545,11 +546,13 @@ public class ReleaseRentActivity extends BaseActivity {
     }
 
     public void publishRentInfo() {
+        hideLoading();
         ToastUtil.makeToast("发布成功，等待审批");
         finish();
     }
 
     public void uplodeImg() {
+        showLoading();
         LinkedList imgList = new LinkedList();
         for(ReleaseImgBean bean:detailDrawingData){
             if(bean.getType()==1){

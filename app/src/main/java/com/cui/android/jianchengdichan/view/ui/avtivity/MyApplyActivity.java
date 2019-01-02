@@ -21,6 +21,7 @@ import com.cui.android.jianchengdichan.utils.SPKey;
 import com.cui.android.jianchengdichan.utils.SPUtils;
 import com.cui.android.jianchengdichan.view.base.BaseActivity;
 import com.cui.android.jianchengdichan.view.ui.adapter.ApplyCententAdapter;
+import com.cui.android.jianchengdichan.view.ui.beans.PayingBean;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -41,8 +42,9 @@ public class MyApplyActivity extends BaseActivity {
     @BindView(R.id.rv_apply_centent)
     RecyclerView rvApplyCentent;
     ApplyCententAdapter applyCententAdapter;
-    List<MyApplyBean> myApplyBeans=new ArrayList<>();
-    MyApplyPresenter myApplyPresenter=new MyApplyPresenter();
+    List<MyApplyBean> myApplyBeans = new ArrayList<>();
+    MyApplyPresenter myApplyPresenter = new MyApplyPresenter();
+
     @Override
     public BasePresenter initPresenter() {
         return myApplyPresenter;
@@ -64,28 +66,47 @@ public class MyApplyActivity extends BaseActivity {
         tvContentName.setText("发布记录");
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext());
         rvApplyCentent.setLayoutManager(layoutManager1);
-        applyCententAdapter=new ApplyCententAdapter(myApplyBeans);
+        applyCententAdapter = new ApplyCententAdapter(myApplyBeans);
         rvApplyCentent.setAdapter(applyCententAdapter);
         applyCententAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()){
+                MyApplyBean myApplyBean = myApplyBeans.get(position);
+
+                switch (view.getId()) {
                     case R.id.iv_apply_del:
-                        showDialog(myApplyBeans.get(position));
+                        showDialog(myApplyBean);
                         break;
                     case R.id.iv_apply_com:
-                        Intent intent = new Intent(mContext,ReleaseRentActivity.class);
-                        Bundle bundle =new Bundle();
-                        Gson gson =new Gson();
-                        String json = gson.toJson(myApplyBeans.get(position));
-                        bundle.putString("json",json);
+                        Intent intent = new Intent(mContext, ReleaseRentActivity.class);
+                        Bundle bundle = new Bundle();
+                        Gson gson = new Gson();
+                        String json = gson.toJson(myApplyBean);
+                        bundle.putString("json", json);
                         intent.putExtras(bundle);
                         mContext.startActivity(intent);
+                        break;
+                    case R.id.bt_paying:
+                        PayingBean payingBean = new PayingBean(
+                                myApplyBean.getOut_trade_no()
+                                ,myApplyBean.getPic()
+                                ,myApplyBean.getTitle()
+                                ,myApplyBean.getCreate_time()
+                                ,""
+                                ,myApplyBean.getPay_money()+""
+                                ,"2");
+                        Intent payIntent = new Intent(mContext, PayingActivity.class);
+                        Bundle payBundle = new Bundle();
+                        payBundle.putSerializable("bean", payingBean);
+                        payBundle.putString("typeName", "typaName");
+                        payIntent.putExtras(payBundle);
+                        mContext.startActivity(payIntent);
                         break;
                 }
             }
         });
     }
+
     private void showDialog(final MyApplyBean myApplyBean) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle("")
@@ -94,7 +115,7 @@ public class MyApplyActivity extends BaseActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         int uid = (Integer) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
                         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
-                        myApplyPresenter.delRentInfo(uid,token,myApplyBean.getId());
+                        myApplyPresenter.delRentInfo(uid, token, myApplyBean.getId());
                     }
                 })
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -103,11 +124,12 @@ public class MyApplyActivity extends BaseActivity {
                 });
         builder.show();
     }
+
     @Override
     public void doBusiness(Context mContext) {
         int uid = (Integer) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
-        myApplyPresenter.getMyApplyModel(uid,token,1);
+        myApplyPresenter.getMyApplyModel(uid, token, 1);
     }
 
     @Override
@@ -116,7 +138,7 @@ public class MyApplyActivity extends BaseActivity {
     }
 
     public void getMyApplyModel(List<MyApplyBean> data) {
-        if(data!=null){
+        if (data != null) {
             myApplyBeans.clear();
             myApplyBeans.addAll(data);
             applyCententAdapter.notifyDataSetChanged();
@@ -126,6 +148,6 @@ public class MyApplyActivity extends BaseActivity {
     public void delRentInfo() {
         int uid = (Integer) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
-        myApplyPresenter.getMyApplyModel(uid,token,1);
+        myApplyPresenter.getMyApplyModel(uid, token, 1);
     }
 }

@@ -73,6 +73,42 @@ public class MyApplyBean  {
     private String sex;
     private String fee;
     private String savepics;
+    private int is_pay;
+    private int is_free;
+    private String out_trade_no;
+    private float pay_money;
+
+    public int getIs_pay() {
+        return is_pay;
+    }
+
+    public void setIs_pay(int is_pay) {
+        this.is_pay = is_pay;
+    }
+
+    public int getIs_free() {
+        return is_free;
+    }
+
+    public void setIs_free(int is_free) {
+        this.is_free = is_free;
+    }
+
+    public String getOut_trade_no() {
+        return out_trade_no;
+    }
+
+    public void setOut_trade_no(String out_trade_no) {
+        this.out_trade_no = out_trade_no;
+    }
+
+    public float getPay_money() {
+        return pay_money;
+    }
+
+    public void setPay_money(float pay_money) {
+        this.pay_money = pay_money;
+    }
 
     public String getId() {
         return id;

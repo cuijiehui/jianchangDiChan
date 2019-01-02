@@ -133,7 +133,7 @@ public class PayingActivity extends BaseActivity {
 //                        WXPayUtil2 wxpay = new WXPayUtil2(mContext);
                         int uid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);
                         String token = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_TOKEN_KEY, SPUtils.DATA_STRING);
-                        payingPresenter.getWeixin(uid, token, mBean.getId());
+                        payingPresenter.getWeixin(uid, token, mBean.getId(),mBean.getType());
                     } else {
                         ToastUtil.makeToast("您未安装微信");
                     }

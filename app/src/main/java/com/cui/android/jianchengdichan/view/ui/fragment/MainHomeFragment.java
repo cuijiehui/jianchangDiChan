@@ -23,12 +23,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.baoyz.widget.PullRefreshLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cui.android.jianchengdichan.MyApplication;
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.bean.CarCostBean;
 import com.cui.android.jianchengdichan.http.bean.HomeDataBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.MainHomePresenter;
@@ -48,6 +52,7 @@ import com.cui.android.jianchengdichan.view.ui.avtivity.LoginActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.MyFitmentListActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.NoticeAcitivty;
 import com.cui.android.jianchengdichan.view.ui.avtivity.ParkingLotActivity;
+import com.cui.android.jianchengdichan.view.ui.avtivity.ParkingPaymentActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.PayFeesActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.RentDatailActivity;
 import com.cui.android.jianchengdichan.view.ui.avtivity.RepairsActivity;
@@ -59,11 +64,17 @@ import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvNewGoodsAd
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvYouLikeAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.adapterBean.CommunityBean;
 import com.cui.android.jianchengdichan.zxing.CaptureActivity;
+import com.google.gson.Gson;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.ta.utdid2.android.utils.StringUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -124,6 +135,8 @@ public class MainHomeFragment extends BaseFragment {
     MainRvNewGoodsAdapter mainRvNewGoodsAdapter; //新品上市
     MainRvYouLikeAdapter mainRvYouLikeAdapter;  //猜你喜欢
     private static MainHomeFragment instance;
+    private String mCarNo;
+    private String mParkCode;
 
     public MainHomeFragment() {
     }
@@ -465,7 +478,7 @@ public class MainHomeFragment extends BaseFragment {
                     public void superPermission() {
                         Intent intent = new Intent(getActivity(), CaptureActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivityForResult(intent, 1);
+                        startActivityForResult(intent, 100);
                     }
                 }, R.string.perm_tip, Manifest.permission.CAMERA);
                 return;
@@ -530,10 +543,40 @@ public class MainHomeFragment extends BaseFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        LogUtils.d("onActivityResult",data.toString());
-        LogUtils.d("resultCode",resultCode+"");
-        LogUtils.d("requestCode",requestCode+"");
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100){
+            String result = data.getExtras().getString("result");
+            if (TextUtils.isEmpty(result)) {
+                ToastUtil.makeToast("二维码错误！");
+                return;
+            }
+
+            List<String> strings = extractMessageByRegular(result);
+            int parkCodeI=0;
+            try {
+                 parkCodeI = new Integer(strings.get(0));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            String carNo = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_CAR_NO_KEY, SPUtils.DATA_STRING);
+            if (TextUtils.isEmpty(carNo)){
+                ToastUtil.makeToast("你需要绑定车牌！");
+                return;
+            }
+            checkedCarCost(carNo, parkCodeI+"");
+        }
     }
+    public static List<String> extractMessageByRegular(String msg){
+
+        List<String> list=new ArrayList<String>();
+        Pattern p = Pattern.compile("(?<=\\{)(.+?)(?=\\})");
+        Matcher m = p.matcher(msg);
+        while(m.find()){
+            list.add(m.group().substring(0, m.group().length()));
+        }
+        return list;
+    }
+
 
     private void initRimit_time() {
         if (limit_time != null) {
@@ -589,5 +632,26 @@ public class MainHomeFragment extends BaseFragment {
     @OnClick(R.id.rl_nearby_car)
     public void onNearbyCar() {
         startActivity(ParkingLotActivity.getStartIntent(mContext));
+    }
+
+    public void checkedCarCost(String carNo, String parkCode) {
+        mCarNo = carNo;
+        this.mParkCode = parkCode;
+        mainHomePresenter.checkedCarCost(mCarNo, parkCode);
+    }
+
+    public void onCallBack(CarCostBean data) {
+            hideLoading();
+            if (TextUtils.isEmpty(mCarNo)) {
+                ToastUtil.makeToast("车牌号不能为空！");
+                return;
+            }
+            if ("1".equals(data.getIs_free())) {
+                ToastUtil.makeToast("车俩使用月卡不用缴费！");
+                return;
+            }
+            data.setCarNo(mCarNo);
+            data.setParkCode(mParkCode);
+            startActivity(ParkingPaymentActivity.getStartIntent(mContext, data));
     }
 }

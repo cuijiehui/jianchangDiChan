@@ -107,6 +107,7 @@ public class RegisterActivity extends BaseActivity {
     public void showView(String msg, int type) {
         String userName = etRegisterUserName.getText().toString();
         String pwd = etRegisterPwd.getText().toString();
+        hideLoading();
         if(type==100){
             SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_NUMBER_KEY, userName);
             SPUtils.INSTANCE.setSPValue(SPKey.SP_LOAGIN_KEY, true);
@@ -194,7 +195,7 @@ public class RegisterActivity extends BaseActivity {
             ToastUtil.makeToast("请同意用户协议");
             return;
         }
-
+        showLoading();
         mRegisterPresenter.register(name, mpwd,code);
     }
 

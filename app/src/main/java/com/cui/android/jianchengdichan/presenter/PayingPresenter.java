@@ -10,11 +10,12 @@ import com.cui.android.jianchengdichan.view.ui.avtivity.PayingActivity;
 import com.google.gson.JsonObject;
 
 public class PayingPresenter extends BasePresenter<PayingActivity> {
-    public void getWeixin(int uid, String token, String id) {
+    public void getWeixin(int uid, String token, String id,String type) {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("uid", uid);
         jsonObject.addProperty("token", token);
         jsonObject.addProperty("id", id);
+        jsonObject.addProperty("type", type);
         String json = jsonObject.toString();
         DataModel.request(Token.API_WE_CHAT_IMG)
                 .params(json)
