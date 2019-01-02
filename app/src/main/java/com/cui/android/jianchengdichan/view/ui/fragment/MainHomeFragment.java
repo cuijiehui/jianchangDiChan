@@ -239,16 +239,14 @@ public class MainHomeFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
                 if (isLogin) {
-//            startActivity(new Intent(mContext, PayFeesActivity.class));
                 } else {
                     startActivity(LoginActivity.class);
-
                     return;
                 }
+
                 switch (position) {
                     case 0:
                         startActivity(LeaseCentreActivity.class);
-
                         break;
                     case 1:
                         String com_id = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_COM_ID_KEY, SPUtils.DATA_STRING);
@@ -459,6 +457,19 @@ public class MainHomeFragment extends BaseFragment {
 
     @OnClick({R.id.iv_main_top_qrcode, R.id.iv_main_top_add, R.id.tv_rent_more, R.id.ll_new_notice, R.id.tv_main_updata, R.id.iv_flash_sale})
     public void onViewClicked(View view) {
+        switch (view.getId()){
+            case R.id.iv_main_top_qrcode:
+                BaseActivity activity = (BaseActivity) getActivity();
+                activity.checkPermission(new PermissionActivity.CheckPermListener() {
+                    @Override
+                    public void superPermission() {
+                        Intent intent = new Intent(getActivity(), CaptureActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivityForResult(intent, 1);
+                    }
+                }, R.string.perm_tip, Manifest.permission.CAMERA);
+                return;
+        }
         boolean isLogin = (boolean) SPUtils.INSTANCE.getSPValue(SPKey.SP_LOAGIN_KEY, SPUtils.DATA_BOOLEAN);
         if (isLogin) {
 //            startActivity(new Intent(mContext, PayFeesActivity.class));
@@ -468,20 +479,7 @@ public class MainHomeFragment extends BaseFragment {
         }
         switch (view.getId()) {
             case R.id.iv_main_top_qrcode:
-                LogUtils.i("iv_main_top_qrcode");
-                BaseActivity activity = (BaseActivity) getActivity();
-                activity.checkPermission(new PermissionActivity.CheckPermListener() {
-                    @Override
-                    public void superPermission() {
-//                        new IntentIntegrator(getActivity())
-//                                .setOrientationLocked(false)
-//                                .setCaptureActivity(ScanActivity.class) // 设置自定义的activity是ScanActivity
-//                                .initiateScan(); // 初始化扫描
-                        Intent intent = new Intent(getActivity(), CaptureActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivityForResult(intent, 1);
-                    }
-                }, R.string.perm_tip, Manifest.permission.CAMERA);
+
 
                 break;
             case R.id.iv_main_top_add:

@@ -96,18 +96,6 @@
             android:textSize="13sp" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="0.5dp"
-        android:background="@color/white"
-        android:paddingLeft="16dp"
-        android:paddingBottom="5dp"
-        android:paddingTop="8dp"
-        android:text="支付方式"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="43dp"
@@ -218,4 +206,16 @@
         android:text="支付"
         android:visibility="gone"
         android:textColor="@color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0.5dp"
+        android:background="@color/white"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="5dp"
+        android:text="支付方式"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
 </LinearLayout>

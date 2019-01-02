@@ -80,8 +80,12 @@ public class LeaseCentrePresenter extends BasePresenter<LeaseCentreActivity> {
 
         LogUtils.i("getRentList="+uid);
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("uid", uid);
-        jsonObject.addProperty("token", token);
+        if (uid>0){
+            jsonObject.addProperty("uid", uid);
+        }
+        if (!TextUtils.isEmpty(token)) {
+            jsonObject.addProperty("token", token);
+        }
         jsonObject.addProperty("city", city);
         jsonObject.addProperty("page", page);
 
