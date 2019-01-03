@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -68,6 +70,7 @@ public class MyApplyActivity extends BaseActivity {
         rvApplyCentent.setLayoutManager(layoutManager1);
         applyCententAdapter = new ApplyCententAdapter(myApplyBeans);
         rvApplyCentent.setAdapter(applyCententAdapter);
+        rvApplyCentent.addItemDecoration(new DividerItemDecoration(this,RecyclerView.VERTICAL));
         applyCententAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -87,8 +90,9 @@ public class MyApplyActivity extends BaseActivity {
                         mContext.startActivity(intent);
                         break;
                     case R.id.bt_paying:
+                        String  id=myApplyBean.getId();
                         PayingBean payingBean = new PayingBean(
-                                myApplyBean.getOut_trade_no()
+                                id
                                 ,myApplyBean.getPic()
                                 ,myApplyBean.getTitle()
                                 ,myApplyBean.getCreate_time()

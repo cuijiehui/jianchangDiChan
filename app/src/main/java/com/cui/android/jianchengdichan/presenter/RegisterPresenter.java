@@ -2,6 +2,7 @@ package com.cui.android.jianchengdichan.presenter;
 
 import com.cui.android.jianchengdichan.http.base.BaseBean;
 import com.cui.android.jianchengdichan.http.bean.LoginBean;
+import com.cui.android.jianchengdichan.http.config.HttpConfig;
 import com.cui.android.jianchengdichan.http.config.URLConfig;
 import com.cui.android.jianchengdichan.model.DataModel;
 import com.cui.android.jianchengdichan.model.Token;
@@ -23,6 +24,8 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class RegisterPresenter extends BasePresenter<RegisterActivity>  {
+
+
     /**
      *  获取验证码
      * @param mobile 用户名
@@ -30,6 +33,7 @@ public class RegisterPresenter extends BasePresenter<RegisterActivity>  {
      * @param imgcode 默认0
      */
     public void getCode(String mobile,String temp,String imgcode){
+
         LogUtils.i("getCode()");
         if (!isViewAttached()) {
             //如果没有View引用就不加载数据
@@ -39,7 +43,9 @@ public class RegisterPresenter extends BasePresenter<RegisterActivity>  {
         map.put("mobile",mobile);
         map.put("temp",temp);
         map.put("imgcode",imgcode);
-        Okhttp3Utils.getInstance().doPost("http://wx.szshide.shop/" + URLConfig.POST_REGISTER_CODE_URL, map, new Callback() {
+        LogUtils.e("URL="+"http://shop.ajunigz.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=account.apiVerifycode2");
+        LogUtils.e("参数="+"mobile="+mobile+"-temp="+temp+"-imgcode="+imgcode);
+        Okhttp3Utils.getInstance().doPost("http://shop.ajunigz.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=account.apiVerifycode2", map, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 LogUtils.e("onFailure()"+e.getMessage());
@@ -58,6 +64,34 @@ public class RegisterPresenter extends BasePresenter<RegisterActivity>  {
                 }
             }
         });
+//        JsonObject jsonObject = new JsonObject();
+//        jsonObject.addProperty("mobile",mobile);
+//        jsonObject.addProperty("temp",temp);
+//        jsonObject.addProperty("imgcode",imgcode);
+//        String json =jsonObject.toString();
+//        DataModel.request(Token.API_REGISTER_CODE)
+//                .params(json)
+//                .execute(new CallBack() {
+//                    @Override
+//                    public void onSuccess(Object data) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(String msg) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
     }
     public void register(String username,String pwd,String code){
         LogUtils.i("register()");

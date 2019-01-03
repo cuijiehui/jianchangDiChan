@@ -7,6 +7,6 @@ package com.cui.android.jianchengdichan.http.config;
  */
 public class HttpConfig {
     public static int HTTP_TIME = 30000;
-    public static String BASE_URL = "http://www.jcsq2018.com";
+    public static String BASE_URL = "http://www.jcsq2018.com";//注册和忘记密码的验证码需要另外修改
 
 }

@@ -101,6 +101,8 @@ public static final String STACK_NAME_KEY = "stack_name_key";
             SPUtils.INSTANCE.setSPValue(SPKey.SP_LOAGIN_KEY, true);
             startActivity(new Intent(getContext(), MainActivity.class));
             finish();
+        }else{
+            ToastUtil.makeToast(msg);
         }
         hideLoading();
     }

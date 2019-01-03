@@ -52,7 +52,7 @@ public class ApplyCententAdapter extends BaseQuickAdapter<MyApplyBean,BaseViewHo
         }
         if (item.getIs_pay()==0) {
             helper.setGone(R.id.ll_paying,true);
-            helper.setText(R.id.tv_pay_amount, String.format(MyApplication.getAppContext().getString(R.string.amount_paid),item.getPay_money()+""));
+            helper.setText(R.id.tv_pay_amount, "¥ "+item.getPay_money());
             helper.addOnClickListener(R.id.bt_paying);
         }else{
             helper.setGone(R.id.ll_paying,false);

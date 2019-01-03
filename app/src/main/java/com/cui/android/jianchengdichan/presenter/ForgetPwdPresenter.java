@@ -38,7 +38,8 @@ public class ForgetPwdPresenter extends BasePresenter<ForgetPwdActivity>{
         map.put("mobile",mobile);
         map.put("temp",temp);
         map.put("imgcode",imgcode);
-        Okhttp3Utils.getInstance().doPost("http://wx.szshide.shop/" + URLConfig.POST_REGISTER_CODE_URL, map, new Callback() {
+        LogUtils.d("参数：mobile="+mobile+"-temp="+temp+"-imgcode="+imgcode);
+        Okhttp3Utils.getInstance().doPost("http://shop.ajunigz.com/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile&r=account.apiVerifycode2", map, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 LogUtils.e("onFailure()"+e.getMessage());

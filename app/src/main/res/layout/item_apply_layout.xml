@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -78,7 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/rl_img"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="12dp">
 
             <TextView
                 android:id="@+id/tv_apply_title"
@@ -144,23 +146,44 @@
         android:id="@+id/ll_paying"
         android:layout_width="match_parent"
         android:layout_height="38dp">
-        <TextView
-            android:id="@+id/tv_pay_amount"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="@string/amount_paid"
-            android:textSize="11sp"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="12dp"
-            />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="需支付服务费："
+                android:textSize="11sp"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="12dp"
+                />
+            <TextView
+                android:id="@+id/tv_pay_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/login_forget_pwd"
+                android:textSize="11sp"
+                android:layout_marginLeft="2dp"
+                tools:text="¥"
+                android:gravity="center_vertical"
+
+                />
+        </LinearLayout>
+
         <Button
             android:id="@+id/bt_paying"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textSize="11sp"
-            android:text="@string/paying"
+            android:text="立刻支付"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="12dp"/>
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_circular_bead_blue_col"
+            />
     </RelativeLayout>
 </LinearLayout>
