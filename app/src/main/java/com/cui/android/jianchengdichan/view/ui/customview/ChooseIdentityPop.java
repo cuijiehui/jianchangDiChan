@@ -58,7 +58,7 @@ public class ChooseIdentityPop  extends PopupWindow {
         identityList.add("家人");
         identityList.add("物业员工");
         identityList.add("物业高管");
-        identityList.add("其他");
+        identityList.add("租户");
 
         tv_submit = (TextView) view.findViewById(R.id.tv_submit);
         tv_submit.setOnClickListener(clickListener);

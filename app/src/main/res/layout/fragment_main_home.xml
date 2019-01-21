@@ -45,8 +45,14 @@
                 android:singleLine="true"
                 android:textColor="@color/main_seek_text_col"
                 android:textColorHint="@color/main_seek_text_col"
-                android:textSize="15sp" />
-
+                android:textSize="15sp"
+                android:visibility="gone"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="首页"
+                android:textColor="@color/white"
+                android:gravity="center"/>
 
         </RelativeLayout>
 

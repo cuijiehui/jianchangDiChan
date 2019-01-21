@@ -130,7 +130,7 @@ public class LeaseCentreActivity extends BaseActivity {
 
     @Override
     public void initView(View view) {
-        tvContentName.setText("租贷中心");
+        tvContentName.setText("租赁中心");
         tvTopRight.setText("发布");
         tvTopRight.setVisibility(View.VISIBLE);
         initRcLease();

@@ -23,11 +23,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.baoyz.widget.PullRefreshLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cui.android.jianchengdichan.MyApplication;
@@ -64,10 +61,6 @@ import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvNewGoodsAd
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvYouLikeAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.adapterBean.CommunityBean;
 import com.cui.android.jianchengdichan.zxing.CaptureActivity;
-import com.google.gson.Gson;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-import com.ta.utdid2.android.utils.StringUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 

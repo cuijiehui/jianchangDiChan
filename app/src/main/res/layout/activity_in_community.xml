@@ -61,7 +61,7 @@
             android:id="@+id/ed_identity"
             android:layout_toRightOf="@+id/text2"
             style="@style/release_name_hint_style"
-            android:hint="业主／家人／物业员工／其他"
+            android:hint="业主／家人／物业员工／租户"
 
             />
     </RelativeLayout>

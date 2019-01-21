@@ -225,7 +225,7 @@ public class InCommunityActivity extends BaseActivity {
                     type = "3";
                 } else if (identity.equals("物业高管")) {
                     type = "4";
-                } else if (identity.equals("其他")) {
+                } else if (identity.equals("租户")) {
                     type = "5";
                 }
                 int cUid = (int) SPUtils.INSTANCE.getSPValue(SPKey.SP_USER_UID_KEY, SPUtils.DATA_INT);

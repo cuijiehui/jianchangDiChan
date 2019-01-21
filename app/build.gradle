@@ -10,8 +10,8 @@ android {
         applicationId "com.cui.android.jianchengdichan"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 20190103
-        versionName "1.0.7"
+        versionCode 20190104
+        versionName "1.0.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

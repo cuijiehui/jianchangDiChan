@@ -139,7 +139,7 @@ public class CheckedCarActivity extends BaseActivity {
 //            mCheckedCarPresenter.checkedCarCost("粤A9P9T6", "20070580001");
             mCheckedCarPresenter.checkedCarCost(carNo, mParkCode);
         } else {
-            mCheckedCarPresenter.getChargeLog(carNo, page + "");
+            mCheckedCarPresenter.getChargeLog(carNo,mParkCode, page + "");
             isChargeLog = true;
         }
         showLoading();

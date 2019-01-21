@@ -52,7 +52,7 @@ public class CheckedCarPresenter extends BasePresenter<CheckedCarActivity> {
                     }
                 });
     }
-    public void getChargeLog(String carNo, String page) {
+    public void getChargeLog(String carNo,String mParkCode, String page) {
         LogUtils.i("getPhoneList()");
         if (!isViewAttached()) {
             //如果没有View引用就不加载数据
@@ -61,6 +61,9 @@ public class CheckedCarPresenter extends BasePresenter<CheckedCarActivity> {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("carNo", carNo);
         jsonObject.addProperty("page", page);
+        if (!TextUtils.isEmpty(mParkCode)){
+            jsonObject.addProperty("mParkCode", mParkCode);
+        }
         String json = jsonObject.toString();
         DataModel.request(Token.API_CAR_CHARGE_LOG_MODEL)
                 .params(json)
