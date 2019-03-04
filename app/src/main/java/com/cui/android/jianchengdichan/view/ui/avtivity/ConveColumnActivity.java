@@ -92,6 +92,9 @@ public class ConveColumnActivity extends BaseActivity {
             case 6:
                 tvContentName.setText("学校");
                 break;
+                default:
+                    tvContentName.setText("快递站点");
+                    break;
         }
         tvContentName.setText(typeName);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);

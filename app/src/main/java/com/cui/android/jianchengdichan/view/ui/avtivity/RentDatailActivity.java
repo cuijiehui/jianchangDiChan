@@ -120,8 +120,6 @@ public class RentDatailActivity extends BaseActivity implements View.OnLayoutCha
     @Override
     public void initView(View view) {
         tvContentName.setText("详情");
-        ivTopRight.setVisibility(View.VISIBLE);
-        ivTopRight.setBackgroundResource(R.drawable.share_icon);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         rvRentRecommend.setLayoutManager(linearLayoutManager);
         leaseAdapter = new LeaseAdapter(leaseRoomBeans);
@@ -172,6 +170,7 @@ public class RentDatailActivity extends BaseActivity implements View.OnLayoutCha
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_top_right:
+
                 break;
             case R.id.iv_rent_to_msg:
 
@@ -262,7 +261,7 @@ public class RentDatailActivity extends BaseActivity implements View.OnLayoutCha
 
     public void leaveMsgList(List<LeaveMsgListBean> data) {
         leaveData.clear();
-        if(leaveData!=null){
+        if(leaveData!=null&&data!=null){
             leaveData.addAll(data);
         }
         rentLeaveMsgAdapter.notifyDataSetChanged();

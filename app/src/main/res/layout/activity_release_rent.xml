@@ -257,7 +257,8 @@
                 android:layout_marginRight="11dp"
                 android:layout_marginTop="11dp"
                 android:text="保存草稿"
-                android:textColor="@color/main_top_col" />
+                android:textColor="@color/main_top_col"
+                android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
 

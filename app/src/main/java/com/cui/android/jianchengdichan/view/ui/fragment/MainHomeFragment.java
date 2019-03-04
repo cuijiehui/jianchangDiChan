@@ -537,7 +537,7 @@ public class MainHomeFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100){
+        if (requestCode == 100&&data!=null&&data.getExtras()!=null){
             String result = data.getExtras().getString("result");
             if (TextUtils.isEmpty(result)) {
                 ToastUtil.makeToast("二维码错误！");
