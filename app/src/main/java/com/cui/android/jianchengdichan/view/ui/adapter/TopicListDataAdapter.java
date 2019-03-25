@@ -119,7 +119,7 @@ public class TopicListDataAdapter extends BaseQuickAdapter<TopicListBean, BaseVi
         gridLayout.removeAllViews();//清空子视图 防止原有的子视图影响
         int columnCount = gridLayout.getColumnCount();//得到列数
         int marginSize = ScreenUtils.dip2px(mContext, 4);//得到经过dp转化的margin值
-        LogUtils.i("imageModels.size()="+imageModels.size());
+//        LogUtils.i("imageModels.size()="+imageModels.size());
         //遍历集合 动态添加
         for (int i = 0, size = imageModels.size(); i < size; i++) {
             GridLayout.Spec rowSpec = GridLayout.spec(i / columnCount);//行数
@@ -133,7 +133,7 @@ public class TopicListDataAdapter extends BaseQuickAdapter<TopicListBean, BaseVi
             GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams(new ViewGroup.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT));
             layoutParams.rowSpec = rowSpec;
             layoutParams.columnSpec = columnSpec;
-            LogUtils.i("size="+size);
+//            LogUtils.i("size="+size);
 
             if (size == 1) {
                 ViewGroup.LayoutParams layoutParams1 = gridLayout.getLayoutParams();
@@ -152,7 +152,7 @@ public class TopicListDataAdapter extends BaseQuickAdapter<TopicListBean, BaseVi
                 layoutParams1.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 layoutParams1.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 gridLayout.setLayoutParams(layoutParams1);
-                LogUtils.i("gridLayout.W="+(gridLayout.getMeasuredWidth()/3-marginSize*2));
+//                LogUtils.i("gridLayout.W="+(gridLayout.getMeasuredWidth()/3-marginSize*2));
                 Okhttp3Utils.getInstance().glide(mContext, imageModels.get(i), imageView, (gridLayout.getMeasuredWidth()/3-marginSize*2), (gridLayout.getMeasuredWidth()/3-marginSize*2));
             }
 
