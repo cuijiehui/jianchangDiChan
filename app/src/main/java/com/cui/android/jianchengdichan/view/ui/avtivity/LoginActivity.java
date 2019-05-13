@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cui.android.jianchengdichan.R;
+import com.cui.android.jianchengdichan.http.base.BaseBean;
+import com.cui.android.jianchengdichan.http.bean.LoginBean;
 import com.cui.android.jianchengdichan.presenter.BasePresenter;
 import com.cui.android.jianchengdichan.presenter.LoginPresenter;
 import com.cui.android.jianchengdichan.utils.LogUtils;
@@ -92,17 +94,19 @@ public static final String STACK_NAME_KEY = "stack_name_key";
      *
      * @param msg
      */
-    public void showView(String msg, int type) {
-        LogUtils.i("showView=" + msg);
+    public void showView(BaseBean<LoginBean> msg, int type) {
+//        LogUtils.i("showView=" + msg);
         if (type == 200) {
             String userName = etLoginUserName.getText().toString();
             String pwd = etLoginPwd.getText().toString();
             SPUtils.INSTANCE.setSPValue(SPKey.SP_USER_SIP_NUMBER_KEY, userName);
             SPUtils.INSTANCE.setSPValue(SPKey.SP_LOAGIN_KEY, true);
+            SPUtils.INSTANCE.setSPValue(SPKey.SP_CAR_NO_KEY, msg.getData().getCarNo());
+
             startActivity(new Intent(getContext(), MainActivity.class));
             finish();
         }else{
-            ToastUtil.makeToast(msg);
+            ToastUtil.makeToast(msg.getMsg());
         }
         hideLoading();
     }

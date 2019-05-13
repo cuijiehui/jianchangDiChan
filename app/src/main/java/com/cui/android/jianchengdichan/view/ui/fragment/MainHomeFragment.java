@@ -60,7 +60,7 @@ import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvCommunityA
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvNewGoodsAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvYouLikeAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.adapterBean.CommunityBean;
-import com.cui.android.jianchengdichan.zxing.CaptureActivity;
+import com.karics.library.zxing.android.CaptureActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 

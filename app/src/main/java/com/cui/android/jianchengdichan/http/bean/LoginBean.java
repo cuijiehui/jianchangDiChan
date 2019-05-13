@@ -28,6 +28,15 @@ public class LoginBean {
     private String name;
     private String nickname;
     private String pic;
+    private String carNo;
+
+    public String getCarNo() {
+        return carNo;
+    }
+
+    public void setCarNo(String carNo) {
+        this.carNo = carNo;
+    }
 
     public String getToken() {
         return token;
