@@ -27,17 +27,17 @@ public class LoginPresenter extends BasePresenter<LoginActivity> {
 
                     @Override
                     public void onSuccess(BaseBean<LoginBean> data) {
-                    getView().showView(data.toString(),200);
+                    getView().showView(data,200);
                     }
 
                     @Override
                     public void onFailure(String msg) {
-                        getView().showView(msg,-200);
+                        getView().onFailure(msg);
                     }
 
                     @Override
                     public void onError() {
-                        getView().showView("",-200);
+                        getView().onError();
                     }
 
                     @Override
