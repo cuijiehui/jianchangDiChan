@@ -92,7 +92,7 @@
                 <TextView
                     style="@style/release_title_style"
                     android:layout_marginLeft="11dp"
-                    android:text="租贷方式"
+                    android:text="租赁方式"
 
                     />
 

@@ -14,7 +14,7 @@
         android:id="@+id/tv_community_mane"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="租贷中心"
+        android:text="租赁中心"
         android:textColor="@color/cp_gray_deep"
         android:layout_marginTop="10dp"
         android:textSize="11sp"

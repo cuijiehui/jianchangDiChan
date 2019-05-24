@@ -125,6 +125,12 @@ public class RepairsFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHandler.removeMessages(UPLODE_IMG);
+    }
+
     public RepairsFragment() {
     }
 
@@ -301,6 +307,8 @@ public class RepairsFragment extends Fragment {
 
             }
         }
+        String type = dataList.get(repairsAdapter.selePosition);
+
         mRepairsPresenter.submitRepairInfo(uid
                 , token
                 , tel
@@ -308,7 +316,7 @@ public class RepairsFragment extends Fragment {
                 , content
                 , pics.toString()
                 , "1"
-                , repairsAdapter.selePosition
+                , type
                 , title);
     }
 
@@ -336,6 +344,7 @@ public class RepairsFragment extends Fragment {
             for (RepairCateBean repairCateBean : data) {
                 dataList.add(repairCateBean.getName());
             }
+            repairsAdapter.notifyDataSetChanged();
         }
     }
 }

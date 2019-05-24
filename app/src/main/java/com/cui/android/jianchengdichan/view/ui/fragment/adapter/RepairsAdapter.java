@@ -40,7 +40,7 @@ public class RepairsAdapter extends BaseQuickAdapter<RepairsBean,BaseViewHolder>
             helper.setText(R.id.tv_repairs_content,"");
 
         }
-        switch (item.getType()){
+        switch (item.getStatus()){
             case "1":
                 helper.setBackgroundRes(R.id.iv_repairs_record_dispose,R.drawable.untreated_icon);
                 helper.setGone(R.id.ll_evaluation,false);

@@ -40,8 +40,17 @@ public class RentDetailBean  {
     private String address;
     private String detail;
     private String charge_pay;
+    private String mobile;
     private List<String> pics;
     private List<LeaseRoomBean> recommend;
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
     public String getId() {
         return id;

@@ -60,7 +60,7 @@ import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvCommunityA
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvNewGoodsAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvYouLikeAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.adapterBean.CommunityBean;
-import com.karics.library.zxing.android.CaptureActivity;
+import com.journeyapps.barcodescanner.CaptureActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -178,7 +178,7 @@ public class MainHomeFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        communityBeanList.add(new CommunityBean(R.drawable.main_rent_centre, "租贷中心"));
+        communityBeanList.add(new CommunityBean(R.drawable.main_rent_centre, "租赁中心"));
         communityBeanList.add(new CommunityBean(R.drawable.main_tenement_pay, "物业缴费"));
         communityBeanList.add(new CommunityBean(R.drawable.main_service, "管家服务"));
         communityBeanList.add(new CommunityBean(R.drawable.main_pwd_icon, "门禁密码"));

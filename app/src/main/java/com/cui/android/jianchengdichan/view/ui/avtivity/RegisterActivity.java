@@ -256,9 +256,12 @@ public class RegisterActivity extends BaseActivity {
         }
     };
 
-
-
-/*****************计时器*******************/
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mhandle!=null) {
+            mhandle.removeCallbacks(timeRunable);
+        }
+    }
 }
 

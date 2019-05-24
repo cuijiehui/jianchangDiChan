@@ -45,11 +45,11 @@ public class RepairsTypeAdapter extends BaseQuickAdapter<String, BaseViewHolder>
     // 创建集合对象
     Map<String, TextView> viewList = new HashMap<>();
 
-    public String selePosition = "1";
+    public int selePosition = 0;
 
 
     private void setBack(int position) {
-        selePosition = position + "";
+        selePosition = position;
         for (String key : viewList.keySet()) {
             if (key.equals(position + "")) {
                 viewList.get(key).setBackgroundResource(R.drawable.bt_pressed_shape);
