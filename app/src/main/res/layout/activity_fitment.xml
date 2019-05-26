@@ -198,6 +198,23 @@
         android:layout_marginTop="5dp"
         />
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="*需要业主提供材料到物业管理处请查看："
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="《住宅装修须知》"
+        android:textSize="13sp"
+        android:textColor="@color/main_top_col"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="5dp"/>
+    <TextView
         android:id="@+id/tv_fitment_submit"
         android:layout_width="match_parent"
         android:layout_height="45dp"

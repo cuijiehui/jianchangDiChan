@@ -40,14 +40,12 @@ public class WebViewActivity extends AppCompatActivity {
     @BindView(R.id.pb_loading)
     ProgressBar pbLoading;
     private String link;
-
+    private String title="管家商城";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
         ButterKnife.bind(this);
-        tvContentName.setText("管家商城");
-
         getData();
         setSettings();
     }
@@ -58,8 +56,9 @@ public class WebViewActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         if(extras!=null){
             link = extras.getString("data");
+            title= extras.getString("title","管家商城");
         }
-
+        tvContentName.setText(title);
 
     }
 

@@ -1,8 +1,11 @@
 package com.cui.android.jianchengdichan.view.ui.avtivity;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -62,6 +65,8 @@ public class FitmentActivity extends BaseActivity {
     EditText etFitmentContent;
     @BindView(R.id.tv_fitment_submit)
     TextView tvFitmentSubmit;
+    @BindView(R.id.tv_tips)
+    TextView tvTips;
     FitmentPresenter fitmentPresenter = new FitmentPresenter();
 
 
@@ -121,7 +126,7 @@ public class FitmentActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.tv_fitemt_start_time, R.id.tv_fitemt_end_time, R.id.tv_fitment_submit})
+    @OnClick({R.id.tv_fitemt_start_time, R.id.tv_fitemt_end_time, R.id.tv_fitment_submit,R.id.tv_tips})
     public void onViewClicked(View view) {
         Calendar calendar = Calendar.getInstance();
 
@@ -140,6 +145,25 @@ public class FitmentActivity extends BaseActivity {
                 break;
             case R.id.tv_fitment_submit:
                 submit();
+                break;
+            case R.id.tv_tips:
+                Intent intent = new Intent(getContext(), WebViewActivity.class);
+                Bundle bundle ;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+//                        bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                    bundle.putString("data", "http://www.jcsq2018.com/index");
+                    bundle.putString("title", "装修申请说明");
+                    intent.putExtras(bundle);
+                    getContext().startActivity(intent);
+                }else{
+                    bundle=new Bundle();
+                    bundle.putString("data", "http://www.jcsq2018.com/index");
+                    bundle.putString("title", "装修申请说明");
+//                        bundle.putString("data", "http://wx.szshide.shop/app/index.php?i=1&c=entry&m=ewei_shopv2&do=mobile");
+                    intent.putExtras(bundle);
+                    getContext().startActivity(intent);
+                }
                 break;
         }
     }

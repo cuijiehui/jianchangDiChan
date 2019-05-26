@@ -60,7 +60,7 @@ import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvCommunityA
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvNewGoodsAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.MainRvYouLikeAdapter;
 import com.cui.android.jianchengdichan.view.ui.fragment.adapter.adapterBean.CommunityBean;
-import com.journeyapps.barcodescanner.CaptureActivity;
+import com.karics.library.zxing.android.CaptureActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -122,7 +122,7 @@ public class MainHomeFragment extends BaseFragment {
     private List<HomeDataBean.NewgoodBean> newGoodsBeanList = new ArrayList<>();//最新产品数据
     private List<HomeDataBean.FavorBean> youLikeBeanList = new ArrayList<>();//猜你喜欢数据
     private HomeDataBean.LimitTimeBean limit_time;//抢购数据
-    MainHomePresenter mainHomePresenter = new MainHomePresenter();
+    MainHomePresenter presenter = new MainHomePresenter();
     MainRecyclerAdapter recyclAdapter;    //附近租贷
     MainRvCommunityAdapter mainRvCommunityAdapter;  //社区管家
     MainRvNewGoodsAdapter mainRvNewGoodsAdapter; //新品上市
@@ -130,7 +130,32 @@ public class MainHomeFragment extends BaseFragment {
     private static MainHomeFragment instance;
     private String mCarNo;
     private String mParkCode;
+    @SuppressLint("HandlerLeak")
+    Handler handler = new Handler() {
 
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 100:
+                   String parkCode =(String) msg.obj;
+                    List<String> strings = extractMessageByRegular(parkCode);
+                    int parkCodeI=0;
+                    try {
+                        parkCodeI = new Integer(strings.get(0));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    String carNo = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_CAR_NO_KEY, SPUtils.DATA_STRING);
+                    if (TextUtils.isEmpty(carNo)){
+                        ToastUtil.makeToast("你需要绑定车牌！");
+                        return;
+                    }
+                    checkedCarCost(carNo, parkCodeI+"");
+                    break;
+
+            }
+        }
+    };
     public MainHomeFragment() {
     }
 
@@ -198,12 +223,12 @@ public class MainHomeFragment extends BaseFragment {
 
     @Override
     public BasePresenter initPresenter() {
-        return mainHomePresenter;
+        return presenter;
     }
 
     @Override
     public void doBusiness() {
-        mainHomePresenter.getData();
+        presenter.getData();
 
     }
 
@@ -437,7 +462,7 @@ public class MainHomeFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 // start refresh
-                mainHomePresenter.getData();
+                presenter.getData();
 
             }
         });
@@ -506,7 +531,7 @@ public class MainHomeFragment extends BaseFragment {
 
                 break;
             case R.id.tv_main_updata:
-                mainHomePresenter.getAnotherBatch();
+                presenter.getAnotherBatch();
 
                 break;
             case R.id.iv_flash_sale:
@@ -538,26 +563,24 @@ public class MainHomeFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100&&data!=null&&data.getExtras()!=null){
-            String result = data.getExtras().getString("result");
+            String result = data.getExtras().getString("codedContent");
             if (TextUtils.isEmpty(result)) {
                 ToastUtil.makeToast("二维码错误！");
                 return;
             }
 
-            List<String> strings = extractMessageByRegular(result);
-            int parkCodeI=0;
-            try {
-                 parkCodeI = new Integer(strings.get(0));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            String carNo = (String) SPUtils.INSTANCE.getSPValue(SPKey.SP_CAR_NO_KEY, SPUtils.DATA_STRING);
-            if (TextUtils.isEmpty(carNo)){
-                ToastUtil.makeToast("你需要绑定车牌！");
-                return;
-            }
-            checkedCarCost(carNo, parkCodeI+"");
+
+            presenter.getParkCode(result);
         }
+    }
+    public void getParkCode(String parkCode){
+        Message message = new Message();
+        message.what = 100;
+        message.obj = parkCode;
+        handler.sendMessage(message);
+
+
+
     }
     public static List<String> extractMessageByRegular(String msg){
 
@@ -630,7 +653,7 @@ public class MainHomeFragment extends BaseFragment {
     public void checkedCarCost(String carNo, String parkCode) {
         mCarNo = carNo;
         this.mParkCode = parkCode;
-        mainHomePresenter.checkedCarCost(mCarNo, parkCode);
+        presenter.checkedCarCost(mCarNo, parkCode);
     }
 
     public void onCallBack(CarCostBean data) {
