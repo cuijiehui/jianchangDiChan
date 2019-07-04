@@ -82,7 +82,7 @@
             android:name=".view.ui.avtivity.ForgetPwdActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.karics.library.zxing.android.CaptureActivity"
+            android:name=".view.ui.avtivity.InstructionsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 支付宝 -->
         <activity
